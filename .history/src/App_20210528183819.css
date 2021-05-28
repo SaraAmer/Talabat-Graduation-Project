@@ -5,5 +5,10 @@
     
     .navbar-brand {
         padding: 200px;
-        font-family: 'Paytone One', sans-serif;
+        font-family: 'Francois One', sans-serif;
+        font-size: 10000px
+    }
+    
+    .nav-link {
+        padding: 20px;
     }
