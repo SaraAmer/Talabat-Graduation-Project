@@ -1,0 +1,16 @@
+#container
+{
+    background-color: #FF5900;
+    height: 50px;
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+    
+}
+#logo {
+    color: white;
+    font-weight: bold;
+    margin: 15px;
+    margin-left: 150px;
+  
+}
