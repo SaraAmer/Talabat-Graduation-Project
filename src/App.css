@@ -115,3 +115,15 @@
     .restaurants-title h1 {
         font-size: 26px;
     }
+    
+    a:link {
+        text-decoration: none;
+    }
+    
+    .buttonTrue {
+        background-color: "none";
+    }
+    
+    .buttonFalse {
+        background-color: #FF5900;
+    }
