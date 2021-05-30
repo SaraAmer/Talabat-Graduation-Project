@@ -7,3 +7,111 @@
         padding: 200px;
         font-family: 'Paytone One', sans-serif;
     }
+    
+    .all-restaurants {
+        box-sizing: border-box;
+        margin: 0px auto 20px;
+        padding-top: 20px;
+        text-align: center;
+        max-width: 1000px;
+        background: rgb(255, 255, 255);
+        height: 100%;
+        box-shadow: rgb(171 169 171) 0px 0px 5px 0px;
+    }
+    
+    .all-restaurants .content {
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+        font-weight: 400;
+    }
+    
+    .all-restaurants .restaurant {
+        cursor: pointer;
+        border: 1px solid #ccc;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-bottom: 20px;
+        padding: 0;
+    }
+    
+    .all-restaurants .restaurant .img-container {
+        padding: 10px;
+    }
+    
+    .all-restaurants .restaurant .details h2,
+    .all-restaurants .restaurant .details p {
+        font-size: 14px;
+        line-height: 1.7;
+    }
+    
+    .all-restaurants .restaurant .details p {
+        color: rgb(139, 135, 135);
+    }
+    
+    .pagination button.Mui-selected {
+        background-color: #FF5900;
+    }
+    
+    .pagination {
+        display: inline-block;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    .page-item {
+        border: 0;
+    }
+    
+    .page-item .page-link:focus {
+        border: 0;
+        z-index: 3;
+        color: #fff;
+        background-color: #FF5900;
+        outline: 0;
+    }
+    
+    .search-Box {
+        display: block;
+        margin-bottom: 20px;
+        margin-top: 10px;
+        padding: 20px;
+        position: relative;
+    }
+    
+    .search-Box input[type="text"] {
+        outline: none;
+        border-color: #ccc;
+        border: 1px solid #ccc;
+        color: rgb(68, 68, 68);
+        padding: 5px;
+        font-size: 14px;
+        position: absolute;
+        right: 22px;
+        top: 10px;
+    }
+    
+    .search-Box svg {
+        position: absolute;
+        stroke: currentcolor;
+        fill: currentcolor;
+        stroke-width: 0;
+        height: 1.5em;
+        width: 1.3em;
+        right: 29px;
+        top: 15px;
+        cursor: pointer;
+        color: rgb(68, 68, 68);
+    }
+    
+    .restaurants-title {
+        background-color: rgb(246, 244, 244);
+        text-align: left;
+        padding-left: 15px;
+        padding-top: 6px;
+        padding-bottom: 3px;
+    }
+    
+    .restaurants-title h1 {
+        font-size: 26px;
+    }
