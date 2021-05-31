@@ -199,15 +199,15 @@ class Header extends React.Component {
         >
           <div className="modal-dialog">
             <div className="modal-content">
-              {/* <div className="modal-header"> */}
-              <h5
-                className="modal-title"
-                id="exampleModalLabel"
-                // style={{
-                //   textAlign: "center",
-                // }}
-              ></h5>
-              {/* <button
+              <div className="modal-header">
+                <h5
+                  className="modal-title"
+                  id="exampleModalLabel"
+                  style={{
+                    textAlign: "center",
+                  }}
+                ></h5>
+                {/* <button
                   type="button"
                   className="close"
                   
@@ -216,25 +216,17 @@ class Header extends React.Component {
 
                   <span aria-hidden="true">&times;</span>
                 </button> */}
-              <button
-                type="button"
-                class="btn-close"
-                data-dismiss="modal"
-                aria-label="Close"
-                style={{
-                  float: "right",
-                  marginLeft: "450px",
-                  paddingTop: "50px",
-                }}
-              ></button>
-              <p style={{ textAlign: "center" }} class="h2">
-                Login
-              </p>
-              {/* </div> */}
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
               <div className="modal-body">
                 <LoginUSer />
               </div>
-              {/* <div className="modal-footer"></div> */}
+              <div className="modal-footer"></div>
             </div>
           </div>
         </div>

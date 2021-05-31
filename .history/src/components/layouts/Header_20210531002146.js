@@ -1,6 +1,6 @@
 import React from "react";
 import Flag from "react-world-flags";
-import LoginUSer from "../Login/login";
+import LoginUSer from "./Login/login";
 class Header extends React.Component {
   loginHandler = () => {
     localStorage.setItem("logedUser", "Raghda");
@@ -199,42 +199,34 @@ class Header extends React.Component {
         >
           <div className="modal-dialog">
             <div className="modal-content">
-              {/* <div className="modal-header"> */}
-              <h5
-                className="modal-title"
-                id="exampleModalLabel"
-                // style={{
-                //   textAlign: "center",
-                // }}
-              ></h5>
-              {/* <button
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">
+                  Modal title
+                </h5>
+                <button
                   type="button"
                   className="close"
-                  
+                  data-dismiss="modal"
                   aria-label="Close"
                 >
-
                   <span aria-hidden="true">&times;</span>
-                </button> */}
-              <button
-                type="button"
-                class="btn-close"
-                data-dismiss="modal"
-                aria-label="Close"
-                style={{
-                  float: "right",
-                  marginLeft: "450px",
-                  paddingTop: "50px",
-                }}
-              ></button>
-              <p style={{ textAlign: "center" }} class="h2">
-                Login
-              </p>
-              {/* </div> */}
+                </button>
+              </div>
               <div className="modal-body">
                 <LoginUSer />
               </div>
-              {/* <div className="modal-footer"></div> */}
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="button" className="btn btn-primary">
+                  Save changes
+                </button>
+              </div>
             </div>
           </div>
         </div>

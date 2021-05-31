@@ -227,9 +227,6 @@ class Header extends React.Component {
                   paddingTop: "50px",
                 }}
               ></button>
-              <p style={{ textAlign: "center" }} class="h2">
-                Login
-              </p>
               {/* </div> */}
               <div className="modal-body">
                 <LoginUSer />

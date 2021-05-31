@@ -221,15 +221,7 @@ class Header extends React.Component {
                 class="btn-close"
                 data-dismiss="modal"
                 aria-label="Close"
-                style={{
-                  float: "right",
-                  marginLeft: "450px",
-                  paddingTop: "50px",
-                }}
               ></button>
-              <p style={{ textAlign: "center" }} class="h2">
-                Login
-              </p>
               {/* </div> */}
               <div className="modal-body">
                 <LoginUSer />

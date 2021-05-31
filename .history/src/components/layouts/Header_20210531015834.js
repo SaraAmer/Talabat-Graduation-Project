@@ -223,13 +223,9 @@ class Header extends React.Component {
                 aria-label="Close"
                 style={{
                   float: "right",
-                  marginLeft: "450px",
-                  paddingTop: "50px",
+                  marginLeft: "400px",
                 }}
               ></button>
-              <p style={{ textAlign: "center" }} class="h2">
-                Login
-              </p>
               {/* </div> */}
               <div className="modal-body">
                 <LoginUSer />
