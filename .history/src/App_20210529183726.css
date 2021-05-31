@@ -1,0 +1,14 @@
+    .navbar {
+        background-color: #FF5900;
+        font-size: 18px;
+    }
+    
+    .navbar-brand {
+        padding: 200px;
+        font-family: 'Paytone One', sans-serif;
+    }
+    
+    a:link {
+        text-decoration: none;
+        margin-left: 10px;
+    }
