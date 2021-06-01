@@ -1,9 +1,0 @@
-    .navbar {
-        background-color: #ff6600;
-    }
-    
-    .navbar-brand {
-        color: lighten($color1, 10%);
-        font-weight: bold;
-        font-size: 2em;
-    }
