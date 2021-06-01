@@ -1,11 +1,7 @@
-#container
-{
-    background-color: #FF5900;
-    height: 50px;
-    display: flex;
-    justify-content: start;
-    flex-wrap: wrap;
-    
+.navbar {
+   
+    background-color: #314A46;
+    font-size: 16px;
 }
 #logo {
     color: white;

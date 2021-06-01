@@ -1,0 +1,12 @@
+    .navbar {
+        background-color: #FF5900;
+        margin: 5px;
+    }
+    
+    .navbar-brand {
+        padding: 190px;
+        width: 170;
+        height: 60px;
+        font-family: 'Francois One', sans-serif;
+        font-size: 10000px
+    }
