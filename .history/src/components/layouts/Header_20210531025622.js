@@ -3,7 +3,6 @@ import Flag from "react-world-flags";
 import Accountinfo from "../userDetails/Account info";
 import Savedaddr from "../userDetails/Savedaddr";
 import LoginUSer from "../Login/login";
-import PartnerRegister from "../Partner/partnerRegister";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 class Header extends React.Component {
@@ -118,7 +117,6 @@ class Header extends React.Component {
                     <Link
                       className="nav-Link text-white"
                       style={{ marginLeft: "20px" }}
-                      to="/becomepartner"
                     >
                       Become a partner
                     </Link>
@@ -377,11 +375,7 @@ class Header extends React.Component {
             exact
             component={Savedaddr}
           ></Route>
-          <Route
-            path="/becomepartner"
-            exact
-            component={PartnerRegister}
-          ></Route>
+          <Route path="/becomepartner" exact component={Accountinfo}></Route>
         </Switch>
       </Router>
     );

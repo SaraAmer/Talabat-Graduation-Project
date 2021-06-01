@@ -118,7 +118,6 @@ class Header extends React.Component {
                     <Link
                       className="nav-Link text-white"
                       style={{ marginLeft: "20px" }}
-                      to="/becomepartner"
                     >
                       Become a partner
                     </Link>
