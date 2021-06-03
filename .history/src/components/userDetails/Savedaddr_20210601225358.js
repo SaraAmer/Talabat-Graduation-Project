@@ -1,13 +1,10 @@
 import React from 'react'
 import Accountinfo from './Account info'
-import Myorders from './Myorders';
-import Savedcards from "./Savedcards";
-import Talabatpay from "./Talabatpay";
-import GoogleMap from 'google-map-react';
-import { ImOffice } from "react-icons/im";
-import { HiOutlineOfficeBuilding } from "react-icons/hi";
-import { FaPlusCircle } from "react-icons/fa";
-import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
+ import GoogleMap from 'google-map-react';
+ import { ImOffice } from "react-icons/im";
+ import { HiOutlineOfficeBuilding } from "react-icons/hi";
+ import { FaPlusCircle } from "react-icons/fa";
+ import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
 import {
     BrowserRouter as Router,
     Switch,
@@ -78,13 +75,13 @@ class Savedaddr extends React.Component {
 									</li>
 									<li className="list-group-item"><Link ><p style={{color:"#FF5900"}}>Saved Addresses</p></Link>
 									</li>
-									<li className="list-group-item"><Link to="/my-account/orders"><p style={{color:"black"}}>My Orders </p>
+									<li className="list-group-item"><Link ><p style={{color:"black"}}>My Orders </p>
 										</Link>
 									</li>
-									<li className="list-group-item"><Link to="/my-account/cards"><p style={{color:"black"}}>Saved Cards</p>
+									<li className="list-group-item"><Link ><p style={{color:"black"}}>Saved Cards</p>
 										</Link>
 									</li>
-									<li className="list-group-item"><Link to="/my-account/tlbcredit"><p style={{color:"black"}}>talabat Pay </p>
+									<li className="list-group-item"><Link ><p style={{color:"black"}}>talabat Pay </p>
 										</Link>
 									</li>
 									
@@ -277,13 +274,7 @@ class Savedaddr extends React.Component {
 			
 			<Switch>
                  <Route path="/my-account/summary" exact component={Accountinfo}>
-			    </Route>
-			 <Route path="/my-account/orders" exact component={Myorders}>
 			</Route>
-			 <Route path="/my-account/cards" exact component={Savedcards}>
-				</Route>
-				 <Route path="/my-account/tlbcredit" exact component={Talabatpay}>
-				</Route>
             </Switch>    
         </Router>
 

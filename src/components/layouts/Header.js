@@ -2,6 +2,8 @@ import React from "react";
 import Flag from "react-world-flags";
 import Accountinfo from "../userDetails/Account info";
 import Savedaddr from "../userDetails/Savedaddr";
+import Myorders from "../userDetails/Myorders";
+import Talabatpay from "../userDetails/Talabatpay";
 import LoginUSer from "../Login/login";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
@@ -231,7 +233,7 @@ class Header extends React.Component {
                         style={{ padding: "20px" }}
                       >
                         <li>
-                          <Link className="dropdown-item">
+                          <Link to="/my-account/tlbcredit"className="dropdown-item">
                             <p>
                               <i
                                 className="bi bi-credit-card"
@@ -245,7 +247,7 @@ class Header extends React.Component {
                           </Link>
                         </li>
                         <li>
-                          <Link className="dropdown-item">
+                          <Link to="/my-account/orders" className="dropdown-item">
                             <p>
                               <i
                                 className="bi bi-cart3"
@@ -375,6 +377,13 @@ class Header extends React.Component {
             exact
             component={Savedaddr}
           ></Route>
+          <Route
+            path="/my-account/orders"
+            exact
+            component={Myorders}
+          ></Route>
+           <Route path="/my-account/tlbcredit" exact component={Talabatpay}>
+				</Route>
         </Switch>
       </Router>
     );

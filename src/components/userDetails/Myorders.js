@@ -1,7 +1,7 @@
 import React from 'react'
 import Accountinfo from './Account info';
 import Savedaddr from "./Savedaddr";
-import Myorders from './Myorders';
+import Savedcards from "./Savedcards";
 import Talabatpay from "./Talabatpay";
 import {
     BrowserRouter as Router,
@@ -10,7 +10,7 @@ import {
     Link
 } from "react-router-dom"
 
-class Savedcards extends React.Component {
+class Myorders extends React.Component {
     render() {
 		 
         return (
@@ -28,10 +28,10 @@ class Savedcards extends React.Component {
 									</li>
 									<li className="list-group-item"><Link to="/my-account/savedaddr"><p style={{color:"black"}}>Saved Addresses</p></Link>
 									</li>
-									<li className="list-group-item"><Link to="/my-account/Orders "><p style={{color:"black"}}>My Orders </p>
+									<li className="list-group-item"><Link ><p style={{color:"#FF5900"}}>My Orders </p>
 										</Link>
 									</li>
-									<li className="list-group-item"><Link ><p style={{color:"#FF5900"}}>Saved Cards</p>
+									<li className="list-group-item"><Link to="/my-account/cards"><p style={{color:"black"}}>Saved Cards</p>
 										</Link>
 									</li>
 									<li className="list-group-item"><Link to="/my-account/tlbcredit"><p style={{color:"black"}}>talabat Pay </p>
@@ -45,8 +45,8 @@ class Savedcards extends React.Component {
 						<div className="col-md-9">
 						    <div className="card-body ">
 								<div className="text-center">
-									<img  style={{height:"200px"}} src="https://icons-for-free.com/iconfiles/png/512/credit+card+debit+card+master+card+icon-1320184902602310693.png"></img>
-									<p className="text-muted">There are no saved credit card to Display</p>
+									<img  style={{height:"200px"}} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF9JiUJJfJ-AJ4YEChn4kmk68cPzdHqrM9QQ&usqp=CAU"></img>
+									<p className="text-muted">there are no order to display</p>
 									
 								</div>
                             </div>
@@ -67,8 +67,9 @@ class Savedcards extends React.Component {
 				</Route>
             	 <Route path="/my-account/savedaddr" exact component={Savedaddr}>
 				</Route>
-                <Route path="/my-account/orders" exact component={Myorders}></Route>
-                 <Route path="/my-account/tlbcredit" exact component={Talabatpay}>
+				 <Route path="/my-account/cards" exact component={Savedcards}>
+				</Route>
+				 <Route path="/my-account/tlbcredit" exact component={Talabatpay}>
 				</Route>
             </Switch>    
         </Router>
@@ -77,4 +78,4 @@ class Savedcards extends React.Component {
         );
     }
 }
-export default Savedcards;
+export default Myorders;
