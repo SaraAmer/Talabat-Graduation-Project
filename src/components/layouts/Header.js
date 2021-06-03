@@ -5,6 +5,7 @@ import Savedaddr from "../userDetails/Savedaddr";
 import Myorders from "../userDetails/Myorders";
 import Talabatpay from "../userDetails/Talabatpay";
 import LoginUSer from "../Login/login";
+import PartnerRegister from "../Partner/partnerRegister";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 class Header extends React.Component {
@@ -119,6 +120,7 @@ class Header extends React.Component {
                     <Link
                       className="nav-Link text-white"
                       style={{ marginLeft: "20px" }}
+                      to="/becomepartner"
                     >
                       Become a partner
                     </Link>
@@ -378,12 +380,19 @@ class Header extends React.Component {
             component={Savedaddr}
           ></Route>
           <Route
+
             path="/my-account/orders"
             exact
             component={Myorders}
           ></Route>
            <Route path="/my-account/tlbcredit" exact component={Talabatpay}>
 				</Route>
+ <Route
+            path="/becomepartner"
+            exact
+            component={PartnerRegister}
+          ></Route>
+
         </Switch>
       </Router>
     );
