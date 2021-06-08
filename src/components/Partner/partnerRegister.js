@@ -1,10 +1,50 @@
 // import "./login.css";
+import "./partnerRegister.css";
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import PartnerLogin from "./PartnerLogin";
+import PartnerLogin from "../partnerLogin/PartnerLogin";
+import PartnerRegisterRest from "./PartnerRegisterRest";
+import PartnerRegisterFirst from "./partnerRegisterFirst";
 
+import Success from "./success";
+import { Step, Steps } from "react-step-builder";
 class PartnerRegister extends React.Component {
   render() {
+    // const steps = [
+    //   { name: "rest", component: <PartnerRegisterRest /> },
+    //   { name: "Success", component: <Success /> },
+    // ];
+    const Navigation = (props) => {
+      return (
+        <div>
+          {/* <button onClick={props.prev}>Previous</button> */}
+          {/* <button onClick={props.next}>Next</button> */}
+          <button
+            // type="submit"
+            className="btn btn-lg btn-block form-control"
+            style={{
+              textAlign: "center",
+              backgroundColor: "#FF5900",
+              color: "white",
+              marginLeft: "30px",
+              borderRadius: "15px",
+              width: "150px",
+            }}
+            onClick={props.next}
+          >
+            Next
+          </button>
+        </div>
+      );
+    };
+
+    const config = {
+      navigation: {
+        component: Navigation, // a React component with special props provided automatically
+        location: "before", // or after
+      },
+    };
+
     return (
       <Router>
         <div>
@@ -25,6 +65,7 @@ class PartnerRegister extends React.Component {
               <button
                 // onClick={(event) => (window.location.href = "partnerlogin")}
                 className="btn btn-lg btn-block"
+                id="myButton"
                 style={{
                   textAlign: "center",
                   borderColor: "#FF5900",
@@ -40,7 +81,7 @@ class PartnerRegister extends React.Component {
                 }}
               >
                 {/* Login */}
-                <Link to="/partnerlogin">
+                <a href="/partnerlogin">
                   {" "}
                   <p
                     style={{
@@ -49,8 +90,7 @@ class PartnerRegister extends React.Component {
                   >
                     Vendor Portal
                   </p>
-                </Link>
-                {/* <a href="/partnerlogin"> Login</a> */}
+                </a>
               </button>
               {/* ******************* */}
               <div
@@ -58,6 +98,7 @@ class PartnerRegister extends React.Component {
                   textAlign: "center",
                   fontWeight: "bolder",
                   float: "right",
+                  color: "white",
                   marginTop: "10px",
                 }}
               >
@@ -82,7 +123,8 @@ class PartnerRegister extends React.Component {
             <section id="counts" className="counts">
               <div className="container">
                 <div className="row">
-                  <div className="col-lg-3 col-md-6">
+                  {/* ********** */}
+                  <div className="col-lg-3 col-md-6 ">
                     {/* <div className="count-box"> */}
                     <p style={{ color: "white" }} className="fs-3">
                       Reach new customers, get more sales
@@ -92,28 +134,12 @@ class PartnerRegister extends React.Component {
                     </p>
                     {/* </div> */}
                   </div>
-
+                  {/* ******************************* */}
                   <div className="col-lg-3 col-md-12 mt-5 mt-md-0"></div>
-
-                  <div className="col-lg-6 col-md-6 mt-5 mt-lg-0">
+                  {/* ******************************** */}
+                  <div className="col-lg-6 col-md-6 mt-5 mt-lg-0 col-sm-12 ">
+                    {/* ******************************** */}
                     <div className="count-box">
-                      <form>
-                        <p
-                          style={{
-                            textAlign: "center",
-                            marginTop: "20px",
-                            color: "blue",
-                            fontSize: "40px",
-                          }}
-                        >
-                          Join Us Today!
-                        </p>
-                      </form>
-                    </div>
-                  </div>
-
-                  <div className="col-lg-3 col-md-6 mt-5 mt-lg-0">
-                    {/* <div className="count-box">
                       <p
                         style={{
                           textAlign: "center",
@@ -124,20 +150,69 @@ class PartnerRegister extends React.Component {
                       >
                         Join Us Today!
                       </p>
-                    </div> */}
+
+                      <nav
+                        class="navbar navbar-expand-lg navbar-light"
+                        style={{ marginLeft: "150px" }}
+                      >
+                        <button
+                          class="navbar-toggler"
+                          type="button"
+                          data-toggle="collapse"
+                          data-target="#navbarTogglerDemo02"
+                          aria-controls="navbarTogglerDemo02"
+                          aria-expanded="false"
+                          aria-label="Toggle navigation"
+                        >
+                          <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div
+                          class="collapse navbar-collapse"
+                          id="navbarTogglerDemo02"
+                        >
+                          <ul class="navbar-nav  mt-2 mt-lg-0">
+                            <li
+                              class="nav-item active"
+                              style={{
+                                borderBottom: "5px solid #FF5900",
+                                marginRight: "5px",
+                              }}
+                            >
+                              <a class="nav-link" href="#">
+                                Your details
+                              </a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="#">
+                                Store details
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </nav>
+                      <Steps config={config}>
+                        <Step
+                          title="My First Step"
+                          component={PartnerRegisterFirst}
+                        />
+                        <Step
+                          title="My First Step"
+                          component={PartnerRegisterRest}
+                        />
+                        <Step title="My Second Step" component={Success} />
+                      </Steps>
+
+                      {/* ************************************************************ */}
+
+                      {/* ************************** */}
+                    </div>
                   </div>
+
+                  <div className="col-lg-3 col-md-6 mt-5 mt-lg-0"></div>
                 </div>
               </div>
             </section>
-            {/* <div
-        style={{
-          textAlign: "center",
-          marginTop: "20px",
-          fontWeight: "bolder",
-        }}
-      >
-        Talabat partner
-      </div> */}
           </div>
 
           {/* ********************* */}
@@ -160,17 +235,7 @@ class PartnerRegister extends React.Component {
               <div className="row">
                 <div className="col-lg-4 col-md-6">
                   <div className="icon-box">
-                    {/* <div className="icon"></div> */}
                     <h4 className="title">
-                      {/* <i
-                        class="bi bi-graph-up"
-                        style={{
-                          borderRadius: "0%",
-                          width: "100px",
-                          height: "100px",
-                          backgroundColor: "#FF5900",
-                        }}
-                      ></i> */}
                       <img
                         src="https://partner.talabat.com/resource/SSUTalabat/assets/images/ic_revenue.png"
                         style={{
@@ -206,7 +271,6 @@ class PartnerRegister extends React.Component {
                 <div className="col-lg-4 col-md-6 mt-4 mt-md-0">
                   <div className="icon-box">
                     <div className="icon">
-                      {/* <i className="icofont-image"></i> */}
                       <img
                         src="https://partner.talabat.com/resource/SSUTalabat/assets/images/ic_customers.png"
                         style={{
@@ -242,7 +306,6 @@ class PartnerRegister extends React.Component {
                 <div className="col-lg-4 col-md-6 mt-4 mt-lg-0">
                   <div className="icon-box">
                     <div className="icon">
-                      {/* <i className="icofont-tasks-alt"></i> */}
                       <img
                         src="https://partner.talabat.com/resource/SSUTalabat/assets/images/ic_delivered.png"
                         style={{
@@ -299,55 +362,11 @@ class PartnerRegister extends React.Component {
           </div>
 
           {/* ************************************************ */}
-          {/* <section id="counts" className="counts">
-            <div className="container">
-              <div className="row">
-                <div className="col-lg-3 col-md-6">
-                  <div className="count-box">
-                    <span data-toggle="counter-up">85</span>
-                    <p>Doctors</p>
-                  </div>
-                </div>
-
-                <div className="col-lg-3 col-md-12 mt-5 mt-md-0">
-                  <div className="count-box">
-                    <span data-toggle="counter-up">8</span>
-                    <p>Research Labs</p>
-                  </div>
-                </div>
-
-                <div className="col-lg-3 col-md-6 mt-5 mt-lg-0">
-                  <div className="count-box">
-                    <span data-toggle="counter-up">8</span>
-                    <p>Research Labs</p>
-                  </div>
-                </div>
-
-                <div className="col-lg-3 col-md-6 mt-5 mt-lg-0">
-                  <div className="count-box">
-                    <span data-toggle="counter-up">150</span>
-                    <p>Awards</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section> */}
 
           {/* ************************************************** */}
 
           <section id="services" className="services">
             <div className="container">
-              {/* <div className="section-title">
-                <h2>Services</h2>
-                <p>
-                  Magnam dolores commodi suscipit. Necessitatibus eius
-                  consequatur ex aliquid fuga eum quidem. Sit sint consectetur
-                  velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit
-                  suscipit alias ea. Quia fugiat sit in iste officiis commodi
-                  quidem hic quas.
-                </p>
-              </div> */}
-
               <div className="row">
                 <div className="col-lg-4 col-md-6 d-flex align-items-stretch">
                   {/* ************************ */}
@@ -387,19 +406,6 @@ class PartnerRegister extends React.Component {
                 {/* ********************* */}
 
                 <div className="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
-                  {/* <div className="icon-box">
-                    <div className="icon">
-                      <i className="icofont-drug"></i>
-                    </div>
-                    <h4>
-                      <a href="">Sed ut perspiciatis</a>
-                    </h4>
-                    <p>
-                      Duis aute irure dolor in reprehenderit in voluptate velit
-                      esse cillum dolore
-                    </p>
-                  </div> */}
-
                   <div
                     className="card"
                     style={{
@@ -433,19 +439,6 @@ class PartnerRegister extends React.Component {
                 </div>
 
                 <div className="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
-                  {/* <div className="icon-box">
-                    <div className="icon">
-                      <i className="icofont-dna-alt-2"></i>
-                    </div>
-                    <h4>
-                      <a href="">Magni Dolores</a>
-                    </h4>
-                    <p>
-                      Excepteur sint occaecat cupidatat non proident, sunt in
-                      culpa qui officia
-                    </p>
-                  </div> */}
-
                   <div
                     className="card"
                     style={{
@@ -668,17 +661,21 @@ class PartnerRegister extends React.Component {
               padding: "20px",
             }}
           ></div>
-          {/* ********************** */}
+          {/* *********For test******* */}
 
           {/* ************************************ */}
+
+          {/* **************************** */}
         </div>
         {/* ************************************************* */}
-        <Switch>
-          <Route path="/partnerlogin" exact component={PartnerLogin}></Route>
-        </Switch>
+        {/* component={PartnerLogin} */}
+        {/* ******************* */}
+        {/* <Switch></Switch> */}
       </Router>
       //**************************************
     );
   }
 }
 export default PartnerRegister;
+
+//

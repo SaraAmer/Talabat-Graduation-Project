@@ -4,7 +4,7 @@ import Accountinfo from "../userDetails/Account info";
 import Savedaddr from "../userDetails/Savedaddr";
 import LoginUSer from "../Login/login";
 import PartnerRegister from "../Partner/partnerRegister";
-
+import PartnerLogin from "../partnerLogin/PartnerLogin";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 class Header extends React.Component {
   render() {
@@ -382,6 +382,9 @@ class Header extends React.Component {
             exact
             component={PartnerRegister}
           ></Route>
+          <Route exact path="/partnerlogin">
+            <PartnerLogin />
+          </Route>
         </Switch>
       </Router>
     );

@@ -1,4 +1,7 @@
-.dot {
+.bg-images {
+  background-image: url("login.jpg") !important;
+}
+.dots {
   height: 25px;
   width: 25px;
   background-color: #bbb;
@@ -7,7 +10,7 @@
 }
 
 /* ************************ */
-.counts {
+.countss {
   /* background: #f1f7fd; */
   padding: 70px 0 60px;
   /* background-image: url("https://assets-global.website-files.com/5f188ec6b885317d0c1e62e4/5f1af9092e314f4a5e590776_Thumbnail-480x280-white-logo.png"); */
@@ -22,7 +25,7 @@
   background-size: cover;
 }
 
-.counts .count-box {
+.countss .count-box {
   padding: 30px 30px 25px 30px;
   width: 100%;
   position: relative;
@@ -30,7 +33,7 @@
   background: #fff;
 }
 
-.counts .count-box i {
+.countss .count-box i {
   position: absolute;
   top: -25px;
   left: 50%;
@@ -42,16 +45,48 @@
   border-radius: 50px;
 }
 
-.counts .count-box span {
+.countss .count-box span {
   font-size: 36px;
   display: block;
   font-weight: 600;
   color: #082744;
 }
 
-.counts .count-box p {
+.countss .count-box p {
   padding: 0;
   margin: 0;
   font-family: "Raleway", sans-serif;
   font-size: 14px;
 }
+/* ****************For Filter ****************** */
+/* .cardnew {
+  flex-direction: row;
+  align-items: center;
+}
+.card-title {
+  font-weight: bold;
+}
+.cardnew img {
+  width: 30%;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: calc(0.25rem - 1px);
+}
+@media only screen and (max-width: 768px) {
+  a {
+    display: none;
+  }
+  .card-body {
+    padding: 0.5em 1.2em;
+  }
+  .card-body .card-text {
+    margin: 0;
+  }
+  .cardnew img {
+    width: 50%;
+  }
+}
+@media only screen and (max-width: 1200px) {
+  .cardnew img {
+    width: 40%;
+  }
+} */

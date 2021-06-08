@@ -13,6 +13,7 @@ class LoginUSer extends React.Component {
               </a>
             </div>
           </div>
+          {/* style={{ border: "5px solid grey" }} */}
           <div className="row">
             <div className="col-md-12">
               <a href="#" className="btn btn-primary btn-block">
@@ -25,7 +26,8 @@ class LoginUSer extends React.Component {
         <p className="text-center">OR</p>
 
         {/* <!-- Email input --> */}
-        <div className="mb-4" style={{ borderBottom: "5px solid grey" }}>
+        {/* style={{ borderBottom: "5px solid grey" }} */}
+        <div className="mb-4">
           {/* <input
             type="email"
             id="registerEmail"
