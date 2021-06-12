@@ -2,7 +2,8 @@ import React from 'react'
 import Flag from 'react-world-flags'
 import Accountinfo from '../userDetails/Account info'
 import Savedaddr from '../userDetails/Savedaddr'
-
+import AllRestaurants from '../AllRestaurants';
+import RestaurantDetails from '../restaurants-client/RestaurantDetails'
 import {
     BrowserRouter as Router,
     Switch,
@@ -42,7 +43,7 @@ render(){
 								</Link >
 							</li>
 							<li className="nav-item">
-								<Link className="nav-Link text-white" style={{marginLeft:"20px"}} >All Restaurants
+								<Link to="/all-restaurants" className="nav-Link text-white" style={{marginLeft:"20px"}} >All Restaurants
 								</Link >
 							</li>
 							<li className="nav-item">
@@ -67,7 +68,7 @@ render(){
 								</Link >
 							</li>
 							<li className="nav-item">
-								<Link className="nav-Link text-white"style={{marginLeft:"20px"}} >All Restaurants
+								<Link to="/restaurants" className="nav-Link text-white"style={{marginLeft:"20px"}} >All Restaurants
 								</Link >
 							</li>
 							<li className="nav-item">
@@ -183,7 +184,11 @@ render(){
 			 
 		</div>
 		<Switch>
-            <Route path="/my-account/summary" exact component={Accountinfo}>
+		<Route path="/restaurants/:id" exact component={RestaurantDetails} />
+
+		<Route path="/restaurants" component={AllRestaurants} />
+
+		    <Route path="/my-account/summary" exact component={Accountinfo}>
 			</Route>
 			 <Route path="/my-account/savedaddr"exact component={Savedaddr }>
              </Route>

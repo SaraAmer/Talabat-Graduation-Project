@@ -3,12 +3,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import restaurantList from '../restaurantList'
 
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-import Restaurants from '../components/restaurants/Restaurants';
+//import Restaurants from './restaurants-client/Restaurants';
+import Restaurants from './restaurants-client/Restaurants'
 import Pagination from '@material-ui/lab/Pagination';
 import { makeStyles } from '@material-ui/core/styles';
-import PaginationMenu from '../components/restaurants/pagination';
-import Search from './restaurants/Search';
-import Title from './restaurants/Title';
+import PaginationMenu from './restaurants-client/pagination';
+import Search from './restaurants-client/Search';
+import Title from './restaurants-client/Title';
 
 
 function AllRestaurants(){

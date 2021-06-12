@@ -6,7 +6,7 @@ function Search() {
 
     return(
         <div className="container">
-    <div className="search-Box" >
+     <div className="search-Box" >
         <input type="text" placeholder="Search Restaurants" />
         <BsSearch/>
     </div>

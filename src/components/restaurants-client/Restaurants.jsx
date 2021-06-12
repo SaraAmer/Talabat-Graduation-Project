@@ -4,17 +4,40 @@ import restaurantList from '../../restaurantList';
 import Restaurant from './Restaurant';
 import { makeStyles } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
-
 import PaginationMenu from './pagination';
-
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
 function restaurants(restaurant){
     return(
-        <Restaurant
-        id={restaurant.id}
-        name={restaurant.name}
-        logo={restaurant.logo}
-        desc={restaurant.desc}
-        />
+//         <div style={{display:"inline-block"}}>
+//         <a  href={`/restaurants/${restaurant.id}`}>
+//         <Restaurant
+//         id={restaurant.id}
+//         name={restaurant.name}
+//         logo={restaurant.logo}
+//         desc={restaurant.desc}
+//         />
+//         </a>
+//      <Router>   
+// <Switch>
+//         <Route path="/restaurants/:id" component={RestaurantDetails} />
+
+// </Switch>  
+// </Router>  
+//  </div>
+<Restaurant
+id={restaurant.id}
+name={restaurant.name}
+logo={restaurant.logo}
+desc={restaurant.desc}
+
+
+/>
+      
     );
 }
 function RestaurantList(props) {
