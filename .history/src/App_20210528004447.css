@@ -1,9 +1,0 @@
-    .navbar {
-        background-color: $bgcolor1 !important;
-    }
-    
-    .navbar-brand {
-        color: lighten($color1, 10%);
-        font-weight: bold;
-        font-size: 2em;
-    }
