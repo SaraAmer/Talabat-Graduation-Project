@@ -2,13 +2,17 @@
 import React, { Component } from "react";
 
 class PartnerRegisterRest extends React.Component {
+  handlesubmit = (e) => {
+    console.log("submit");
+  };
+
   render() {
     return (
       // *******************************************
 
       <div>
         {/* ************************************************************************* */}
-        <form className="form-row">
+        <form className="form-row" onSubmit={this.handlesubmit}>
           {/* // ******************************************* */}
           <div className="col form-group">
             <label
@@ -136,6 +140,12 @@ class PartnerRegisterRest extends React.Component {
           >
             Next
           </button> */}
+          <div
+            style={{
+              padding: "10px",
+              margin: "10px",
+            }}
+          ></div>
         </form>
       </div>
     );

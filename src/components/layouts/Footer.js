@@ -157,24 +157,24 @@ class Footer extends React.Component {
                     </a>
                   </p>
                   <p>
-                    <Link to="/filter" className="text-white">
+                    <a href="/filter" className="text-white">
                       Mostashfa ALHommeyat
-                    </Link>
+                    </a>
                   </p>
                   <p>
-                    <Link to="/filter" className="text-white">
+                    <a href="/filter" className="text-white">
                       Salah ElDin Street
-                    </Link>
+                    </a>
                   </p>
                   <p>
-                    <Link to="/filter" className="text-white">
+                    <a href="/filter" className="text-white">
                       Salah Nessim Street
-                    </Link>
+                    </a>
                   </p>
                   <p>
-                    <Link to="/filter" className="text-white">
+                    <a href="/filter" className="text-white">
                       Shabab El Mosalas
-                    </Link>
+                    </a>
                   </p>
                   <p>
                     <Link className="text-reset">More Areas...</Link>
@@ -264,24 +264,24 @@ class Footer extends React.Component {
                       </a>
                     </p>
                     <p>
-                      <Link to="/filter" className="text-white">
+                      <a href="/filter" className="text-white">
                         Mostashfa ALHommeyat
-                      </Link>
+                      </a>
                     </p>
                     <p>
-                      <Link to="/filter" className="text-white">
+                      <a href="/filter" className="text-white">
                         Salah ElDin Street
-                      </Link>
+                      </a>
                     </p>
                     <p>
-                      <Link to="/filter" className="text-white">
+                      <a href="/filter" className="text-white">
                         Salah Nessim Street
-                      </Link>
+                      </a>
                     </p>
                     <p>
-                      <Link to="/filter" className="text-white">
+                      <a href="/filter" className="text-white">
                         Shabab El Mosalas
-                      </Link>
+                      </a>
                     </p>
                     <p>
                       <Link to="/filter" className="text-reset">
@@ -340,9 +340,6 @@ class Footer extends React.Component {
 
         <Switch>
           {/* <Route path=""></Route> */}
-          <Route exact path="/filter">
-            <Filter />
-          </Route>
 
           {/* <Route path="/filter" exact component={Filter}></Route> */}
         </Switch>

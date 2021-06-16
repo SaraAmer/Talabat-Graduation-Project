@@ -69,7 +69,7 @@ class PartnerRegisterFirst extends React.Component {
             style={{
               float: "left",
             }}
-            for="phone"
+            htmlFor="phone"
           >
             Mobile Number:
           </label>
@@ -108,7 +108,7 @@ class PartnerRegisterFirst extends React.Component {
           >
             Contact role
           </label>
-          <select id="inputState" className="form-control">
+          <select id="inpute" className="form-control">
             <option> --None--</option>
             <option>Owner</option>
             <option>Co-Owner</option>
@@ -120,6 +120,7 @@ class PartnerRegisterFirst extends React.Component {
         <div
           style={{
             padding: "10px",
+            margin: "10px",
           }}
         ></div>
         {/* *************** */}

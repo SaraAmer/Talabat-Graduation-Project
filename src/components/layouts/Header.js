@@ -6,6 +6,8 @@ import LoginUSer from "../Login/login";
 import PartnerRegister from "../Partner/partnerRegister";
 import PartnerLogin from "../partnerLogin/PartnerLogin";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Filter from "../filter/filter";
+
 class Header extends React.Component {
   render() {
     return (
@@ -33,6 +35,7 @@ class Header extends React.Component {
                 <span className="navbar-toggler-icon"></span>
               </label>
               <Link
+                to=""
                 className="navbar-brand text-white "
                 style={{
                   paddingLeft: "200px",
@@ -46,6 +49,7 @@ class Header extends React.Component {
                 <ul className="navbar-nav d-md-none">
                   <li className="nav-item">
                     <Link
+                      to=""
                       className="nav-Link text-white "
                       aria-current="page"
                       style={{ marginLeft: "20px" }}
@@ -66,6 +70,7 @@ class Header extends React.Component {
                   </li>
                   <li className="nav-item">
                     <Link
+                      to=""
                       className="nav-Link text-white "
                       aria-current="page"
                       style={{ marginLeft: "20px" }}
@@ -75,6 +80,7 @@ class Header extends React.Component {
                   </li>
                   <li className="nav-item">
                     <Link
+                      to=""
                       className="nav-Link text-white"
                       style={{ marginLeft: "20px" }}
                     >
@@ -83,6 +89,7 @@ class Header extends React.Component {
                   </li>
                   <li className="nav-item">
                     <Link
+                      to=""
                       className="nav-Link text-white"
                       style={{ marginLeft: "20px" }}
                     >
@@ -91,6 +98,7 @@ class Header extends React.Component {
                   </li>
                   <li className="nav-item">
                     <Link
+                      to=""
                       className="nav-Link text-white "
                       aria-current="page"
                       style={{ marginLeft: "20px" }}
@@ -107,6 +115,7 @@ class Header extends React.Component {
                 <ul className="navbar-nav ">
                   <li className="nav-item">
                     <Link
+                      to=""
                       className="nav-Link text-white "
                       style={{ marginLeft: "20px" }}
                       aria-current="page"
@@ -116,6 +125,7 @@ class Header extends React.Component {
                   </li>
                   <li className="nav-item">
                     <Link
+                      to=""
                       className="nav-Link text-white"
                       style={{ marginLeft: "20px" }}
                       to="/becomepartner"
@@ -125,6 +135,7 @@ class Header extends React.Component {
                   </li>
                   <li className="nav-item">
                     <Link
+                      to=""
                       className="nav-Link text-white"
                       style={{ marginLeft: "20px" }}
                     >
@@ -133,6 +144,7 @@ class Header extends React.Component {
                   </li>
                   <li className="nav-item">
                     <Link
+                      to=""
                       className="nav-Link text-white"
                       style={{ marginLeft: "20px" }}
                     >
@@ -142,6 +154,7 @@ class Header extends React.Component {
                   <li className="nav-item ">
                     <div className="dropdown nav-Link">
                       <Link
+                        to=""
                         className="btn"
                         role="button"
                         id="dropdownMenuLink"
@@ -155,49 +168,49 @@ class Header extends React.Component {
                         aria-labelledby="dropdownMenuLink"
                       >
                         <li>
-                          <Link className="dropdown-item">
+                          <Link to="" className="dropdown-item">
                             <Flag code="egy" height="16" width="20" />
                             Egypt
                           </Link>
                         </li>
                         <li>
-                          <Link className="dropdown-item">
+                          <Link to="" className="dropdown-item">
                             <Flag code="kwt" height="16" width="20" />
                             kuwait
                           </Link>
                         </li>
                         <li>
-                          <Link className="dropdown-item">
+                          <Link to="" className="dropdown-item">
                             <Flag code="ARE" height="16" width="20" />
                             UAE
                           </Link>
                         </li>
                         <li>
-                          <Link className="dropdown-item">
+                          <Link to="" className="dropdown-item">
                             <Flag code="BHR" height="16" width="20" />
                             Bahraine
                           </Link>
                         </li>
                         <li>
-                          <Link className="dropdown-item">
+                          <Link to="" className="dropdown-item">
                             <Flag code="SAU" height="16" width="20" />
                             KSA
                           </Link>
                         </li>
                         <li>
-                          <Link className="dropdown-item">
+                          <Link to="" className="dropdown-item">
                             <Flag code="QAT" height="16" width="20" />
                             Qatar
                           </Link>
                         </li>
                         <li>
-                          <Link className="dropdown-item">
+                          <Link to="" className="dropdown-item">
                             <Flag code="OMN" height="16" width="20" />
                             Oman
                           </Link>
                         </li>
                         <li>
-                          <Link className="dropdown-item">
+                          <Link to="" className="dropdown-item">
                             <Flag code="JOR" height="16" width="20" />
                             Jordan
                           </Link>
@@ -219,6 +232,7 @@ class Header extends React.Component {
                   <li className="nav-item ">
                     <div className="dropdown nav-Link ">
                       <Link
+                        to=""
                         className="btn text-white "
                         role="button"
                         id="dropdownMenuLink1"
@@ -233,7 +247,7 @@ class Header extends React.Component {
                         style={{ padding: "20px" }}
                       >
                         <li>
-                          <Link className="dropdown-item">
+                          <Link to="" className="dropdown-item">
                             <p>
                               <i
                                 className="bi bi-credit-card"
@@ -247,7 +261,7 @@ class Header extends React.Component {
                           </Link>
                         </li>
                         <li>
-                          <Link className="dropdown-item">
+                          <Link to="" className="dropdown-item">
                             <p>
                               <i
                                 className="bi bi-cart3"
@@ -384,6 +398,9 @@ class Header extends React.Component {
           ></Route>
           <Route exact path="/partnerlogin">
             <PartnerLogin />
+          </Route>
+          <Route exact path="/filter">
+            <Filter />
           </Route>
         </Switch>
       </Router>
