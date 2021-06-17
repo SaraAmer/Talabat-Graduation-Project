@@ -3,6 +3,8 @@ import Accountinfo from './Account info';
 import Savedaddr from "./Savedaddr";
 import Savedcards from "./Savedcards";
 import Talabatpay from "./Talabatpay";
+import { AiOutlineReload } from "react-icons/ai";
+
 import {
     BrowserRouter as Router,
     Switch,
@@ -19,6 +21,7 @@ class Myorders extends React.Component {
 				<div className="card mb-3  border-2 " style={{maxWidth:" 540px;"}}>
 					<div className=" border-bottom "><h3 className="card-title p-4">My Account</h3>
 					</div>
+					
 					<div className="row g-0">
 						<div className="col-md-3 ">
 							<div className="card border-bottom-0 " >
@@ -42,8 +45,23 @@ class Myorders extends React.Component {
 							</div>
 						</div>
 						
+						
 						<div className="col-md-9">
 						    <div className="card-body ">
+								<div class="card flex-row">
+									<img src="https://codingyaar.com/wp-content/uploads/bootstrap-4-card-image-left-demo-image.jpg" class="card-img-top" style={{width:"20%"}}/>
+									<div class="card-body">
+										<h5 class="card-title">Bronx burger</h5>
+										<p class="card-text text-muted">
+									    18 februray 2021 17:33
+										</p>
+										<p class="card-text text-muted">
+									  order id:29178300 <span className="text-danger">cancelled</span>
+										</p>
+										<div className=" d-flex justify-content-end">
+										<a  class="btn border"> <AiOutlineReload/> recall</a></div>
+									</div>
+								</div>			
 								<div className="text-center">
 									<img  style={{height:"200px"}} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF9JiUJJfJ-AJ4YEChn4kmk68cPzdHqrM9QQ&usqp=CAU"></img>
 									<p className="text-muted">there are no order to display</p>

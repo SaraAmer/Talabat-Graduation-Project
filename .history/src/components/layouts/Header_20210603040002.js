@@ -1,30 +1,21 @@
 import React from "react";
-import "./Header.css";
-import Flags from "./flag"
+import Flag from "react-world-flags";
 import Accountinfo from "../userDetails/Account info";
 import Savedaddr from "../userDetails/Savedaddr";
 import Myorders from "../userDetails/Myorders";
 import Talabatpay from "../userDetails/Talabatpay";
-import Savedcards from "../userDetails/Savedcards";
 import LoginUSer from "../Login/login";
 import PartnerRegister from "../Partner/partnerRegister";
-import Checkout from "../carts/checkout"
 import { RiShoppingBasket2Fill } from "react-icons/ri";
-
-import Cart from"../carts/cart";
-
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 class Header extends React.Component {
-   
-
   render() {
     return (
       <Router>
         <div>
-       
           <nav
-            className="navbar navbar-expand-sm navbar-light"
+            className="navbar navbar-expand-md navbar-light"
             style={{
               backgroundColor: "#FF5900",
               fontSize: "18px",
@@ -32,8 +23,7 @@ class Header extends React.Component {
               height: "auto",
             }}
           >
-           
-            <div className="container ">
+            <div className="container-fluid ">
               <label
                 className="navbar-toggler  d-md-none"
                 type="button"
@@ -48,7 +38,7 @@ class Header extends React.Component {
               <Link
                 className="navbar-brand text-white "
                 style={{
-                 paddingLeft: "100px",
+                  paddingLeft: "200px",
                   fontFamily: "'Paytone One', sans-serif",
                 }}
               >
@@ -73,12 +63,10 @@ class Header extends React.Component {
                       style={{ marginLeft: "10px" }}
                       data-toggle="modal"
                       data-target="#exampleModal"
-                   
                     >
                       Login
                     </button>
-					        </li>
-					
+                  </li>
                   <li className="nav-item">
                     <Link
                       className="nav-Link text-white "
@@ -113,97 +101,13 @@ class Header extends React.Component {
                       offers
                     </Link>
                   </li>
-				        <li>
-					        <ul className="navbar-nav" >
-					          <li className="nav-item dropdown">
-						          <a className="nav-link dropdown-toggle text-white"  style={{ marginLeft: "20px" }} id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						             <strong>Account</strong>
-					          	</a>
-						          <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-						            <li>
-                          <Link to="/my-account/tlbcredit"className="dropdown-item">
-                            <p>
-                              <i
-                                className="bi bi-credit-card"
-                                style={{
-                                  color: "#FF5900",
-                                  marginRight: "20px",
-                                }}
-                              ></i>
-                              Talbat Pay:EGP 0.00
-                            </p>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to="/my-account/orders" className="dropdown-item">
-                            <p>
-                              <i
-                                className="bi bi-cart3"
-                                style={{
-                                  color: "#FF5900",
-                                  marginRight: "20px",
-                                }}
-                              ></i>
-                              My orders
-                            </p>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            to="/my-account/summary"
-                            className="dropdown-item"
-                          >
-                            <p>
-                              <i
-                                className="bi bi-person"
-                                style={{
-                                  color: "#FF5900",
-                                  marginRight: "20px",
-                                }}
-                              ></i>
-                              Account info
-                            </p>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            to="/my-account/savedaddr"
-                            className="dropdown-item"
-                          >
-                            <p>
-                              <i
-                                className="bi bi-map"
-                                style={{
-                                  color: "#FF5900",
-                                  marginRight: "20px",
-                                }}
-                              ></i>
-                              Saved Addresses
-                            </p>
-                          </Link>
-                        </li>
-						          <a href="#" className="dropdown-item">
-                        <div className="dropdown-divider"></div>
-                        <button
-                        className="bi bi-box-arrow-right border-0 "
-                        style={{
-                        color: "#FF5900",
-                        marginRight: "20px",
-                        }}
-                        > Logout</button>
-                       
-						          </a>
-						        </div>
-					        </li>
-					       </ul>
-                  </li>
                 </ul>
               </div>
               <div
-                className=" container  d-none d-md-block"
+                className=" container float-right  d-none d-md-block"
                 style={{ paddingLeft: "200px" }}
               >
-                <ul className="navbar-nav ml-auto ">
+                <ul className="navbar-nav ">
                   <li className="nav-item">
                     <Link
                       className="nav-Link text-white "
@@ -239,9 +143,70 @@ class Header extends React.Component {
                     </Link>
                   </li>
                   <li className="nav-item ">
-                  
-                  <Flags/>
-                   
+                    <div className="dropdown nav-Link">
+                      <Link
+                        className="btn"
+                        role="button"
+                        id="dropdownMenuLink"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false "
+                      >
+                        <Flag code="egy" height="16" width="20" />
+                      </Link>
+                      <ul
+                        className="dropdown-menu"
+                        aria-labelledby="dropdownMenuLink"
+                      >
+                        <li>
+                          <Link className="dropdown-item">
+                            <Flag code="egy" height="16" width="20" />
+                            Egypt
+                          </Link>
+                        </li>
+                        <li>
+                          <Link className="dropdown-item">
+                            <Flag code="kwt" height="16" width="20" />
+                            kuwait
+                          </Link>
+                        </li>
+                        <li>
+                          <Link className="dropdown-item">
+                            <Flag code="ARE" height="16" width="20" />
+                            UAE
+                          </Link>
+                        </li>
+                        <li>
+                          <Link className="dropdown-item">
+                            <Flag code="BHR" height="16" width="20" />
+                            Bahraine
+                          </Link>
+                        </li>
+                        <li>
+                          <Link className="dropdown-item">
+                            <Flag code="SAU" height="16" width="20" />
+                            KSA
+                          </Link>
+                        </li>
+                        <li>
+                          <Link className="dropdown-item">
+                            <Flag code="QAT" height="16" width="20" />
+                            Qatar
+                          </Link>
+                        </li>
+                        <li>
+                          <Link className="dropdown-item">
+                            <Flag code="OMN" height="16" width="20" />
+                            Oman
+                          </Link>
+                        </li>
+                        <li>
+                          <Link className="dropdown-item">
+                            <Flag code="JOR" height="16" width="20" />
+                            Jordan
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
                   </li>
                   
                   <li className="nav-item">
@@ -251,34 +216,26 @@ class Header extends React.Component {
                       style={{ marginLeft: "10px" }}
                       data-toggle="modal"
                       data-target="#exampleModal"
-                       
                     >
                       Login
                     </button>
-                  </li>				  
-				        	<li className=" nav-item dropdown text-white m-2 " >
-					      	<p   data-toggle="dropdown"   ><RiShoppingBasket2Fill/> </p>
-					      	<div className=" dropdown-menu " style={{position: 'absolute', right: 0}}>
-						        <Cart/>
-					
-						      </div>
-				        </li>
-                  <li className="nav-item  ">
-                    <div className="dropdown nav-Link  " >
+                  </li>
+                  <li className=" nav-item text-white"> <RiShoppingBasket2Fill/></li>
+                  <li className="nav-item ">
+                    <div className="dropdown nav-Link ">
                       <Link
-                        className="btn text-white  "
-                        role="button "
+                        className="btn text-white "
+                        role="button"
                         id="dropdownMenuLink1"
                         data-bs-toggle="dropdown"
                         aria-expanded="false "
-						            aria-haspopup="true"
                       >
                         My account
                       </Link>
                       <ul
                         className="dropdown-menu"
                         aria-labelledby="dropdownMenuLink1"
-                        style={{ padding: "10px" }}
+                        style={{ padding: "20px" }}
                       >
                         <li>
                           <Link to="/my-account/tlbcredit"className="dropdown-item">
@@ -346,16 +303,14 @@ class Header extends React.Component {
                           <Link className="dropdown-item">
                             {" "}
                             <p>
-                              <button
-                                className="bi bi-box-arrow-right border-0  "
+                              <i
+                                className="bi bi-box-arrow-right"
                                 style={{
                                   color: "#FF5900",
                                   marginRight: "20px",
-                                  
                                 }}
-                               
-                              > logout</button>
-                             
+                              ></i>
+                              log out
                             </p>
                           </Link>
                         </li>
@@ -395,7 +350,7 @@ class Header extends React.Component {
                 </button> */}
                 <button
                   type="button"
-                   className="btn-close"
+                  class="btn-close"
                   data-dismiss="modal"
                   aria-label="Close"
                   style={{
@@ -404,7 +359,7 @@ class Header extends React.Component {
                     paddingTop: "50px",
                   }}
                 ></button>
-                <p style={{ textAlign: "center" }}  className="h2">
+                <p style={{ textAlign: "center" }} class="h2">
                   Login
                 </p>
                 {/* </div> */}
@@ -435,16 +390,12 @@ class Header extends React.Component {
           ></Route>
            <Route path="/my-account/tlbcredit" exact component={Talabatpay}>
 				</Route>
-			<Route
+ <Route
             path="/becomepartner"
             exact
             component={PartnerRegister}
           ></Route>
-		  <Route path="/checkout" exact component={Checkout}>
-     
-				</Route>
-<Route path="/my-account/cards" exact component={Savedcards}>
-				</Route>
+
         </Switch>
       </Router>
     );

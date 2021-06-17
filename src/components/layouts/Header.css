@@ -1,0 +1,4 @@
+.hovers:hover {
+    color: Red;
+    transform: scale(1.5);
+}

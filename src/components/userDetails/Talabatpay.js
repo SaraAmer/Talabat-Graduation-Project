@@ -12,13 +12,16 @@ import {
 
 class Talabatpay extends React.Component {
     state = {
-    bcolor:'white',
+    bcolor1:"#FF5900",
+    bcolor2:'white',
     text: 'talabat Pay statement history',
     content:this.renderContent1()
   }
    onClickButton1 = () => {
-    this.setState({
-      bcolor:this.state.black ? "white" : "#FF5900",
+     
+     this.setState({
+      bcolor1:this.state.bcolor1=="#FF5900" ? "white" : "#FF5900",
+      bcolor2:this.state.bcolor2=="#FF5900" ? "white" : "#FF5900",
       text: 'talabat Pay statement history',
       content:this.renderContent1(),
     
@@ -27,7 +30,8 @@ class Talabatpay extends React.Component {
 
   onClickButton2 = () => {
     this.setState({
-      bcolor:this.state.black ? "#FF5900" : "white",
+      bcolor1:this.state.bcolor1=="#FF5900" ? "white" : "#FF5900",
+      bcolor2:this.state.bcolor2=="#FF5900" ? "white" : "#FF5900",
       text: 'Redeem voucher code below:',
       content:this.renderContent2()
     });
@@ -35,8 +39,8 @@ class Talabatpay extends React.Component {
    renderContent1(){
   
     return (
-   <div class="card m-3">
-        <div class="card-body bg-light text-center me-4">
+   <div  className="card m-3">
+        <div  className="card-body bg-light text-center me-4">
             <p className="text-muted"> Transactions made using talabat Pay will appear here</p>
          </div>
     </div>
@@ -47,14 +51,14 @@ class Talabatpay extends React.Component {
         <form>
             <div  className="row">
             
-                        <label class="col-sm-5 col-form-label">Please enter your voucher code here:</label>
-                        <div class=" form-group col-md-5">
-                        <input class="form-control" type="text" placeholder="Voucher code"/>
+                        <label  className="col-sm-5 col-form-label">Please enter your voucher code here:</label>
+                        <div  className=" form-group col-md-5">
+                        <input  className="form-control" type="text" placeholder="Voucher code"/>
                         </div>
                 
             </div>
             <div className=" d-flex justify-content-end">
-            <button type="submit" class="btn btn-success m-2">REDEEM VOUCHER</button>
+            <button type="submit"  className="btn btn-success m-2">REDEEM VOUCHER</button>
        	</div>
         </form>
        
@@ -99,11 +103,11 @@ class Talabatpay extends React.Component {
                                 <div className="h2">Available Balance <span style={{color:"green"}}>EGP 0.00</span>
                                 </div>
                                
-                                <nav class="navbar navbar-light m-4 ">
+                                <nav  className="navbar navbar-light m-4 ">
                                    
-                                    <form class="form-inline btn-group"  role="group">
-                                        <button class="btn btn-lg  border "style={{backgroundColor:this.state.bcolor}} type="button" onClick={this.onClickButton1}>View Statement</button>
-                                        <button class="btn  btn-lg  border" type="button"  style={{backgroundColor:this.state.bcolor}}onClick={this.onClickButton2}>Redeem Credit code</button>
+                                    <form  className="form-inline btn-group"  role="group">
+                                        <button  className="btn btn-lg  border "style={{backgroundColor:this.state.bcolor1}} type="button" onClick={this.onClickButton1}>View Statement</button>
+                                        <button  className="btn  btn-lg  border" type="button"  style={{backgroundColor:this.state.bcolor2}} onClick={this.onClickButton2}>Redeem Credit code</button>
                                     </form>
                                       	
                                 </nav>

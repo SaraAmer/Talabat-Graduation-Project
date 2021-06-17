@@ -4,6 +4,8 @@ import Myorders from './Myorders';
 import Savedcards from "./Savedcards";
 import Talabatpay from "./Talabatpay";
 import GoogleMap from 'google-map-react';
+import Map from "./Map"
+import Address from "./Address"
 import { ImOffice } from "react-icons/im";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
 import { FaPlusCircle } from "react-icons/fa";
@@ -36,22 +38,19 @@ const mapStyles = {
         <h3>{title}</h3>
       </div>
     );
+
+		
+
 class Savedaddr extends React.Component {
 	
 	
    constructor (props) {
     super(props);
 	this._handleClick = this._handleClick.bind(this);
-    this.state = { country: '', region: '' };
-  }
-
-  selectCountry (val) {
-    this.setState({ country: val });
-  }
-
-  selectRegion (val) {
-    this.setState({ region: val });
-  }
+	this.state={
+     address_details:[],
+	}
+	}
   
 
    _handleClick=()=> {
@@ -59,6 +58,14 @@ class Savedaddr extends React.Component {
 	   alert("female")
    
   }
+ 	componentDidMount=()=>{
+		if(localStorage["addressdetails"]){
+			let addressdetails=JSON.parse(localStorage["addressdetails"]);//8irt el shakl 
+			this.setState({address_details:addressdetails})//el array ely ana 3mlah 7ishil el data bt3t el local storage 
+			console.log(this.state.address_details)
+		}
+	
+		}
 
 
     render() {
@@ -94,6 +101,8 @@ class Savedaddr extends React.Component {
 						
 						<div className="col-md-9">
 						    <div className="card-body ">
+							{ this.state.addressDetails >0 ?this.state.addressDetails.map((details) => {
+                             return( <div>
 								<div style={{float:"right"}}>
 								    <a type="button" className="btn" style={{color:"green"}}   data-toggle="modal" data-target="#exampleModal3">
 								       <FaPlusCircle/> ADD ADDRESS
@@ -104,11 +113,13 @@ class Savedaddr extends React.Component {
 									<p className="text-muted">Address Name</p>
 									<p className="text-muted">Address </p>
 									<p className="text-muted">Mobile Number</p>
+									<p className="text-muted">Landing Number</p>
 									</div>
 									<div className="col-md-4">
-									<p >Building No. 333e</p>
-									<p className="text-muted">Talaat Harb, 333, 222, 3</p>
-									<p className="text-muted">+201056789</p>
+									<p >Building No. {details.building}</p>
+									<p className="text-muted">{details.street},{details.building}, {details.floor}, {details.appNo}</p>
+									<p className="text-muted">{details.mobile}</p>
+									<p className="text-muted">{details.landingNo}</p>
 									</div>
 
 					                <div className="col-md-4" style={{float:"right"}}>
@@ -123,8 +134,9 @@ class Savedaddr extends React.Component {
 									
 									<div className=" border-bottom ">
 									</div>	
-					    </div>
-								
+					    		</div>
+								 	</div>);}):
+							
 								<div className="text-center">
 									<img  style={{height:"100px"}} src="https://www.vskills.in/certification/tutorial/wp-content/uploads/2013/01/geolocation.jpg"></img>
 									<p className="text-muted">there are no saved addresses to display</p>
@@ -132,146 +144,58 @@ class Savedaddr extends React.Component {
 										Add Address
 									</button> 
 								</div>
-						
+						       }
 							</div>
 						</div>
 				    </div>
 				</div>
 				<div className="modal fade" id="exampleModal3" tabIndex="-1" aria-labelledby="exampleModalLabel3" aria-hidden="true">
-				<div className="modal-dialog">
-					<div className="modal-content">
-						<div className="modal-header">
-							<h5 className="modal-title" id="exampleModalLabel3">Add New Address</h5>
-							<button type="button" className="close border-0" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;
-								</span>
-							</button>
-						</div>
-					    <div className="modal-body "style={{width:"400px",height:"400px"}}>
-							  <div >
-									<GoogleMap
-									  style={mapStyles}
-									  bootstrapURLKeys={{ key: 'GOOGLE_MAPS_API_KEY' }}
-									  center={{ lat: 5.6219868, lng: -0.1733074 }}
-									  zoom={14}
-									>
-									  <Marker
-									  title={'Current Location'}
-									  lat={5.6219868}
-									  lng={-0.1733074}
-									>
-									  </Marker>
-									</GoogleMap>
-								 </div>
-					    </div>
-					    <div className="modal-footer">
-							
-							<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal4"  data-dismiss="modal">Confirm 
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div className="modal fade" id="exampleModal4" tabIndex="-1" aria-labelledby="exampleModalLabel4" aria-hidden="true">
-				<div className="modal-dialog">
-					<div className="modal-content">
-						<div className="modal-header">
-							<h5 className="modal-title" id="exampleModalLabel4">Add New Address</h5>
-							<button type="button" className="close border-0" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;
-								</span>
-							</button>
-						</div>
-						<form>
-							<div className="modal-body">
-								
-									<div  className="row">
-										<div  className="form-group col-md-6">
-											<label for="inputEmail4">Contact Details</label>
-											<input type="phone"  className="form-control" placeholder="Mobile Number"/>
-										</div>
-										<div  className="form-group col-md-6">
-											<label for="inputPassword4">Landing Number</label>
-											<input type="text"  className="form-control" id="inputPassword4"placeholder="Landing Number(optional)"/>
-										</div>
-									</div>
-									<div className="row">
-									 <label for="inputAddress">Address Details</label>
-										<div  className="form-group col-md-6 mb-1">
-											
-											 <CountryDropdown
-											     className="form-control"
-												value={country}
-												onChange={(val) => this.selectCountry(val)} />
-												</div>
-										<div  className="form-group col-md-6 mb-1">
-											 
-											 <RegionDropdown
-											 className="form-control"
-													country={country}
-													value={region}
-													onChange={(val) => this.selectRegion(val)} />
-										</div>
-									</div>
-									<div className="row">
-										<div  className="form-group col-md-6 mb-1">
-											
-										    <div  className="col-sm-5">
-												<div  className="btn-group">
-													<button  className="form-control"><HiOutlineOfficeBuilding/>Apartment</button>
-													<button  className="form-control" ><i className="bi bi-house-door"></i>House</button>
-													<button  className="form-control" ><ImOffice/>Office</button>
-													  
-											    </div>
-											</div>
-									    </div>
-										<div  className="form-group col-md-6 mb-1">
-											
-											<input type="text" style={{height:"60px"}} className="form-control" id="inputAddress" placeholder="Addess Title(optional)"/>
-										</div>
-									</div>	
-									<div className="row">
-										<div  className="form-group  col-md-6 mb-1">
-						
-											<input type="text"  className="form-control" id="inputAddress2" placeholder="Street"/>
-										</div>
-										 
-										<div  className="form-group col-md-6 mb-1">
-						
-											<input type="text"  className="form-control" id="inputAddress2" placeholder="Building"/>
-										</div>
-									</div>
-									<div className="row">
-										<div  className="form-group col-md-6 mb-1">
-						
-											<input type="text"  className="form-control" id="inputAddress2" placeholder="Floor"/>
-										</div>
-										<div  className="form-group col-md-6 mb-1">
-						
-											<input type="text"  className="form-control" id="inputAddress2" placeholder="Apartment No"/>
-										</div>
-									</div>	
-									<div  className="form-group  col-md-6 mb-1">
-					
-										<input type="text"  className="form-control" id="inputAddress2" placeholder="Assitional Directions(optional)"/>
-									</div>
+					<div className="modal-dialog">
+						<div className="modal-content">
+							<div className="modal-header">
+								<h5 className="modal-title" id="exampleModalLabel3">Add New Address</h5>
+								<button type="button" className="close border-0" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;
+									</span>
+								</button>
+							</div>
+							<div className="modal-body "style={{width:"400px",height:"400px"}}>
+								<Map/>
 							</div>
 							<div className="modal-footer">
-								<div className="d-flex justify-content-start">
-									<button type="button" data-toggle="modal"  className="btn btn-default border-success text-success"data-target="#exampleModal3" data-dismiss="modal" ><i  className="bi bi-geo-alt"></i>View Map
-									</button>
-								</div>
-								<div className="d-flex justify-content-end">
-									<button type="button" data-toggle="modal" className="btn btn-primary " data-dismiss="modal">Save Address
-									</button>
-                                </div>
 								
+								<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal4"  data-dismiss="modal">Confirm 
+								</button>
 							</div>
-						</form>
+						</div>
+					</div>
+				</div>
+				<div className="modal fade" id="exampleModal4" tabIndex="-1" aria-labelledby="exampleModalLabel4" aria-hidden="true">
+					<div className="modal-dialog">
+						<div className="modal-content">
+							<div className="modal-header">
+								<h5 className="modal-title" id="exampleModalLabel4">Add New Address</h5>
+								<button type="button" className="close border-0" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;
+									</span>
+								</button>
+							</div>
+							<form>
+								<div className="modal-body">
+									<Address/>
+								</div>
+								<div className="modal-footer">
+									<div className="d-flex justify-content-start">
+										<button type="button" data-toggle="modal"  className="btn btn-default border-success text-success"data-target="#exampleModal3" data-dismiss="modal" ><i  className="bi bi-geo-alt"></i>View Map
+										</button>
+									</div>
+									
+								</div>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
-	        </div>
 			
 			
 			

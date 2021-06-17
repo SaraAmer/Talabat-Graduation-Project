@@ -28,7 +28,7 @@ class Savedcards extends React.Component {
 									</li>
 									<li className="list-group-item"><Link to="/my-account/savedaddr"><p style={{color:"black"}}>Saved Addresses</p></Link>
 									</li>
-									<li className="list-group-item"><Link to="/my-account/Orders "><p style={{color:"black"}}>My Orders </p>
+									<li className="list-group-item"><Link to="/my-account/orders "><p style={{color:"black"}}>My Orders </p>
 										</Link>
 									</li>
 									<li className="list-group-item"><Link ><p style={{color:"#FF5900"}}>Saved Cards</p>
