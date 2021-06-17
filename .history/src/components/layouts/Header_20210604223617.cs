@@ -1,3 +1,0 @@
-.hovers:hover {
-    background: Red;
-}
