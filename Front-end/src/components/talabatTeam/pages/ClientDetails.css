@@ -1,0 +1,49 @@
+.detailsLabel{
+    font-family: 'Courier New';
+    font-size: 25px;
+    text-decoration: solid;
+    color:white;
+}
+.userData{
+    font-size: 15px;
+    text-decoration: solid;
+    color:white
+
+}
+/* span{
+    
+    font-size: 13px;
+    text-decoration: solid;
+
+}
+.container{
+    background-image:"sky.jpg";
+}  */
+/* 
+.container {
+  position: absolute;
+  right:200;
+  margin: 20px;
+  width: 1000px;
+  height:90%;
+  padding: 16px;
+  background-color: white;
+}
+
+input {
+  width: 70%;
+  background-color: #fcfcfc;
+  border: 0;
+  border-bottom: 2px solid lightgrey;
+  padding: 10px;
+} */
+
+.backButton{
+background-color: #4c7faf;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
