@@ -21,7 +21,7 @@ class LoginUSer extends React.Component {
     console.log("submit");
   };
   //***
-  schema = {
+  sschema = {
     email: Joi.string().email().required(),
     password: Joi.string()
       .regex(/[a-zA-Z0-9]{3,30}/)
@@ -32,7 +32,7 @@ class LoginUSer extends React.Component {
     const errors = {};
     const state = { ...this.state };
     delete state.errors;
-    const res = Joi.validate(state, this.schema, { abortEarly: false });
+    const res = Joi.validate(state, this.sschema, { abortEarly: false });
     console.log(res);
     if (res.error == null) {
       this.setState({ errors: {} });
