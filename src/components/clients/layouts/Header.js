@@ -3,8 +3,7 @@ import Flag from "react-world-flags";
 import Accountinfo from "../userDetails/Account info";
 import Savedaddr from "../userDetails/Savedaddr";
 import LoginUSer from "../Login/login";
-import PartnerRegister from "../Partner/partnerRegister";
-
+import PartnerRegister from "../../Restaurants/Partner/partnerRegister"
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 class Header extends React.Component {
   render() {
