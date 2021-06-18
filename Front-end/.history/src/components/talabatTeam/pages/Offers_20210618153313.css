@@ -1,4 +1,4 @@
 .modal {
-  position:"absolute";
+  position:"absolute",
   z-index:10000;
 }

@@ -266,9 +266,7 @@ class ViewOffers extends React.Component {
                               <div className="card-body">
                                 <div
                                   className="list-group list-group-flush"
-                                  style={{
-                                    display: "flex",
-                                  }}
+                                
                                 >
                                   <div style={{ marginLeft: "0px" }}>
                                     <img

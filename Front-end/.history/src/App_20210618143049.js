@@ -17,12 +17,12 @@ function App(){
 
   return (
     <div className="App">
-
+     <Header/>
      {/* <RestaurantMenu/> */}
      {/* <Register/> */}
   <TeamHome/>
   {/* <Home/> */}
-	\
+	<Footer/>
     </div>
   );
   }

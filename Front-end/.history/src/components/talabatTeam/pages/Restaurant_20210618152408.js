@@ -25,7 +25,7 @@ class Restaurant extends React.Component {
           location: "smouha,alexandria",
           img: "https://img.theculturetrip.com/768x/smart/wp-content/uploads/2018/03/sretsis-parlour-02.jpg",
           joinedIn: "20/6/2020",
-          email: "Starbucks@yahoo.com",
+          email: "Cilantro@yahoo.com",
         },
         {
           id: "4",
@@ -33,7 +33,7 @@ class Restaurant extends React.Component {
           location: "smouha,alexandria",
           img: "https://www.elitetraveler.com/wp-content/uploads/2007/02/Alain-Ducasse-768x512.jpg",
           joinedIn: "20/6/2020",
-          email: "Pick 'N Go@yahoo.com",
+          email: "Cilantro@yahoo.com",
         },
         {
           id: "5",
@@ -54,10 +54,10 @@ class Restaurant extends React.Component {
         {
           id: "7",
           name: "Starbucks",
-          location: "smouha,alexandria",
+          location: "smouha,alexandria",  
           img: "https://img.theculturetrip.com/768x/smart/wp-content/uploads/2018/03/sretsis-parlour-02.jpg",
           joinedIn: "20/6/2020",
-          email: "Starbuckso@yahoo.com",
+          email: "Cilantro@yahoo.com",
         },
         {
           id: "8",
@@ -65,7 +65,7 @@ class Restaurant extends React.Component {
           location: "smouha,alexandria",
           img: "https://img.theculturetrip.com/768x/smart/wp-content/uploads/2018/03/as-is.jpg",
           joinedIn: "20/6/2020",
-          email: "Cinabbon@yahoo.com",
+          email: "Cilantro@yahoo.com",
         },
       ],
     };
