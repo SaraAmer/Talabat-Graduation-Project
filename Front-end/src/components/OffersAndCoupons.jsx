@@ -22,7 +22,7 @@ function OffersAndCoupons() {
             name="offers"
         />
            <Router history = {history}>
-           <div className="container-fluid">
+           <div className="container-fluid" style={{marginTop:10}}>
            <div className="row offers">
             <div className="col-6 promotions">
                 
@@ -35,7 +35,7 @@ function OffersAndCoupons() {
              
                 <NavLink exact activeClassName="active-nav" to="/coupons">
                
-                <h3>Coupons</h3>
+                <h3 style={{color:"black"}} >Coupons</h3>
                </NavLink>
             </div>
            
