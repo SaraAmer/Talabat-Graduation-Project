@@ -1,0 +1,22 @@
+
+.panel-title {
+  position: relative;
+  color:#FF5900; 
+}
+  
+.panel-title::before {
+  content: "\f107";
+  color:#FF5900;
+  font-family: "FontAwesome"
+}
+
+.panel-title[aria-expanded="true"]::before {
+  content: "\f106";
+  
+}
+
+
+
+
+
+

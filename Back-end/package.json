@@ -10,8 +10,15 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "bcrypt": "^5.0.1",
         "express": "^4.17.1",
+<<<<<<< HEAD
         "morgan": "^1.10.0",
+=======
+        "jsonwebtoken": "^8.5.1",
+        "mongodb": "^3.6.9",
+        "mongoose": "^5.12.14",
+>>>>>>> 4a75a0cf9f778be22338f6b11831628a8023f91f
         "nodemon": "^2.0.7"
     }
 }

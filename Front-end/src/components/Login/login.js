@@ -1,10 +1,53 @@
 import "./login.css";
 import React, { Component } from "react";
 // #FF5900
+var Joi = require("joi-browser");
+
 class LoginUSer extends React.Component {
+  // ************************
+  state = {
+    email: "",
+    password: "",
+    errors: {},
+  };
+
+  handelchange = (e) => {
+    let state = { ...this.state };
+    state[e.currentTarget.name] = e.currentTarget.value;
+    this.setState(state);
+  };
+
+  handlesubmit = (e) => {
+    console.log("submit");
+  };
+  //***
+  sschema = {
+    email: Joi.string().email().required(),
+    password: Joi.string()
+      .regex(/[a-zA-Z0-9]{3,30}/)
+      .required(),
+  };
+
+  validate = () => {
+    const errors = {};
+    const state = { ...this.state };
+    delete state.errors;
+    const res = Joi.validate(state, this.sschema, { abortEarly: false });
+    console.log(res);
+    if (res.error == null) {
+      this.setState({ errors: {} });
+      return null;
+    }
+    for (const error of res.error.details) {
+      errors[error.path] = error.message;
+    }
+    this.setState({ errors });
+  };
+
+  //********************
   render() {
     return (
-      <form>
+      <form onSubmit={this.handlesubmit}>
         <div className="text-center mb-3">
           <div className="row mg-btm">
             <div className="col-md-12">
@@ -28,18 +71,13 @@ class LoginUSer extends React.Component {
         {/* <!-- Email input --> */}
         {/* style={{ borderBottom: "5px solid grey" }} */}
         <div className="mb-4">
-          {/* <input
-            type="email"
-            id="registerEmail"
-            className="form-control"
-            placeholder="Email"
-            for="registerEmail"
-            style={{ backgroundColor: "white" }}
-          /> */}
           <input
             type="text"
             className="form-control"
             placeholder="email@gmail.com"
+            name="email"
+            onChange={this.handelchange}
+            value={this.state.email}
           />
         </div>
 
@@ -49,8 +87,11 @@ class LoginUSer extends React.Component {
             type="password"
             id="registerPassword"
             className="form-control"
-            for="registerPassword"
+            htmlFor="registerPassword"
             placeholder="password"
+            name="password"
+            onChange={this.handelchange}
+            value={this.state.password}
           />
         </div>
         {/* *********************************************************************************** */}
@@ -61,9 +102,6 @@ class LoginUSer extends React.Component {
             type="checkbox"
             value=""
             id="registerCheck"
-            // style={{
-            //   backgroundColor: "#FF5900",
-            // }}
             aria-describedby="registerCheckHelpText"
           />
           <label className="form-check-label  mr-20" for="registerCheck">
@@ -72,7 +110,7 @@ class LoginUSer extends React.Component {
 
           <label
             className="form-check-label "
-            for="registerCheck"
+            htmlFor="registerCheck"
             style={{
               marginLeft: "150px",
             }}

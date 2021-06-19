@@ -8,6 +8,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import { makeStyles } from '@material-ui/core/styles';
 import AllRestaurants from './components/AllRestaurants'
 import PaginationMenu from '../src/components/restaurants-client/pagination';
+import TeamHome from './components/talabatTeam/TeamHome'
 import Home from './components/Home'
 import Register from './components/Register';
 import RestaurantMenu from './components/RestaurantMenu';
@@ -17,7 +18,7 @@ function App(){
 
   return (
     <div className="App">
-     <Header/>
+
      {/* <RestaurantMenu/> */}
      {/* <Register/> */}
   {/* <Home/> */}
