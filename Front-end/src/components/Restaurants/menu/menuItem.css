@@ -1,0 +1,24 @@
+#categories{
+    width: 95%;
+    background-color: #F5F5F5;
+    cursor: pointer;
+    margin: 10px 0px 10px 0px;
+}
+#categories h4{
+    padding: 8px;
+    margin: 5px;
+}
+#item-details{
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+}
+#product-img{
+    width: 56px;
+    height: 56px;
+}
+
+#product-name{
+    margin-left: 5px;
+    border: none;
+}
