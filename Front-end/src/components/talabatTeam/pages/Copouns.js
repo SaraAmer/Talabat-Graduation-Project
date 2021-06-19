@@ -6,6 +6,8 @@ import { FaBan } from "react-icons/fa";
 import { GrAdd } from "react-icons/gr";
 import { Link } from "react-router-dom";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { IoIosRemoveCircleOutline } from "react-icons/io";
+import { FcSearch } from "react-icons/fc";
 
 class Copouns extends React.Component {
   
@@ -246,7 +248,7 @@ class Copouns extends React.Component {
               />
 
               <span className="input-group-text border-0" id="search-addon">
-                <i className="fas fa-search"></i>
+                <FcSearch/>
               </span>
             </div>
           </div>

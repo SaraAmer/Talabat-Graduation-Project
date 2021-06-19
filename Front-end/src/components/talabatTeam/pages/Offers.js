@@ -5,8 +5,8 @@ import { FaBan } from "react-icons/fa";
 import './Offers.css'
 import { GrAdd } from "react-icons/gr";
 import { IoIosNotificationsOutline } from "react-icons/io";
-
-
+import { TiMinus } from "react-icons/ti";
+import { FcSearch } from "react-icons/fc";
 
 class Offers extends React.Component {
   constructor() {
@@ -78,7 +78,8 @@ class Offers extends React.Component {
         <div
           style={{
             display: "flex",
-         
+            alignItems: "center",
+            justifyContent: " center",
             color: "rgb(33, 33, 33)",
             backgroundColor: "rgb(246, 246, 246)",
             marginTop: "5px",
@@ -101,7 +102,7 @@ class Offers extends React.Component {
               />
 
               <span className="input-group-text border-0" id="search-addon">
-                <i className="fas fa-search"></i>
+                <FcSearch/>
               </span>
             </div>
           </div>
@@ -119,16 +120,18 @@ class Offers extends React.Component {
                       marginRight: "5px",
                       marginTop: "20px",
                       marginBottom: "8px",
-                   
-
                     }}
                   >
                     <img
                       className="card-img-top"
                       src={restaurant.img}
-                      style={{ paddingLeft: "0px", paddingRight: "0px",width:"235px" ,height:"170px"}}
+                      style={{
+                        paddingLeft: "0px",
+                        paddingRight: "0px",
+                        width: "235px",
+                        height: "170px",
+                      }}
                       alt="Card image cap"
-
                     ></img>
                     <div
                       className="card-body text-center"
@@ -165,7 +168,7 @@ class Offers extends React.Component {
                               aria-labelledby="exampleModalLongTitle"
                               aria-hidden="true"
                             >
-                              <div class="modal-dialog" role="document">
+                              <div class="modal-dialog" role="document" style={{zIndex:"70"}}>
                                 <div class="modal-content">
                                   <div class="modal-header">
                                     <h5
@@ -184,9 +187,7 @@ class Offers extends React.Component {
                                     </button>
                                   </div>
                                   <div class="modal-body">
-                                    <ViewOffers
-                                      resOffers={restaurant.offers}
-                                    />
+                                    <ViewOffers resOffers={restaurant.offers} />
                                   </div>
                                   <div class="modal-footer">
                                     <button
@@ -247,7 +248,7 @@ class ViewOffers extends React.Component {
                     }}
                   >
                     <div className="row">
-                      <div className="col-7">
+                      <div className="col-6">
                         {" "}
                         <b> {singleOffer.name} </b>{" "}
                       </div>
@@ -256,8 +257,23 @@ class ViewOffers extends React.Component {
                         {" "}
                         <b> price : </b> {singleOffer.offerPrice} L.E
                       </div>
+                      <div className="col-2">
+                        <button
+                         
+                          // onClick={() => this.props.removeSelected(this.props.menuItem)}
+                          //lessa h3ml implement lel function de
+                          style={{
+                            backgroundcolor: "blue",
+                            borderRadius: "100px",
+                            float: "right",
+                          }}
+                        >
+                          <TiMinus />
+                        </button>
+                      </div>
                     </div>
                   </h1>
+
                   {singleOffer.includedItems.length > 0
                     ? singleOffer.includedItems.map((item) => {
                         return (
@@ -276,7 +292,7 @@ class ViewOffers extends React.Component {
                                       style={{
                                         width: "90px",
                                         height: "90px",
-                                        borderRadius:"5px"
+                                        borderRadius: "5px",
                                       }}
                                     />
                                     {item.name}{" "}

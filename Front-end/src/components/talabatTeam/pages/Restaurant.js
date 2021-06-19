@@ -3,8 +3,8 @@ import DashboardNavbar from "./DashboardNavbar.js";
 import { FcInfo } from "react-icons/fc";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FaBan } from "react-icons/fa";
-import './Restaurant.css'
-
+import './Restaurant.css';
+import { FcSearch } from "react-icons/fc";
 class Restaurant extends React.Component {
   
   constructor() {
@@ -123,7 +123,7 @@ class Restaurant extends React.Component {
               />
 
               <span className="input-group-text border-0" id="search-addon">
-                <i className="fas fa-search"></i>
+               <FcSearch/>
               </span>
             </div>
           </div>
@@ -149,7 +149,7 @@ class Restaurant extends React.Component {
                       style={{
                         paddingLeft: "0px",
                         paddingRight: "0px",
-                        width: "235px",
+                          width: "235px",
                         height: "170px",
                       }}
                       alt="Card image cap"
