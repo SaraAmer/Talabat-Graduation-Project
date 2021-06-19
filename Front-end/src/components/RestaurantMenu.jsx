@@ -9,7 +9,7 @@ import Menu from './resturant-menu/Menu';
 import Review from './resturant-menu/review';
 import Info from './resturant-menu/Info';
 import { createHashHistory } from 'history';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 function RestaurantMenu() {
     const history = createHashHistory();
     //var isActive = this.context.router.route.location.pathname === this.props.to;
@@ -47,33 +47,53 @@ return(
  
             <div className="row">
                 <div className="col-3">
-                <Link activeClassName="active" to="menu">
+                <NavLink activeClassName="active" to="menu">
                
                <span> <MdRestaurantMenu/> Menu</span>
-                </Link>
+                </NavLink>
                
                 
               </div>
                 <div className="col-3"> 
                 <div className="item">
-                <Link to="review" >
+                <NavLink to="review" >
                 <span> <AiFillWechat/> Review</span>
-                </Link>
+                </NavLink>
                  </div>
                 </div>
                 <div className="col-3">
                 <div className="item">
-                <Link to="info" >
+                <NavLink to="info" >
                 <span> <AiFillInfoCircle/> Info</span>
-                </Link>
+                </NavLink>
                 
                 </div>
+                 </div>
+                 <div className="col-3">
+                    <div className="cart-container">
+                        <div>
+                            <h2>Your Cart</h2>
+                        </div>
+                        <div className="items">
+                            There is no items in cart
+                        </div>
+                    </div>
                  </div>
             </div>
             <Switch>
          <Route path = "/menu" component = {Menu} />
          <Route path = "/review" component = {Review} />
-         <Route path = "/info" component = {Info} />
+         <Route path = "/info" component ={()=>
+         <Info
+          name="Holmes" 
+          minOrder="10.00"
+          workingHours="2:00PM - 5:00PM|7:30PM - 12:00AM"
+          deliveryTime="60 mins"
+          deliveryFee = "20.00"
+          preOrder="Yes"
+          rating="Good"
+          cuisines = "Grills, Oriental, Sandwiches"
+           />} />
          </Switch>
             </Router>
         </div>

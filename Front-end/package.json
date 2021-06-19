@@ -23,6 +23,9 @@
         "react-icons": "^4.2.0",
         "react-router-dom": "^5.2.0",
         "react-scripts": "4.0.3",
+        "react-scrollspy": "^3.4.3",
+        "react-scrollspy-navigation": "^1.0.2",
+        "react-step-builder": "^2.0.10",
         "react-world-flags": "^1.4.0",
         "web-vitals": "^1.0.1"
     },

@@ -11,6 +11,7 @@ import PaginationMenu from '../src/components/restaurants-client/pagination';
 import Home from './components/Home'
 import Register from './components/Register';
 import RestaurantMenu from './components/RestaurantMenu';
+import OffersAndCoupons from './components/OffersAndCoupons';
 function App(){
 
 
@@ -19,7 +20,8 @@ function App(){
      <Header/>
      {/* <RestaurantMenu/> */}
      {/* <Register/> */}
-  <Home/>
+  {/* <Home/> */}
+  <OffersAndCoupons/>
 	 <Footer/>
     </div>
   );
