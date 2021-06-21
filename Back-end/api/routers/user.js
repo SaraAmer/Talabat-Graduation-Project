@@ -5,19 +5,21 @@ const bcrypt = require("bcrypt");
 // var Schema = require("mongoose").Schema;
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
+//************Mailer************************************** */
+const nodemailer = require("nodemailer");
+const sendgridTransport = require("nodemailer-sendgrid-transport");
 
+const transporter = nodemailer.createTransport(
+  sendgridTransport({
+    auth: {
+      //api_key:SENDGRID_API
+      api_key:
+        "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",
+    },
+  })
+);
+/*************************************************************** */
 router.post("/signup", (req, res, next) => {
-  // const user = new User({
-  //   _id: new mongoose.Types.ObjectId(),
-  //   email: req.body.email,
-  //   password: bcrypt.hash(req.body.password, 10, (err, hash) => {
-  //     if (err) {
-  //       return res.status(500).json({
-  //         error: err,
-  //       });
-  //     }
-  //   }),
-  // });
   const email = req.body.email;
   const password = req.body.password;
 
@@ -44,6 +46,15 @@ router.post("/signup", (req, res, next) => {
               .save()
               .then((result) => {
                 console.log(result);
+                transporter.sendMail({
+                  //send message
+                  // ************************** */
+                  to: user.email,
+                  from: "eng.marwamedhat2020@gmail.com",
+                  subject: "request to signup in talabat ",
+                  html: "<h1>information will revise and we will contact you </h1>",
+                  //********************* */
+                });
                 res.status(201).json({
                   message: "User created",
                 });

@@ -10,6 +10,7 @@ const User = require("./api//models/user");
 // ******************************************
 const restaurantsRoutes = require("./api/routers/restaurants");
 const userRoutes = require("./api/routers/user");
+const authRoutes = require("./api/routers/auth");
 
 // **********************************
 mongoose.connect(
@@ -40,55 +41,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //*******************
 app.use("/restaurants", restaurantsRoutes);
 app.use("/user", userRoutes);
+app.use("/auth/restaurant", authRoutes);
 
 // *****************
-app.post("/hello", (req, res) => {
-  console.log("ji");
-  const name = req.body.name;
-  res.send({ message: `welcome ${name}` });
-});
-//*********************
-// app.post("/signup", (req, res, next) => {
-//   const email = req.body.email;
-//   const password = req.body.password;
-
-//   User.find({ email: req.body.email })
-//     .exec()
-//     .then((user) => {
-//       if (user.length >= 1) {
-//         return res.status(409).json({
-//           message: "Mail exists",
-//         });
-//       } else {
-//         bcrypt.hash(req.body.password, 10, (err, hash) => {
-//           if (err) {
-//             return res.status(500).json({
-//               error: err,
-//             });
-//           } else {
-//             const user = new User({
-//               _id: new mongoose.Types.ObjectId(),
-//               email: req.body.email,
-//               password: hash,
-//             });
-//             user
-//               .save()
-//               .then((result) => {
-//                 console.log(result);
-//                 res.status(201).json({
-//                   message: "User created",
-//                 });
-//               })
-//               .catch((err) => {
-//                 console.log(err);
-//                 res.status(500).json({
-//                   error: err,
-//                 });
-//               });
-//           }
-//         });
-//       } //else
-//     }); //then
+// app.post("/hello", (req, res) => {
+//   console.log("ji");
+//   const name = req.body.name;
+//   res.send({ message: `welcome ${name}` });
 // });
-// ********************
+//******************
+
+//***************
 module.exports = app;
