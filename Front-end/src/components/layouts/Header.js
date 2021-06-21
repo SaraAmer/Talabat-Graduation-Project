@@ -9,7 +9,6 @@ import Savedcards from "../userDetails/Savedcards";
 import Checkout from "../carts/checkout"
 import Cart from"../carts/cart";
 import LoginUSer from "../Login/login";
-
 import AllRestaurants from "../AllRestaurants";
 import RestaurantDetails from "../restaurants-client/RestaurantDetails";
 import PartnerLogin from "../partnerLogin/PartnerLogin";
@@ -20,6 +19,21 @@ import Home from "../Home"
 import Restaurant from "../Restaurants/Restaurant"
 
 class Header extends React.Component {
+constructor(){
+  super();
+  this.state= {
+    login: false,
+  }
+}
+componentDidMount(){
+  if (localStorage['username']){
+   this.setState({login: true})
+  }
+}
+logout = ()=>{
+  localStorage.removeItem('username');
+  this.setState({login: false})
+}
   render() {
     return (
       <Router>
@@ -174,6 +188,7 @@ class Header extends React.Component {
                   <Flags/>
                    
                   </li>
+                  {!this.state.login?(
                   <li className="nav-item">
                     <button
                       type="button"
@@ -184,14 +199,20 @@ class Header extends React.Component {
                     >
                       Login
                     </button>
+                    
                   </li>
+    ): ""}
                  <li className=" nav-item dropdown text-white m-2 " >
-					      	<p   data-toggle="dropdown"   ><RiShoppingBasket2Fill/> </p>
+                   {this.state.login?(<p   data-toggle="dropdown"   ><RiShoppingBasket2Fill/> </p>)
+                   :""}
+                   
+					      	
 					      	<div className=" dropdown-menu " style={{position: 'absolute', right: 0}}>
 						        <Cart/>
 					
 						      </div>
 				        </li>
+                {this.state.login?(
                   <li className="nav-item  ">
                     <div className="dropdown nav-Link  " >
                       <Link
@@ -204,6 +225,7 @@ class Header extends React.Component {
                       >
                         My account
                       </Link>
+                      
                       <ul
                         className="dropdown-menu"
                         aria-labelledby="dropdownMenuLink1"
@@ -226,6 +248,7 @@ class Header extends React.Component {
                         <li>
                           <Link to="/my-account/orders" className="dropdown-item">
                             <p>
+                              
                               <i
                                 className="bi bi-cart3"
                                 style={{
@@ -282,6 +305,7 @@ class Header extends React.Component {
                                   marginRight: "20px",
                                   
                                 }}
+                                onClick={this.logout}
                                
                               > logout</button>
                              
@@ -289,8 +313,9 @@ class Header extends React.Component {
                           </Link>
                         </li>
                       </ul>
+                     
                     </div>
-                  </li>
+                  </li> ):""}
                 </ul>
               </div>
             </div>

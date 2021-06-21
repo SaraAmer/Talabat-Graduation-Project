@@ -1,4 +1,4 @@
-.navbar {
+#restaurant-header {
    
     background-color: #314A46;
     font-size: 16px;
@@ -7,11 +7,11 @@
     color: white;
     font-weight: bold;
     margin: 15px;
-    margin-left: 150px;
+    margin-left: 100px;
   
 }
 #restaurnt-main-nav{
-    margin-left: 700px;
+    margin-left: 300px;
 }
 #notification-drop{
   

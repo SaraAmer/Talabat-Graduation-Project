@@ -66,7 +66,7 @@ class PartnerLogin extends React.Component {
                     </span>
                   </i>
                   {/* **************************Form ********************************************** */}
-                  <form action="/restaurant/dashboard" method="post" onSubmit={this.handlesubmit}>
+                  <form action="/restaurant/dashboard"  onSubmit={this.handlesubmit}>
                     <div className="text-center mb-3">
                       <div className="row mg-btm">
                         <div

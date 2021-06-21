@@ -20,8 +20,15 @@ class LoginUSer extends React.Component {
   handlesubmit = (e) => {
     console.log("submit");
   };
+  login =(e)=>{
+    e.preventDefault();
+    localStorage.setItem("username" , this.state.email);
+    window.location.reload();
+
+ 
+  }
   //***
-  schema = {
+  sschema = {
     email: Joi.string().email().required(),
     password: Joi.string()
       .regex(/[a-zA-Z0-9]{3,30}/)
@@ -32,7 +39,7 @@ class LoginUSer extends React.Component {
     const errors = {};
     const state = { ...this.state };
     delete state.errors;
-    const res = Joi.validate(state, this.schema, { abortEarly: false });
+    const res = Joi.validate(state, this.sschema, { abortEarly: false });
     console.log(res);
     if (res.error == null) {
       this.setState({ errors: {} });
@@ -130,7 +137,9 @@ class LoginUSer extends React.Component {
             marginLeft: "100px",
             borderRadius: "15px",
             width: "300px",
+            
           }}
+          onClick={this.login}
         >
           Login
         </button>
@@ -143,9 +152,9 @@ class LoginUSer extends React.Component {
         >
           {" "}
           Don't have an account ?{" "}
-          <p style={{ color: "#FF5900", display: "inline" }}>
+          <a href="/Register" style={{ color: "#FF5900", display: "inline" }}>
             create an account
-          </p>{" "}
+          </a>{" "}
         </p>
       </form>
     );

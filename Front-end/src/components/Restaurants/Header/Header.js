@@ -18,22 +18,23 @@ import Orders from '../orders/orders';
 class RestaurantHeader extends React.Component{
     render(){
             return ( 
-                <Router>
-                    <nav className="navbar navbar-expand-lg navbar-light " >
+                <div >
+                <Router >
+                    <nav className="navbar navbar-expand-lg navbar-light" id ="restaurant-header" >
                         <div className="container-fluid ">
                             <label className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                                 <span className="navbar-toggler-icon"></span>
                             </label>
-                            <a className="navbar-brand text-white" href="/" ><h1>talabat Partners</h1></a>
+                            <a className="navbar-brand text-white" href="/restaurant/dashboard" ><h1>talabat Partners</h1></a>
                           
                                 <div className=" container float-right  d-none d-sm-block" id="restaurnt-main-nav">
                             
                                     <ul className="navbar-nav">
                                         <li className="nav-item">
-                                            <Link to="/orders" className="nav-link text-white " aria-current="page" >Orders</Link>
+                                            <Link to="/orders" className="nav-link text-white "  >Orders</Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link className="nav-link text-white"  to="/menu">Profile</Link>
+                                            <Link className="nav-link text-white"  to="/menu" >Profile</Link>
                                         </li>
 
                                         <li>
@@ -60,13 +61,13 @@ class RestaurantHeader extends React.Component{
                             </div>
                     </nav>
                     <Switch>
-                        <Route exact path="/">
+                        <Route exact path="/restaurant/dashboard">
                             <Dashboard/>
                         </Route>
                         <Route path="/menu">
                             <Profile/>
                         </Route>
-                        <Route exact path="/orders">
+                        <Route path="/orders">
                             <Orders/>
 
                         </Route>
@@ -77,6 +78,7 @@ class RestaurantHeader extends React.Component{
                     </Switch>    
 
                 </Router>
+                </div>
             );
     }
 }
