@@ -52,6 +52,9 @@ class OffersNavbar extends React.Component {
             class="navbar navbar-light"
             style={{
               backgroundColor: "#e3f2fd",
+              display:"flex",
+              justifyContent:"center",
+              alignItems:"center"
              
             }}
           >
@@ -70,8 +73,8 @@ class OffersNavbar extends React.Component {
                     paddingLeft: "15px",
                     backgroundColor: item.active ? "rgb(6, 11,38)" : "",
                     color: item.active ? "white" : "",
-                    marginRight: "150px",
-                    marginLeft: "150px",
+                    marginRight: "180px",
+                    marginLeft: "180px",
                   }}
                   onClick={() => this.toggleActive(item.text)}
                 >

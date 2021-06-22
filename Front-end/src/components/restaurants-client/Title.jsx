@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
-function Title(){
+function Title(props){
 
     return(
         <div className="container">
     <div className="restaurants-title" >
-        <h1>All Restaurants</h1>
+        <h1>{props.name}</h1>
         </div>
         </div>
     

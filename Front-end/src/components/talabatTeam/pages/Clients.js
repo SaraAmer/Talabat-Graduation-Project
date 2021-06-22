@@ -7,7 +7,8 @@ import { FaBan } from "react-icons/fa";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import DashboardNavbar from "./DashboardNavbar.js";
 import ClientDetails from "./ClientDetails.js";
-import "./Clients.css"
+import "./Clients.css";
+import { FcSearch } from "react-icons/fc";
 
 
 class Clients extends React.Component {
@@ -103,7 +104,7 @@ class Clients extends React.Component {
               />
 
               <span className="input-group-text border-0" id="search-addon">
-                <i className="fas fa-search"></i>
+              <FcSearch/>
               </span>
             </div>
           </div>

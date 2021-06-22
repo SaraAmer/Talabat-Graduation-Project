@@ -7,7 +7,8 @@
 /.history
 # testing
 /coverage
-
+/Front-end/node_modules
+/Back-end/node_modules
 # production
 /build
 

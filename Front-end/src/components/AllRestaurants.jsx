@@ -41,7 +41,9 @@ const classes = useStyles();
     
     <div className="all-restaurants">
     <div className="content">
-    <Title/>
+    <Title
+      name="All Restaurants"
+    />
     <Search/>
     <Restaurants rests={currentRests} />
     <div className="pagination justify-content-md-center">

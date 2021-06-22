@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import "./App.css";
 import Header from './components/layouts/Header';
 import Footer from './components/layouts/Footer';
@@ -12,21 +12,24 @@ import TeamHome from './components/talabatTeam/TeamHome'
 import Home from './components/Home'
 import Register from './components/Register';
 import RestaurantMenu from './components/RestaurantMenu';
-function App(){
+import OffersAndCoupons from './components/OffersAndCoupons';
+
+function App() {
 
 
-  return (
-    <div className="App">
-     <Header/>
-     {/* <RestaurantMenu/> */}
-     {/* <Register/> */}
-  {/* <TeamHome/> */}
-  <Home/>
-	<Footer/>
-    </div>
-  );
-  }
+    return ( <
+        div className = "App" >
+
+        { /* <RestaurantMenu/> */ } { /* <Register/> */ } { /* <Home/> */ } <
+        Header / >
+        <
+        OffersAndCoupons / >
+        <
+        Footer / >
+        <
+        /div>
+    );
+}
 
 
 export default App;
-
