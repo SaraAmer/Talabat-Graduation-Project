@@ -35,7 +35,7 @@ function AdminHeader() {
 ]
 
   return (
-    <>
+    <div>
       <nav class="navbar navbar-expand-sm ">
         <Link to="#" className="menu-bars">
           <IconContext.Provider value={{ color: "#fff" }}>
@@ -169,7 +169,7 @@ function AdminHeader() {
           })}
         </ul>
       </nav>
-    </>
+    </div>
   );
 }
 
