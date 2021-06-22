@@ -1,0 +1,44 @@
+#charts-container{
+    width: 90%;
+    margin: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+#dashboard-logo{
+    margin-left: 40px;
+    margin-top: 10px;
+ }
+
+#notes_container{
+
+    width: 40%;  
+    display: flex;
+    flex-wrap: wrap;
+  
+}
+.notes{
+width: 40%;
+background-color:white;
+margin: 0px 20px 20px 20px;
+text-align: center;
+box-shadow: -1px -1px 2px 2px #DDD ,
+1px 1px 1px 1px #DDD;
+
+}
+.notes h5 {
+    margin: 45px 0px 0px 0px;
+    color: #98A6AD;
+   
+}
+.notes h3 {
+    margin: 10px 10px 0px 0px;
+    color: #6C757D;
+  
+}
+#Chart{
+    width: 50%;
+    margin-right: 20px;
+   
+    
+}

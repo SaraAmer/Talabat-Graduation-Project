@@ -15,7 +15,8 @@ body {
 .all-restaurants,
 .restaurant-details,
 .registration,
-.restaurant-menu {
+.restaurant-menu,
+.OffersAndCoupons {
     box-sizing: border-box;
     margin: 0px auto 20px;
     padding-top: 20px;
@@ -26,6 +27,7 @@ body {
     box-shadow: rgb(171 169 171) 0px 0px 5px 0px;
 }
 
+.OffersAndCoupons .content,
 .all-restaurants .content {
     margin: 0px;
     padding: 0px;
@@ -33,7 +35,8 @@ body {
     font-weight: 400;
 }
 
-.all-restaurants .restaurant {
+.all-restaurants .restaurant,
+.OffersAndCoupons .restaurant {
     cursor: pointer;
     border: 1px solid #ccc;
     margin-left: 10px;
@@ -43,20 +46,25 @@ body {
     transition: ease-in-out 0.4s;
 }
 
+.OffersAndCoupons .restaurant:hover,
 .all-restaurants .restaurant:hover {
     transform: scale(1.1);
 }
 
+.OffersAndCoupons .restaurant .img-container,
 .all-restaurants .restaurant .img-container {
     padding: 10px;
 }
 
+.OffersAndCoupons .restaurant .details h2,
+.OffersAndCoupons .restaurant .details p,
 .all-restaurants .restaurant .details h2,
 .all-restaurants .restaurant .details p {
     font-size: 14px;
     line-height: 1.7;
 }
 
+.OffersAndCoupons .restaurant .details p,
 .all-restaurants .restaurant .details p {
     color: rgb(139, 135, 135);
 }
@@ -350,11 +358,11 @@ a:link {
 }
 
 .leftBg {
-    width: 194px;
+    width: 100%;
 }
 
 .rightBg {
-    width: 349px;
+    width: 100%;
 }
 
 @media only screen and (max-width: 600px) {
@@ -753,4 +761,35 @@ ul.nav-pills {
 
 div.col-8 div {
     height: 500px;
+}
+
+.OffersAndCoupons .offers h3 {
+    cursor: pointer;
+}
+
+.OffersAndCoupons .offers {
+    border-bottom: 1px solid #dadada;
+    margin-bottom: 20px;
+}
+
+.OffersAndCoupons .promotions.active,
+.OffersAndCoupons .coupons.active {
+    display: inline-block;
+    border-bottom: 2px solid #FF5900;
+}
+
+.OffersAndCoupons .active-nav {
+    border-bottom: 2px solid #FF5900;
+    display: block;
+}
+
+.cart-container {
+    background-color: rgb(233, 233, 233);
+    min-height: 200px;
+}
+
+.cart-container h2 {
+    background-color: #FF5900;
+    color: #fff;
+    font-size: 27px;
 }

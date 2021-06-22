@@ -1,8 +1,15 @@
 const express = require("express");
+const morgan = require("morgan");
+const app = express();
+
+
+//to show extra information when making a request
+app.use(morgan('dev'));
+
 // const mongoose = require("mongodb").MongoClient;
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const app = express();
+
 var Schema = require("mongoose").Schema;
 // **********************
 const bcrypt = require("bcrypt");
@@ -21,6 +28,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use('/uploads', express.static('uploads'));
 
+
 mongoose.connect('mongodb+srv://eithar:123@cluster0.jg0og.mongodb.net/Talabat?retryWrites=true&w=majority')
     .then(result => {
         app.listen(4000);
@@ -30,9 +38,11 @@ mongoose.connect('mongodb+srv://eithar:123@cluster0.jg0og.mongodb.net/Talabat?re
     .catch(err => {
         console.log(err);
     });
+
+
 var Schema = mongoose.Schema;
 console.log(
-  "********************************************************************"
+    "********************************************************************"
 );
 console.log(require("util").inspect(Schema.Types.ObjectId));
 //*********** */
@@ -44,9 +54,9 @@ app.use("/user", userRoutes);
 
 // *****************
 app.post("/hello", (req, res) => {
-  console.log("ji");
-  const name = req.body.name;
-  res.send({ message: `welcome ${name}` });
+    console.log("ji");
+    const name = req.body.name;
+    res.send({ message: `welcome ${name}` });
 });
 
 
@@ -83,6 +93,29 @@ var upload = multer({ storage: storage });
 //   const email = req.body.email;
 //   const password = req.body.password;
 
+
+//If reaches this line, then there is an error
+app.use((req, res, next) => {
+    const error = new Error('Not Found');
+    error.status = 404;
+
+    next(error);
+});
+//handel error:
+app.use((error, req, res, next) => {
+
+    res.status(error.status || 500);
+    res.json({
+        error: {
+            message: error.message
+        }
+    });
+
+});
+
+
+
+module.exports = app;
 //   User.find({ email: req.body.email })
 //     .exec()
 //     .then((user) => {
@@ -122,4 +155,3 @@ var upload = multer({ storage: storage });
 //     }); //then
 // });
 // ********************
-module.exports = app;
