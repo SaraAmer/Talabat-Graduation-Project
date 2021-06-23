@@ -25,6 +25,7 @@ const restaurantsRoutes = require("./api/routers/restaurants");
 const userRoutes = require("./api/routers/user");
 const foodRoutes = require("./api/routers/foods");
 const categoryRoutes = require("./api/routers/category");
+const offerRoutes = require("./api/routers/offers");
 //************ for upload img
 const fs = require('fs');
 require('dotenv/config');
@@ -58,6 +59,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/restaurants/category", categoryRoutes);
 app.use("/restaurants/foods", foodRoutes);
 app.use("/restaurants", restaurantsRoutes);
+app.use("/restaurants/offer", offerRoutes);
 app.use("/user", userRoutes);
 
 ///////////////Image upload /////////
