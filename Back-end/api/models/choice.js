@@ -1,14 +1,19 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const sectionSchema = new Schema({
+const choiceSchema = new Schema({
     name: {
         type: String,
         required: true
     },
-    foods: [{
+    status: {
+        type: String,
+        required: true
+
+    },
+    restaurant: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Food"
+        ref: "Restaurants"
     }],
     options: [{
         name: {
@@ -22,4 +27,4 @@ const sectionSchema = new Schema({
     }],
 
 });
-module.exports = mongoose.model('Section', sectionSchema);
+module.exports = mongoose.model('Choice', choiceSchema);
