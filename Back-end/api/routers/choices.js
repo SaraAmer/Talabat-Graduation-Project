@@ -1,26 +1,33 @@
 const mongoose = require("mongoose");
 const express = require("express");
 const router = express.Router();
-const Category = require('../models/category');
+const Choice = require('../models/choice');
 const Restaurant = require('../models/restaurant');
 
-// POST REQUEST : /restaurant/resId/category
-router.post("/:resId/category", (req, res, next) => {
-    const category = new Category({
+
+router.post("/:resId/food/choice", (req, res, next) => {
+    const myOptions = [];
+    const options = req.body.options;
+    for (option of options) {
+        myOptions.push(option);
+    }
+    const choice = new Choice({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
-        restaurant: req.params.resId
+        restaurant: req.params.resId,
+        options: myOptions,
+        status: req.body.status
 
     });
-    category
-        .save()
+    choice.save()
         .then(result => {
             res.status(201).json({
-                message: "Created category successfully",
+                message: "Created choice successfully",
                 createdCategory: {
                     name: result.name,
                     _id: result._id,
                     restaurant: result.restaurant,
+                    status: result.status,
                     request: {
                         type: 'GET',
                         url: "http://localhost:3000/restaurants/category" + result._id
@@ -37,25 +44,26 @@ router.post("/:resId/category", (req, res, next) => {
 });
 
 
-router.get("/:resId/category", (req, res, next) => {
+router.get("/:resId/choice", (req, res, next) => {
     const id = req.params.resId;
-    Category.find({ "restaurant": { _id: id } })
+    Choice.find({ "restaurant": { _id: id } })
         .exec()
         .then(result => {
             console.log(result);
             res.status(201).json({
-                Categories: result
+                Choices: result
             });
         });
 
 });
-router.delete("/category/:catId", (req, res, next) => {
-    const id = req.params.catId;
-    Category.remove({ _id: id })
+
+router.delete("/choice/:choId", (req, res, next) => {
+    const id = req.params.choId;
+    Choice.remove({ _id: id })
         .exec()
         .then(result => {
             res.status(200).json({
-                message: 'Category deleted'
+                message: 'Choice deleted'
             });
         })
         .catch(err => {
@@ -67,15 +75,24 @@ router.delete("/category/:catId", (req, res, next) => {
 });
 
 
+router.put("/choice/:choId", (req, res, next) => {
+    const id = req.params.choId;
 
-router.put("/category/:catId", (req, res, next) => {
-    const id = req.params.catId;
-
-    Category.findOne({ _id: id })
+    Choice.findOne({ _id: id })
         .exec()
-        .then(cat => {
-            cat.name = req.body.name ? req.body.name : cat.name;
-            return cat.save();
+        .then(choice => {
+            if (req.body.options) {
+                const myOptions = [];
+                const options = req.body.options;
+                for (option of options) {
+                    myOptions.push(option);
+                }
+                choice.options = myOptions
+            }
+
+            choice.name = req.body.name ? req.body.name : choice.name;
+            choice.status = req.body.status ? req.body.status : choice.status;
+            return choice.save();
         })
         .then(result => {
             res.status(200).json({
@@ -86,6 +103,23 @@ router.put("/category/:catId", (req, res, next) => {
             console.log("error message" + err);
         })
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
