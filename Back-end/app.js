@@ -26,6 +26,7 @@ const userRoutes = require("./api/routers/user");
 const foodRoutes = require("./api/routers/foods");
 const categoryRoutes = require("./api/routers/category");
 const offerRoutes = require("./api/routers/offers");
+const copounRoutes = require("./api/routers/copouns");
 const choiceRoutes = require("./api/routers/choices");
 //************ for upload img
 const fs = require('fs');
@@ -65,6 +66,7 @@ app.use("/restaurant", choiceRoutes, categoryRoutes, foodRoutes);
 
 app.use("/restaurants", restaurantsRoutes);
 app.use("/restaurants/offer", offerRoutes);
+app.use("/restaurants/copoun", copounRoutes);
 app.use("/user", userRoutes);
 
 app.use("/user", userRoutes);
