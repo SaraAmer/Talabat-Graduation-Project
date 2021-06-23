@@ -7,11 +7,15 @@ import { GrAdd } from "react-icons/gr";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { TiMinus } from "react-icons/ti";
 import { FcSearch } from "react-icons/fc";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
+import NewOffer from "./NewOffer";
 
 class Offers extends React.Component {
   constructor() {
     super();
     this.state = {
+      currentRestaurantId:"",
       restaurants: [
         {
           id: "1",
@@ -71,158 +75,185 @@ class Offers extends React.Component {
         },
       ],
     };
+
+
   }
+      setCurrrentResId=(resID)=>{
+      console.log(resID);
+
+        this.setState({
+        currentRestaurantId:resID
+      })
+   console.log(this.state.currentRestaurantId);
+    }
   render() {
     return (
-      <div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: " center",
-            color: "rgb(33, 33, 33)",
-            backgroundColor: "rgb(246, 246, 246)",
-            marginTop: "5px",
-            marginBottom: "15px",
-            paddingInline: "20px",
-            fontSize: "18px",
-          }}
-        >
-          <div>
-            <div
-              className="input-group rounded"
-              style={{ width: 600, marginTop: "15px", float: "right" }}
-            >
-              <input
-                type="search"
-                className="form-control rounded"
-                placeholder="Search for a restaurant"
-                aria-label="Search"
-                aria-describedby="search-addon"
-              />
+      <Router>
+        <div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: " center",
+              color: "rgb(33, 33, 33)",
+              backgroundColor: "rgb(246, 246, 246)",
+              marginTop: "5px",
+              marginBottom: "15px",
+              paddingInline: "20px",
+              fontSize: "18px",
+            }}
+          >
+            <div>
+              <div
+                className="input-group rounded"
+                style={{ width: 600, marginTop: "15px", float: "right" }}
+              >
+                <input
+                  type="search"
+                  className="form-control rounded"
+                  placeholder="Search for a restaurant"
+                  aria-label="Search"
+                  aria-describedby="search-addon"
+                />
 
-              <span className="input-group-text border-0" id="search-addon">
-                <FcSearch/>
-              </span>
+                <span className="input-group-text border-0" id="search-addon">
+                  <FcSearch />
+                </span>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="row">
-          {this.state.restaurants.length > 0
-            ? this.state.restaurants.map((restaurant) => {
-                return (
-                  <div
-                    className="card "
-                    style={{
-                      width: "260px",
-                      marginLeft: "16px",
-                      marginRight: "5px",
-                      marginTop: "20px",
-                      marginBottom: "8px",
-                    }}
-                  >
-                    <img
-                      className="card-img-top"
-                      src={restaurant.img}
-                      style={{
-                        paddingLeft: "0px",
-                        paddingRight: "0px",
-                        width: "235px",
-                        height: "170px",
-                      }}
-                      alt="Card image cap"
-                    ></img>
+          <div className="row">
+            {this.state.restaurants.length > 0
+              ? this.state.restaurants.map((restaurant) => {
+                  return (
                     <div
-                      className="card-body text-center"
-                      style={{ paddingBottom: "0px" }}
+                      className="card "
+                      style={{
+                        width: "260px",
+                        marginLeft: "16px",
+                        marginRight: "5px",
+                        marginTop: "20px",
+                        marginBottom: "8px",
+                      }}
                     >
-                      <h5 className="card-title text-center">
-                        {restaurant.name}
-                      </h5>
+                      <img
+                        className="card-img-top"
+                        src={restaurant.img}
+                        style={{
+                          paddingLeft: "0px",
+                          paddingRight: "0px",
+                          width: "235px",
+                          height: "170px",
+                        }}
+                        alt="Card image cap"
+                      ></img>
+                      <div
+                        className="card-body text-center"
+                        style={{ paddingBottom: "0px" }}
+                      >
+                        <h5 className="card-title text-center">
+                          {restaurant.name}
+                        </h5>
 
-                      <ul className="list-group list-group-flush">
-                        <li className="list-group-item">
-                          <div className="text-center">
-                            {/*                          
+                        <ul className="list-group list-group-flush">
+                          <li className="list-group-item">
+                            <div className="text-center">
+                              {/*                          
                             <button type="button" class="btn" data-toggle="modal" data-target={`#${restaurant.id}`}><FcInfo />
                               Copouns</button> */}
-                            <button
-                              type="button"
-                              class="btn "
-                              data-toggle="modal"
-                              data-target={`#${restaurant.id}`}
-                            >
-                              <FcInfo />
-                              Offers
-                            </button>
+                              <button
+                                type="button"
+                                class="btn "
+                                data-toggle="modal"
+                                data-target={`#${restaurant.id}`}
+                              >
+                                <FcInfo />
+                                Offers
+                              </button>
 
-                            {/* <div class="modal fade "  id={restaurant.id} tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                              {/* <div class="modal fade "  id={restaurant.id} tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg"> */}
 
-                            <div
-                              class="modal fade"
-                              id={restaurant.id}
-                              tabindex="-1"
-                              role="dialog"
-                              aria-labelledby="exampleModalLongTitle"
-                              aria-hidden="true"
-                            >
-                              <div class="modal-dialog" role="document" style={{zIndex:"70"}}>
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5
-                                      class="modal-title"
-                                      id="exampleModalLongTitle"
-                                    >
-                                      {restaurant.name} Offers
-                                    </h5>
-                                    <button
-                                      type="button"
-                                      class="close"
-                                      data-dismiss="modal"
-                                      aria-label="Close"
-                                    >
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                    <ViewOffers resOffers={restaurant.offers} />
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button
-                                      type="button"
-                                      class="btn btn-secondary"
-                                      data-dismiss="modal"
-                                    >
-                                      Close
-                                    </button>
-                                    <button
-                                      type="button"
-                                      class="btn btn-primary"
-                                    >
-                                      Save changes
-                                    </button>
+                              <div
+                                class="modal fade"
+                                id={restaurant.id}
+                                tabindex="-1"
+                                role="dialog"
+                                aria-labelledby="exampleModalLongTitle"
+                                aria-hidden="true"
+                              >
+                                <div
+                                  class="modal-dialog"
+                                  role="document"
+                                  style={{ zIndex: "70" }}
+                                >
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5
+                                        class="modal-title"
+                                        id="exampleModalLongTitle"
+                                      >
+                                        {restaurant.name} Offers
+                                      </h5>
+                                      <button
+                                        type="button"
+                                        class="close"
+                                        data-dismiss="modal"
+                                        aria-label="Close"
+                                      >
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <ViewOffers
+                                        resOffers={restaurant.offers}
+                                      />
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button
+                                        type="button"
+                                        class="btn btn-secondary"
+                                        data-dismiss="modal"
+                                      >
+                                        Close
+                                      </button>
+                                      <button
+                                        type="button"
+                                        class="btn btn-primary"
+                                      >
+                                        Save changes
+                                      </button>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        </li>
-                        <li className="list-group-item">
-                          <a href="/newoffer" className="card-link">
-                            <GrAdd />
-                            Add new offer
-                          </a>
-                        </li>
-                      </ul>
+                          </li>
+                          <li className="list-group-item">
+                            <a
+                              className="card-link"
+                              onClick={() =>
+                                this.setCurrrentResId(restaurant.id)
+                              }
+                              href={`/newoffer/${this.state.currentRestaurantId}`}
+                            >
+                              <GrAdd />
+                              Add new offer
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
-                  </div>
-                );
-              })
-            : "There's not any Offers yet"}
+                  );
+                })
+              : "There's not any Offers yet"}
+          </div>
         </div>
-      </div>
+        <Switch>
+          <Route path={`/newoffer/${this.state.currentRestaurantId}`} component={NewOffer} />
+        </Switch>
+      </Router>
     );
   }
 }

@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {Link} from "react-router-dom";
 import Copouns from "./Copouns";
 import Offers from "./Offers";
-import { Link } from "react-router-dom";
 
 
 class OffersNavbar extends React.Component {
