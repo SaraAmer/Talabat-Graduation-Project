@@ -8,7 +8,6 @@ app.use(morgan('dev'));
 
 //for images upload
 
-var fs = require('fs');
 var path = require('path');
 require('dotenv/config');
 
@@ -24,9 +23,10 @@ const User = require("./api//models/user");
 // ******************************************
 const restaurantsRoutes = require("./api/routers/restaurants");
 const userRoutes = require("./api/routers/user");
+const foodRoutes = require("./api/routers/foods");
+const categoryRoutes = require("./api/routers/category");
 //************ for upload img
 const fs = require('fs');
-const path = require('path');
 require('dotenv/config');
 var multer = require('multer');
 // parse application/x-www-form-urlencoded 
@@ -55,10 +55,10 @@ console.log(require("util").inspect(Schema.Types.ObjectId));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 //*******************
-
+app.use("/restaurants/category", categoryRoutes);
+app.use("/restaurants/foods", foodRoutes);
 app.use("/restaurants", restaurantsRoutes);
 app.use("/user", userRoutes);
-
 
 ///////////////Image upload /////////
 
