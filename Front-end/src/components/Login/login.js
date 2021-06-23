@@ -20,6 +20,13 @@ class LoginUSer extends React.Component {
   handlesubmit = (e) => {
     console.log("submit");
   };
+  login =(e)=>{
+    e.preventDefault();
+    localStorage.setItem("username" , this.state.email);
+    window.location.reload();
+
+ 
+  }
   //***
   sschema = {
     email: Joi.string().email().required(),
@@ -130,7 +137,9 @@ class LoginUSer extends React.Component {
             marginLeft: "100px",
             borderRadius: "15px",
             width: "300px",
+            
           }}
+          onClick={this.login}
         >
           Login
         </button>
@@ -143,9 +152,9 @@ class LoginUSer extends React.Component {
         >
           {" "}
           Don't have an account ?{" "}
-          <p style={{ color: "#FF5900", display: "inline" }}>
+          <a href="/Register" style={{ color: "#FF5900", display: "inline" }}>
             create an account
-          </p>{" "}
+          </a>{" "}
         </p>
       </form>
     );

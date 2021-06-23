@@ -24,23 +24,28 @@ const User = require("./api//models/user");
 // ******************************************
 const restaurantsRoutes = require("./api/routers/restaurants");
 const userRoutes = require("./api/routers/user");
+//************ for upload img
+const fs = require('fs');
+const path = require('path');
+require('dotenv/config');
+var multer = require('multer');
+// parse application/x-www-form-urlencoded 
+app.use(bodyParser.urlencoded({ extended: false }));
+// parse application/json 
+app.use(bodyParser.json());
+app.use('/uploads', express.static('uploads'));
 
-// **********************************
-//Database connection 
 
 mongoose.connect('mongodb+srv://eithar:123@cluster0.jg0og.mongodb.net/Talabat?retryWrites=true&w=majority')
     .then(result => {
         app.listen(4000);
-        // console.log(result);
+        console.log(result);
 
     })
     .catch(err => {
         console.log(err);
     });
 
-
-
-// **************************
 var Schema = mongoose.Schema;
 console.log(
     "********************************************************************"
@@ -79,6 +84,36 @@ app.post("/hello", (req, res) => {
     const name = req.body.name;
     res.send({ message: `welcome ${name}` });
 });
+
+
+//If reaches this line, then there is an error
+app.use((req, res, next) => {
+    const error = new Error('Not Found');
+    error.status = 404;
+    next(error);
+});
+//handel error:
+app.use((error, req, res, next) => {
+    res.status(error.status || 500);
+    res.json({
+        error: {
+            message: error.message
+        }
+    });
+});
+
+//**************img  upload************* */
+
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+});
+
+var upload = multer({ storage: storage });
 //*********************
 // app.post("/signup", (req, res, next) => {
 //   const email = req.body.email;

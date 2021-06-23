@@ -1,0 +1,32 @@
+#restaurant-header {
+   
+    background-color: #314A46;
+    font-size: 16px;
+}
+#logo {
+    color: white;
+    font-weight: bold;
+    margin: 15px;
+    margin-left: 100px;
+  
+}
+#restaurnt-main-nav{
+    margin-left: 300px;
+}
+#notification-drop{
+  
+    position: absolute;
+    right: 0;
+
+  
+  
+  
+}
+#dropdownMenuButton{
+    margin: 12px;
+
+}
+.drop-down-icon{
+    margin-right: 2px;
+    padding: 2px;
+}
