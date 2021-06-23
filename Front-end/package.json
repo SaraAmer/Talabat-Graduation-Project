@@ -33,6 +33,7 @@
         "react-select-search": "^3.0.7",
         "react-step-builder": "^2.0.10",
         "react-world-flags": "^1.4.0",
+        "uri-js": "^4.4.1",
         "web-vitals": "^1.0.1"
     },
     "scripts": {

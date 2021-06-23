@@ -6,6 +6,13 @@ const app = express();
 //to show extra information when making a request
 app.use(morgan('dev'));
 
+//for images upload
+
+var fs = require('fs');
+var path = require('path');
+require('dotenv/config');
+
+
 // const mongoose = require("mongodb").MongoClient;
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -19,21 +26,20 @@ const restaurantsRoutes = require("./api/routers/restaurants");
 const userRoutes = require("./api/routers/user");
 
 // **********************************
-mongoose.connect(
-    "mongodb://localhost:27017/", { useNewUrlParser: true, useUnifiedTopology: true },
-    function(connectErr, client) {
-        const db = client.db("talabat");
-        // console.log("hi");
-        // client.close();
-    }
-);
-mongoose.connection.on("connected", () => {
-    console.log("connected");
-});
+//Database connection 
 
-mongoose.connection.on("error", (err) => {
-    console.log("error");
-});
+mongoose.connect('mongodb+srv://eithar:123@cluster0.jg0og.mongodb.net/Talabat?retryWrites=true&w=majority')
+    .then(result => {
+        app.listen(4000);
+        // console.log(result);
+
+    })
+    .catch(err => {
+        console.log(err);
+    });
+
+
+
 // **************************
 var Schema = mongoose.Schema;
 console.log(
@@ -44,8 +50,28 @@ console.log(require("util").inspect(Schema.Types.ObjectId));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 //*******************
+
 app.use("/restaurants", restaurantsRoutes);
 app.use("/user", userRoutes);
+
+
+///////////////Image upload /////////
+
+// Step 5 - set up multer for storing uploaded files
+
+var multer = require('multer');
+
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+});
+
+var upload = multer({ storage: storage });
+
 
 // *****************
 app.post("/hello", (req, res) => {
