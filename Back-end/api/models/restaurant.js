@@ -35,6 +35,9 @@ const restaurantSchema = new Schema({
   address: {
     type: String,
   },
+  Location: {
+    type: String,
+  },
   //to make id of owner foreignKey in restaurantTable
   owner: [{ type: Schema.Types.ObjectId, ref: "restaurantOwner" }],
 });
