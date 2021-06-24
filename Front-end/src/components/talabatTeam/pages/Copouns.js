@@ -6,6 +6,8 @@ import { FaBan } from "react-icons/fa";
 import { GrAdd } from "react-icons/gr";
 import { Link } from "react-router-dom";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { IoIosRemoveCircleOutline } from "react-icons/io";
+import { FcSearch } from "react-icons/fc";
 
 class Copouns extends React.Component {
   
@@ -246,7 +248,7 @@ class Copouns extends React.Component {
               />
 
               <span className="input-group-text border-0" id="search-addon">
-                <i className="fas fa-search"></i>
+                <FcSearch/>
               </span>
             </div>
           </div>
@@ -269,7 +271,12 @@ class Copouns extends React.Component {
                     <img
                       className="card-img-top"
                       src={restaurant.img}
-                      style={{ paddingLeft: "0px", paddingRight: "0px" }}
+                      style={{
+                        paddingLeft: "0px",
+                        paddingRight: "0px",
+                        width: "235px",
+                        height: "170px",
+                      }}
                       alt="Card image cap"
                     ></img>
                     <div
@@ -283,21 +290,33 @@ class Copouns extends React.Component {
                       <ul className="list-group list-group-flush">
                         <li className="list-group-item">
                           <div className="text-center">
-{/*                          
+                            {/*                          
                             <button type="button" class="btn" data-toggle="modal" data-target={`#${restaurant.id}`}><FcInfo />
                               Copouns</button> */}
-                        <button type="button" class="btn " data-toggle="modal" data-target={`#${restaurant.id}`}>
-                                 <FcInfo />
+                            <button
+                              type="button"
+                              class="btn "
+                              data-toggle="modal"
+                              data-target={`#${restaurant.id}`}
+                            >
+                              <FcInfo />
                               Copouns
-                        </button>
+                            </button>
 
-                        {/* <div class="modal fade "  id={restaurant.id} tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                            {/* <div class="modal fade "  id={restaurant.id} tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg"> */}
 
-                              <div class="modal fade" id={restaurant.id} tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                            <div class="modal-header">
+                            <div
+                              class="modal fade"
+                              id={restaurant.id}
+                              tabindex="-1"
+                              role="dialog"
+                              aria-labelledby="exampleModalLongTitle"
+                              aria-hidden="true"
+                            >
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
                                     <h5
                                       class="modal-title"
                                       id="exampleModalLongTitle"
@@ -317,7 +336,6 @@ class Copouns extends React.Component {
                                     <ViewCopouns
                                       resCopouns={restaurant.copouns}
                                     />
-                                     
                                   </div>
                                   <div class="modal-footer">
                                     <button
@@ -334,13 +352,10 @@ class Copouns extends React.Component {
                                       Save changes
                                     </button>
                                   </div>
-                          
-  
-    </div>
-  </div>
-</div>
-
+                                </div>
+                              </div>
                             </div>
+                          </div>
                         </li>
                         <li className="list-group-item">
                           <a href="/new-copoun" className="card-link">

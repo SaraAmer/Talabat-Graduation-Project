@@ -323,7 +323,7 @@ class PartnerRegister extends React.Component {
                       >
                         Join Us Today!
                       </p>
-                      <nav
+                      {/* <nav
                         className="navbar navbar-expand-lg navbar-light"
                         style={{ marginLeft: "150px" }}
                       >
@@ -335,9 +335,9 @@ class PartnerRegister extends React.Component {
                           aria-controls="navbarTogglerDemo02"
                           aria-expanded="false"
                           aria-label="Toggle navigation"
-                        >
-                          {/* <span className="navbar-toggler-icon"></span> */}
-                        </button>
+                        > */}
+                      {/* <span className="navbar-toggler-icon"></span> */}
+                      {/* </button>
 
                         <div
                           // className="collapse navbar-collapse"
@@ -362,7 +362,7 @@ class PartnerRegister extends React.Component {
                             </li>
                           </ul>
                         </div>
-                      </nav>
+                      </nav> */}
                       {/* *****Form****** */}
                       <PartnerRegisterFirst />
 

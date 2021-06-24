@@ -35,7 +35,7 @@ function AdminHeader() {
 ]
 
   return (
-<>
+    <>
       <nav class="navbar navbar-expand-sm ">
         <Link to="#" className="menu-bars">
           <IconContext.Provider value={{ color: "#fff" }}>
@@ -55,94 +55,99 @@ function AdminHeader() {
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item ml-5 ">
+            <li class="nav-item ml-5 " style={{marginLeft:"50px"}}>
               <a class="nav-link navbar-brand" href="/">
                 <h1>talabat team</h1>
               </a>
             </li>
           </ul>
-          <span class="navbar-text">
-            <div className="nav-item dropdown col-lg-12 ">
-              <Link
-                className="text-white "
-                role="button"
-                id="dropdownMenuLink1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false "
-                style={{
-                  borderRadius: "95px",
-                  marginRight: "50px",
-                }}
-              >
-                <span
+          <div style={{ display: "flex",marginLeft:"800px" }}>
+           
+              <span class="navbar-text">
+                <div className="nav-item dropdown col-lg-12 ">
+                  <Link
+                    className="text-white "
+                    role="button"
+                    id="dropdownMenuLink1"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false "
+                    style={{
+                      borderRadius: "95px",
+                      marginRight: "50px",
+                    }}
+                  >
+                    <span
+                      style={{
+                        border: "none",
+                        backgroundColor: "#060b26",
+                        marginLeft: "100px",
+                        fontSize: "40px",
+                      }}
+                    >
+                      <IoIosNotificationsOutline />
+                    </span>
+                  </Link>
+                  <ul
+                    className="dropdown-menu "
+                    aria-labelledby="dropdownMenuLink1"
+                    style={{ position: "absolute", left: 0 }}
+                  >
+                    <li>
+                      <Link to="#" className="dropdown-item">
+                        <p>
+                          <span style={{ fontSize: "25px" }}>
+                            <GrRestaurant /> |
+                          </span>
+                          3B Burger restaurant wants to join talabat
+                        </p>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="#" className="dropdown-item">
+                        <p>
+                          <span style={{ fontSize: "25px" }}>
+                            <GrRestaurant /> |
+                          </span>
+                          Mcdonalds restaurant wants to join talabat
+                        </p>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="#" className="dropdown-item">
+                        <p>
+                          <span style={{ fontSize: "25px" }}>
+                            <GrRestaurant /> |
+                          </span>
+                          KFC restaurant wants to join talabat
+                        </p>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </span>
+          
+     
+              <span class="navbar-text">
+                <button
+                  type="button"
+                  className="btn-outline-light text-white  nav-Link "
                   style={{
-                    border: "none",
-                    backgroundColor: "#060b26",
-                    marginLeft: "100px",
-                    fontSize: "40px",
+                    marginRight: "10px",
+                    background: "#0c1338",
+                    paddingLeft: "30px",
+                    paddingRight: "30px",
+                    paddingTop: "12px",
+                    paddingBottom: "12px",
+                    borderRadius: "10px",
                   }}
+                  data-toggle="modal"
+                  data-target="#exampleModal"
                 >
-                  <IoIosNotificationsOutline />
-                </span>
-              </Link>
-              <ul
-                className="dropdown-menu "
-                aria-labelledby="dropdownMenuLink1"
-                style={{ position: "absolute", left: 0 }}
-              >
-                <li>
-                  <Link to="#" className="dropdown-item">
-                    <p>
-                      <span style={{ fontSize: "25px" }}>
-                        <GrRestaurant /> |
-                      </span>
-                      3B Burger restaurant wants to join talabat
-                    </p>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="#" className="dropdown-item">
-                    <p>
-                      <span style={{ fontSize: "25px" }}>
-                        <GrRestaurant /> |
-                      </span>
-                      Mcdonalds restaurant wants to join talabat
-                    </p>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="#" className="dropdown-item">
-                    <p>
-                      <span style={{ fontSize: "25px" }}>
-                        <GrRestaurant /> |
-                      </span>
-                      KFC restaurant wants to join talabat
-                    </p>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </span>
-
-          <span class="navbar-text">
-            <button
-              type="button"
-              className="btn-outline-light text-white  nav-Link "
-              style={{
-                marginRight: "10px",
-                background: "#0c1338",
-                paddingLeft: "30px",
-                paddingRight: "30px",
-                paddingTop: "12px",
-                paddingBottom: "12px",
-                borderRadius: "10px",
-              }}
-              data-toggle="modal"
-              data-target="#exampleModal"
-            >
-              Logout
-            </button>
-          </span>
+                  Logout
+                </button>
+              </span>
+   
+          </div>
         </div>
       </nav>
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>

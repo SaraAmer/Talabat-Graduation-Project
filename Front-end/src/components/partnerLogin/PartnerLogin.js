@@ -1,46 +1,42 @@
 import "./partnerlogin.css";
 import React, { Component } from "react";
-var Joi = require("joi-browser");
+// var Joi = require("joi-browser");
+import M from "materialize-css";
 class PartnerLogin extends React.Component {
-  state = {
-    email: "",
-    password: "",
-    errors: {},
+  constructor() {
+    super();
+    this.state = {
+      email: "",
+      password: "",
+    };
+  }
+  setInputValue = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
   };
-
-  handelchange = (e) => {
-    let state = { ...this.state };
-    state[e.currentTarget.name] = e.currentTarget.value;
-    this.setState(state);
+  PostData = async (e) => {
+    e.preventDefault();
+    let res = await fetch("http://localhost:8000/auth/restaurant/login", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        //key and value from form
+        password: this.state.password,
+        email: this.state.email,
+      }),
+    });
+    let resJson = await res.json();
+    console.log(resJson.error);
+    if (typeof resJson.error === "undefined") {
+      //save to localstorage
+      localStorage.setItem("jwt", resJson.token);
+      // localStorage.setItem("user", JSON.stringify(resJson.user));
+      M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
+    } else {
+      M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
+    }
   };
-
-  handlesubmit = (e) => {
-    console.log("submit");
-  };
-  //***
-  // schema = {
-  //   email: Joi.string().email().required(),
-  //   password: Joi.string()
-  //     .regex(/[a-zA-Z0-9]{3,30}/)
-  //     .required(),
-  // };
-
-  // validate = () => {
-  //   const errors = {};
-  //   const state = { ...this.state };
-  //   delete state.errors;
-  //   const res = Joi.validate(state, this.schema, { abortEarly: false });
-  //   console.log(res);
-  //   if (res.error == null) {
-  //     this.setState({ errors: {} });
-  //     return null;
-  //   }
-  //   for (const error of res.error.details) {
-  //     errors[error.path] = error.message;
-  //   }
-  //   this.setState({ errors });
-  // };
-  /*** */
 
   render() {
     return (
@@ -66,7 +62,7 @@ class PartnerLogin extends React.Component {
                     </span>
                   </i>
                   {/* **************************Form ********************************************** */}
-                  <form onSubmit={this.handlesubmit}>
+                  <form method="POST">
                     <div className="text-center mb-3">
                       <div className="row mg-btm">
                         <div
@@ -97,18 +93,11 @@ class PartnerLogin extends React.Component {
                         id="email"
                         className="form-control"
                         placeholder="E-mail"
-                        name="email"
-                        onChange={this.handelchange}
                         value={this.state.email}
+                        onChange={this.setInputValue}
+                        name="email"
                       />
                     </div>
-                    {/* display Error */}
-                    {/* {this.state.errors.email && (
-                      <div className="alert alert-danger">
-                        {" "}
-                        {this.state.errors.email}
-                      </div>
-                    )} */}
                     {/* Password field */}
                     <div className="form-outline mb-4">
                       <input
@@ -118,17 +107,11 @@ class PartnerLogin extends React.Component {
                         htmlfor="registerPassword"
                         placeholder="password"
                         name="password"
-                        onChange={this.handelchange}
                         value={this.state.password}
+                        onChange={this.setInputValue}
                       />
                     </div>
-                    {/* display Error  */}
-                    {/* {this.state.errors.password && (
-                      <div className="alert alert-danger">
-                        {" "}
-                        {this.state.errors.password}
-                      </div>
-                    )} */}
+
                     {/*********submit button ********/}
                     <button
                       type="submit"
@@ -137,10 +120,9 @@ class PartnerLogin extends React.Component {
                         textAlign: "center",
                         backgroundColor: "#4169e1",
                         color: "white",
-
-                        // borderRadius: "15px",
                         width: "150px",
                       }}
+                      onClick={(e) => this.PostData(e)}
                     >
                       LOGIN
                     </button>

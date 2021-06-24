@@ -1,67 +1,157 @@
 import "./login.css";
 import React, { Component } from "react";
 // #FF5900
+//*****************/
+import GoogleLogin from "react-google-login";
+import axios from "axios";
+/****************** */
+import FacebookLogin from "react-facebook-login";
+//********* */
+import M from "materialize-css";
+//****** */
 var Joi = require("joi-browser");
 
 class LoginUSer extends React.Component {
-  // ************************
-  state = {
-    email: "",
-    password: "",
-    errors: {},
+  constructor() {
+    super();
+    this.state = {
+      email: "",
+      password: "",
+    };
+  }
+  setInputValue = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
   };
+  PostData = async (e) => {
+    e.preventDefault();
+    let res = await fetch("http://localhost:8000/auth/restaurant/login", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        //key and value from form
+        password: this.state.password,
+        email: this.state.email,
+      }),
+    });
+    let resJson = await res.json();
+    console.log(resJson.error);
+    console.log(resJson.message);
 
-  handelchange = (e) => {
-    let state = { ...this.state };
-    state[e.currentTarget.name] = e.currentTarget.value;
-    this.setState(state);
-  };
-
-  handlesubmit = (e) => {
-    console.log("submit");
-  };
-  //***
-  sschema = {
-    email: Joi.string().email().required(),
-    password: Joi.string()
-      .regex(/[a-zA-Z0-9]{3,30}/)
-      .required(),
-  };
-
-  validate = () => {
-    const errors = {};
-    const state = { ...this.state };
-    delete state.errors;
-    const res = Joi.validate(state, this.sschema, { abortEarly: false });
-    console.log(res);
-    if (res.error == null) {
-      this.setState({ errors: {} });
-      return null;
+    if (typeof resJson.error === "undefined") {
+      localStorage.setItem("jwt", resJson.token);
+      M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
+    } else {
+      M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
     }
-    for (const error of res.error.details) {
-      errors[error.path] = error.message;
-    }
-    this.setState({ errors });
   };
+  //******************** */
+  responseSuccessGoogle = async (response) => {
+    console.log(response);
+    console.log(response.tokenId);
+    let res = await fetch("http://localhost:8000/user/googlelogin", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        //key and value from form
+        tokenId: response.tokenId,
+      }),
+    });
 
+    let resJson = await res.json();
+    // console.log(resJson);
+    console.log(resJson.error);
+    console.log(resJson.message);
+
+    if (typeof resJson.error === "undefined") {
+      localStorage.setItem("jwt", resJson.token);
+      M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
+    } else {
+      M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
+    }
+  };
+  /******** */
+  responseFacebook = async (response) => {
+    console.log(response.userID);
+    console.log(response.accessToken);
+    let res = await fetch("http://localhost:8000/user/facebooklogin", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        //key and value from form
+        accessToken: response.accessToken,
+        userID: response.userID,
+      }),
+    });
+
+    let resJson = await res.json();
+    // console.log(resJson);
+    console.log(resJson.error);
+    console.log(resJson.message);
+
+    if (typeof resJson.error === "undefined") {
+      localStorage.setItem("jwt", resJson.token);
+      M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
+    } else {
+      M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
+    }
+  };
   //********************
+  // responseFacebook = (response) => {
+  //   console.log(response);
+  //   axios({
+  //     method: "POST",
+  //     url: "http://localhost:8000/user/facebooklogin",
+  //     data: { accessToken: response.accessToken, userID: response.userID },
+  //   })
+  //     .then((response) => {
+  //       //recicve response once
+  //       console.log(response);
+  //       //response came from backend (re.json)
+  //       console.log("facebook login success", response);
+  //     })
+  //     .catch(function (error) {
+  //       throw error;
+  //       console.log(error);
+  //     });
+  // };
+  //******************************** */
   render() {
     return (
-      <form onSubmit={this.handlesubmit}>
+      <form>
         <div className="text-center mb-3">
           <div className="row mg-btm">
             <div className="col-md-12">
-              <a href="#" class="btn btn-white btn-block">
+              {/* <a href="#" class="btn btn-white btn-block">
                   <i class="bi bi-google"></i>  Continue with Google
-              </a>
+              </a> */}
+              <GoogleLogin
+                clientId="552706329971-od3cbgpjg950e9pcias0bjkvnq74ipub.apps.googleusercontent.com"
+                buttonText="Continue with Google"
+                onSuccess={this.responseSuccessGoogle}
+                onFailure={this.responseErrorGoogle}
+                cookiePolicy={"single_host_origin"}
+              />
             </div>
           </div>
           {/* style={{ border: "5px solid grey" }} */}
           <div className="row">
             <div className="col-md-12">
-              <a href="#" className="btn btn-primary btn-block">
+              {/* <a href="#" className="btn btn-primary btn-block">
                 <i class="bi bi-facebook"></i>  Continue with Facebook
-              </a>
+              </a> */}
+              <FacebookLogin
+                appId="814092259303918"
+                autoLoad={true}
+                //if true when open login page it will go to
+                // login with facebook and we won't to do this
+                callback={this.responseFacebook}
+              />
             </div>
           </div>
         </div>
@@ -75,9 +165,9 @@ class LoginUSer extends React.Component {
             type="text"
             className="form-control"
             placeholder="email@gmail.com"
-            name="email"
-            onChange={this.handelchange}
             value={this.state.email}
+            onChange={this.setInputValue}
+            name="email"
           />
         </div>
 
@@ -90,8 +180,8 @@ class LoginUSer extends React.Component {
             htmlFor="registerPassword"
             placeholder="password"
             name="password"
-            onChange={this.handelchange}
             value={this.state.password}
+            onChange={this.setInputValue}
           />
         </div>
         {/* *********************************************************************************** */}
@@ -131,6 +221,7 @@ class LoginUSer extends React.Component {
             borderRadius: "15px",
             width: "300px",
           }}
+          onClick={(e) => this.PostData(e)}
         >
           Login
         </button>
