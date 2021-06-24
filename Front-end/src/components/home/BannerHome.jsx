@@ -10,7 +10,7 @@ function BannerHome(){
             <div className="col-lg-2 col-md-10 col-sm-10">
 <img className="leftBg" src={leftBg} alt="" />
             </div>
-            <div className="content col-lg-8 col-md-10 col-sm-10">
+            <div className="content col-lg-7 col-md-10 col-sm-10">
                 <h1>Order food online in Egypt</h1>
 
 <div className="row">
@@ -32,7 +32,7 @@ function BannerHome(){
 
 
             </div>
-            <div className="col-lg-2 col-md-10 col-sm-10">
+            <div className="col-lg-3 col-md-10 col-sm-10">
             <img  className="rightBg" src={rightBg} alt="" />
             </div>
         </div>

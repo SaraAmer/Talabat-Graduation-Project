@@ -1,0 +1,23 @@
+.categories-items {
+    margin-left: 15px; 
+}
+#plus-icon{
+ margin-left: 100px;
+ cursor: pointer;
+}
+.trash-icon{
+color: red;
+cursor: pointer;
+width: 20%;
+}
+.categories-item{ 
+    display: flex;
+    justify-content: space-around;
+}
+.category-name{
+    width: 80%;
+}
+.categories-items h6 {
+    margin-top: 10px;
+    padding: 5px;
+}

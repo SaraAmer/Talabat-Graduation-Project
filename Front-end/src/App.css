@@ -358,11 +358,11 @@ a:link {
 }
 
 .leftBg {
-    width: 194px;
+    width: 100%;
 }
 
 .rightBg {
-    width: 349px;
+    width: 100%;
 }
 
 @media only screen and (max-width: 600px) {

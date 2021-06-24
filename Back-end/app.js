@@ -1,5 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
+var cors = require("cors");
 const app = express();
 
 
@@ -17,16 +18,20 @@ const User = require("./api//models/user");
 // ******************************************
 const restaurantsRoutes = require("./api/routers/restaurants");
 const userRoutes = require("./api/routers/user");
+const addressRoutes = require("./api/routers/address");
+
 
 // **********************************
-mongoose.connect(
-    "mongodb://localhost:27017/", { useNewUrlParser: true, useUnifiedTopology: true },
-    function(connectErr, client) {
-        const db = client.db("talabat");
-        // console.log("hi");
-        // client.close();
-    }
-);
+
+mongoose.connect('mongodb+srv://eithar:123@cluster0.jg0og.mongodb.net/Talabat?retryWrites=true&w=majority')
+    .then(result => {
+        app.listen(4000);
+        console.log(result);
+
+    })
+    .catch(err => {
+        console.log(err);
+    });
 mongoose.connection.on("connected", () => {
     console.log("connected");
 });
@@ -44,8 +49,11 @@ console.log(require("util").inspect(Schema.Types.ObjectId));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 //*******************
+app.use(cors());
 app.use("/restaurants", restaurantsRoutes);
 app.use("/user", userRoutes);
+app.use("/address", addressRoutes);
+
 
 // *****************
 app.post("/hello", (req, res) => {
