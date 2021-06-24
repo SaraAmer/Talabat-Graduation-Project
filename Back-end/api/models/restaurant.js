@@ -26,16 +26,16 @@ const restaurantSchema = new Schema({
   address: {
     street: {
       type: String,
-      required: true,
+      // required: true,
     },
     coord: {
       lan: {
         type: Number,
-        required: true,
+        // required: true,
       },
       att: {
         type: Number,
-        required: true,
+        // required: true,
       },
     },
   },
