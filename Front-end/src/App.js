@@ -12,22 +12,47 @@ import TeamHome from "./components/talabatTeam/TeamHome";
 import Home from "./components/Home";
 import Register from "./components/Register";
 import RestaurantMenu from "./components/RestaurantMenu";
-import OffersAndCoupons from "./components/OffersAndCoupons";
-// import Header from "./layouts/Header";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import PartnerRegister from "./components/Partner/partnerRegister";
+import PartnerLogin from "./components/partnerLogin/PartnerLogin";
+import Restaurant from "./components/Restaurants/Restaurant";
 // import ResetPassword from "./components/partnerLogin/ResetPassword";
 // import NewPassword from "./components/partnerLogin/NewPassword";
 function App() {
   return (
-    <div className="App">
-      <Header />
-      {/* <ResetPassword />
+    <Router className="App">
+      <Switch>
+        <Route path="/" exact>
+          <Header />
+          {/* <ResetPassword />
       <NewPassword /> */}
-      {/* <RestaurantMenu /> */}
-      {/* <Register /> */}
-      <Home />
-      <OffersAndCoupons />
-      <Footer />
-    </div>
+          {/* <RestaurantMenu/> */}
+          {/* <Register/> */}
+          {/* <TeamHome/> */}
+          {/* <Home/> */}
+          <Footer />
+        </Route>
+        <Route path="/becomepartner" exact>
+          <PartnerRegister />
+        </Route>
+        <Route exact path="/partnerlogin">
+          <PartnerLogin />
+        </Route>
+        <Route exact path="/restaurant/dashboard">
+          <Restaurant />
+        </Route>
+
+        <Route exact path="/Register">
+          <Header />
+          <Register />
+          <Footer />
+        </Route>
+
+        <Route exact path="/team">
+          <TeamHome />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 

@@ -1,0 +1,24 @@
+#restaurant-menue-container{
+    display: flex;
+    margin-left: 10px;
+    justify-content: space-between;
+    
+}
+#categories-container{
+    width: 20%;
+    max-height: 300px;
+    margin-top: 10px;
+    border: 0.5px solid #DDD;
+    box-shadow: -2px 2px 5px  #DDD ,
+                 2px -2px 5px  #DDD    ;
+    display: flex;
+    
+  }
+#menue-body{
+    margin: 10px;
+    width: 70%;
+    display: flex;
+    justify-content: center;
+
+
+}  

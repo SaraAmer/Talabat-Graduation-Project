@@ -1,0 +1,25 @@
+#body-menu{
+    width: 70%;
+   
+  
+}
+#restaurant-search-bar{
+    width: 72%; 
+}
+#search-input{
+
+    width: 90%;
+    border: 1px solid #DDD;
+    border-radius: 2px;
+    box-shadow: rgb(0 0 0 / 2%) 0px 1px 3px 0px !important
+   
+}
+.focus
+{
+    border: 1px solid tomato;
+}
+#search-icon{
+    padding: 2px;    
+}
+
+

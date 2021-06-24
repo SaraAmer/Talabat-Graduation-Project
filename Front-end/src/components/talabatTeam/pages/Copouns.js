@@ -14,6 +14,7 @@ class Copouns extends React.Component {
     constructor(){
       super();
       this.state = {
+         currentRestaurantId:"",
         restaurants: [
           {
             id: "1",
@@ -214,6 +215,14 @@ class Copouns extends React.Component {
     viewCopouns=(restaurantCopouns)=>{
       console.log(restaurantCopouns);
     }
+          setCurrrentResId=(resID)=>{
+      console.log(resID);
+
+        this.setState({
+        currentRestaurantId:resID
+      })
+   console.log(this.state.currentRestaurantId);
+    }
 
 
     render(){
@@ -358,7 +367,11 @@ class Copouns extends React.Component {
                           </div>
                         </li>
                         <li className="list-group-item">
-                          <a href="/new-copoun" className="card-link">
+                          <a    href={`/new-copoun/${this.state.currentRestaurantId}`} className="card-link"
+                                 onClick={() =>
+                                this.setCurrrentResId(restaurant.id)
+                              }
+                          >
                             <GrAdd />
                             Add new copoun
                           </a>

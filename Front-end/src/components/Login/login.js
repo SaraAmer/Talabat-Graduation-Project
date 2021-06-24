@@ -234,9 +234,9 @@ class LoginUSer extends React.Component {
         >
           {" "}
           Don't have an account ?{" "}
-          <p style={{ color: "#FF5900", display: "inline" }}>
+          <a href="/Register" style={{ color: "#FF5900", display: "inline" }}>
             create an account
-          </p>{" "}
+          </a>{" "}
         </p>
       </form>
     );
