@@ -6,35 +6,57 @@ const restaurantSchema = new Schema({
         // required: true,
     },
     img: {
-        data: Buffer,
-        contentType: String,
-        // required: false,
-    },
-    type: {
-        type: Number,
-        // required: true,
+        type: String,
+        required: true
     },
     desc: {
-        type: String,
-        // required: true,
-    },
-    info: {
         type: String,
         // required: true,
     },
     numberOfBranches: {
         type: Number,
     },
-    category: {
+    cusine: {
         type: String,
     },
     website: {
         type: String,
     },
     address: {
-        type: String,
+        street: {
+            type: String,
+            required: true
+        },
+        coord: {
+            lan: {
+                type: Number,
+                required: true
+
+            },
+            att: {
+                type: Number,
+                required: true
+            },
+        },
+
     },
     //to make id of owner foreignKey in restaurantTable
-    // owner: [{ type: Schema.Types.ObjectId, ref: "restaurantOwner" }],
+    owner: { type: Schema.Types.ObjectId, ref: "restaurantOwner" },
+    rate: {
+        type: Number,
+        default: 0
+    },
+    status: {
+        type: String,
+        default: "pending"
+    },
+    country: { type: Schema.Types.ObjectId, ref: "Country" },
+    minOrderAmount: { type: Number },
+    workingHours: { type: String },
+    deliveryTime: { type: Number },
+    serviceCharge: { type: Number },
+    vat: { type: Number },
+    payment: [{ type: String }]
+
 });
 module.exports = mongoose.model("Restaurant", restaurantSchema);

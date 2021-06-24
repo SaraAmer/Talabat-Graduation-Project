@@ -33,9 +33,9 @@ const categoryRoutes = require("./api/routers/category");
 const offerRoutes = require("./api/routers/offers");
 const copounRoutes = require("./api/routers/copouns");
 const choiceRoutes = require("./api/routers/choices");
-const BrancheRoutes= require("./api/routers/branches");
+const BrancheRoutes = require("./api/routers/branches");
 const authRoutes = require("./api/routers/auth");
-
+const countryRoutes = require("./api/routers/country");
 //************ for upload img
 const fs = require('fs');
 require('dotenv/config');
@@ -47,7 +47,7 @@ app.use(bodyParser.json());
 app.use('/uploads', express.static('uploads'));
 mongoose.connect('mongodb+srv://eithar:123@cluster0.jg0og.mongodb.net/Talabat?retryWrites=true&w=majority')
     .then(result => {
-        app.listen(4000);
+        app.listen(5000);
         //  console.log(result);
 
     })
@@ -57,14 +57,14 @@ mongoose.connect('mongodb+srv://eithar:123@cluster0.jg0og.mongodb.net/Talabat?re
 
 var Schema = mongoose.Schema;
 console.log(
-  "********************************************************************"
+    "********************************************************************"
 );
 // console.log(require("util").inspect(Schema.Types.ObjectId));
 //*********** */
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 //*******************
-app.use("/restaurant", choiceRoutes, categoryRoutes, foodRoutes , BrancheRoutes);
+app.use("/restaurant", choiceRoutes, categoryRoutes, foodRoutes, BrancheRoutes);
 
 // app.use("/restaurant", BrancheRoutes);
 
@@ -77,6 +77,7 @@ app.use("/user", userRoutes);
 app.use("/auth/restaurant", authRoutes);
 
 app.use("/user", userRoutes);
+app.use("/country", countryRoutes);
 ///////////////Image upload /////////
 
 // Step 5 - set up multer for storing uploaded files
@@ -97,9 +98,9 @@ var upload = multer({ storage: storage });
 
 // *****************
 app.post("/hello", (req, res) => {
-  console.log("ji");
-  const name = req.body.name;
-  res.send({ message: `welcome ${name}` });
+    console.log("ji");
+    const name = req.body.name;
+    res.send({ message: `welcome ${name}` });
 });
 
 
@@ -122,14 +123,14 @@ app.use((error, req, res, next) => {
 //**************img  upload************* */
 
 var
-storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads')
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now())
-    }
-});
+    storage = multer.diskStorage({
+        destination: (req, file, cb) => {
+            cb(null, 'uploads')
+        },
+        filename: (req, file, cb) => {
+            cb(null, file.fieldname + '-' + Date.now())
+        }
+    });
 
 var upload = multer({ storage: storage });
 //*********************
@@ -139,19 +140,19 @@ var upload = multer({ storage: storage });
 
 //If reaches this line, then there is an error
 app.use((req, res, next) => {
-  const error = new Error("Not Found");
-  error.status = 404;
+    const error = new Error("Not Found");
+    error.status = 404;
 
-  next(error);
+    next(error);
 });
 //handel error:
 app.use((error, req, res, next) => {
-  res.status(error.status || 500);
-  res.json({
-    error: {
-      message: error.message,
-    },
-  });
+    res.status(error.status || 500);
+    res.json({
+        error: {
+            message: error.message,
+        },
+    });
 });
 
 module.exports = app;
