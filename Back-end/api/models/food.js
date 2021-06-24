@@ -10,9 +10,9 @@ const foodSchema = new Schema({
         type: String,
         required: true
     },
-    sections: [{
+    choices: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Section"
+        ref: "Choice"
     }],
     category: {
         type: mongoose.Schema.Types.ObjectId,

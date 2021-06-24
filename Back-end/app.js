@@ -25,6 +25,9 @@ const restaurantsRoutes = require("./api/routers/restaurants");
 const userRoutes = require("./api/routers/user");
 const foodRoutes = require("./api/routers/foods");
 const categoryRoutes = require("./api/routers/category");
+const offerRoutes = require("./api/routers/offers");
+const copounRoutes = require("./api/routers/copouns");
+const choiceRoutes = require("./api/routers/choices");
 //************ for upload img
 const fs = require('fs');
 require('dotenv/config');
@@ -37,7 +40,7 @@ app.use('/uploads', express.static('uploads'));
 mongoose.connect('')
     .then(result => {
         app.listen(4000);
-        console.log(result);
+        //  console.log(result);
 
     })
     .catch(err => {
@@ -53,11 +56,18 @@ console.log(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 //*******************
-app.use("/restaurants/category", categoryRoutes);
-app.use("/restaurants/foods", foodRoutes);
+app.use("/restaurant", choiceRoutes, categoryRoutes, foodRoutes);
+
+//app.use("/restaurants/category", categoryRoutes);
+
+//app.use("/restaurants/foods", foodRoutes);
+
 app.use("/restaurants", restaurantsRoutes);
+app.use("/restaurants/offer", offerRoutes);
+app.use("/restaurants/copoun", copounRoutes);
 app.use("/user", userRoutes);
 
+app.use("/user", userRoutes);
 ///////////////Image upload /////////
 
 // Step 5 - set up multer for storing uploaded files
