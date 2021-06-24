@@ -30,7 +30,6 @@ const User = require("./api//models/user");
 const restaurantsRoutes = require("./api/routers/restaurants");
 const userRoutes = require("./api/routers/user");
 
-const addressRoutes = require("./api/routers/address");
 
 
 // **********************************
@@ -43,6 +42,8 @@ const choiceRoutes = require("./api/routers/choices");
 const BrancheRoutes = require("./api/routers/branches");
 const authRoutes = require("./api/routers/auth");
 const countryRoutes = require("./api/routers/country");
+const addressRoutes = require("./api/routers/address");
+const orderRoutes = require("./api/routers/order");
 //************ for upload img
 const fs = require('fs');
 require('dotenv/config');
@@ -85,11 +86,10 @@ app.use("/restaurant", choiceRoutes, categoryRoutes, foodRoutes, BrancheRoutes);
 app.use("/restaurants", restaurantsRoutes);
 app.use("/restaurants/offer", offerRoutes);
 app.use("/restaurants/copoun", copounRoutes);
+app.use("/user/address", addressRoutes);
+app.use("/order", orderRoutes);
 app.use("/user", userRoutes);
-app.use("/address", addressRoutes);
 app.use("/auth/restaurant", authRoutes);
-
-app.use("/user", userRoutes);
 app.use("/country", countryRoutes);
 ///////////////Image upload /////////
 
