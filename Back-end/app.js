@@ -73,14 +73,10 @@ console.log(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 //*******************
-<<<<<<< HEAD
-app.use("/restaurant", choiceRoutes, categoryRoutes, foodRoutes, BrancheRoutes);
-=======
 
 app.use(cors());
 
-app.use("/restaurant", choiceRoutes, categoryRoutes, foodRoutes , BrancheRoutes);
->>>>>>> 0a255c92064242ec182bbded6f0c280dc3d1442a
+app.use("/restaurant", choiceRoutes, categoryRoutes, foodRoutes, BrancheRoutes);
 
 // app.use("/restaurant", BrancheRoutes);
 
