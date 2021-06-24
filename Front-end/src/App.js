@@ -24,12 +24,12 @@ function App() {
       <Switch>
         <Route path="/" exact>
           <Header />
-          <ResetPassword />
-          <NewPassword />
           {/* <RestaurantMenu/> */}
           {/* <Register/> */}
           {/* <TeamHome/> */}
           {/* <Home/> */}
+          {/* <ResetPassword />
+          <NewPassword /> */}
           <Footer />
         </Route>
         <Route path="/becomepartner" exact>

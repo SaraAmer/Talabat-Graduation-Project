@@ -15,9 +15,18 @@ import {
 class Myaccount extends React.Component {
 	 constructor(props) {
      super(props);
-	 this.state={gender:""}
+	 this.state={
+		  _id: this.props.match.params._id,
+		 firstName:"",
+		 lastName:"",
+		 email:"",
+		 date0fBirtg:"",
+		 gender:""}
     
   }
+  handleChange = (event) => {
+ this.setState({ [event.target.name]: event.target.value });
+ }
 
    changeColor=(e)=> {
  
@@ -25,6 +34,29 @@ class Myaccount extends React.Component {
 	// console.log(e.target.value);
     //  console.log("gender of male:"+this.state.gender);
   }
+  
+ 
+  clickSubmit = async(e) => {
+        e.preventDefault();
+		console.log(e);
+		let res = await fetch("http://127.0.0.1:8000/user/profile/60d214425f913b3f0ded19f6", {
+      	method: "PUT",
+     	 headers: {
+        "Content-Type": "application/json",
+      	},
+		   body: JSON.stringify({
+        //key and value from form
+       
+        email: this.state.email,
+		firstName:this.state.firstName,
+		lastName:this.state.lastName,
+		
+		date0fBirtg:this.state.date0fBirth,
+		gender:this.state.gender
+      }),
+    });
+    
+  };
 
 
     render() {
@@ -61,11 +93,11 @@ class Myaccount extends React.Component {
 						</div>
 						<div className="col-md-9">
 							<div className="card-body ">
-								<form>
+								<form  >
 								    <div  className="form-group row p-2">
 										<label   className="col-sm-2 col-form-label text-muted">Email</label>
 										<div  className="col-sm-5">
-										 <input type="text"  className="form-control" placeholder="email@gmail.com"/>
+										 <input type="text"  className="form-control" placeholder="email@gmail.com" disabled name="email" value={this.state.email}  onChange={this.handleChange}/>
 										 </div>
 										 <div  className="col-sm-5">
 										 <a type="button" className="btn" style={{color:"green",fontSize:"12px"}}   data-toggle="modal" data-target="#exampleModal1">
@@ -79,13 +111,13 @@ class Myaccount extends React.Component {
 									<div  className="form-group row p-2">
 										<label   className="col-sm-2 col-form-label text-muted">First Name</label>
 										<div  className="col-sm-5">
-										  <input type="text"  className="form-control " placeholder="First name"/>
+										  <input type="text"  className="form-control " placeholder="First name" name="firstName" value={this.state.firstName}  onChange={this.handleChange}/>
 										</div>
 									</div>
 									<div  className="form-group row p-2">
 										<label   className="col-sm-2 col-form-label text-muted">Last Name</label>
 										<div  className="col-sm-5">
-										  <input type="text"  className="form-control " placeholder="last name"/>
+										  <input type="text"  className="form-control " placeholder="last name" name="lastName" value={this.state.lastName}  onChange={this.handleChange}/>
 
 										</div>
 									</div>
@@ -114,7 +146,7 @@ class Myaccount extends React.Component {
 									<div  className="form-group row p-2">
 										<label   className="col-sm-2 col-form-label text-muted">Date of birth </label>
 										<div  className="col-sm-5">
-											<input type="date"   className="form-control" />
+											<input type="date"   className="form-control" name="dateOfBirth" value={this.state.dateOfBirth}   onChange={this.handleChange}/>
 											</div>
 											</div>
 									<div  className="form-group row p-2">
@@ -130,7 +162,7 @@ class Myaccount extends React.Component {
 										
 										</div>
 										<div className="col-md-5">
-										<button type="button" className="btn btn-success" data-toggle="modal" data-target="#staticBackdrop" >Update</button></div>
+										<button type="button" onClick={this.clickSubmit} className="btn btn-success" data-toggle="modal" data-target="#staticBackdrop" >Update</button></div>
 									</div>
 										{/* hena el button kan submit */}
 						        </form>

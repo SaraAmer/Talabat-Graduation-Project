@@ -92,7 +92,9 @@ class Header extends React.Component {
                       Home
                     </Link>
                   </li>
+                        {!this.state.login?(
                   <li className="nav-item">
+             
                     <button
                       type="button"
                       className="btn text-white  nav-Link "
@@ -103,6 +105,7 @@ class Header extends React.Component {
                       Login
                     </button>
                   </li>
+                  ): ""}
                   <li className="nav-item">
                     <Link
                       to=""
@@ -141,9 +144,110 @@ class Header extends React.Component {
                       offers
                     </Link>
                   </li>
+                   {this.state.login?(
+                  <li>
+                  
+					        <ul className="navbar-nav" >
+					          <li className="nav-item dropdown">
+						          <a className="nav-link  text-white"  style={{ marginLeft: "20px" }} id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						             <strong>Account</strong>
+					          	</a>
+                       
+						          <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style={{backgroundColor:"#FF5900"}}>
+						           <li>
+                          <Link to="/my-account/tlbcredit"className="dropdown-item">
+                            <p>
+                              <i
+                                className="bi bi-credit-card"
+                                style={{
+                                  color: "#FF5900",
+                                  marginRight: "20px",
+                                }}
+                              ></i>
+                              Talbat Pay:EGP 0.00
+                            </p>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link to="/my-account/orders" className="dropdown-item">
+                            <p>
+                              
+                              <i
+                                className="bi bi-cart3"
+                                style={{
+                                  color: "#FF5900",
+                                  marginRight: "20px",
+                                }}
+                              ></i>
+                              My orders
+                            </p>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/my-account/summary"
+                            className="dropdown-item"
+                          >
+                            <p>
+                              <i
+                                className="bi bi-person"
+                                style={{
+                                  color: "#FF5900",
+                                  marginRight: "20px",
+                                }}
+                              ></i>
+                              Account info
+                            </p>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/my-account/savedaddr"
+                            className="dropdown-item"
+                          >
+                            <p>
+                              <i
+                                className="bi bi-map"
+                                style={{
+                                  color: "#FF5900",
+                                  marginRight: "20px",
+                                }}
+                              ></i>
+                              Saved Addresses
+                            </p>
+                          </Link>
+                        </li>
+						          <a href="#" className="dropdown-item">
+                        <div className="dropdown-divider"></div>
+                        <span
+                        className="bi bi-box-arrow-right border-0  btn"
+                        style={{
+                        color: "black",
+                       
+                        marginRight: "20px",
+                        }}
+                          onClick={this.logout}
+                        > Logout</span>
+                       
+						          </a>
+						        </div>
+					        </li>
+					       </ul>
+                   
+                  </li>
+                   ): ""}
                 </ul>
+
+             </div>
+           
+             <div
+                className="d-none d-md-block"
+                
+              >
+
               </div>
               <div className="d-none d-md-block">
+
                 <ul className="navbar-nav  ml-auto">
                   <li className="nav-item">
                     <Link

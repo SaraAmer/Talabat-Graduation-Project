@@ -136,7 +136,8 @@ router.put("/food/:foodId", upload.single('img'), (req, res, next) => {
             food.name = req.body.name ? req.body.name : food.name;
             food.category = req.body.category ? req.body.category : food.category;
             food.price = req.body.price ? req.body.price : food.price;
-            food.img = req.file.path ? req.file.path : food.img;
+            food.img = req.file? req.file.path : food.img;
+            
 
 
             return food.save();
