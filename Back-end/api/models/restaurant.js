@@ -3,23 +3,24 @@ const Schema = mongoose.Schema;
 const restaurantSchema = new Schema({
     name: {
         type: String,
-        required: true
+        // required: true,
     },
     img: {
-        type: String,
-        required: true
+        data: Buffer,
+        contentType: String,
+        // required: false,
     },
     type: {
         type: Number,
-        required: true
+        // required: true,
     },
     desc: {
         type: String,
-        required: true
+        // required: true,
     },
     info: {
         type: String,
-        required: true
+        // required: true,
     },
     numberOfBranches: {
         type: Number,
@@ -33,10 +34,7 @@ const restaurantSchema = new Schema({
     address: {
         type: String,
     },
-    //to make id of owner foreignKey in restaurantDetails
+    //to make id of owner foreignKey in restaurantTable
     // owner: [{ type: Schema.Types.ObjectId, ref: "restaurantOwner" }],
-    // });
-
-
 });
-module.exports = mongoose.model('Restaurant', restaurantSchema);
+module.exports = mongoose.model("Restaurant", restaurantSchema);
