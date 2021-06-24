@@ -210,23 +210,6 @@ class PartnerRegisterFirst extends React.Component {
           />
         </div>
         {/* **************************** */}
-        <div className="form-group ">
-          <label
-            className="fs-4"
-            style={{
-              float: "left",
-            }}
-          >
-            Contact role
-          </label>
-          <select id="inpute" className="form-control">
-            <option> --None--</option>
-            <option>Owner</option>
-            <option>Co-Owner</option>
-            <option selected="">Manager</option>
-            <option>Employee</option>
-          </select>
-        </div>
         {/* ************************* */}
         {/* <div
           style={{
