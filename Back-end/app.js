@@ -6,6 +6,12 @@ const app = express();
 //to show extra information when making a request
 app.use(morgan('dev'));
 
+//for images upload
+
+var path = require('path');
+require('dotenv/config');
+
+
 // const mongoose = require("mongodb").MongoClient;
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -17,19 +23,18 @@ const User = require("./api//models/user");
 // ******************************************
 const restaurantsRoutes = require("./api/routers/restaurants");
 const userRoutes = require("./api/routers/user");
+const foodRoutes = require("./api/routers/foods");
+const categoryRoutes = require("./api/routers/category");
 //************ for upload img
 const fs = require('fs');
-const path = require('path');
 require('dotenv/config');
 var multer = require('multer');
 // parse application/x-www-form-urlencoded 
 app.use(bodyParser.urlencoded({ extended: false }));
- // parse application/json 
+// parse application/json 
 app.use(bodyParser.json());
 app.use('/uploads', express.static('uploads'));
-
-
-mongoose.connect('mongodb+srv://eithar:123@cluster0.jg0og.mongodb.net/Talabat?retryWrites=true&w=majority')
+mongoose.connect('')
     .then(result => {
         app.listen(4000);
         console.log(result);
@@ -38,7 +43,6 @@ mongoose.connect('mongodb+srv://eithar:123@cluster0.jg0og.mongodb.net/Talabat?re
     .catch(err => {
         console.log(err);
     });
-
 
 var Schema = mongoose.Schema;
 console.log(
@@ -49,8 +53,28 @@ console.log(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 //*******************
+app.use("/restaurants/category", categoryRoutes);
+app.use("/restaurants/foods", foodRoutes);
 app.use("/restaurants", restaurantsRoutes);
 app.use("/user", userRoutes);
+
+///////////////Image upload /////////
+
+// Step 5 - set up multer for storing uploaded files
+
+var multer = require('multer');
+
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+});
+
+var upload = multer({ storage: storage });
+
 
 // *****************
 app.post("/hello", (req, res) => {
@@ -62,23 +86,24 @@ app.post("/hello", (req, res) => {
 
 //If reaches this line, then there is an error
 app.use((req, res, next) => {
-const error = new Error('Not Found');
-error.status = 404;
-next(error);
+    const error = new Error('Not Found');
+    error.status = 404;
+    next(error);
 });
 //handel error:
 app.use((error, req, res, next) => {
-res.status(error.status || 500);
-res.json({
-error: {
-message: error.message
-}
-});
+    res.status(error.status || 500);
+    res.json({
+        error: {
+            message: error.message
+        }
+    });
 });
 
 //**************img  upload************* */
- 
-var storage = multer.diskStorage({
+
+var
+storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads')
     },
@@ -86,7 +111,7 @@ var storage = multer.diskStorage({
         cb(null, file.fieldname + '-' + Date.now())
     }
 });
- 
+
 var upload = multer({ storage: storage });
 //*********************
 // app.post("/signup", (req, res, next) => {
