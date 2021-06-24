@@ -1,17 +1,18 @@
+
 import React, { useState } from 'react';
 import "./App.css";
-import Header from './components/layouts/Header';
-import Footer from './components/layouts/Footer';
+import Header from "./components/layouts/Header";
+import Footer from "./components/layouts/Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
-import 'bootstrap/dist/js/bootstrap.bundle.min';
-import Pagination from '@material-ui/lab/Pagination';
-import { makeStyles } from '@material-ui/core/styles';
-import AllRestaurants from './components/AllRestaurants'
-import PaginationMenu from '../src/components/restaurants-client/pagination';
-import TeamHome from './components/talabatTeam/TeamHome'
-import Home from './components/Home'
-import Register from './components/Register';
-import RestaurantMenu from './components/RestaurantMenu';
+import "bootstrap/dist/js/bootstrap.bundle.min";
+import Pagination from "@material-ui/lab/Pagination";
+import { makeStyles } from "@material-ui/core/styles";
+import AllRestaurants from "./components/AllRestaurants";
+import PaginationMenu from "../src/components/restaurants-client/pagination";
+import TeamHome from "./components/talabatTeam/TeamHome";
+import Home from "./components/Home";
+import Register from "./components/Register";
+import RestaurantMenu from "./components/RestaurantMenu";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import PartnerRegister from "./components/Partner/partnerRegister";
 import PartnerLogin from "./components/partnerLogin/PartnerLogin";
@@ -58,9 +59,11 @@ function App() {
    
                 </Switch>
         </Router>
+
   );
-  }
+}
 
 
 
 export default App;
+

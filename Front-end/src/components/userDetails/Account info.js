@@ -34,6 +34,7 @@ class Myaccount extends React.Component {
 	// console.log(e.target.value);
     //  console.log("gender of male:"+this.state.gender);
   }
+  
  
   clickSubmit = async(e) => {
         e.preventDefault();
