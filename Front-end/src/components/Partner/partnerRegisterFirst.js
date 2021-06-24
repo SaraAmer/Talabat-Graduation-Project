@@ -56,6 +56,24 @@ class PartnerRegisterFirst extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  //*****************
+  // async componentDidMount() {
+  //   //fetch all category from database
+  //   let res = await fetch("http://127.0.0.1:8000/", {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+  //     .then((res) => res.json())
+  //     .then((result) => {
+  //       this.setState({
+  //         category: result.selectValue,
+  //       });
+  //     });
+  // }
+  /****************/
+
   PostData = async (e) => {
     e.preventDefault();
     // http://localhost:8000/auth/restaurant/signup
@@ -300,6 +318,11 @@ class PartnerRegisterFirst extends React.Component {
           </label>
 
           <form>
+            {/* ****************** */}
+            {/* { this.state.category >0 ?this.state.category.map((category) => {
+
+            })} */}
+            {/* ******************** */}
             <select
               id="category"
               value={this.state.selectValue}

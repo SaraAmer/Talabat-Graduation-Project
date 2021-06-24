@@ -11,10 +11,12 @@ const restaurantSchema = new Schema({
     contentType: String,
     // required: false,
   },
-  type: {
-    type: Number,
-    // required: true,
-  },
+  // type: {
+  //   type: Number,
+  //   // required: true,
+
+  // },
+  type: [{ type: Schema.Types.ObjectId, ref: "storeType" }],
   desc: {
     type: String,
     // required: true,
