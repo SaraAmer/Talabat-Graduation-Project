@@ -15,15 +15,20 @@ import {
   RegionDropdown,
   CountryRegionData,
 } from "react-country-region-selector";
-
 toast.configure();
 // const PartnerRegisterFirst = () => {
 class PartnerRegisterFirst extends React.Component {
   constructor() {
     super();
     this.state = {
-      name: "",
+      firstName: "",
+      lastName: "",
+      storeLocation: "",
+      mobileNumber: "",
       email: "",
+      storeName: "",
+      NumberOfBranches: "",
+      category: "",
       password: "",
       country: "",
       region: "",
@@ -77,21 +82,8 @@ class PartnerRegisterFirst extends React.Component {
       M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
     }
   };
-  // componentWillMount()
-  // {
-  //   this.
-  // }
-  // }
-  // setInputValue = (e) => {
-  //   this.setState({ [e.target.name]: e.target.value });
-  // };
-  //const [image,setImage] = useState("")
   render() {
     const { country } = this.state;
-    // document.getElementById("submit").addEventListener("click", function () {
-    //   // alert("button clicked");
-    // });
-
     return (
       <form className="form-row" method="POST">
         {/* ***** */}
@@ -110,7 +102,7 @@ class PartnerRegisterFirst extends React.Component {
             placeholder="Type Your First Name"
             value={this.state.name}
             onChange={this.setInputValue}
-            name="name"
+            name="firstname"
           />
         </div>
         {/* ***** */}
@@ -163,12 +155,7 @@ class PartnerRegisterFirst extends React.Component {
           </div>
         </div>
         {/* ************** */}
-        {/* <div
-          style={{
-            padding: "20px",
-            margin: "20px",
-          }}
-        ></div> */}
+
         {/* ************ */}
         <div className="form-group">
           <label
