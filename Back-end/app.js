@@ -28,6 +28,7 @@ const categoryRoutes = require("./api/routers/category");
 const offerRoutes = require("./api/routers/offers");
 const copounRoutes = require("./api/routers/copouns");
 const choiceRoutes = require("./api/routers/choices");
+const BrancheRoutes= require("./api/routers/branches");
 //************ for upload img
 const fs = require('fs');
 require('dotenv/config');
@@ -37,7 +38,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json 
 app.use(bodyParser.json());
 app.use('/uploads', express.static('uploads'));
-mongoose.connect('')
+mongoose.connect('mongodb+srv://eithar:123@cluster0.jg0og.mongodb.net/Talabat?retryWrites=true&w=majority')
     .then(result => {
         app.listen(4000);
         //  console.log(result);
@@ -58,7 +59,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //*******************
 app.use("/restaurant", choiceRoutes, categoryRoutes, foodRoutes);
 
-//app.use("/restaurants/category", categoryRoutes);
+app.use("/restaurant", BrancheRoutes);
 
 //app.use("/restaurants/foods", foodRoutes);
 
