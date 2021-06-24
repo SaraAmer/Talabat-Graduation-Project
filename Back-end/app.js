@@ -1,5 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
+var cors = require("cors");
 const app = express();
 var cors = require("cors");
 //**************to connect Backend with frontend************************
@@ -28,6 +29,12 @@ const User = require("./api//models/user");
 // ******************************************
 const restaurantsRoutes = require("./api/routers/restaurants");
 const userRoutes = require("./api/routers/user");
+
+const addressRoutes = require("./api/routers/address");
+
+
+// **********************************
+
 const foodRoutes = require("./api/routers/foods");
 const categoryRoutes = require("./api/routers/category");
 const offerRoutes = require("./api/routers/offers");
@@ -50,10 +57,12 @@ mongoose.connect('mongodb+srv://eithar:123@cluster0.jg0og.mongodb.net/Talabat?re
         app.listen(5000);
         //  console.log(result);
 
+
     })
     .catch(err => {
         console.log(err);
     });
+
 
 var Schema = mongoose.Schema;
 console.log(
@@ -64,7 +73,14 @@ console.log(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 //*******************
+<<<<<<< HEAD
 app.use("/restaurant", choiceRoutes, categoryRoutes, foodRoutes, BrancheRoutes);
+=======
+
+app.use(cors());
+
+app.use("/restaurant", choiceRoutes, categoryRoutes, foodRoutes , BrancheRoutes);
+>>>>>>> 0a255c92064242ec182bbded6f0c280dc3d1442a
 
 // app.use("/restaurant", BrancheRoutes);
 
@@ -74,6 +90,7 @@ app.use("/restaurants", restaurantsRoutes);
 app.use("/restaurants/offer", offerRoutes);
 app.use("/restaurants/copoun", copounRoutes);
 app.use("/user", userRoutes);
+app.use("/address", addressRoutes);
 app.use("/auth/restaurant", authRoutes);
 
 app.use("/user", userRoutes);
@@ -94,6 +111,7 @@ var storage = multer.diskStorage({
 });
 
 var upload = multer({ storage: storage });
+
 
 
 // *****************

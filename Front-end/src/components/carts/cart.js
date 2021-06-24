@@ -19,6 +19,7 @@ class Cart extends React.Component {
 
 	}
 	increase=()=>{
+		 
 		this.setState({
 			count:this.state.count+1,
 			products:this.state.products
@@ -30,6 +31,7 @@ class Cart extends React.Component {
 		this.setState({
 			count:this.state.count-1,
 			products:this.state.products
+			
 		})
 		// localStorage["cartItems"]=JSON.stringify(this.state.products);
 	}
@@ -44,6 +46,7 @@ class Cart extends React.Component {
     return (
         <Router>
             <div>
+			 
     	        <span  className="m-2 h5" style={{color:'#FF5900'}}>Your Cart</span>
 				<div className="card" style={{width: "22rem"}}>
 					<div className="card-body">
