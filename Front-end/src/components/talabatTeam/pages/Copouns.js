@@ -270,9 +270,9 @@ class Copouns extends React.Component {
                   <div
                     className="card "
                     style={{
-                      width: "260px",
-                      marginLeft: "16px",
-                      marginRight: "5px",
+                      width: "290px",
+                      marginLeft: "25px",
+                      marginRight: "8px",
                       marginTop: "20px",
                       marginBottom: "8px",
                     }}
@@ -282,8 +282,8 @@ class Copouns extends React.Component {
                       src={restaurant.img}
                       style={{
                         paddingLeft: "0px",
-                        paddingRight: "0px",
-                        width: "235px",
+                        paddingRight: "9px",
+                        width: "275px",
                         height: "170px",
                       }}
                       alt="Card image cap"
@@ -367,10 +367,10 @@ class Copouns extends React.Component {
                           </div>
                         </li>
                         <li className="list-group-item">
-                          <a    href={`/new-copoun/${this.state.currentRestaurantId}`} className="card-link"
-                                 onClick={() =>
-                                this.setCurrrentResId(restaurant.id)
-                              }
+                          <a
+                            href={`/new-copoun/${this.state.currentRestaurantId}`}
+                            className="card-link"
+                            onClick={() => this.setCurrrentResId(restaurant.id)}
                           >
                             <GrAdd />
                             Add new copoun

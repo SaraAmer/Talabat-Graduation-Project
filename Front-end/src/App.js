@@ -20,6 +20,7 @@ import ResetPassword from "./components/partnerLogin/ResetPassword";
 import NewPassword from "./components/partnerLogin/NewPassword";
 function App() {
   return (
+    
     <Router className="App">
       <Switch>
         <Route path="/" exact>

@@ -1,14 +1,15 @@
 const express = require("express");
 const morgan = require("morgan");
-var cors = require("cors");
+
 const app = express();
-var cors = require("cors");
-//**************to connect Backend with frontend************************
-app.use(cors());
+
+const cors = require("cors");
+
 //*************To use Validator in Backend**********************//
 // const expressValidator = require("express-validator");
 // app.use(expressValidator());
 //************************************************************ */
+
 //to show extra information when making a request
 app.use(morgan("dev"));
 
@@ -66,20 +67,25 @@ var Schema = mongoose.Schema;
 console.log(
   "********************************************************************"
 );
+//**************to connect Backend with frontend************************
+app.use(cors());
+console.log(require("util").inspect(Schema.Types.ObjectId));
+
 // console.log(require("util").inspect(Schema.Types.ObjectId));
+
 //*********** */
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 //*******************
 
-app.use(cors());
+
 
 app.use("/restaurant", choiceRoutes, categoryRoutes, foodRoutes, BrancheRoutes);
 
 // app.use("/restaurant", BrancheRoutes);
 
 //app.use("/restaurants/foods", foodRoutes);
-
+    
 app.use("/restaurants", restaurantsRoutes);
 app.use("/restaurants/offer", offerRoutes);
 app.use("/restaurants/copoun", copounRoutes);
@@ -89,6 +95,7 @@ app.use("/user", userRoutes);
 app.use("/auth/restaurant", authRoutes);
 app.use("/country", countryRoutes);
 ///////////////Image upload /////////
+
 
 // Step 5 - set up multer for storing uploaded files
 
