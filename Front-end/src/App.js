@@ -20,40 +20,42 @@ import ResetPassword from "./components/partnerLogin/ResetPassword";
 import NewPassword from "./components/partnerLogin/NewPassword";
 function App() {
   return (
-    
-    <Router className="App">
-      <Switch>
-        <Route path="/" exact>
-          <Header />
-          {/* <RestaurantMenu/> */}
-          {/* <Register/> */}
-          {/* <TeamHome/> */}
-          {/* <Home/> */}
-          {/* <ResetPassword />
-          <NewPassword /> */}
-          <Footer />
-        </Route>
-        <Route path="/becomepartner" exact>
-          <PartnerRegister />
-        </Route>
-        <Route exact path="/partnerlogin">
-          <PartnerLogin />
-        </Route>
-        <Route exact path="/restaurant/dashboard">
-          <Restaurant />
-        </Route>
+    <div>
+      <TeamHome />
+    </div>
+    // <Router className="App">
+    //   <Switch>
+    //     <Route path="/" exact>
+    //       <Header />
+    //       {/* <RestaurantMenu/> */}
+    //       {/* <Register/> */}
+    //       {/* <TeamHome/> */}
+    //       {/* <Home/> */}
+    //       {/* <ResetPassword />
+    //       <NewPassword /> */}
+    //       <Footer />
+    //     </Route>
+    //     <Route path="/becomepartner" exact>
+    //       <PartnerRegister />
+    //     </Route>
+    //     <Route exact path="/partnerlogin">
+    //       <PartnerLogin />
+    //     </Route>
+    //     <Route exact path="/restaurant/dashboard">
+    //       <Restaurant />
+    //     </Route>
 
-        <Route exact path="/Register">
-          <Header />
-          <Register />
-          <Footer />
-        </Route>
+    //     <Route exact path="/Register">
+    //       <Header />
+    //       <Register />
+    //       <Footer />
+    //     </Route>
 
-        <Route exact path="/team">
-          <TeamHome />
-        </Route>
-      </Switch>
-    </Router>
+    //     <Route exact path="/team">
+    //       <TeamHome />
+    //     </Route>
+    //   </Switch>
+    // </Router>
   );
 }
 

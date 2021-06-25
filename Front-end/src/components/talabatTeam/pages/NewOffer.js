@@ -209,46 +209,35 @@ axios.post("http://127.0.0.1:8000/restaurants/offer",fd)
         {/* mfrod ykon gayli el restaurant id, name mn class offer  */}
         <hr></hr>
         <div>
-          {/* <div>
-            {this.state.menuItems.length > 0
-              ? this.state.menuItems.map((item) => {
-                  return (
-                    <DisplayMenuItems
-                      menuItem={item}
-                      addSelected={this.addSelected}
-                    />
-                  );
-                })
-              : "Empty"}
-          </div> */}
-          <h1
-            style={{
-              color: "rgb(33, 33, 33)",
-              backgroundColor: "rgb(246, 246, 246)",
-              marginTop: "30px",
-              marginBottom: "10px",
-              paddingInline: "20px",
-              paddingTop: "10px",
-              paddingBottom: "10px",
-              fontSize: "15px",
-              fontFamily: "sans-serif",
-              paddingLeft: "50px",
-            }}
-          >
-            Selected Items
-          </h1>
-          {this.state.selectedItems.length > 0
-            ? this.state.selectedItems.map((item) => {
-                return (
-                  <DisplaySelected
-                    selected={item}
-                    removeSelected={this.removeSelected}
-                  />
-                );
-              })
-            : "No items selected"}
+
           <br></br>
           <br></br>
+         <button type="button" class="btn btn-info text-white" data-toggle="modal" data-target="#exampleModal">
+        See Restaurant Menu
+      </button>
+      <br></br><br></br>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+          
 
           <form>
             <div class="form-group">

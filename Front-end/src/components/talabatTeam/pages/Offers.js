@@ -86,7 +86,7 @@ class Offers extends React.Component {
     let resJson = await res.json();
     this.setState({ loading: false, apiRestaurants: resJson.restaurants });
     console.log(resJson);
-    console.log(this.state.offerImg)
+    
   }
   // resOffers = (resId) => {
   //   let res = fetch(
@@ -281,6 +281,7 @@ class ViewOffers extends React.Component {
     super();
     this.state = {
       offers: [],
+      refresh:true
     };
   }
   // componentWillMount() {
