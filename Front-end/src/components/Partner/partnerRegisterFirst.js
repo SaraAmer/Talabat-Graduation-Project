@@ -15,6 +15,8 @@ import {
   RegionDropdown,
   CountryRegionData,
 } from "react-country-region-selector";
+var Joi = require("joi-browser");
+
 toast.configure();
 // const PartnerRegisterFirst = () => {
 class PartnerRegisterFirst extends React.Component {
@@ -77,6 +79,13 @@ class PartnerRegisterFirst extends React.Component {
   PostData = async (e) => {
     e.preventDefault();
     // http://localhost:8000/auth/restaurant/signup
+
+    // const myCustomJoi = Joi.extend(require("joi-phone-number"));
+
+    // console.log(
+    //   myCustomJoi.string().phoneNumber().validate(this.state.mobileNumber)
+    // );
+
     let res = await fetch("http://localhost:8000/auth/restaurant/signup", {
       method: "post",
       headers: {
@@ -107,11 +116,18 @@ class PartnerRegisterFirst extends React.Component {
     //   `${FirstName} ${LastName} ${MobileNumber} ${email}  ${password} ${storename} ${numberOfBranches} ${category}`
     // );
     let resJson = await res.json();
+
     console.log(resJson.error);
-    if (typeof resJson.error === "undefined") {
-      M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
-    } else {
-      M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
+    M.toast({
+      html: resJson.error.details[0].message,
+      classes: "#c62828 red darken-3",
+    });
+    if (resJson.error.details[0].message === "undefined") {
+      if (typeof resJson.error === "undefined") {
+        M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
+      } else {
+        M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
+      }
     }
   };
   render() {
@@ -279,7 +295,7 @@ class PartnerRegisterFirst extends React.Component {
           />
         </div>
         {/* // ********************* */}
-        <div className="form-group ">
+        {/* <div className="form-group ">
           <label
             className="fs-4"
             style={{
@@ -303,9 +319,8 @@ class PartnerRegisterFirst extends React.Component {
             <option value="Electronics" selected="">
               Electronics
             </option>
-            {/* <option>Entertainment</option> */}
           </select>
-        </div>
+        </div> */}
         {/* //****************** */}
         <div className="form-group">
           <label
