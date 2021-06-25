@@ -27,9 +27,11 @@ var upload = multer({ storage: storage });
 router.post("/:resId/food", upload.single('img'), (req, res, next) => {
 
     const choices = [];
+    if(req.body.choices){
     for (const choice of req.body.choices) {
         choices.push(choice);
     }
+}
 
     const food = new Food({
         _id: new mongoose.Types.ObjectId(),
@@ -39,7 +41,7 @@ router.post("/:resId/food", upload.single('img'), (req, res, next) => {
         category: req.body.category,
         rate: req.body.rate,
         price: req.body.price,
-        img: req.file.path,
+        img: req.file?req.file.path:null,
 
     });
     food

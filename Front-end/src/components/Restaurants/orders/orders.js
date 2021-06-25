@@ -5,8 +5,27 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import OrderDetails from "./orderDetails"
 
 class Orders extends React.Component{
+
+    constructor(){
+      super();
+      this.state={
+        orders:[],
+      }
+    }
+    async componentWillMount() {
+      let res = await fetch(`http://127.0.0.1:8000/orders/restaurant/60d38c9a0a0a258cbcc0fc60`, {
+          method: "GET",
+          headers: {
+        "Content-Type": "application/json",}
+    })
+     .then(res => res.json())
+      .then(result => {
+      this.setState({categories: result.Categories 
+          , category:""} )    
+     
+      });
     
-    
+  }
     render(){
         createTheme('solarized', {
             text: {
@@ -72,7 +91,7 @@ class Orders extends React.Component{
             },
             {
                
-                cell: () => <div><a className="btn btn-info btn-sm" href="/order/1"  style={{color: "white"}}>Details</a> <button className="btn btn-danger btn-sm" >Details</button> <button className="btn btn-danger btn-sm" >Details</button></div>,
+                cell: () => <div><a className="btn btn-info btn-sm" href="/order/1"  style={{color: "white"}}>Delivered</a> <button className="btn btn-danger btn-sm" >Details</button> <button className="btn btn-danger btn-sm" >Details</button></div>,
                 name: 'Action',
                 ignoreRowClick: true,
             },

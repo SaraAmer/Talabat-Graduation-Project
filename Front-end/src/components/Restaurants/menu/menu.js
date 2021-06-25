@@ -5,8 +5,24 @@ import "./menu.css"
 class Menu extends React.Component{
     constructor(){
         super()
-        this.categories=["Salad" , "Best Seller" , "Appatizer"]
+        this.state ={
+            categories :[],
+        }
     
+    }
+        async componentWillMount() {
+        let res = await fetch(`http://127.0.0.1:8000/restaurant/60d38c9a0a0a258cbcc0fc60/category`, {
+            method: "GET",
+            headers: {
+          "Content-Type": "application/json",}
+      })
+       .then(res => res.json())
+        .then(result => {
+            this.setState({categories: result.Categories})
+       
+       
+        });
+      
     }
  
 
@@ -14,10 +30,10 @@ class Menu extends React.Component{
         return (
             <div id="restaurant-menue-container" >
                 <div id="categories-container">
-                    <Categories categories={this.categories} />
+                    <Categories categories={this.state.categories} />
                 </div>
                 <div id="menue-body">
-                    <MenuBody categories={this.categories}/>
+                    <MenuBody categories={this.state.categories}/>
 
                 </div>
             </div>

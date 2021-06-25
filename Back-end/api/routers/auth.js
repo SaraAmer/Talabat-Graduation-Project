@@ -237,6 +237,7 @@ router.post("/login", (req, res, next) => {
           }
           //lw al atnen password kano matched ydeh token
           if (result) {
+            
             const token = jwt.sign(
               {
                 email: restaurantowner[0].email,

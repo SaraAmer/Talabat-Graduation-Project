@@ -24,7 +24,8 @@ class LoginUSer extends React.Component {
   };
   PostData = async (e) => {
     e.preventDefault();
-    let res = await fetch("http://localhost:8000/auth/restaurant/login", {
+    console.log(this.state.email);
+    let res = await fetch("http://localhost:8000/user/login", {
       method: "post",
       headers: {
         "Content-Type": "application/json",

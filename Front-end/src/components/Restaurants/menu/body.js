@@ -10,10 +10,13 @@ class MenuBody extends React.Component{
     constructor(props){
         super()
         this.state ={
-            categories : props.categories
+            categories : props.categories,
+         
+
         }
        
     }
+
     render(){
         return(
             <div style={{width: "95%"}}>
@@ -22,12 +25,14 @@ class MenuBody extends React.Component{
                     <FontAwesomeIcon icon={faSearch} color="grey" id="search-icon"/>
                 </div>
 
-                <Router>
-                    <Link className="btn btn-success" to="/newFood" style={{marginTop: "10px" , width: "66%"}} >
+              
+                    <button className="btn btn-success"  data-toggle="modal" data-target="#exampleModal" style={{marginTop: "10px" , width: "66%"}} >
                         ADD NEW 
-                    </Link>
+                    </button>
+                    <MenuItem/>
             
-                </Router>
+                
+
                 {
                     this.state.categories.map((category)=>{
                         return(

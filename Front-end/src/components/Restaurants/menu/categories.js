@@ -13,23 +13,57 @@ class Categories extends React.Component{
         }
     }
     async componentWillMount() {
-        this.setState({categories: this.props.categories , category:""} )    
+        let res = await fetch(`http://127.0.0.1:8000/restaurant/60d38c9a0a0a258cbcc0fc60/category`, {
+            method: "GET",
+            headers: {
+          "Content-Type": "application/json",}
+      })
+       .then(res => res.json())
+        .then(result => {
+        this.setState({categories: result.Categories 
+            , category:""} )    
+       
+        });
+      
     }
     inputHandler=()=>{
-        this.setState({display: this.state.display=="none"?"flex":"none"})
+        this.setState({display: this.state.display==="none"?"flex":"none"})
         console.log(this.state.display)
     }
-    submitHandler=(e)=>{
-        e.preventDefault()
-        this.props.categories.push(this.state.category)
-        this.setState({categories: this.props.categories , category:""} )
-        console.log(e.target)
+    submitHandler=async(e)=>{
+        // e.prevetDefault();
+       
+        let res = await fetch('http://127.0.0.1:8000/restaurant/60d38c9a0a0a258cbcc0fc60/category', {
+            method: "POST",
+            headers: {
+          "Content-Type": "application/json",
+            },
+             body: JSON.stringify({
+          
+            name: this.state.category,
+
+        }),
+      }); 
+  
 
     }
-    deleteItem=(index)=>{
+    deleteItem=async (index)=>{
         console.log("deleted")
+      
+        let res = await fetch(`http://127.0.0.1:8000/restaurant/category/${this.state.categories[index]._id}`, {
+            method: "DELETE",
+            headers: {
+          "Content-Type": "application/json",}
+      })
+       .then(res => res.json())
+        .then(result => {
+            alert("the category deleted successfuly")
+        
+       
+        });
         this.props.categories.splice(index,1)
         this.setState({categories: this.props.categories} )
+
 
 
     }
@@ -47,7 +81,7 @@ class Categories extends React.Component{
                                 <div className="categories-item">
                                     <div className="category-name">
                                         <p>
-                                            {category}
+                                            {category.name}
                                            
                                         </p>
                                     </div>
@@ -62,8 +96,9 @@ class Categories extends React.Component{
                        
                         <form style={{ display: this.state.display}} onSubmit={this.submitHandler}  > 
                             <input type="text" style={{width: "100%" ,display: "inline-block"}} value={this.state.category} onChange={(e)=>{this.setState({category: e.target.value})}} />
-                            <input type="submit" value="add" className="btn btn-primary btn-sm" style={{display: "inline-block"}} />
+                           
                         </form>
+                        <input type="submit" value="add" className="btn btn-primary btn-sm" style={{display: this.state.display}}onClick={this.submitHandler} />
                         <div id="plus-icon">
                           
                             <FontAwesomeIcon icon={faPlus} color="grey" onClick={this.inputHandler}/>

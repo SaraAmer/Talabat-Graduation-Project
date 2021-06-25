@@ -100,7 +100,12 @@ router.delete("/:userId", (req, res, next) => {
 
 //*******************
 router.post("/login", (req, res, next) => {
+ 
   console.log("d5l al user login");
+console.log("============================")
+console.log(req.body.email)
+console.log("============================")
+
   User.find({ email: req.body.email })
     .exec()
     .then((user) => {
