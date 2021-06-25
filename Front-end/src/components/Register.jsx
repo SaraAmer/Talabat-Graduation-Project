@@ -2,8 +2,22 @@ import React from 'react';
 import {AiFillFacebook} from 'react-icons/ai';
 import GoogleImg from '../images/btn_google_light.svg'
 import { useState } from 'react';
+import M from "materialize-css";
+//****** */
 function Register() {
+  var Joi = require("joi-browser");
   const [gender, setGender] = useState("");
+  const [allValues, setAllValues] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    cpassword: ''
+ });
+ const changeHandler = e => {
+  setAllValues({...allValues, [e.target.name]: e.target.value})
+}
+
   function handelActiveGender(e){
     setGender(e.target.className);
        removeActive();
@@ -26,6 +40,34 @@ function Register() {
   
     document.getElementsByClassName(activeGender)[0].classList.add("active");
   }
+
+  const createAccount = async (e) => {
+    e.preventDefault();
+    let res = await fetch("http://localhost:8000/user/signup", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        //key and value from form
+        password: allValues.password,
+        email: allValues.email,
+        firstName: allValues.firstName,
+        lastName: allValues.lastName,
+        gender: gender
+      }),
+    });
+    let resJson = await res.json();
+    console.log(resJson.error);
+    console.log(resJson.message);
+
+    if (typeof resJson.error === "undefined") {
+      localStorage.setItem("jwt", resJson.token);
+      M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
+    } else {
+      M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
+    }
+  };
     return (
         <div className="registration">
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -50,36 +92,36 @@ function Register() {
             </div>
             <div className="sign-up-options">
 
-            <form>
+            <form onSubmit={createAccount} >
     <div class="form-group row mb-3">
     <label for="inputEmail3" class="col-sm-2 col-form-label">First Name</label>
     <div class="col-sm-6">
-      <input type="email" class="form-control" id="inputEmail3" placeholder="First Name"/>
+      <input name="firstName" onChange={changeHandler} class="form-control" id="inputEmail3" placeholder="First Name"/>
     </div>
   </div>
     <div class="form-group row mb-3">
     <label for="inputEmail3" class="col-sm-2 col-form-label">Last Name</label>
     <div class="col-sm-6">
-      <input type="email" class="form-control" id="inputEmail3" placeholder="Last Name"/>
+      <input name="lastName" onChange={changeHandler} class="form-control" id="inputEmail3" placeholder="Last Name"/>
     </div>
   </div>
   <div class="form-group row mb-3">
     <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
     <div class="col-sm-6">
-      <input type="email" class="form-control" id="inputEmail3" placeholder="Email"/>
+      <input name="email" onChange={changeHandler} type="email" class="form-control" id="inputEmail3" placeholder="Email"/>
     </div>
   </div>
   <div class="form-group row mb-3">
     <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
     <div class="col-sm-6">
-      <input type="password" class="form-control" id="inputPassword3" placeholder="Password"/>
+      <input name="password" onChange={changeHandler}  type="password" class="form-control" id="inputPassword3" placeholder="Password"/>
     </div>
   </div>
 
   <div class="form-group row mb-3">
     <label for="inputPassword3" class="col-sm-2 col-form-label">Confirm Password</label>
     <div class="col-sm-6">
-      <input type="password" class="form-control" id="inputPassword3" placeholder="Password"/>
+      <input name="cpassword" onChange={changeHandler} type="password" class="form-control" id="inputPassword3" placeholder="Password"/>
     </div>
   </div>
   <div class="form-group row mb-3">

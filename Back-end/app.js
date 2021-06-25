@@ -41,6 +41,7 @@ const authRoutes = require("./api/routers/auth");
 const countryRoutes = require("./api/routers/country");
 const addressRoutes = require("./api/routers/address");
 const orderRoutes = require("./api/routers/order");
+const cartRoutes = require("./api/routers/cart");
 //************ for upload img
 const fs = require("fs");
 require("dotenv/config");
@@ -51,20 +52,20 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use("/uploads", express.static("uploads"));
 mongoose
-  .connect(
-    "mongodb+srv://eithar:123@cluster0.jg0og.mongodb.net/Talabat?retryWrites=true&w=majority"
-  )
-  .then((result) => {
-    app.listen(5000);
-    //  console.log(result);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+    .connect(
+        "mongodb+srv://eithar:123@cluster0.jg0og.mongodb.net/Talabat?retryWrites=true&w=majority"
+    )
+    .then((result) => {
+        app.listen(5000);
+        //  console.log(result);
+    })
+    .catch((err) => {
+        console.log(err);
+    });
 
 var Schema = mongoose.Schema;
 console.log(
-  "********************************************************************"
+    "********************************************************************"
 );
 // console.log(require("util").inspect(Schema.Types.ObjectId));
 //*********** */
@@ -83,6 +84,7 @@ app.use("/restaurant", choiceRoutes, categoryRoutes, foodRoutes, BrancheRoutes);
 app.use("/restaurants", restaurantsRoutes);
 app.use("/restaurants/offer", offerRoutes);
 app.use("/restaurants/copoun", copounRoutes);
+app.use("/user/cart", cartRoutes);
 app.use("/user/address", addressRoutes);
 app.use("/order", orderRoutes);
 app.use("/user", userRoutes);
@@ -95,48 +97,48 @@ app.use("/country", countryRoutes);
 var multer = require("multer");
 
 var storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads");
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.fieldname + "-" + Date.now());
-  },
+    destination: (req, file, cb) => {
+        cb(null, "uploads");
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + "-" + Date.now());
+    },
 });
 
 var upload = multer({ storage: storage });
 
 // *****************
 app.post("/hello", (req, res) => {
-  console.log("ji");
-  const name = req.body.name;
-  res.send({ message: `welcome ${name}` });
+    console.log("ji");
+    const name = req.body.name;
+    res.send({ message: `welcome ${name}` });
 });
 
 //If reaches this line, then there is an error
 app.use((req, res, next) => {
-  const error = new Error("Not Found");
-  error.status = 404;
-  next(error);
+    const error = new Error("Not Found");
+    error.status = 404;
+    next(error);
 });
 //handel error:
 app.use((error, req, res, next) => {
-  res.status(error.status || 500);
-  res.json({
-    error: {
-      message: error.message,
-    },
-  });
+    res.status(error.status || 500);
+    res.json({
+        error: {
+            message: error.message,
+        },
+    });
 });
 
 //**************img  upload************* */
 
 var storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads");
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.fieldname + "-" + Date.now());
-  },
+    destination: (req, file, cb) => {
+        cb(null, "uploads");
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + "-" + Date.now());
+    },
 });
 
 var upload = multer({ storage: storage });
@@ -147,19 +149,19 @@ var upload = multer({ storage: storage });
 
 //If reaches this line, then there is an error
 app.use((req, res, next) => {
-  const error = new Error("Not Found");
-  error.status = 404;
+    const error = new Error("Not Found");
+    error.status = 404;
 
-  next(error);
+    next(error);
 });
 //handel error:
 app.use((error, req, res, next) => {
-  res.status(error.status || 500);
-  res.json({
-    error: {
-      message: error.message,
-    },
-  });
+    res.status(error.status || 500);
+    res.json({
+        error: {
+            message: error.message,
+        },
+    });
 });
 
 module.exports = app;

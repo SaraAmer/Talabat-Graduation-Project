@@ -4,7 +4,42 @@ import RestaurantCard from "./filter4";
 import NavFilter from "./filter1";
 import CheckFilter from "./filter2";
 import CheckFilter2 from "./filter3";
+import {
+  useParams
+} from "react-router-dom";
 class Filter extends React.Component {
+  constructor(props){
+    super();
+    this.state = {
+      restaurants : [],
+      address : ""
+    }
+    
+
+  }
+
+  async componentDidMount(){
+    const queryParams = window.location.href;
+    const address = queryParams.split('/')[4];
+    this.setState({
+      address: address 
+    })
+	   let res = await fetch(`http://127.0.0.1:8000/restaurants/street/${address}`, {
+      	method: "GET",
+     	 headers: {
+        "Content-Type": "application/json",}
+    })
+	 .then(res => res.json())
+      .then(result => {
+        console.log(result.restaurants);
+        this.setState({
+    restaurants: result.restaurants
+        });
+      });
+ 	
+ 
+	
+   }
   render() {
     return (
       <div className="container " style={{ width: "1500px" }}>
@@ -12,7 +47,7 @@ class Filter extends React.Component {
           <div className="card m-3">
             <div className="card-header"></div>
             {/* ****** */}
-            <h2>Restaurants in Salah ElDin Street</h2>
+            <h2>Restaurants in {this.state.address} Street</h2>
             <div className="row">
               <div className="col-4">
                 {/* search */}
@@ -39,7 +74,7 @@ class Filter extends React.Component {
                 {/* sortby */}
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
                   {/* ***************************************** */}
-                  <NavFilter />
+             
                   {/* ************************* */}
                 </nav>
               </div>
@@ -54,7 +89,16 @@ class Filter extends React.Component {
                 {/* ***********End of Card************************* */}
               </div>
               <div className="col-8">
-                <RestaurantCard />
+              <div className="card-body">
+              {this.state.restaurants.map(rest =>{
+                return(
+                  <RestaurantCard restaurant = {rest}/>
+                );
+
+              })}
+              </div>
+
+              
               </div>
             </div>
             {/* ****** */}

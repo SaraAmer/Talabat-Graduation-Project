@@ -7,27 +7,15 @@ import Pagination from '@material-ui/lab/Pagination';
 import PaginationMenu from './pagination';
 
 function restaurants(restaurant){
-    return(
-//         <div style={{display:"inline-block"}}>
-//         <a  href={`/restaurants/${restaurant.id}`}>
-//         <Restaurant
-//         id={restaurant.id}
-//         name={restaurant.name}
-//         logo={restaurant.logo}
-//         desc={restaurant.desc}
-//         />
-//         </a>
-//      <Router>   
-// <Switch>
-//         <Route path="/restaurants/:id" component={RestaurantDetails} />
 
-// </Switch>  
-// </Router>  
-//  </div>
+    console.log("RESTAURANTS");
+    console.log(props.rests);
+    return(
+
 <Restaurant
 id={restaurant.id}
 name={restaurant.name}
-logo={restaurant.logo}
+logo={restaurant.img}
 desc={restaurant.desc}
 
 
