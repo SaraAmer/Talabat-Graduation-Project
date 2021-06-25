@@ -24,7 +24,7 @@ class LoginUSer extends React.Component {
   };
   PostData = async (e) => {
     e.preventDefault();
-    let res = await fetch("http://localhost:8000/auth/restaurant/login", {
+    let res = await fetch("http://localhost:8000/user/login", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -36,15 +36,19 @@ class LoginUSer extends React.Component {
       }),
     });
     let resJson = await res.json();
+    console.log(resJson);
     console.log(resJson.error);
     console.log(resJson.message);
 
     if (typeof resJson.error === "undefined") {
       localStorage.setItem("jwt", resJson.token);
+
       M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
     } else {
       M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
     }
+
+    window.location.reload();
   };
   //******************** */
   responseSuccessGoogle = async (response) => {
@@ -72,6 +76,7 @@ class LoginUSer extends React.Component {
     } else {
       M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
     }
+    window.location.reload();
   };
   /******** */
   responseFacebook = async (response) => {
@@ -100,6 +105,7 @@ class LoginUSer extends React.Component {
     } else {
       M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
     }
+    window.location.reload();
   };
   //********************
   // responseFacebook = (response) => {
@@ -146,7 +152,7 @@ class LoginUSer extends React.Component {
                 <i class="bi bi-facebook"></i>  Continue with Facebook
               </a> */}
               <FacebookLogin
-                appId="814092259303918"
+                appId={process.env.FACEBOOKAPP}
                 autoLoad={true}
                 //if true when open login page it will go to
                 // login with facebook and we won't to do this

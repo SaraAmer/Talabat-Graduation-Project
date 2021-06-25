@@ -1,8 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
-
 const app = express();
-
 const cors = require("cors");
 
 //*************To use Validator in Backend**********************//
@@ -78,14 +76,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 //*******************
 
-
-
 app.use("/restaurant", choiceRoutes, categoryRoutes, foodRoutes, BrancheRoutes);
 
 // app.use("/restaurant", BrancheRoutes);
 
 //app.use("/restaurants/foods", foodRoutes);
-    
+
 app.use("/restaurants", restaurantsRoutes);
 app.use("/restaurants/offer", offerRoutes);
 app.use("/restaurants/copoun", copounRoutes);
@@ -95,7 +91,6 @@ app.use("/user", userRoutes);
 app.use("/auth/restaurant", authRoutes);
 app.use("/country", countryRoutes);
 ///////////////Image upload /////////
-
 
 // Step 5 - set up multer for storing uploaded files
 
