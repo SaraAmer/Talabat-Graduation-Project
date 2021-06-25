@@ -4,13 +4,13 @@ import Savedaddr from './Savedaddr';
 import Myorders from './Myorders';
 import Savedcards from "./Savedcards";
 import Talabatpay from "./Talabatpay";
+import M from "materialize-css";
 import {
     BrowserRouter as Router,
     Switch,
     Route,
     Link
 } from "react-router-dom"
- 
 
 class Myaccount extends React.Component {
 	 constructor(props) {
@@ -20,10 +20,14 @@ class Myaccount extends React.Component {
 		 firstName:"",
 		 lastName:"",
 		 email:"",
-		 date0fBirtg:"",
+		 dateOfBirth:"",
+		 password_confirmation:"",
+		 password:"",
 		 gender:""}
     
   }
+ 
+
   handleChange = (event) => {
  this.setState({ [event.target.name]: event.target.value });
  }
@@ -34,11 +38,91 @@ class Myaccount extends React.Component {
 	// console.log(e.target.value);
     //  console.log("gender of male:"+this.state.gender);
   }
-  
+   async componentDidMount(){
+	   let res = await fetch(`http://127.0.0.1:8000/user/profile/${this.state._id}`, {
+      	method: "GET",
+     	 headers: {
+        "Content-Type": "application/json",}
+    })
+	 .then(res => res.json())
+      .then(result => {
+        this.setState({
+        email: result.email,
+		firstName:result.firstName,
+		lastName:result.lastName,		
+		dateOfBirth:result.dateOfBirth,
+		gender:result.gender
+        });
+      });
+ 	
+ 
+	
+   }
+   clickUpeEm = async(e) => {
+       
+		let res = await fetch('http://127.0.0.1:8000/user/${this.state._id}/changemail', {
+      	method: "POST",
+     	 headers: {
+        "Content-Type": "application/json",
+      	},
+		   body: JSON.stringify({
+        //key and value from form
+       
+        email: this.state.email,
+		password:this.state.password,
+
+	
+      }),
+    }); 
+ let resJson = await res.json();
+    console.log(resJson.error);
+    console.log(resJson.message);
+
+    if (typeof resJson.error === "undefined") {
+      localStorage.setItem("jwt", resJson.token);
+      M.toast({ html: resJson.message});
+    } else {
+      M.toast({ html: resJson.error });
+    }
+	
+  };
+   clickUppas = async(e) => {
+       
+		let res = await fetch('http://127.0.0.1:8000/user/${this.state._id}/change', {
+      	method: "POST",
+     	 headers: {
+        "Content-Type": "application/json",
+      	},
+		   body: JSON.stringify({
+        //key and value from form
+       
+       password_confirmation:this.state.password_confirmation,
+		password:this.state.password,
+		
+		current:this.state.current,
+	
+	
+      }),
+	 
+
+    }); 
+ let resJson = await res.json();
+    console.log(resJson.error);
+    console.log(resJson.message);
+
+    if (typeof resJson.error === "undefined") {
+      localStorage.setItem("jwt", resJson.token);
+      M.toast({ html: resJson.message});
+    } else {
+      M.toast({ html: resJson.error });
+    }
+	
+  };
+
+      	
  
   clickSubmit = async(e) => {
         e.preventDefault();
-		console.log(e);
 		let res = await fetch("http://127.0.0.1:8000/user/profile/60d214425f913b3f0ded19f6", {
       	method: "PUT",
      	 headers: {
@@ -50,12 +134,21 @@ class Myaccount extends React.Component {
         email: this.state.email,
 		firstName:this.state.firstName,
 		lastName:this.state.lastName,
-		
-		date0fBirtg:this.state.date0fBirth,
+		dateOfBirth:this.state.dateOfBirth,
 		gender:this.state.gender
       }),
     });
-    
+    let resJson = await res.json();
+    console.log(resJson.error);
+    console.log(resJson.message);
+
+    if (typeof resJson.error === "undefined") {
+      localStorage.setItem("jwt", resJson.token);
+      M.toast({ html: resJson.message});
+    } else {
+      M.toast({ html: resJson.error });
+    }
+	
   };
 
 
@@ -64,6 +157,7 @@ class Myaccount extends React.Component {
 
         return (
 		<Router>
+	
 			<div className="container" id="big"  style={{width:"1000px"}}>
 				<div className="card mb-3  border-2 " style={{maxWidth:" 540px;"}}>
 					<div className=" border-bottom "><h3 className="card-title p-4">My Account</h3>
@@ -146,9 +240,9 @@ class Myaccount extends React.Component {
 									<div  className="form-group row p-2">
 										<label   className="col-sm-2 col-form-label text-muted">Date of birth </label>
 										<div  className="col-sm-5">
-											<input type="date"   className="form-control" name="dateOfBirth" value={this.state.dateOfBirth}   onChange={this.handleChange}/>
-											</div>
-											</div>
+											<input type="date"className="form-control" name="dateOfBirth" value={this.state.dateOfBirth}   onChange={this.handleChange}/>
+										</div>
+									</div>
 									<div  className="form-group row p-2">
 								        
 										<div  className="col-sm-5">
@@ -200,26 +294,21 @@ class Myaccount extends React.Component {
 								<div  className="form-group row p-2">
 									<label className="col-sm-3 col-form-label"for="exampleInputPassword" style={{fontSize:"12px"}}>Current Password</label>
 									<div  className="col-sm-5">
-									<input type="password"  className="form-control" id="exampleInputPassword"placeholder="current password"/>
+									<input type="password"  className="form-control" id="exampleInputPassword"placeholder="current password" name="password"  onChange={this.handleChange}/>
 								</div>
 								</div>
 								<div  className="form-group row p-2">
 									<label className="col-sm-3 col-form-label"for="exampleInputEmail2"style={{fontSize:"12px"}}>New Email </label>
 									<div  className="col-sm-6">
-									<input type="email"  className="form-control" id="exampleInputEmail2"  placeholder="New Email"/>
+									<input type="email"  className="form-control" id="exampleInputEmail2"  placeholder="New Email" name="email" onChange={this.handleChange}/>
 									</div>
 								  </div>
-								  <div  className="form-group row p-2">
-									<label className="col-sm-3 col-form-label"for="exampleInputEmail3"style={{fontSize:"12px"}}>Retype Email</label>
-									<div  className="col-sm-6">
-									<input type="email"  className="form-control" id="exampleInputEmail3" placeholder="Retype Email"/>
-									</div>
-								  </div>
+								 
 						</div>
 					    <div className="modal-footer">
 							<button type="button" className="btn btn-default border-success text-success" data-dismiss="modal">Close
 							</button>
-							<button type="button" className="btn btn-success">Submit
+							<button type="button" className="btn btn-success"  onClick={this.clickUpeEm}>Submit
 							</button>
 						</div>
 					</div>
@@ -240,19 +329,19 @@ class Myaccount extends React.Component {
 								<div  className="form-group row p-2">
 									<label className="col-sm-3 col-form-label" for="exampleInputPassword1"style={{fontSize:"12px"}}>Current Password</label>
 									<div  className="col-sm-6">
-									<input type="password"  className="form-control" id="exampleInputPassword1"placeholder="current password"/>
+									<input type="password"  className="form-control" id="exampleInputPassword1"placeholder="current password" name="current"  onChange={this.handleChange}/>
 								</div>
 								</div>
 								<div  className="form-group row p-2">
 									<label className="col-sm-3 col-form-label" for="exampleInputPassword2"style={{fontSize:"12px"}}>New Password</label>
 									<div  className="col-sm-6">
-									<input type="password"  className="form-control" id="exampleInputPassword2"placeholder="new password"/>
+									<input type="password"  className="form-control" id="exampleInputPassword2"placeholder="new password" name="password"  onChange={this.handleChange}/>
 								</div>
 								</div>
 								  <div  className="form-group row p-2">
 									<label className="col-sm-3 col-form-label" for="exampleInputPassword3"style={{fontSize:"12px"}}>Re-type New password</label>
 									<div  className="col-sm-6">
-									<input type="password"  className="form-control" id="exampleInputPassword3"placeholder="Re-type New password"/>
+									<input type="password"  className="form-control" id="exampleInputPassword3"placeholder="Re-type New password" name="password_confirmation"  onChange={this.handleChange}/>
 								</div>
 								</div>
 						
@@ -260,7 +349,7 @@ class Myaccount extends React.Component {
 					    <div className="modal-footer">
 							<button type="button" className="btn btn-default border-success text-success" data-dismiss="modal">Close
 							</button>
-							<button type="button" className="btn btn-success">Submit
+							<button type="button" className="btn btn-success"  onClick={this.clickUppas}>Submit
 							</button>
 						</div>
 					</div>

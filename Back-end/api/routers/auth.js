@@ -95,13 +95,13 @@ router.post("/signup", (req, res, next) => {
       "string.base": `Last name must be String`,
     }),
 
-    // MobileNumber: Joi.string()
-    //   .regex(/^\d{3}\d{3}\d{3}\d{2}$/)
-    //   .required()
-    //   .messages({
-    //     "string.base": `Not valid Phone`,
-    //   }),
-    MobileNumber: Joi.phoneNumber(),
+    MobileNumber: Joi.string()
+      .regex(/^\d{3}\d{3}\d{3}\d{2}$/)
+      .required()
+      .messages({
+        "string.base": `Not valid Phone`,
+      }),
+    // MobileNumber: Joi.phoneNumber(),
 
     email: Joi.string().email().required().messages({
       "string.base": `Invalid Email`,

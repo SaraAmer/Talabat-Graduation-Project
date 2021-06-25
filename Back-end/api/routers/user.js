@@ -417,82 +417,59 @@ router.post("/:userId/change", (req, res, next) => {
     .exec()
     .then((user) => {
       let bool = bcrypt.compareSync(req.body.password, user[0].password);
-      let bool2 = req.body.password == req.body.password_confirmation;
-      console.log(req.body.password == req.body.password_confirmation); //true
-      console.log(bool2);
-      console.log(bool);
-      console.log(req.body.password_confirmation);
-      console.log(req.body.password);
-      console.log(user[0].password);
+      let conf = req.body.password == req.body.password_confirmation;
+      let cur = bcrypt.compareSync(req.body.current, user[0].password);
+      console.log(cur);
+      //  console.log(bool)
+      //   console.log(req.body.password==req.body.password_confirmation)//false
+      //  console.log(conf);//false
+      //  console.log(req.body.password_confirmation);//1234567
+      //  console.log(req.body.password);//hash
 
       bcrypt.genSalt(10, function (err, salt) {
         bcrypt.hash(req.body.password, salt, function (err, hash) {
           req.body.password = hash;
           let query = { _id: req.params.userId };
-
-          if (bool == false) {
-            //al atnen msh shbh b3d f y3ml update
-            //current pass=1234
-            //new=1234
-
-            console.log(req.body.password_confirmation); //not hashed
-            console.log(req.body.password); //hashed
-            console.log(user[0].password);
-            if (bool2 == false) {
-              User.update(query, req.body, function (err) {
-                if (err) {
-                  return res.status(500).json({
-                    error: err,
-                  });
-                } else {
-                  return res.status(200).json({
-                    message: "password changes successful",
-                  });
-                }
-              });
+          if (cur == true) {
+            if (bool == false) {
+              //al atnen msh shbh b3d f y3ml update
+              if (conf) {
+                User.update(query, req.body, function (err) {
+                  if (err) {
+                    return res.status(500).json({
+                      error: err,
+                    });
+                  } else {
+                    return res.status(200).json({
+                      message: "password changes successful",
+                    });
+                  }
+                });
+              } else {
+                return res.status(200).json({
+                  message: "Password didn't matches!",
+                });
+              }
             } else {
               return res.status(200).json({
-                message: "Password didn't matches!",
+                message: "Password matches!",
               });
             }
           } else {
             return res.status(200).json({
-              message: "Password matches!",
+              message: "current password error!",
             });
           }
         });
       });
     });
 });
-//************************************************************
-router.put("/profile/:userId", (req, res, next) => {
-  const id = req.params.userId;
-  User.update(
-    { _id: id },
-    {
-      $set: {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        gender: req.body.gender,
-        dateOfBirth: req.body.dateOfBirth,
-        address: req.body.address,
-      },
-    }
-  )
-    .exec()
-    .then((result) => {
-      res.status(200).json({ message: "User updated" });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ error: err });
-    });
-});
+
 //************************************************************
 router.post("/:userId/changemail", (req, res, next) => {
   const pass = req.body.password;
   const id = req.params.userId;
-
+  // const reemail=req.body.email
   User.findOne({ _id: req.params.userId })
     .exec()
     .then((user) => {
@@ -529,5 +506,11 @@ router.post("/:userId/changemail", (req, res, next) => {
 });
 
 //************************************************************
-
+router.get("/profile/:userId", (req, res, next) => {
+  const id = req.params.userId;
+  User.findById(id, function (err, user) {
+    res.send(user);
+  });
+});
+//************************************************************
 module.exports = router;
