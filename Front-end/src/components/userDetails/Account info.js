@@ -39,7 +39,7 @@ class Myaccount extends React.Component {
     //  console.log("gender of male:"+this.state.gender);
   }
    async componentDidMount(){
-	   let res = await fetch("http://127.0.0.1:8000/user/profile/60d214425f913b3f0ded19f6", {
+	   let res = await fetch(`http://127.0.0.1:8000/user/profile/${this.state._id}`, {
       	method: "GET",
      	 headers: {
         "Content-Type": "application/json",}
@@ -60,7 +60,7 @@ class Myaccount extends React.Component {
    }
    clickUpeEm = async(e) => {
        
-		let res = await fetch("http://127.0.0.1:8000/user/60d214425f913b3f0ded19f6/changemail", {
+		let res = await fetch('http://127.0.0.1:8000/user/${this.state._id}/changemail', {
       	method: "POST",
      	 headers: {
         "Content-Type": "application/json",
@@ -88,7 +88,7 @@ class Myaccount extends React.Component {
   };
    clickUppas = async(e) => {
        
-		let res = await fetch("http://127.0.0.1:8000/user/60d214425f913b3f0ded19f6/change", {
+		let res = await fetch('http://127.0.0.1:8000/user/${this.state._id}/change', {
       	method: "POST",
      	 headers: {
         "Content-Type": "application/json",
