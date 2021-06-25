@@ -10,7 +10,8 @@ import { FcSearch } from "react-icons/fc";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 import NewOffer from "./NewOffer";
-
+import { AiOutlineEdit } from "react-icons/ai";
+import EditOffer from "./EditOffer.js";
 
 class Offers extends React.Component {
   constructor() {
@@ -73,7 +74,7 @@ class Offers extends React.Component {
   async componentWillMount() {
     this.setState({ loading: true });
     let res = await fetch(
-      "http://127.0.0.1:4000/restaurants",
+      "http://127.0.0.1:8000/restaurants",
 
       {
         method: "GET",
@@ -132,7 +133,7 @@ class Offers extends React.Component {
                   aria-label="Search"
                   aria-describedby="search-addon"
                 />
-                Offers
+              
                 <span className="input-group-text border-0" id="search-addon">
                   <FcSearch />
                 </span>
@@ -147,20 +148,21 @@ class Offers extends React.Component {
                     <div
                       className="card "
                       style={{
-                        width: "260px",
-                        marginLeft: "16px",
-                        marginRight: "5px",
+                        width: "290px",
+                        marginLeft: "25px",
+                        marginRight: "8px",
                         marginTop: "20px",
                         marginBottom: "8px",
+                     
                       }}
                     >
                       <img
                         className="card-img-top"
-                        src={restaurant.img}
+                        src={`http://localhost:8000/${restaurant.img}`}
                         style={{
                           paddingLeft: "0px",
-                          paddingRight: "0px",
-                          width: "235px",
+                          paddingRight: "9px",
+                          width: "275px",
                           height: "170px",
                         }}
                         alt="Card image cap"
@@ -192,59 +194,56 @@ class Offers extends React.Component {
 
                               {/* <div class="modal fade "  id={restaurant.id} tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg"> */}
-
-                              <div
-                                class="modal fade"
-                                id={restaurant._id}
-                                tabindex="-1"
-                                role="dialog"
-                                aria-labelledby="exampleModalLongTitle"
-                                aria-hidden="true"
-                              >
+                              
                                 <div
-                                  class="modal-dialog"
-                                  role="document"
-                                  //style={{ zIndex: "70" }}
+                                  class="modal fade"
+                                  id={restaurant._id}
+                                  tabindex="-1"
+                                  role="dialog"
+                                  aria-labelledby="exampleModalLongTitle"
+                                  aria-hidden="true"
                                 >
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h5
-                                        class="modal-title"
-                                        id="exampleModalLongTitle"
-                                      >
-                                        {restaurant.name} Offers
-                                      </h5>
-                                      <button
-                                        type="button"
-                                        class="close"
-                                        data-dismiss="modal"
-                                        aria-label="Close"
-                                      >
-                                        <span aria-hidden="true">&times;</span>
-                                      </button>
-                                    </div>
-                                    <div class="modal-body">
-                                      <ViewOffers resId={restaurant._id} />
-                                    </div>
-                                    <div class="modal-footer">
-                                      <button
-                                        type="button"
-                                        class="btn btn-secondary"
-                                        data-dismiss="modal"
-                                      >
-                                        Close
-                                      </button>
-                                      <button
-                                        type="button"
-                                        class="btn btn-primary"
-                                      >
-                                        Save changes
-                                      </button>
+                                  <div
+                                    class="modal-dialog modal-xl"
+                                    role="document"
+                                    //style={{ zIndex: "70" }}
+                                  >
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5
+                                          class="modal-title"
+                                          id="exampleModalLongTitle"
+                                        >
+                                          {restaurant.name} Offers
+                                        </h5>
+                                        <button
+                                          type="button"
+                                          class="close"
+                                          data-dismiss="modal"
+                                          aria-label="Close"
+                                        >
+                                          <span aria-hidden="true">
+                                            &times;
+                                          </span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <ViewOffers resId={restaurant._id} />
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button
+                                          type="button"
+                                          class="btn btn-secondary"
+                                          data-dismiss="modal"
+                                        >
+                                          Close
+                                        </button>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
                               </div>
-                            </div>
+                        
                           </li>
                           <li className="list-group-item">
                             <a
@@ -281,32 +280,45 @@ class ViewOffers extends React.Component {
   constructor() {
     super();
     this.state = {
-      offers:[],
+      offers: [],
     };
   }
   // componentWillMount() {
   //   fetch("http://127.0.0.1:4000/restaurants/" + this.props.resId)
   //     .then((res) => res.text())
   //     .then((res) => this.setState({ offers: res.Offers }));
- // }
-  // async componentWillMount() {
-    
-  //   let res = await fetch(
-  //     "http://127.0.0.1:4000/restaurants/" + this.props.resId,
-
-  //     {
-  //       method: "GET",
-  //       headers: {
-  //         "content-type": "application/json",
-  //       },
-  //     }
-  //   );
-  //   let resJson = await res.json();
-  //   this.setState({ offers: resJson.Offers });
-  //   console.log(resJson);
   // }
-  render()
-     {
+  async componentDidMount() {
+    console.log("component did mount");
+    let res = await fetch(
+      "http://127.0.0.1:8000/restaurants/offer/" + this.props.resId,
+      {
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+        },
+      }
+    );
+    let resJson = await res.json();
+    this.setState({ offers: resJson.Offers });
+    // console.log(resJson);
+    console.log(this.state.offers);
+  }
+  removeSelected=(offerId)=>{
+    console.log(offerId);
+     if (window.confirm('Are you sure?')){
+     fetch("http://127.0.0.1:8000/restaurants/offer/singleOffer/"+offerId, {
+       method: "DELETE",
+       headers: {
+        'Accept': "application/json",
+         "Content-Type": "application/json",
+       },
+     });
+      }
+    this.state.refresh = true;
+    this.setState({ refresh: this.state.refresh });
+    }
+  render() {
     return (
       <div>
         {this.state.offers.length > 0
@@ -319,25 +331,29 @@ class ViewOffers extends React.Component {
                       backgroundColor: "rgb(246, 246, 246)",
                       marginBottom: "10px",
                       paddingInline: "20px",
-                      paddingTop: "10px",
                       paddingBottom: "10px",
-                      fontSize: "15px",
+                      fontSize: "25px",
                       fontFamily: "sans-serif",
                     }}
                   >
                     <div className="row">
-                      <div className="col-6">
-                        {" "}
-                        <b> {singleOffer.name} </b>{" "}
+                      <div className="col-4">
+                        <img
+                          src={`http://localhost:8000/${singleOffer.img}`}
+                          style={{ width: "120px", height: "120px" }}
+                        ></img>
+                      </div>
+                      <div className="col-4">
+                        <b> {singleOffer.name} </b>
                       </div>
 
-                      <div className="col-4">
-                        {" "}
-                        <b> price : </b> {singleOffer.price} L.E
+                      <div className="col-2">
+                         <b> {singleOffer.price} L.E </b>
                       </div>
+
                       <div className="col-2">
                         <button
-                          // onClick={() => this.props.removeSelected(this.props.menuItem)}
+                          onClick={() => this.removeSelected(singleOffer._id)}
                           //lessa h3ml implement lel function de
                           style={{
                             backgroundcolor: "blue",
@@ -347,15 +363,80 @@ class ViewOffers extends React.Component {
                         >
                           <TiMinus />
                         </button>
+                        {/* <a
+                          href={`/offer/${this.props.resId}/edit/${singleOffer._id}`}
+                        >
+                          <AiOutlineEdit />
+                        </a> */}
+
+                        <button
+                          type="button"
+                          class="btn"
+                          data-toggle="modal"
+                          data-target="#exampleModal"
+                        >
+                          <AiOutlineEdit />
+                        </button>
+                        <div
+                          class="modal fade"
+                          id="exampleModal"
+                          tabindex="-1"
+                          role="dialog"
+                          aria-labelledby="exampleModalLabel"
+                          aria-hidden="true"
+                        >
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">
+                                  edit {singleOffer.name}
+                                </h5>
+                                <button
+                                  type="button"
+                                  class="close"
+                                  data-dismiss="modal"
+                                  aria-label="Close"
+                                >
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <EditOffer
+                                  resId={this.props.resId}
+                                  offerId={singleOffer._id}
+                                />
+                              </div>
+                              <div class="modal-footer">
+                                <button
+                                  type="button"
+                                  class="btn btn-secondary"
+                                  data-dismiss="modal"
+                                >
+                                  Close
+                                </button>
+                                
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
+
                     </div>
+                    <div class="row" style={{display:"flex", justifyContent:"center",alignContent:"center"}}>
+                      {singleOffer.desc}
+                    </div>
+
                   </h1>
                 </div>
               );
             })
-          : "Empty"}
+          : "No offers yet"}
       </div>
     );
   }
 }
+
+
+
+
 export default Offers

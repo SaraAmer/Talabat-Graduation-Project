@@ -84,7 +84,7 @@ class NewOffer extends React.Component {
 
   async componentWillMount() {
     let res = await fetch(
-      "http://127.0.0.1:4000/restaurants/" + this.props.match.params.id,
+      "http://127.0.0.1:8000/restaurants/" + this.props.match.params.id,
       {
         method: "GET",
         headers: {
@@ -151,7 +151,7 @@ class NewOffer extends React.Component {
   // async addOfferToDB() {
    
   //   let res = await fetch(
-  //     "http://127.0.0.1:4000/restaurants/offer/",
+  //     "http://127.0.0.1:8000/restaurants/offer/",
 
   //     {
   //       method: "POST",
@@ -175,13 +175,12 @@ class NewOffer extends React.Component {
 
   addOfferToDB=()=>{
 const fd=new FormData();
-
 fd.append("name", this.state.offerName);
 fd.append("desc", this.state.offerDesc);
 fd.append("price", this.state.offerPrice);
 fd.append("img", this.state.offerImg, this.state.offerImg.name);
 fd.append("restaurant", this.props.match.params.id);
-axios.post("http://127.0.0.1:4000/restaurants/offer",fd)
+axios.post("http://127.0.0.1:8000/restaurants/offer",fd)
 .then(res=>{
   console.log(res);
 });
@@ -210,7 +209,7 @@ axios.post("http://127.0.0.1:4000/restaurants/offer",fd)
         {/* mfrod ykon gayli el restaurant id, name mn class offer  */}
         <hr></hr>
         <div>
-          <div>
+          {/* <div>
             {this.state.menuItems.length > 0
               ? this.state.menuItems.map((item) => {
                   return (
@@ -221,7 +220,7 @@ axios.post("http://127.0.0.1:4000/restaurants/offer",fd)
                   );
                 })
               : "Empty"}
-          </div>
+          </div> */}
           <h1
             style={{
               color: "rgb(33, 33, 33)",

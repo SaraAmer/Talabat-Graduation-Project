@@ -2,6 +2,12 @@
   background-color: #ff5900;
   border-bottom: "5px solid #FF5900";
 } */
+/**************************/
+#toast-container {
+  top: 30px !important;
+  margin: 26px auto;
+  float: right;
+}
 
 /* ************************ */
 
@@ -9,6 +15,8 @@
   /* background: #f1f7fd; */
   padding: 70px 0 60px;
   background-image: url("https://partner.talabat.com/resource/SSUTalabat/assets/images/banner2.jpg") !important;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .counts .count-box {

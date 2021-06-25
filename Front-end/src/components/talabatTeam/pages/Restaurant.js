@@ -32,7 +32,7 @@ class Restaurant extends React.Component {
   deleteRes = (resId) => {
     console.log(resId);
     if (window.confirm('Are you sure?')){
-     fetch("http://127.0.0.1:4000/restaurants/" + resId, {
+     fetch("http://127.0.0.1:8000/restaurants/" + resId, {
        method: "DELETE",
        headers: {
         'Accept': "application/json",
@@ -46,14 +46,14 @@ class Restaurant extends React.Component {
 
   async componentWillMount() {
     this.setState({loading:true});
-    let res = await fetch("http://127.0.0.1:4000/restaurants",
-
+    let res = await fetch("http://127.0.0.1:8000/restaurants",
      {
       method: "GET",
       headers: {
         "content-type": "application/json",
       },
     });
+    console.log(res.err);
     let resJson = await res.json();
     this.setState({ loading: false, apiRestaurants: resJson.restaurants });
     console.log(resJson);
@@ -65,7 +65,7 @@ class Restaurant extends React.Component {
   
   // componentWillMount() {
   //   this.setState({loading:true});
-  //     fetch("http://localhost:4000/restaurants")
+  //     fetch("http://localhost:8000/restaurants")
   //       .then((res) => res.text())
   //       .then((res) => this.setState({ apiRestaurants: res.restaurants ,loading:false}));
 
@@ -74,7 +74,7 @@ class Restaurant extends React.Component {
   render() {
     return (
       <div className="container">
-        <h1> {this.state.apiResponse} </h1>
+        
         <div
           style={{
             display: "flex",
@@ -117,20 +117,20 @@ class Restaurant extends React.Component {
                   <div
                     className="card "
                     style={{
-                      width: "260px",
-                      marginLeft: "16px",
-                      marginRight: "5px",
+                      width: "290px",
+                      marginLeft: "25px",
+                      marginRight: "8px",
                       marginTop: "20px",
                       marginBottom: "8px",
                     }}
                   >
                     <img
                       className="card-img-top"
-                      src={restaurant.img}
+                      src={`http://localhost:8000/${restaurant.img}`}
                       style={{
                         paddingLeft: "0px",
-                        paddingRight: "0px",
-                        width: "235px",
+                        paddingRight: "9px",
+                        width: "275px",
                         height: "170px",
                       }}
                       alt="Card image cap"
@@ -231,20 +231,37 @@ class Restaurant extends React.Component {
 
 class ViewDetails extends React.Component {
   res = this.props.res;
+  // constructor(){
+  //   super();
+  //   console.log(this.res.img)
+  // }
   render() {
     return (
-      <div>
+      <div style={{ fontSize: "25px" }}>
         <b> {this.res.name} </b>
         <br></br>
         <img
-          src={`/Talabat-Graduation-Project/Back-end/${this.res.img}`}
+          src={`http://localhost:8000/${this.res.img}`}
           style={{ width: "450px", height: "200px" }}
         />
         <br></br>
-        <b>Location:</b> {this.res.location}
+        <b>Location:</b> {this.res.address.street}
         <br></br>
-        <b>Email: </b> {this.res.email} <br></br>
-        <b>Join Talabat in:</b> {this.res.joinedIn}
+        <b>Cusine:</b> {this.res.cusine}
+        <br></br>
+        <b>Description:</b> {this.res.desc}
+        <br></br>
+        <b>Website: </b> {this.res.website} <br></br>
+        <b>Working hours :</b> {this.res.workingHours}
+        <br></br>
+        <b>Min order amount :</b> {this.res.minOrderAmount}
+        <br></br>
+        <b>Payment method:</b>
+        {this.res.payment}
+        <br></br>
+        <b>Service charge:</b> {this.res.serviceCharge}
+        <br></br>
+        <b>Rate:</b> {this.res.rate}
       </div>
     );
   }

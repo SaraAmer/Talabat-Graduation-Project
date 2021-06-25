@@ -105,7 +105,7 @@ router.get("/:resId", (req, res, next) => {
    });
 });
 
-router.get("/:resId/:offerId", (req, res, next) => {
+router.get("/singleOffer/:offerId", (req, res, next) => {
   const offerId = req.params.offerId;
   const resId = req.params.resId;
 
@@ -130,7 +130,7 @@ router.get("/:resId/:offerId", (req, res, next) => {
 });
 
 
-router.delete("/:offerId", (req, res, next) => {
+router.delete("/singleOffer/:offerId", (req, res, next) => {
   const id = req.params.offerId;
   Offer.remove({ _id: id })
     .exec()
@@ -147,7 +147,7 @@ router.delete("/:offerId", (req, res, next) => {
     });
 });
 
-router.put("/:offerId", upload.single("img"), (req, res, next) => {
+router.put("/singleOffer/:offerId", upload.single("img"), (req, res, next) => {
   const id = req.params.offerId;
   
   Offer.findOne({ _id: id })
