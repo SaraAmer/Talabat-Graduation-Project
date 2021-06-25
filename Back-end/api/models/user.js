@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const userSchema = mongoose.Schema({
+
   _id: mongoose.Schema.Types.ObjectId,
   email: {
     type: String,
@@ -23,6 +24,8 @@ const userSchema = mongoose.Schema({
   },
   gender: { type: String },
   dateOfBirth: { type: Date },
+
 });
 
 module.exports = mongoose.model("User", userSchema);
+// lowercase: true, required: [true, "can't be blank"],

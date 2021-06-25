@@ -16,20 +16,20 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import PartnerRegister from "./components/Partner/partnerRegister";
 import PartnerLogin from "./components/partnerLogin/PartnerLogin";
 import Restaurant from "./components/Restaurants/Restaurant";
-// import ResetPassword from "./components/partnerLogin/ResetPassword";
-// import NewPassword from "./components/partnerLogin/NewPassword";
+import ResetPassword from "./components/partnerLogin/ResetPassword";
+import NewPassword from "./components/partnerLogin/NewPassword";
 function App() {
   return (
     <Router className="App">
       <Switch>
         <Route path="/" exact>
           <Header />
-          {/* <ResetPassword />
-      <NewPassword /> */}
           {/* <RestaurantMenu/> */}
           {/* <Register/> */}
           {/* <TeamHome/> */}
           {/* <Home/> */}
+          {/* <ResetPassword />
+          <NewPassword /> */}
           <Footer />
         </Route>
         <Route path="/becomepartner" exact>

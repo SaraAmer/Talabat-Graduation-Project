@@ -22,7 +22,11 @@ const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const sendgridTransport = require("nodemailer-sendgrid-transport");
 const Restaurant = require("../models/restaurant");
-
+//******************************************************* */
+// const validatePhoneNumber = require('validate-phone-number-node-js');
+// const result = validatePhoneNumber.validate('+8801744253089');
+const Joi = require("joi");
+//********************* */
 const transporter = nodemailer.createTransport(
   sendgridTransport({
     auth: {
@@ -32,8 +36,42 @@ const transporter = nodemailer.createTransport(
     },
   })
 );
+//*************************** */
+// function createrestaurantOwnerSchema(req, res, next) {
+//   const schema = Joi.object({
+//     email: Joi.string().email().required(),
+//   });
+//   validateRequest(req, next, schema);
+// }
+// //*********************************************
+// function validateRequest(req, next, schema) {
+//   const options = {
+//     abortEarly: false, // include all errors
+//     allowUnknown: true, // ignore unknown props
+//     stripUnknown: true, // remove unknown props
+//   };
+//   const { error, value } = schema.validate(req.body, options);
+//   if (error) {
+//     next(
+//       `Validation error: ${error.details
+//         .map((x) =>
+//           res.status(500).json({
+//             error: x.message,
+//           })
+//         )
+//         .join(", ")}`
+//     );
+//   } else {
+//     req.body = value;
+//     next();
+//   }
+// }
+//*************** */
+//****************************************
+
 // *************************************Old Done*******************************/
 router.post("/signup", (req, res, next) => {
+  //da al asm bytktb fe postman of get from form
   const FirstName = req.body.FirstName;
   const LastName = req.body.LastName;
   const MobileNumber = req.body.MobileNumber;
@@ -45,10 +83,42 @@ router.post("/signup", (req, res, next) => {
   const category = req.body.category;
   const website = req.body.website;
   const restaurantAddress = req.body.restaurantAddress;
-
+  const storeLocation = req.body.storeLocation;
+  console.log(
+    `${FirstName} ${LastName} ${MobileNumber} ${email}  ${password} ${storename} ${numberOfBranches} ${category}`
+  );
   //const StoreLocation = req.body.StoreLocation;
   console.log("helo I'm in API");
+  const data = req.body;
+  const schema = Joi.object({
+    LastName: Joi.string().required().messages({
+      "string.base": `Last name must be String`,
+    }),
 
+    MobileNumber: Joi.string()
+      .regex(/^\d{3}\d{3}\d{3}\d{2}$/)
+      .required()
+      .messages({
+        "string.base": `Not valid Phone`,
+      }),
+    // MobileNumber: Joi.phoneNumber(),
+
+    email: Joi.string().email().required().messages({
+      "string.base": `Invalid Email`,
+    }),
+  });
+  //**************************************************** */
+  const validation = schema.validate(req.body);
+
+  if (!validation.error) {
+    next();
+  } else {
+    res.status(422).json({
+      // message: "Validation error.",
+      error: validation.error,
+    });
+  }
+  //********************* */
   restaurantOwner
     .find({ email: req.body.email })
     .exec()
@@ -57,75 +127,87 @@ router.post("/signup", (req, res, next) => {
         console.log("please add all the fields");
         return res.status(422).json({ error: "please add all the fields" });
       }
-      if (restaurantowner.length >= 1) {
-        console.log("Mail Exist");
-        return res.status(409).json({
-          message: "Mail exists",
-        });
-      } else {
-        bcrypt.hash(req.body.password, 10, (err, hash) => {
-          if (err) {
-            return res.status(500).json({
-              error: err,
-            });
-          } else {
-            const restaurantowner = new restaurantOwner({
-              //name of field in db = value from body
-              _id: new mongoose.Types.ObjectId(),
-              email: req.body.email,
-              password: hash,
-              FirstName: req.body.FirstName,
-              LastName: req.body.LastName,
-              MobileNumber: req.body.MobileNumber,
-            });
-            console.log("saveeeeeeeeeeeeeeeeeeeeeeee");
-            restaurantowner
-              .save()
-              .then((result) => {
-                console.log(result);
-                //after save restaurant Owner
-                /************************* */
-                const restaurant = new Restaurant({
-                  _id: new mongoose.Types.ObjectId(),
-                  name: req.body.storename,
-                  owner: result._id,
-                  numberOfBranches: req.body.numberOfBranches,
-                  // type: req.body.storetype,
-                  category: req.body.category,
-                  website: req.body.website,
-                  address: req.body.restaurantAddress,
-                });
-                console.log(restaurant);
-                restaurant.save().then((result) => {
-                  console.log(result);
-                  //************************** */
-                  //Message send when register
-                  //******************
-                  // transporter.sendMail({
-                  //   //send message
-                  //   // ************************** */
-                  //   to: user.email,
-                  //   from: "eng.marwamedhat2020@gmail.com",
-                  //   subject: "request to signup in talabat ",
-                  //   html: "<h1>information will revise and we will contact you </h1>",
-                  //   //********************* */
-                  // });
-                  //****************** */
-
-                  res.status(201).json({
-                    message: "restaurant pended ",
-                  });
-                }); //restaurant save
-              })
-              .catch((err) => {
-                console.log(err);
-                res.status(500).json({
-                  error: err,
-                });
+      // if (restaurantowner.length >= 1) {
+      //   console.log("Mail Exist");
+      //   return res.status(409).json({
+      //     message: "Mail exists",
+      //   });
+      // }
+      else {
+        if (req.body.password == req.body.cpassword) {
+          bcrypt.hash(req.body.password, 10, (err, hash) => {
+            if (err) {
+              return res.status(500).json({
+                error: err,
               });
-          }
-        });
-      } //else
+            } else {
+              const restaurantowner = new restaurantOwner({
+                //name of field in db = value from body
+                _id: new mongoose.Types.ObjectId(),
+                email: req.body.email,
+                password: hash,
+                FirstName: req.body.FirstName,
+                LastName: req.body.LastName,
+                MobileNumber: req.body.MobileNumber,
+                cpassword: hash,
+              });
+              console.log("saveeeeeeeeeeeeeeeeeeeeeeee");
+              restaurantowner
+                .save()
+                .then((result) => {
+                  console.log(result);
+                  //after save restaurant Owner
+                  /************************* */
+                  const restaurant = new Restaurant({
+                    _id: new mongoose.Types.ObjectId(),
+                    name: req.body.storename,
+                    owner: result._id,
+                    numberOfBranches: req.body.numberOfBranches,
+                    // type: req.body.storetype,
+                    Location: req.body.storeLocation,
+                    category: req.body.category,
+                    website: req.body.website,
+                    address: req.body.restaurantAddress,
+                  });
+                  console.log(restaurant);
+                  restaurant.save().then((result) => {
+                    console.log(result);
+                    //************************** */
+                    //Message send when register
+                    //******************
+                    // transporter.sendMail({
+                    //   //send message
+                    //   // ************************** */
+                    //   to: user.email,
+                    //   from: "eng.marwamedhat2020@gmail.com",
+                    //   subject: "request to signup in talabat ",
+                    //   html: "<h1>information will revise and we will contact you </h1>",
+                    //   //********************* */
+                    // });
+                    //****************** */
+
+                    res.status(201).json({
+                      message:
+                        "Check mail information will revise and we will contact you ",
+                    });
+                  }); //restaurant save
+                })
+                .catch((err) => {
+                  console.log(err);
+                  console.log("hereeeeeeeee");
+                  res.status(500).json({
+                    error: err,
+                  });
+                });
+            }
+          });
+        } //**************if bta3t confirm password */
+        else {
+          res.status(201).json({
+            message: "Password Doesn't match",
+          });
+        }
+      } //*********************************else
     }); //then
 });
 //********************************* */
