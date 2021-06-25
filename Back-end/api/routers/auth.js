@@ -32,7 +32,7 @@ const transporter = nodemailer.createTransport(
     auth: {
       //api_key:SENDGRID_API
       //GoogleKey
-      api_key: "",
+      api_key: process.env.MailerKey,
     },
   })
 );
@@ -95,6 +95,10 @@ router.post("/signup", (req, res, next) => {
       "string.base": `Last name must be String`,
     }),
 
+    FirstName: Joi.string().required().messages({
+      "string.base": `First name must be String`,
+    }),
+
     MobileNumber: Joi.string()
       .regex(/^\d{3}\d{3}\d{3}\d{2}$/)
       .required()
@@ -102,10 +106,17 @@ router.post("/signup", (req, res, next) => {
         "string.base": `Not valid Phone`,
       }),
     // MobileNumber: Joi.phoneNumber(),
-
+    password: Joi.string().min(6).required(),
+    cpassword: Joi.string().valid(Joi.ref("password")).required(),
+    name: Joi.string().required(),
+    numberOfBranches: Joi.required(),
     email: Joi.string().email().required().messages({
       "string.base": `Invalid Email`,
     }),
+    category: Joi.string().required(),
+    website: Joi.string().required(),
+    storeLocation: Joi.string().required(),
+    // address: Joi.string().required(),
   });
   //**************************************************** */
   const validation = schema.validate(req.body);
@@ -126,14 +137,7 @@ router.post("/signup", (req, res, next) => {
       if (!email || !password) {
         console.log("please add all the fields");
         return res.status(422).json({ error: "please add all the fields" });
-      }
-      // if (restaurantowner.length >= 1) {
-      //   console.log("Mail Exist");
-      //   return res.status(409).json({
-      //     message: "Mail exists",
-      //   });
-      // }
-      else {
+      } else {
         if (req.body.password == req.body.cpassword) {
           bcrypt.hash(req.body.password, 10, (err, hash) => {
             if (err) {
@@ -160,14 +164,14 @@ router.post("/signup", (req, res, next) => {
                   /************************* */
                   const restaurant = new Restaurant({
                     _id: new mongoose.Types.ObjectId(),
-                    name: req.body.storename,
+                    name: req.body.name,
                     owner: result._id,
                     numberOfBranches: req.body.numberOfBranches,
                     // type: req.body.storetype,
                     Location: req.body.storeLocation,
                     category: req.body.category,
                     website: req.body.website,
-                    address: req.body.restaurantAddress,
+                    // address: req.body.address,
                   });
                   console.log(restaurant);
                   restaurant.save().then((result) => {
@@ -175,17 +179,18 @@ router.post("/signup", (req, res, next) => {
                     //************************** */
                     //Message send when register
                     //******************
-                    // transporter.sendMail({
-                    //   //send message
-                    //   // ************************** */
-                    //   to: user.email,
-                    //   from: "eng.marwamedhat2020@gmail.com",
-                    //   subject: "request to signup in talabat ",
-                    //   html: "<h1>information will revise and we will contact you </h1>",
-                    //   //********************* */
-                    // });
+                    console.log("d5l al mailer");
+                    console.log(restaurantowner.email);
+                    transporter.sendMail({
+                      //send message
+                      // ************************** */
+                      to: restaurantowner.email,
+                      from: "talabtteam@gmail.com",
+                      subject: "request to signup in talabat ",
+                      html: "<h1>information will revise and we will contact you </h1>",
+                      //********************* */
+                    });
                     //****************** */
-
                     res.status(201).json({
                       message:
                         "Check mail information will revise and we will contact you ",

@@ -36,6 +36,7 @@ class PartnerLogin extends React.Component {
     } else {
       M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
     }
+    window.location.reload();
   };
 
   render() {

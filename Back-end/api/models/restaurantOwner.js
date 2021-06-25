@@ -23,6 +23,10 @@ const restaurantOwnerSchema = mongoose.Schema({
   },
   password: { type: String, required: true },
   cpassword: { type: String, required: true },
+  status: {
+    type: String,
+    default: "pending",
+  },
 });
 
 module.exports = mongoose.model("restaurantOwner", restaurantOwnerSchema);

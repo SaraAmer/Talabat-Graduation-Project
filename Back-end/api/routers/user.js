@@ -9,7 +9,7 @@ const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 //***************Login with Google******* */
 const { OAuth2Client } = require("google-auth-library");
-const client = new OAuth2Client("");
+const client = new OAuth2Client(process.env.AUTH2CLIENT);
 //****************Login with FaceBook*************** */
 const fetch = require("node-fetch");
 //************Mailer************************************** */
@@ -20,8 +20,8 @@ const transporter = nodemailer.createTransport(
   sendgridTransport({
     auth: {
       //api_key:SENDGRID_API
-      //GoogleKey
-      api_key: "",
+      //MailerKEy
+      api_key: process.env.MailerKey,
     },
   })
 );
@@ -57,13 +57,14 @@ router.post("/signup", (req, res, next) => {
               .save()
               .then((result) => {
                 console.log(result);
+                console.log("7yd5ol 3la send mail");
                 transporter.sendMail({
                   //send message
                   // ************************** */
                   to: user.email,
-                  from: "eng.marwamedhat2020@gmail.com",
+                  from: "talabtteam@gmail.com",
                   subject: "request to signup in talabat ",
-                  html: "<h1>information will revise and we will contact you </h1>",
+                  html: "<h1>Welcome in talabat Online </h1>",
                   //********************* */
                 });
                 res.status(201).json({
@@ -101,6 +102,7 @@ router.delete("/:userId", (req, res, next) => {
 //*******************
 router.post("/login", (req, res, next) => {
   console.log("d5l al user login");
+  console.log(req.body.email);
   User.find({ email: req.body.email })
     .exec()
     .then((user) => {
@@ -161,7 +163,7 @@ router.post("/googlelogin", (req, res) => {
       //lw nfs al asm bktbo mara wa7da bs
       idToken: tokenId,
       //GOOGLEKEY
-      audience: "",
+      audience: process.env.AUTH2CLIENT,
     })
     .then((response) => {
       const { email_verified, name, email } = response.payload;
