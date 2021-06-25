@@ -31,6 +31,7 @@ class PartnerLogin extends React.Component {
     if (typeof resJson.error === "undefined") {
       //save to localstorage
       localStorage.setItem("jwt", resJson.token);
+      localStorage.setItem("id", resJson.id);
       // localStorage.setItem("user", JSON.stringify(resJson.user));
       M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
     } else {

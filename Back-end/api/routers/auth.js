@@ -253,10 +253,12 @@ router.post("/login", (req, res, next) => {
               }
             );
             console.log("Auth Successful");
+            console.log(restaurantowner[0]._id);
             return res.status(200).json({
               message: "Auth successful",
               token: token,
               // user: { email },
+              id: restaurantowner[0]._id,
             });
           }
 
