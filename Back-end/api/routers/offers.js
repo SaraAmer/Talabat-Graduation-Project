@@ -105,8 +105,32 @@ router.get("/:resId", (req, res, next) => {
    });
 });
 
+router.get("/singleOffer/:offerId", (req, res, next) => {
+  const offerId = req.params.offerId;
+  const resId = req.params.resId;
 
-router.delete("/:offerId", (req, res, next) => {
+  Offer.find({ _id: offerId })
+    .exec()
+    .then((doc) => {
+      console.log("From database", doc);
+      if (doc) {
+        res.status(200).json({
+          Offers: doc,
+        });
+      } else {
+        res
+          .status(404)
+          .json({ message: "No valid entry found for provided ID" });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+});
+
+
+router.delete("/singleOffer/:offerId", (req, res, next) => {
   const id = req.params.offerId;
   Offer.remove({ _id: id })
     .exec()
@@ -123,7 +147,7 @@ router.delete("/:offerId", (req, res, next) => {
     });
 });
 
-router.put("/:offerId", upload.single("img"), (req, res, next) => {
+router.put("/singleOffer/:offerId", upload.single("img"), (req, res, next) => {
   const id = req.params.offerId;
   
   Offer.findOne({ _id: id })

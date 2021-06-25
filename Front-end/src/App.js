@@ -46,17 +46,17 @@ function App() {
           <Restaurant />
         </Route>
 
-        <Route exact path="/Register">
-          <Header />
-          <Register />
-          <Footer />
-        </Route>
+    //     <Route exact path="/Register">
+    //       <Header />
+    //       <Register />
+    //       <Footer />
+    //     </Route>
 
-        <Route exact path="/team">
-          <TeamHome />
-        </Route>
-      </Switch>
-    </Router>
+    //     <Route exact path="/team">
+    //       <TeamHome />
+    //     </Route>
+    //   </Switch>
+    // </Router>
   );
 }
 
