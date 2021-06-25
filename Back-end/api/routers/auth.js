@@ -22,7 +22,11 @@ const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const sendgridTransport = require("nodemailer-sendgrid-transport");
 const Restaurant = require("../models/restaurant");
-
+//******************************************************* */
+// const validatePhoneNumber = require('validate-phone-number-node-js');
+// const result = validatePhoneNumber.validate('+8801744253089');
+const Joi = require("joi");
+//********************* */
 const transporter = nodemailer.createTransport(
   sendgridTransport({
     auth: {
@@ -32,6 +36,39 @@ const transporter = nodemailer.createTransport(
     },
   })
 );
+//*************************** */
+// function createrestaurantOwnerSchema(req, res, next) {
+//   const schema = Joi.object({
+//     email: Joi.string().email().required(),
+//   });
+//   validateRequest(req, next, schema);
+// }
+// //*********************************************
+// function validateRequest(req, next, schema) {
+//   const options = {
+//     abortEarly: false, // include all errors
+//     allowUnknown: true, // ignore unknown props
+//     stripUnknown: true, // remove unknown props
+//   };
+//   const { error, value } = schema.validate(req.body, options);
+//   if (error) {
+//     next(
+//       `Validation error: ${error.details
+//         .map((x) =>
+//           res.status(500).json({
+//             error: x.message,
+//           })
+//         )
+//         .join(", ")}`
+//     );
+//   } else {
+//     req.body = value;
+//     next();
+//   }
+// }
+//*************** */
+//****************************************
+
 // *************************************Old Done*******************************/
 router.post("/signup", (req, res, next) => {
   //da al asm bytktb fe postman of get from form
@@ -52,7 +89,36 @@ router.post("/signup", (req, res, next) => {
   );
   //const StoreLocation = req.body.StoreLocation;
   console.log("helo I'm in API");
+  const data = req.body;
+  const schema = Joi.object({
+    LastName: Joi.string().required().messages({
+      "string.base": `Last name must be String`,
+    }),
 
+    // MobileNumber: Joi.string()
+    //   .regex(/^\d{3}\d{3}\d{3}\d{2}$/)
+    //   .required()
+    //   .messages({
+    //     "string.base": `Not valid Phone`,
+    //   }),
+    MobileNumber: Joi.phoneNumber(),
+
+    email: Joi.string().email().required().messages({
+      "string.base": `Invalid Email`,
+    }),
+  });
+  //**************************************************** */
+  const validation = schema.validate(req.body);
+
+  if (!validation.error) {
+    next();
+  } else {
+    res.status(422).json({
+      // message: "Validation error.",
+      error: validation.error,
+    });
+  }
+  //********************* */
   restaurantOwner
     .find({ email: req.body.email })
     .exec()
@@ -128,6 +194,7 @@ router.post("/signup", (req, res, next) => {
                 })
                 .catch((err) => {
                   console.log(err);
+                  console.log("hereeeeeeeee");
                   res.status(500).json({
                     error: err,
                   });
