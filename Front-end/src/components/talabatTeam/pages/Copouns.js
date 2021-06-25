@@ -271,8 +271,9 @@ class ViewCopouns extends React.Component {
                       marginBottom: "10px",
                       paddingInline: "20px",
                       paddingBottom: "10px",
-                      fontSize: "25px",
+                      fontSize: "18px",
                       fontFamily: "sans-serif",
+                      alignContent: "left  ",
                     }}
                   >
                     <div className="row">
@@ -283,16 +284,16 @@ class ViewCopouns extends React.Component {
                         ></img>
                       </div>
                       <div className="col-6">
+                        Copoun Description:
+                        <b> {singleCopoun.desc} </b> <br></br>
+                        Discount:
+                        <b> {singleCopoun.discount} L.E </b>
+                        <br></br>
+                        copoun Limit:
+                        <b> {singleCopoun.limit} </b>
+                        <br></br>
                         Code:
-                        <b> {singleCopoun.code} </b><br></br>
-                        
-                          Discount:
-                          <b> {singleCopoun.discount} L.E </b><br></br>
-                          Copoun Description:
-                          <b> {singleCopoun.desc} </b><br></br>
-                          copoun Limit:
-                          <b> {singleCopoun.limit} </b>
-                 
+                        <b> {singleCopoun.code} </b>
                       </div>
 
                       <div className="col-2">
