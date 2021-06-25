@@ -7,20 +7,20 @@ const restaurantSchema = new Schema({
         required: true
     },
     img: {
-        type: String,
-        required: true
+    type: String,
+       // required: true
     },
     type: {
         type: Number,
-        required: true
+      //  required: true
     },
     desc: {
         type: String,
-        required: true
+      //  required: true
     },
     info: {
         type: String,
-        required: true
+       // required: true
     },
     numberOfBranches: {
         type: Number,

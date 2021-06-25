@@ -1,7 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const app = express();
-
+const cors = require("cors");
 
 //to show extra information when making a request
 app.use(morgan('dev'));
@@ -53,6 +53,7 @@ var Schema = mongoose.Schema;
 console.log(
     "********************************************************************"
 );
+app.use(cors());
 console.log(require("util").inspect(Schema.Types.ObjectId));
 //*********** */
 app.use(bodyParser.json());
@@ -63,7 +64,7 @@ app.use("/restaurant", choiceRoutes, categoryRoutes, foodRoutes);
 //app.use("/restaurants/category", categoryRoutes);
 
 //app.use("/restaurants/foods", foodRoutes);
-
+    
 app.use("/restaurants", restaurantsRoutes);
 app.use("/restaurants/offer", offerRoutes);
 app.use("/restaurants/copoun", copounRoutes);
@@ -71,6 +72,7 @@ app.use("/user", userRoutes);
 
 app.use("/user", userRoutes);
 ///////////////Image upload /////////
+
 
 // Step 5 - set up multer for storing uploaded files
 

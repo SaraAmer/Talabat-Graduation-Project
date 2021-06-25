@@ -12,12 +12,12 @@ const offerSchema = new Schema({
   },
   img: {
     type: String,
-    required: true,
+   // required: true,
   },
   desc: {
     type: String,
   },
-  price: {
+price: {
     type: String,
     required: true,
   },

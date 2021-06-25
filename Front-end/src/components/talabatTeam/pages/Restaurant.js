@@ -6,7 +6,6 @@ import { FaBan } from "react-icons/fa";
 import './Restaurant.css';
 import { FcSearch } from "react-icons/fc";
 class Restaurant extends React.Component {
-  
   constructor() {
     super();
     this.state = {
@@ -18,82 +17,64 @@ class Restaurant extends React.Component {
           img: "https://img.theculturetrip.com/768x/smart/wp-content/uploads/2018/03/ppj07117.jpg",
           joinedIn: "20/6/2020",
           email: "Cilantro@yahoo.com",
-        },
-        {
-          id: "2",
-          name: "Starbucks",
-          location: "smouha,alexandria",
-          img: "https://img.theculturetrip.com/768x/smart/wp-content/uploads/2018/03/sretsis-parlour-02.jpg",
-          joinedIn: "20/6/2020",
-          email: "Starbucks@yahoo.com",
-        },
-        {
-          id: "4",
-          name: "Pick 'N Go",
-          location: "smouha,alexandria",
-          img: "https://www.elitetraveler.com/wp-content/uploads/2007/02/Alain-Ducasse-768x512.jpg",
-          joinedIn: "20/6/2020",
-          email: "Pick 'N Go@yahoo.com",
-        },
-        {
-          id: "5",
-          name: "Cilantro",
-          location: "smouha,alexandria",
-          img: "https://img.theculturetrip.com/768x/smart/wp-content/uploads/2018/03/ppj07117.jpg",
-          joinedIn: "20/6/2020",
-          email: "Cilantro@yahoo.com",
-        },
-        {
-          id: "6",
-          name: "Cinabbon",
-          location: "smouha,alexandria",
-          img: "https://img.theculturetrip.com/768x/smart/wp-content/uploads/2018/03/as-is.jpg",
-          joinedIn: "20/6/2020",
-          email: "Cilantro@yahoo.com",
-        },
-        {
-          id: "7",
-          name: "Starbucks",
-          location: "smouha,alexandria",
-          img: "https://img.theculturetrip.com/768x/smart/wp-content/uploads/2018/03/sretsis-parlour-02.jpg",
-          joinedIn: "20/6/2020",
-          email: "Starbuckso@yahoo.com",
-        },
-        {
-          id: "8",
-          name: "Cinabbon",
-          location: "smouha,alexandria",
-          img: "https://img.theculturetrip.com/768x/smart/wp-content/uploads/2018/03/as-is.jpg",
-          joinedIn: "20/6/2020",
-          email: "Cinabbon@yahoo.com",
-        },
+        }
       ],
+      apiRestaurants:[],
+       loading:false,
+       refresh:false
+      
     };
   }
   viewDetails = (restaurantCopouns) => {
     console.log(restaurantCopouns);
-
   };
-  
+
   deleteRes = (resId) => {
-    console.log(resId)
-    
-    for (var i = 0; i < this.state.restaurants.length; i++) {
-      console.log("inside forloop")
-      if (this.state.restaurants[i].id === resId) {
-        console.log("found ")
-        console.log(this.state.restaurants[i]);
-        this.state.restaurants.splice(i, 1);
-      }
-    }
-
-    this.setState({ restaurants: this.state.restaurants });
-
+    console.log(resId);
+    if (window.confirm('Are you sure?')){
+     fetch("http://127.0.0.1:4000/restaurants/" + resId, {
+       method: "DELETE",
+       headers: {
+        'Accept': "application/json",
+         "Content-Type": "application/json",
+       },
+     });
   }
+    this.state.refresh=true;
+    this.setState({ refresh: this.state.refresh});
+  };
+
+  async componentWillMount() {
+    this.setState({loading:true});
+    let res = await fetch("http://127.0.0.1:4000/restaurants",
+
+     {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+    let resJson = await res.json();
+    this.setState({ loading: false, apiRestaurants: resJson.restaurants });
+    console.log(resJson);
+    
+  }
+
+  
+
+  
+  // componentWillMount() {
+  //   this.setState({loading:true});
+  //     fetch("http://localhost:4000/restaurants")
+  //       .then((res) => res.text())
+  //       .then((res) => this.setState({ apiRestaurants: res.restaurants ,loading:false}));
+
+  // }
 
   render() {
     return (
       <div className="container">
+        <h1> {this.state.apiResponse} </h1>
         <div
           style={{
             display: "flex",
@@ -123,15 +104,15 @@ class Restaurant extends React.Component {
               />
 
               <span className="input-group-text border-0" id="search-addon">
-               <FcSearch/>
+                <FcSearch />
               </span>
             </div>
           </div>
         </div>
 
         <div className="row">
-          {this.state.restaurants.length > 0
-            ? this.state.restaurants.map((restaurant) => {
+          {!this.state.loading ?
+             this.state.apiRestaurants.map((restaurant) => {
                 return (
                   <div
                     className="card "
@@ -149,7 +130,7 @@ class Restaurant extends React.Component {
                       style={{
                         paddingLeft: "0px",
                         paddingRight: "0px",
-                          width: "235px",
+                        width: "235px",
                         height: "170px",
                       }}
                       alt="Card image cap"
@@ -169,7 +150,7 @@ class Restaurant extends React.Component {
                               type="button"
                               class="btn "
                               data-toggle="modal"
-                              data-target={`#${restaurant.id}`}
+                              data-target={`#${restaurant._id}`}
                             >
                               <FcInfo />
                               Details
@@ -177,7 +158,7 @@ class Restaurant extends React.Component {
 
                             <div
                               class="modal fade"
-                              id={restaurant.id}
+                              id={restaurant._id}
                               tabindex="-1"
                               role="dialog"
                               aria-labelledby="exampleModalLongTitle"
@@ -230,7 +211,7 @@ class Restaurant extends React.Component {
                               background: "white",
                               color: "blue",
                             }}
-                            onClick={() => this.deleteRes(restaurant.id)}
+                            onClick={() => this.deleteRes(restaurant._id)}
                           >
                             <RiDeleteBin5Line /> Delete Restaurant
                           </button>
@@ -240,7 +221,7 @@ class Restaurant extends React.Component {
                   </div>
                 );
               })
-            : "There's not any restaurants yet"}
+          :<h1 style={{marginTop:"50px",color:"grey",marginBottom:"100px"}}>Loading Restaurants . . . </h1>}
         </div>
       </div>
     );
@@ -253,18 +234,18 @@ class ViewDetails extends React.Component {
   render() {
     return (
       <div>
-       
-              <b> {this.res.name} </b><br></br>
-              <img
-                src={this.res.img}
-                style={{ width: "450px", height: "200px" }}
-              /><br></br>
-              <b>Location:</b> {this.res.location}<br></br>
-              <b>Email: </b> {this.res.email} <br></br>
-              <b>Join Talabat in:</b> {this.res.joinedIn}
-      
-          </div>
-     
+        <b> {this.res.name} </b>
+        <br></br>
+        <img
+          src={`/Talabat-Graduation-Project/Back-end/${this.res.img}`}
+          style={{ width: "450px", height: "200px" }}
+        />
+        <br></br>
+        <b>Location:</b> {this.res.location}
+        <br></br>
+        <b>Email: </b> {this.res.email} <br></br>
+        <b>Join Talabat in:</b> {this.res.joinedIn}
+      </div>
     );
   }
 }

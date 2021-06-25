@@ -20,45 +20,46 @@ function App(){
 
 
   return (
-    <Router className="App">
- <Switch>
-        <Route path="/" exact>
-        <Header/>
-          {/* <RestaurantMenu/> */}
-          {/* <Register/> */}
-        {/* <TeamHome/> */}
-        {/* <Home/> */}
-        <Footer/>
+   <TeamHome/> 
+//     <Router className="App">
+//  <Switch>
+//         <Route path="/" exact>
+//         <Header/>
+//           {/* <RestaurantMenu/> */}
+//           {/* <Register/> */}
+     
+//         {/* <Home/> */}
+//         <Footer/>
 
-        </Route>
-        <Route   path="/becomepartner"
-                  exact
-                >
-                    <PartnerRegister/>
+//         </Route>
+//         <Route   path="/becomepartner"
+//                   exact
+//                 >
+//                     <PartnerRegister/>
 
-          </Route>
-          <Route exact path="/partnerlogin">
-                  <PartnerLogin />
-          </Route>
-          <Route exact path="/restaurant/dashboard">
-                <Restaurant/>
-          </Route>
+//           </Route>
+//           <Route exact path="/partnerlogin">
+//                   <PartnerLogin />
+//           </Route>
+//           <Route exact path="/restaurant/dashboard">
+//                 <Restaurant/>
+//           </Route>
 
-          <Route exact path="/Register">
-                  <Header/>
-                  <Register/>
-                  <Footer/>
-          </Route>
+//           <Route exact path="/Register">
+//                   <Header/>
+//                   <Register/>
+//                   <Footer/>
+//           </Route>
                 
-          <Route exact path="/team">
-                  <TeamHome/>
-          </Route>
+//           <Route exact path="/team">
+//                   <TeamHome/>
+//           </Route>
         
    
- </Switch>
+//  </Switch>
    
 
-    </Router>
+//     </Router>
   );
   }
 

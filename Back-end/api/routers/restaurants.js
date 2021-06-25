@@ -60,6 +60,7 @@ router.post("/", upload.single('img'), (req, res, next) => {
 });
 
 router.get("/", (req, res, next) => {
+  // res.setHeader("Access-Control-Allow-Origin", "*");
   Restaurant.find().exec()
     .then(docs => {
       const response = {

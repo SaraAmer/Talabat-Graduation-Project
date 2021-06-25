@@ -105,6 +105,30 @@ router.get("/:resId", (req, res, next) => {
    });
 });
 
+router.get("/:resId/:offerId", (req, res, next) => {
+  const offerId = req.params.offerId;
+  const resId = req.params.resId;
+
+  Offer.find({ _id: offerId })
+    .exec()
+    .then((doc) => {
+      console.log("From database", doc);
+      if (doc) {
+        res.status(200).json({
+          Offers: doc,
+        });
+      } else {
+        res
+          .status(404)
+          .json({ message: "No valid entry found for provided ID" });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+});
+
 
 router.delete("/:offerId", (req, res, next) => {
   const id = req.params.offerId;
