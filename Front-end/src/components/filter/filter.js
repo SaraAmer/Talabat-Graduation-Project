@@ -89,13 +89,15 @@ class Filter extends React.Component {
                 {/* ***********End of Card************************* */}
               </div>
               <div className="col-8">
-              <div className="card-body">
+              <div className="row" style={{margin: '10px'}}>
+           
               {this.state.restaurants.map(rest =>{
                 return(
                   <RestaurantCard restaurant = {rest}/>
                 );
 
               })}
+
               </div>
 
               

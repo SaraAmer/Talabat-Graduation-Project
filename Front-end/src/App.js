@@ -39,6 +39,9 @@ function App() {
         <Route path="/filter/:add" exact>
           <Filter/>
         </Route>
+        <Route path="/restaurant/:resId/food" exact>
+          <RestaurantMenu/>
+        </Route>
         <Route exact path="/partnerlogin">
           <PartnerLogin />
         </Route>
@@ -46,17 +49,17 @@ function App() {
           <Restaurant />
         </Route>
 
-    //     <Route exact path="/Register">
-    //       <Header />
-    //       <Register />
-    //       <Footer />
-    //     </Route>
+        <Route exact path="/Register">
+           <Header />
+          <Register />
+           <Footer />
+         </Route>
 
-    //     <Route exact path="/team">
-    //       <TeamHome />
-    //     </Route>
-    //   </Switch>
-    // </Router>
+         <Route exact path="/team">
+           <TeamHome />
+         </Route>
+       </Switch>
+     </Router>
   );
 }
 
