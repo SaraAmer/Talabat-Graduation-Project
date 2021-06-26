@@ -1,6 +1,11 @@
 import React from 'react'
 import DashboardNavbar from "./DashboardNavbar.js";
 import Chart from "react-apexcharts";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Clients from "./Clients.js";
+import BannedRestaurants from "./BannedRestaurants";
+import Restaurant from "./Restaurant.js";
 class Overview extends React.Component {
   constructor(props) {
     super(props);
@@ -27,45 +32,46 @@ class Overview extends React.Component {
   }
   render() {
     return (
-      <div class="container">
-     <br></br>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: " center",
-          }}
-        >
-       
-            <div className="app">
-              <div className="row">
-                <div className="mixed-chart">
-                  <Chart
-                    options={this.state.options}
-                    series={this.state.series}
-                    type="bar"
-                    width="500"
-                  />
+      <div>
+
+          <div class="container">
+            <br></br>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: " center",
+              }}
+            >
+              <div className="app">
+                <div className="row">
+                  <div className="mixed-chart">
+                    <Chart
+                      options={this.state.options}
+                      series={this.state.series}
+                      type="bar"
+                      width="500"
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-      
 
-          <Chart
-            options={this.state.options}
-            series={this.state.series}
-            type="line"
-            width="500"
-          />
-          <div className="donut">
-            <Chart
-              options={this.state.optionsDonut}
-              series={this.state.seriesDonut}
-              type="donut"
-              width="380"
-            />
+              <Chart
+                options={this.state.options}
+                series={this.state.series}
+                type="line"
+                width="500"
+              />
+              <div className="donut">
+                <Chart
+                  options={this.state.optionsDonut}
+                  series={this.state.seriesDonut}
+                  type="donut"
+                  width="380"
+                />
+              </div>
+            </div>
           </div>
-        </div>
       </div>
     );
   }

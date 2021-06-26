@@ -19,20 +19,37 @@ function AdminHeader() {
 
   const showSidebar = () => setSidebar(!sidebar);
   const sidebarData = [
-  {
-    title: "Dashboard",
-    path: "/",
-    icon: <GoDashboard />,
-    cName: "nav-text",
-  },
-  {
-    title: "Offers",
-    path: "/offers",
-    icon: <MdLocalOffer />,
-    cName: "nav-text",
-  },
-  
-]
+    {
+      title: "Dashboard",
+      path: "/",
+      icon: <GoDashboard />,
+      cName: "nav-text",
+    },
+    {
+      title: "Offers",
+      path: "/offers",
+      icon: <MdLocalOffer />,
+      cName: "nav-text",
+    },
+    {
+      title: "Join Requests",
+      path: "/JoinRequests",
+      icon: <MdLocalOffer />,
+      cName: "nav-text",
+    },
+    {
+      title: "Banned Restaurants",
+      path: "/banned-restaurants",
+      icon: <MdLocalOffer />,
+      cName: "nav-text",
+    },
+    {
+      title: "Banned Clients",
+      path: "/banned-clients",
+      icon: <MdLocalOffer />,
+      cName: "nav-text",
+    },
+  ];
 
   return (
     <div>
@@ -63,7 +80,7 @@ function AdminHeader() {
           </ul>
           <div style={{ display: "flex",marginLeft:"800px" }}>
            
-              <span class="navbar-text">
+              {/* <span class="navbar-text">
                 <div className="nav-item dropdown col-lg-12 ">
                   <Link
                     className="text-white "
@@ -125,14 +142,14 @@ function AdminHeader() {
                   </ul>
                 </div>
               </span>
-          
+           */}
      
               <span class="navbar-text">
                 <button
                   type="button"
                   className="btn-outline-light text-white  nav-Link "
                   style={{
-                    marginRight: "10px",
+                    marginLeft: "100px",
                     background: "#0c1338",
                     paddingLeft: "30px",
                     paddingRight: "30px",

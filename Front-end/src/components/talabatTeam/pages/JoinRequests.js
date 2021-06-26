@@ -43,7 +43,7 @@ axios
   .then((res) => {
     console.log(res);
   });
-
+ window.location.href = "http://localhost:3000/JoinRequests";
 
 
   };
@@ -58,16 +58,17 @@ axios
         },
       }); //end fetch
 
-      //Window.Location.href = "Http://localhost:3000/JoinRequests";
+ window.location.href = "http://localhost:3000/JoinRequests";
     }//end if
     this.state.refresh = true;
     this.setState({ pendingRestaurants: this.state.pendingRestaurants });
-   
+  
   };
 
   render() {
     return (
       <div class="container">
+    
         {this.state.pendingRestaurants.length > 0 ? (
           this.state.pendingRestaurants.map((restaurant) => {
             return (
@@ -87,16 +88,18 @@ axios
                         </b>
                       </div>
 
-                      <div className="col-2" style={{ paddingTop: "50px" }}>
-                        <div className="text-center">
+                      <div className="col-2" style={{ paddingTop: "45px" }}>
+                        <div>
                           <button
                             type="button"
                             class="btn "
                             data-toggle="modal"
                             data-target={`#${restaurant._id}`}
                           >
-                            <FcInfo />
-                            Details
+                            <span style={{fontSize:"19px"}}>
+                              <FcInfo />
+                              Details
+                            </span>
                           </button>
 
                           <div
@@ -143,27 +146,37 @@ axios
                         </div>
                       </div>
 
-                      <div className="col-3" style={{ paddingTop: "50px" }}>
+                      <div className="col-3" style={{ paddingTop: "46px" }}>
                         <button
+                          class="btn btn-danger"
                           //lessa h3ml implement lel function de
                           onClick={() => this.deleteRestaurant(restaurant._id)}
                           style={{
-                            backgroundcolor: "blue",
                             borderRadius: "100px",
                             float: "right",
+                            paddingLeft: "35px",
+                            paddingRight: "35px",
+                            paddingTop: "10px",
+                            paddingBottom: "10px",
                           }}
                         >
                           Delete
                         </button>
                         <div style={{ marginLeft: "10px" }}>
                           <button
-                          onClick={() => this.acceptRestaurant(restaurant._id)}
-
+                            class="btn btn-success"
+                            onClick={() =>
+                              this.acceptRestaurant(restaurant._id)
+                            }
                             //lessa h3ml implement lel function de
                             style={{
                               backgroundcolor: "blue",
                               borderRadius: "100px",
                               float: "right",
+                              paddingLeft: "35px",
+                              paddingRight: "35px",
+                              paddingTop: "10px",
+                              paddingBottom: "10px",
                             }}
                           >
                             Accept

@@ -1,11 +1,11 @@
 import React from 'react'
 import "./DashboardNavbar.css";
-import { Link } from "react-router-dom";
 import Clients from "./Clients.js"
 import Restaurant from "./Restaurant.js";
 import Overview from "./Overview.js";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import JoinRequests from "./JoinRequests"
+import { Link } from "react-router-dom";
+import BannedRestaurants from './BannedRestaurants';
 class DashboardNavbar extends React.Component {
   constructor() {
     super();
@@ -23,10 +23,10 @@ class DashboardNavbar extends React.Component {
           text: "Clients",
           link: "/clients",
         },
-        {
-          text: "Join Requests",
-          link: "/JoinRequests",
-        },
+        // {
+        //   text: "Banned Restaurants",
+        //   link: "/banned-restaurants",
+        // },
       ],
     };
 
@@ -62,9 +62,8 @@ class DashboardNavbar extends React.Component {
                 key={item.text}
                 style={{
                   fontSize: "30px",
-
                   marginRight: "150px",
-              //    marginLeft: "150px",
+                  marginLeft: "150px",
                   borderRadius: "15px",
                   paddingTop: "10px",
                   paddingBottom: "12px",
@@ -85,7 +84,7 @@ class DashboardNavbar extends React.Component {
           <Route path="/" exact component={Overview} />
           <Route path="/restaurants" exact component={Restaurant} />
           <Route path="/clients" exact component={Clients} />
-          <Route path="/JoinRequests" exact component={JoinRequests} />
+          <Route path="/banned-restaurants" exact component={BannedRestaurants} />
         </Switch>
       </Router>
     );

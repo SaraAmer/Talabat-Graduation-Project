@@ -1,17 +1,17 @@
-import React from 'react'
+import React from "react";
 import DashboardNavbar from "./DashboardNavbar.js";
 import { FcInfo } from "react-icons/fc";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FaBan } from "react-icons/fa";
-import './Restaurant.css';
+import "./Restaurant.css";
 import { FcSearch } from "react-icons/fc";
-import JoinRequests from './JoinRequests.js'
+import JoinRequests from "./JoinRequests.js";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
 
-class Restaurant extends React.Component {
+class BannedRestaurants extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -26,10 +26,9 @@ class Restaurant extends React.Component {
         },
       ],
       apiRestaurants: [],
-      acceptedRestaurants: [],
+      bannedRestaurants: [],
       loading: false,
       refresh: false,
-      status:"",
     };
   }
   viewDetails = (restaurantCopouns) => {
@@ -49,7 +48,6 @@ class Restaurant extends React.Component {
     }
     this.state.refresh = true;
     this.setState({ refresh: this.state.refresh });
-         window.location.href = " http://localhost:3000/restaurants";
   };
 
   async componentWillMount() {
@@ -68,17 +66,25 @@ class Restaurant extends React.Component {
       console.log(restaurant);
       if (restaurant.status === "accepted") {
         console.log(restaurant.name);
-        this.state.acceptedRestaurants.push(restaurant);
+        this.state.bannedRestaurants.push(restaurant);
       }
     });
 
     this.setState({
       loading: false,
-      acceptedRestaurants: this.state.acceptedRestaurants,
+      bannedRestaurants: this.state.bannedRestaurants,
     });
     //console.log(resJson);
   }
-  banRestaurant=(resId)=>{
+
+  // componentWillMount() {
+  //   this.setState({loading:true});
+  //     fetch("http://localhost:8000/restaurants")
+  //       .then((res) => res.text())
+  //       .then((res) => this.setState({ apiRestaurants: res.restaurants ,loading:false}));
+
+  // }
+  unbanRestaurant = (resId) => {
     console.log(resId);
     this.state.status = "banned";
     this.setState({ status: this.state.status });
@@ -91,17 +97,7 @@ class Restaurant extends React.Component {
     this.setState({
       acceptedRestaurants: this.state.acceptedRestaurants,
     });
-      window.location.href = " http://localhost:3000/restaurants";
-  }
-
-  // componentWillMount() {
-  //   this.setState({loading:true});
-  //     fetch("http://localhost:8000/restaurants")
-  //       .then((res) => res.text())
-  //       .then((res) => this.setState({ apiRestaurants: res.restaurants ,loading:false}));
-
-  // }
-
+  };
   render() {
     return (
       <Router>
@@ -139,19 +135,16 @@ class Restaurant extends React.Component {
                 </span>
               </div>
             </div>
-            {/* <div style={{marginLeft:"100px"}}>
-              <a
-                href="/banned-restaurants"
-                class="btn text-white btn-danger"
-              >
+            {/* <div style={{ marginLeft: "100px" }}>
+              <a href="/JoinRequests" class="btn text-white btn-danger">
                 Go to Banned Restaurants
               </a>
             </div> */}
           </div>
 
           <div className="row">
-            {this.state.acceptedRestaurants.length > 0 ? (
-              this.state.acceptedRestaurants.map((restaurant) => {
+            {this.state.bannedRestaurants.length > 0 ? (
+              this.state.bannedRestaurants.map((restaurant) => {
                 return (
                   <div
                     className="card "
@@ -239,12 +232,9 @@ class Restaurant extends React.Component {
                           </div>
                         </li>
                         <li className="list-group-item">
-                          <button
-                            
-                            className="btn card-link"
-                            onClick={() => this.banRestaurant(restaurant._id)}
-                          >
-                            <FaBan /> Ban Restaurant
+                          <button className="btn card-link"
+                          onClick={()=>this.unbanRestaurant(restaurant._id)}>
+                            <FaBan /> UnBan Restaurant
                           </button>
                         </li>
                         <li className="list-group-item">
@@ -281,7 +271,6 @@ class Restaurant extends React.Component {
     );
   }
 }
-
 
 class ViewDetails extends React.Component {
   res = this.props.res;
@@ -321,4 +310,4 @@ class ViewDetails extends React.Component {
   }
 }
 
-  export default Restaurant;
+export default BannedRestaurants;

@@ -195,6 +195,7 @@ router.get("/status/:status", (req, res, next) => {
                         payment: doc.payment,
                         numberOfBranches: doc.numberOfBranches,
                         resImg: doc.img,
+                        status:doc.status,
                         _id: doc._id,
                         request: {
                             type: "GET",
@@ -306,16 +307,16 @@ router.put("/:resId", upload.single('img'), (req, res, next) => {
     const id = req.params.resId;
     const name = req.body.name;
 
-    console.log("Right Scope" + req.body.name);
+
 
     Restaurant.findOne({ _id: id })
         .exec()
         .then(rest => {
             let address = {
-                street: req.body.street ? req.body.street : branch.address.street,
+                street: req.body.street ? req.body.street : rest.address.street,
                 coord: {
-                    lan: req.body.lan ? req.body.lan : branch.address.coord.lan,
-                    att: req.body.att ? req.body.att : branch.address.coord.att
+                    lan: req.body.lan ? req.body.lan :rest.address.coord.lan,
+                    att: req.body.att ? req.body.att :rest.address.coord.att
                 }
 
             };
@@ -345,7 +346,7 @@ router.put("/:resId", upload.single('img'), (req, res, next) => {
             rest.status = req.body.status
               ? req.body.status
               : rest.status;
-
+            console.log(req.body.status);
             return rest.save();
         })
         .then(result => {

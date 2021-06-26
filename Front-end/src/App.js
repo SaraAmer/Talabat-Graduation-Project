@@ -21,46 +21,47 @@ import NewPassword from "./components/partnerLogin/NewPassword";
 import Filter from "./components/filter/filter";
 function App() {
   return (
-    <Router className="App">
-      <Switch>
-        <Route path="/" exact>
-          <Header />
-          <Filter />
-          {/* <RestaurantMenu/> */}
-          {/* <Register/> */}
-          {/* <TeamHome/> */}
-          {/* <Home/> */}
-          <ResetPassword />
-          {/* <NewPassword /> */}
-          <Footer />
-        </Route>
-        <Route path="/becomepartner" exact>
-          <PartnerRegister />
-        </Route>
-        <Route path="/filter/:add" exact>
-          <Filter/>
-        </Route>
-        <Route path="/restaurant/:resId/food" exact>
-          <RestaurantMenu/>
-        </Route>
-        <Route exact path="/partnerlogin">
-          <PartnerLogin />
-        </Route>
-        <Route exact path="/restaurant/dashboard">
-          <Restaurant />
-        </Route>
+      <TeamHome/> 
+    // <Router className="App">
+    //   <Switch>
+    //     <Route path="/" exact>
+    //       <Header />
+    //       <Filter />
+    //       {/* <RestaurantMenu/> */}
+    //       {/* <Register/> */}
+    //       {/* <TeamHome/> */}
+    //       {/* <Home/> */}
+    //       <ResetPassword />
+    //       {/* <NewPassword /> */}
+    //       <Footer />
+    //     </Route>
+    //     <Route path="/becomepartner" exact>
+    //       <PartnerRegister />
+    //     </Route>
+    //     <Route path="/filter/:add" exact>
+    //       <Filter/>
+    //     </Route>
+    //     <Route path="/restaurant/:resId/food" exact>
+    //       <RestaurantMenu/>
+    //     </Route>
+    //     <Route exact path="/partnerlogin">
+    //       <PartnerLogin />
+    //     </Route>
+    //     <Route exact path="/restaurant/dashboard">
+    //       <Restaurant />
+    //     </Route>
 
-        <Route exact path="/Register">
-           <Header />
-          <Register />
-           <Footer />
-         </Route>
+    //     <Route exact path="/Register">
+    //        <Header />
+    //       <Register />
+    //        <Footer />
+    //      </Route>
 
-         <Route exact path="/team">
-           <TeamHome />
-         </Route>
-       </Switch>
-     </Router>
+    //      <Route exact path="/team">
+    //        <TeamHome />
+    //      </Route>
+    //    </Switch>
+    //  </Router>
   );
 }
 

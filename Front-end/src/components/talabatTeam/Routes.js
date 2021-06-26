@@ -12,6 +12,9 @@ import NewCopoun from  "./pages/NewCopoun.js"
 import NewOffer from "./pages/NewOffer.js";
 import EditOffer from "./pages/EditOffer.js";
 import JoinRequests from "./pages/JoinRequests";
+import BannedRestaurants from "./pages/BannedRestaurants";
+import BannedClients from "./pages/BannedClients";
+
 class Routes extends React.Component {
     render(){
     return (
@@ -22,9 +25,12 @@ class Routes extends React.Component {
             <Route path="/" exact component={DashboardNavbar} />
             <Route path="/offers" component={OffersNavbar} />
             <Route path="/offers" component={Offers} />
+            <Route path="/copouns" component={OffersNavbar} />
             <Route path="/copouns" component={Copouns} />
             <Route path="/" exact component={Overview} />
+            <Route path="/restaurants" exact component={DashboardNavbar} />
             <Route path="/restaurants" exact component={Restaurant} />
+            <Route path="/clients" exact component={DashboardNavbar} />
             <Route path="/clients" exact component={Clients} />
             <Route path="/newoffer/:id" exact component={NewOffer} />
             <Route path="/new-copoun/:id" exact component={NewCopoun} />
@@ -33,10 +39,16 @@ class Routes extends React.Component {
               exact
               component={EditOffer}
             />
+            <Route path="/JoinRequests" exact component={JoinRequests} />
             <Route
-              path="/JoinRequests"
+              path="/banned-restaurants"
               exact
-              component={JoinRequests}
+              component={BannedRestaurants}
+            />
+            <Route
+              path="/banned-clients"
+              exact
+              component={BannedClients}
             />
           </Switch>
         </Router>
