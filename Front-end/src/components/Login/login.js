@@ -140,14 +140,16 @@ class LoginUSer extends React.Component {
             </div>
           </div>
           {/* style={{ border: "5px solid grey" }} */}
-          <div className="row">
-            <div className="col-md-12">
+          <div className="row m-3 " >
+            <div className="col-md-12"  >
               {/* <a href="#" className="btn btn-primary btn-block">
                 <i class="bi bi-facebook"></i>  Continue with Facebook
               </a> */}
               <FacebookLogin
+             
                 appId="814092259303918"
                 autoLoad={true}
+                
                 //if true when open login page it will go to
                 // login with facebook and we won't to do this
                 callback={this.responseFacebook}

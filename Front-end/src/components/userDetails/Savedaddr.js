@@ -46,26 +46,38 @@ class Savedaddr extends React.Component {
 	
    constructor (props) {
     super(props);
-	this._handleClick = this._handleClick.bind(this);
+	
 	this.state={
      address_details:[],
+	 _id: this.props.match.params._id,
 	}
 	}
   
 
-   _handleClick=()=> {
-    
-	   alert("female")
-   
-  }
- 	componentDidMount=()=>{
-		if(localStorage["addressdetails"]){
-			let addressdetails=JSON.parse(localStorage["addressdetails"]);//8irt el shakl 
-			this.setState({address_details:addressdetails})//el array ely ana 3mlah 7ishil el data bt3t el local storage 
-			console.log(this.state.address_details)
-		}
-	
-		}
+ 
+ 	 async  componentDidMount(){
+		let res = await fetch(`http://127.0.0.1:8000/user/address/60d214425f913b3f0ded19f6`, {
+      	method: "GET",
+     	headers: {
+        "Content-Type": "application/json",}
+    })
+	 .then(res => res.json())
+      .then(result => {
+        this.setState({
+        mobile:result.mobile,
+        landing:result.landing,
+        addressTitle:result.addressTitle,
+        street:result.street,
+        building:result.building,
+        floor:result.floor,
+        apartmentN:result.apartmentN,
+        assitionalDirect:result.assitionalDirect,
+        country: result.country,
+        region: result.region,
+        type:result.type
+        });
+		 });	
+   }
 
 
     render() {

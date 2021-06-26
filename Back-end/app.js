@@ -28,6 +28,7 @@ const User = require("./api//models/user");
 // ******************************************
 const restaurantsRoutes = require("./api/routers/restaurants");
 const userRoutes = require("./api/routers/user");
+const cartRoutes = require("./api/routers/cart");
 
 // **********************************
 
@@ -88,6 +89,7 @@ app.use("/order", orderRoutes);
 app.use("/user", userRoutes);
 app.use("/auth/restaurant", authRoutes);
 app.use("/country", countryRoutes);
+app.use("/cart", cartRoutes);
 ///////////////Image upload /////////
 
 // Step 5 - set up multer for storing uploaded files

@@ -6,7 +6,7 @@ const Address = require("../models/address");
 const { check, validationResult } = require('express-validator/check');
 var crypto = require('crypto');
 
-// /address
+// /user/address
 router.post("/", (req, res, next) => {
     const address = new Address({
         _id: new mongoose.Types.ObjectId(),
@@ -78,6 +78,34 @@ router.delete("/:addId", (req, res, next) => {
             });
         });
 });
-
+router.put("/:userId", (req, res, next) => {
+    const id = req.params.userId
+    Address.update({ _id: id }, {
+            $set: {
+                userId: req.body.userId,
+                mobile: req.body.mobile,
+                landing: req.body.landing,
+                street: req.body.street,
+                country: req.body.country,
+                region: req.body.region,
+                floor: req.body.floor,
+                building: req.body.building,
+                apartmentN: req.body.apartmentN,
+                addressTitle: req.body.addressTitle,
+                assitionalDirect: req.body.assitionalDirect,
+                type: req.body.type,
+                lang: req.body.lang,
+                att: req.body.att
+                
+            }
+        })
+        .exec()
+        .then(result => {
+            res.status(200).json({ message: 'Address updated' });
+        }).catch(err => {
+            console.log(err);
+            res.status(500).json({ error: err });
+        });
+});
 
 module.exports = router;

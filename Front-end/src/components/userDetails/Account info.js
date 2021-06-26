@@ -21,8 +21,7 @@ class Myaccount extends React.Component {
 		 lastName:"",
 		 email:"",
 		 dateOfBirth:"",
-		 password_confirmation:"",
-		 password:"",
+		 
 		 gender:""}
     
   }
