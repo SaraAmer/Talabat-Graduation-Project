@@ -11,7 +11,7 @@ import Clients from "./pages/Clients.js";
 import NewCopoun from  "./pages/NewCopoun.js"
 import NewOffer from "./pages/NewOffer.js";
 import EditOffer from "./pages/EditOffer.js";
-
+import JoinRequests from "./pages/JoinRequests";
 class Routes extends React.Component {
     render(){
     return (
@@ -28,7 +28,16 @@ class Routes extends React.Component {
             <Route path="/clients" exact component={Clients} />
             <Route path="/newoffer/:id" exact component={NewOffer} />
             <Route path="/new-copoun/:id" exact component={NewCopoun} />
-            <Route path="/offer/:resId/edit/:offerId" exact component={EditOffer} />
+            <Route
+              path="/offer/:resId/edit/:offerId"
+              exact
+              component={EditOffer}
+            />
+            <Route
+              path="/JoinRequests"
+              exact
+              component={JoinRequests}
+            />
           </Switch>
         </Router>
       </div>

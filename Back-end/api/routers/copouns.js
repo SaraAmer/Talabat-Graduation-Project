@@ -55,7 +55,6 @@ router.post("/", (req, res, next) => {
     });
 });
 
-
 router.get("/:resId", (req, res, next) => {
   const id = req.params.resId;
 
@@ -96,28 +95,32 @@ router.delete("/singleCopoun/:copounId", (req, res, next) => {
     });
 });
 
-router.put("/singleCopoun/:copounId", upload.single("img"), (req, res, next) => {
-  const id = req.params.copounId;
+router.put(
+  "/singleCopoun/:copounId",
+  upload.single("img"),
+  (req, res, next) => {
+    const id = req.params.copounId;
 
-  Copoun.findOne({ _id: id })
-    .exec()
-    .then((copoun) => {
-  
-      copoun.desc = req.body.desc ? req.body.desc : copoun.desc;
-      copoun.discount = req.body.discount ? req.body.discount : copoun.discount;
-    copoun.code = req.body.code ? req.body.code : copoun.code;   
-     copoun.limit = req.body.limit ? req.body.limit : copoun.limit;
+    Copoun.findOne({ _id: id })
+      .exec()
+      .then((copoun) => {
+        copoun.desc = req.body.desc ? req.body.desc : copoun.desc;
+        copoun.discount = req.body.discount
+          ? req.body.discount
+          : copoun.discount;
+        copoun.code = req.body.code ? req.body.code : copoun.code;
+        copoun.limit = req.body.limit ? req.body.limit : copoun.limit;
 
-
-      return copoun.save();
-    })
-    .then((result) => {
-      res.status(200).json({
-        myresopnse: result,
+        return copoun.save();
+      })
+      .then((result) => {
+        res.status(200).json({
+          myresopnse: result,
+        });
+      })
+      .catch((err) => {
+        console.log("error message" + err);
       });
-    })
-    .catch((err) => {
-      console.log("error message" + err);
-    });
-});
+  }
+);
 module.exports = router;

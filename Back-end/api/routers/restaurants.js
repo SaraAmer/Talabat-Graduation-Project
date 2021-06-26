@@ -240,6 +240,7 @@ router.get("/", (req, res, next) => {
                         payment: doc.payment,
                         numberOfBranches: doc.numberOfBranches,
                         resImg: doc.img,
+                        status:doc.status,
                         _id: doc._id,
                         request: {
                             type: "GET",
@@ -341,6 +342,9 @@ router.put("/:resId", upload.single('img'), (req, res, next) => {
             rest.serviceCharge = req.body.serviceCharge ? req.body.serviceCharge : rest.serviceCharge;
             rest.vat = req.body.vat ? req.body.vat : rest.vat;
             rest.img = req.file ? req.file.path : rest.img;
+            rest.status = req.body.status
+              ? req.body.status
+              : rest.status;
 
             return rest.save();
         })

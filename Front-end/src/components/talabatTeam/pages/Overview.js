@@ -6,15 +6,15 @@ class Overview extends React.Component {
     super(props);
 
     this.state = {
-      optionsDonut:{},
-       seriesDonut: [44, 55, 41, 17, 15],
-      labelsDonut: ['A', 'B', 'C', 'D', 'E'],
+      optionsDonut: {},
+      seriesDonut: [44, 55, 41, 17, 15],
+      labelsDonut: ["A", "B", "C", "D", "E"],
       options: {
         chart: {
           id: "basic-bar",
         },
         xaxis: {
-          categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
+          categories: [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021],
         },
       },
       series: [

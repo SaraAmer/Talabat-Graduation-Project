@@ -5,6 +5,10 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 import { FaBan } from "react-icons/fa";
 import './Restaurant.css';
 import { FcSearch } from "react-icons/fc";
+import JoinRequests from './JoinRequests.js'
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 class Restaurant extends React.Component {
   constructor() {
     super();
@@ -20,6 +24,7 @@ class Restaurant extends React.Component {
         }
       ],
       apiRestaurants:[],
+      acceptedRestaurants:[],
        loading:false,
        refresh:false
       
@@ -53,10 +58,22 @@ class Restaurant extends React.Component {
         "content-type": "application/json",
       },
     });
-    console.log(res.err);
+ // console.log(res.err);
     let resJson = await res.json();
-    this.setState({ loading: false, apiRestaurants: resJson.restaurants });
-    console.log(resJson);
+    // let myRestaurants = resJson.restaurants;
+    //  console.log(resJson.restaurants);
+        resJson.restaurants.map((restaurant) =>{
+            console.log(restaurant);
+          if(restaurant.status==="accepted"){
+           console.log(restaurant.name);
+            this.state.acceptedRestaurants.push(restaurant);
+          }
+        });
+
+
+    this.setState({ loading: false, acceptedRestaurants: this.state.acceptedRestaurants });
+    //console.log(resJson);
+
     
   }
 
@@ -73,7 +90,8 @@ class Restaurant extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      <Router>    
+          <div className="container">
         
         <div
           style={{
@@ -108,12 +126,21 @@ class Restaurant extends React.Component {
               </span>
             </div>
           </div>
+          <div>
+            <Link to="/JoinRequests" class="btn text-white" style={{backgroundColor:"rgb(6,11,38)"}}>
+              Join Requests
+              </Link>
+         
+          </div>
         </div>
 
         <div className="row">
           {!this.state.loading ?
-             this.state.apiRestaurants.map((restaurant) => {
+             this.state.acceptedRestaurants.map((restaurant) => {
+         
                 return (
+                  <div> 
+                {/* { restaurant.status==="accepted" ? */}
                   <div
                     className="card "
                     style={{
@@ -219,11 +246,20 @@ class Restaurant extends React.Component {
                       </ul>
                     </div>
                   </div>
+                   {/* :""} */}
+                   </div>
                 );
               })
           :<h1 style={{marginTop:"50px",color:"grey",marginBottom:"100px"}}>Loading Restaurants . . . </h1>}
         </div>
       </div>
+      <Switch>
+           <Route path="/JoinRequests" exact component={JoinRequests} />
+         
+      </Switch>
+
+      </Router>  
+
     );
   }
 }

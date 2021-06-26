@@ -18,9 +18,10 @@ class Copouns extends React.Component {
     super();
     this.state = {
       currentRestaurantId: "",
-     
+
       apiRestaurants: [],
       copouns: [],
+      acceptedRestaurants: [],
     };
   }
   setCurrrentResId = (resID) => {
@@ -31,26 +32,32 @@ class Copouns extends React.Component {
     });
     console.log(this.state.currentRestaurantId);
   };
-
   async componentWillMount() {
     this.setState({ loading: true });
-    let res = await fetch(
-      "http://127.0.0.1:8000/restaurants",
-
-      {
-        method: "GET",
-        headers: {
-          "content-type": "application/json",
-        },
-      }
-    );
+    let res = await fetch("http://127.0.0.1:8000/restaurants", {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+    // console.log(res.err);
     let resJson = await res.json();
-    this.setState({ loading: false, apiRestaurants: resJson.restaurants });
-    console.log(resJson);
-  
+    // let myRestaurants = resJson.restaurants;
+    //  console.log(resJson.restaurants);
+    resJson.restaurants.map((restaurant) => {
+      console.log(restaurant);
+      if (restaurant.status === "accepted") {
+        console.log(restaurant.name);
+        this.state.acceptedRestaurants.push(restaurant);
+      }
+    });
+
+    this.setState({
+      loading: false,
+      acceptedRestaurants: this.state.acceptedRestaurants,
+    });
+    //console.log(resJson);
   }
-
-
   render() {
     return (
       <Router>
@@ -89,8 +96,8 @@ class Copouns extends React.Component {
           </div>
 
           <div className="row">
-            {this.state.apiRestaurants.length > 0
-              ? this.state.apiRestaurants.map((restaurant) => {
+            {this.state.acceptedRestaurants.length > 0
+              ? this.state.acceptedRestaurants.map((restaurant) => {
                   return (
                     <div
                       className="card "
@@ -224,14 +231,14 @@ class ViewCopouns extends React.Component {
     super();
     this.state = {
       copouns: [],
-      refresh:false
+      refresh: false,
     };
   }
 
   async componentDidMount() {
     console.log("component did mount");
     let res = await fetch(
-      "http://127.0.0.1:8000/restaurants/copoun/"+this.props.resId,
+      "http://127.0.0.1:8000/restaurants/copoun/" + this.props.resId,
       {
         method: "GET",
         headers: {
@@ -246,13 +253,16 @@ class ViewCopouns extends React.Component {
   removeSelected = (copounId) => {
     console.log(copounId);
     if (window.confirm("Are you sure?")) {
-      fetch("http://127.0.0.1:8000/restaurants/copoun/singleCopoun/"+ copounId, {
-        method: "DELETE",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      });
+      fetch(
+        "http://127.0.0.1:8000/restaurants/copoun/singleCopoun/" + copounId,
+        {
+          method: "DELETE",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
     }
     this.state.refresh = true;
     this.setState({ refresh: this.state.refresh });
