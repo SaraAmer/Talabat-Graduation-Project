@@ -129,7 +129,7 @@ class BannedClients extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container" style={{ fontSize: "28px" }}>
         {/* <DashboardNavbar /> */}
         {/* <a
           href="/clients"
@@ -137,6 +137,22 @@ class BannedClients extends React.Component {
         >
           <h1>Clients</h1>
         </a> */}
+        <h1
+          style={{
+            color: "rgb(33, 33, 33)",
+            backgroundColor: "rgb(246, 246, 246)",
+            marginTop: "30px",
+            marginBottom: "30px",
+            paddingInline: "20px",
+            paddingTop: "10px",
+            paddingBottom: "10px",
+            fontSize: "28px",
+            fontFamily: "sans-serif",
+            paddingLeft: "50px",
+          }}
+        >
+          Banned Clients
+        </h1>
         <div
           style={{
             display: "flex",
@@ -145,7 +161,6 @@ class BannedClients extends React.Component {
             color: "rgb(33, 33, 33)",
             backgroundColor: "rgb(246, 246, 246)",
             marginTop: "30px",
-
             paddingInline: "20px",
             paddingTop: "10px",
             paddingBottom: "10px",
@@ -289,7 +304,9 @@ class BannedClients extends React.Component {
                             <li>
                               <button
                                 className="btn"
-                                onClick={() => this.unbanClient(singleClient._id)}
+                                onClick={() =>
+                                  this.unbanClient(singleClient._id)
+                                }
                               >
                                 <FaBan /> Unban Client
                               </button>

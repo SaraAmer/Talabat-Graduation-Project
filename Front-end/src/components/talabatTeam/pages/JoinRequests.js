@@ -68,7 +68,23 @@ axios
   render() {
     return (
       <div class="container">
-    
+        <h1
+          style={{
+            color: "rgb(33, 33, 33)",
+            backgroundColor: "rgb(246, 246, 246)",
+            marginTop: "30px",
+            marginBottom: "30px",
+            paddingInline: "20px",
+            paddingTop: "10px",
+            paddingBottom: "10px",
+            fontSize: "28px",
+            fontFamily: "sans-serif",
+            paddingLeft: "50px",
+          }}
+        >
+          Join Requests
+        </h1>
+
         {this.state.pendingRestaurants.length > 0 ? (
           this.state.pendingRestaurants.map((restaurant) => {
             return (
@@ -96,7 +112,7 @@ axios
                             data-toggle="modal"
                             data-target={`#${restaurant._id}`}
                           >
-                            <span style={{fontSize:"19px"}}>
+                            <span style={{ fontSize: "19px" }}>
                               <FcInfo />
                               Details
                             </span>

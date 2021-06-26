@@ -101,7 +101,24 @@ class BannedRestaurants extends React.Component {
   render() {
     return (
       <Router>
-        <div className="container">
+        <div className="container" >
+          {" "}
+          <h1
+            style={{
+              color: "rgb(33, 33, 33)",
+              backgroundColor: "rgb(246, 246, 246)",
+              marginTop: "30px",
+              marginBottom: "30px",
+              paddingInline: "20px",
+              paddingTop: "10px",
+              paddingBottom: "10px",
+              fontSize: "28px",
+              fontFamily: "sans-serif",
+              paddingLeft: "50px",
+            }}
+          >
+            Banned Restaurants
+          </h1>
           <div
             style={{
               display: "flex",
@@ -141,7 +158,6 @@ class BannedRestaurants extends React.Component {
               </a>
             </div> */}
           </div>
-
           <div className="row">
             {this.state.bannedRestaurants.length > 0 ? (
               this.state.bannedRestaurants.map((restaurant) => {
@@ -232,8 +248,10 @@ class BannedRestaurants extends React.Component {
                           </div>
                         </li>
                         <li className="list-group-item">
-                          <button className="btn card-link"
-                          onClick={()=>this.unbanRestaurant(restaurant._id)}>
+                          <button
+                            className="btn card-link"
+                            onClick={() => this.unbanRestaurant(restaurant._id)}
+                          >
                             <FaBan /> UnBan Restaurant
                           </button>
                         </li>

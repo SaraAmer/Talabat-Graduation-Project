@@ -12,7 +12,8 @@ import { MdLocalOffer } from "react-icons/md";
 import { MdAccountBalanceWallet } from "react-icons/md";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Offers from "../pages/Offers";
-
+import { FaBan } from "react-icons/fa";
+import { BiGitPullRequest } from "react-icons/bi";
 
 function AdminHeader() {
   const [sidebar, setSidebar] = useState(false);
@@ -34,19 +35,19 @@ function AdminHeader() {
     {
       title: "Join Requests",
       path: "/JoinRequests",
-      icon: <MdLocalOffer />,
+      icon: <BiGitPullRequest />,
       cName: "nav-text",
     },
     {
       title: "Banned Restaurants",
       path: "/banned-restaurants",
-      icon: <MdLocalOffer />,
+      icon: <FaBan />,
       cName: "nav-text",
     },
     {
       title: "Banned Clients",
       path: "/banned-clients",
-      icon: <MdLocalOffer />,
+      icon: <FaBan />,
       cName: "nav-text",
     },
   ];
