@@ -18,6 +18,7 @@ import PartnerLogin from "./components/partnerLogin/PartnerLogin";
 import Restaurant from "./components/Restaurants/Restaurant";
 import ResetPassword from "./components/partnerLogin/ResetPassword";
 import NewPassword from "./components/partnerLogin/NewPassword";
+import Filter from "./components/filter/filter";
 function App() {
   return (
     <Router className="App">
@@ -35,6 +36,9 @@ function App() {
         <Route path="/becomepartner" exact>
           <PartnerRegister />
         </Route>
+        <Route path="/filter/:add" exact>
+          <Filter/>
+        </Route>
         <Route exact path="/partnerlogin">
           <PartnerLogin />
         </Route>
@@ -42,17 +46,17 @@ function App() {
           <Restaurant />
         </Route>
 
-        <Route exact path="/Register">
-          <Header />
-          <Register />
-          <Footer />
-        </Route>
+    //     <Route exact path="/Register">
+    //       <Header />
+    //       <Register />
+    //       <Footer />
+    //     </Route>
 
-        <Route exact path="/team">
-          <TeamHome />
-        </Route>
-      </Switch>
-    </Router>
+    //     <Route exact path="/team">
+    //       <TeamHome />
+    //     </Route>
+    //   </Switch>
+    // </Router>
   );
 }
 

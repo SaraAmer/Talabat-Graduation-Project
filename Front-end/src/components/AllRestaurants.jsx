@@ -13,7 +13,8 @@ import Title from './restaurants-client/Title';
 
 
 function AllRestaurants(){
-
+console.log("Eithar");
+console.log(restaurantList);
 const useStyles = makeStyles((theme) => ({
   root: {
       '& > *': {

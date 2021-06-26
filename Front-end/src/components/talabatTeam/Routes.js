@@ -10,6 +10,7 @@ import Overview from "./pages/Overview.js";
 import Clients from "./pages/Clients.js";
 import NewCopoun from  "./pages/NewCopoun.js"
 import NewOffer from "./pages/NewOffer.js";
+import EditOffer from "./pages/EditOffer.js";
 
 class Routes extends React.Component {
     render(){
@@ -27,6 +28,7 @@ class Routes extends React.Component {
             <Route path="/clients" exact component={Clients} />
             <Route path="/newoffer/:id" exact component={NewOffer} />
             <Route path="/new-copoun/:id" exact component={NewCopoun} />
+            <Route path="/offer/:resId/edit/:offerId" exact component={EditOffer} />
           </Switch>
         </Router>
       </div>

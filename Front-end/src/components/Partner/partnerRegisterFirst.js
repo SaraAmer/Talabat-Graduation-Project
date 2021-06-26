@@ -45,14 +45,14 @@ class PartnerRegisterFirst extends React.Component {
     // console.log(`${selectValue}`);
   };
 
-  handleChangestoreType = (e) => {
-    this.setState({ storetype: e.target.value });
+  handleChangestoreLocation = (e) => {
+    this.setState({ storeLocation: e.target.value });
     // console.log(`${selectValue}`);
   };
 
-  selectCountry(val) {
-    this.setState({ storeLocation: val });
-  }
+  // selectCountry(val) {
+  //   this.setState({ storeLocation: val });
+  // }
 
   setInputValue = (e) => {
     this.setState({ [e.target.name]: e.target.value });
@@ -100,7 +100,7 @@ class PartnerRegisterFirst extends React.Component {
         LastName: this.state.lastName,
         storeLocation: this.state.storeLocation,
         MobileNumber: this.state.mobileNumber,
-        storename: this.state.storeName,
+        name: this.state.storeName,
         numberOfBranches: this.state.NumberOfBranches,
         website: this.state.website,
         category: this.state.selectValue,
@@ -118,20 +118,67 @@ class PartnerRegisterFirst extends React.Component {
     let resJson = await res.json();
 
     console.log(resJson.error);
-    M.toast({
-      html: resJson.error.details[0].message,
-      classes: "#c62828 red darken-3",
-    });
-    if (resJson.error.details[0].message === "undefined") {
-      if (typeof resJson.error === "undefined") {
-        M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
+
+    if (resJson.error.message == "Not Found") {
+      M.toast({
+        html: "Check mail information will revise and we will contact you",
+        classes: "#c62828 red darken-3",
+      });
+    } else {
+      if (resJson.error.details[0].message == "undefined") {
+        if (typeof resJson.error === "undefined") {
+          M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
+        } else {
+          M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
+        }
       } else {
-        M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
+        if (
+          resJson.error.details[0].message ==
+          '"MobileNumber" with value "012893626" fails to match the required pattern: /^\\d{3}\\d{3}\\d{3}\\d{2}$/'
+        ) {
+          M.toast({
+            html: "Not Valid Mobile number",
+            classes: "#c62828 red darken-3",
+          });
+        } else {
+          M.toast({
+            html: resJson.error.details[0].message,
+            classes: "#c62828 red darken-3",
+          });
+        }
       }
     }
+
+    //   if (resJson.error.details[0].message == "undefined") {
+    //     if (typeof resJson.error === "undefined") {
+    //       M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
+    //     } else {
+    //       M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
+    //     }
+    //   } else {
+    //     M.toast({
+    //       html: resJson.error.details[0].message,
+    //       classes: "#c62828 red darken-3",
+    //     });
+    //   }
+    // } else {
+    //   M.toast({
+    //     html: resJson.error.message,
+    //     classes: "#c62828 red darken-3",
+    //   });
+    // }
+    // console.log(resJson.error.details[0].message);
+    // console.log(resJson.error.details);
+    // if (resJson.error.details[0].message === "undefined") {
+    //   if (typeof resJson.error === "undefined") {
+    //     M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
+    //   } else {
+    //     M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
+    //   }
+    // }
   };
   render() {
-    const { country } = this.state;
+    // const { country } = this.state;
 
     // var e = document.getElementById("category");
 
@@ -189,13 +236,37 @@ class PartnerRegisterFirst extends React.Component {
             store Location
           </label>
           <div>
-            <CountryDropdown
+            <select
+              id="inputState"
+              id="category"
+              value={this.state.storeLocation}
+              onChange={(e) => this.handleChangestoreLocation(e)}
+              className="form-control"
+            >
+              <option> --None--</option>
+              <option value="Kuwait"> Kuwait</option>
+              <option value="KSA">KSA</option>
+              <option value="Bahrain">Bahrain</option>
+              <option value="UAE" selected="">
+                UAE
+              </option>
+              <option value="Oman" selected="">
+                Oman
+              </option>
+              <option value="Qatar" selected="">
+                Qatar
+              </option>
+              <option value="Jordan" selected="">
+                Jordan
+              </option>
+            </select>
+            {/* <CountryDropdown
               // value={country}
               name="storeLocation"
               onChange={(val) => this.selectCountry(val)}
               className="form-control "
               value={this.state.storeLocation}
-            />
+            /> */}
             {/* <RegionDropdown
               country={this.country}
               value={this.region}
@@ -222,7 +293,7 @@ class PartnerRegisterFirst extends React.Component {
             name="mobileNumber"
             className="form-control"
             pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
-            placeholder="+9715XXXXXXXX"
+            placeholder="XXXXXXXXXXXXX"
             value={this.state.mobileNumber}
             onChange={this.setInputValue}
             name="mobileNumber"
@@ -302,7 +373,7 @@ class PartnerRegisterFirst extends React.Component {
               float: "left",
             }}
           >
-            Store Type
+            store Location
           </label>
 
           <select

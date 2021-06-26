@@ -8,6 +8,7 @@ import axios from "axios";
 import FacebookLogin from "react-facebook-login";
 //********* */
 import M from "materialize-css";
+
 //****** */
 var Joi = require("joi-browser");
 
@@ -24,7 +25,7 @@ class LoginUSer extends React.Component {
   };
   PostData = async (e) => {
     e.preventDefault();
-    console.log(this.state.email);
+
     let res = await fetch("http://localhost:8000/user/login", {
       method: "post",
       headers: {
@@ -37,15 +38,24 @@ class LoginUSer extends React.Component {
       }),
     });
     let resJson = await res.json();
-    console.log(resJson.error);
+    console.log("this.state.email");
+    console.log(this.state.email);
+    console.log("=====================")
+    console.log(resJson)
+    console.log("=====================")
+    console.log(typeof resJson.error);
     console.log(resJson.message);
 
-    if (typeof resJson.error === "undefined") {
+    if (resJson.message != "Auth failed") {
       localStorage.setItem("jwt", resJson.token);
+      window.location.reload();
+
       M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
     } else {
-      M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
+      M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
     }
+   
+ 
   };
   //******************** */
   responseSuccessGoogle = async (response) => {
@@ -73,6 +83,7 @@ class LoginUSer extends React.Component {
     } else {
       M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
     }
+    window.location.reload();
   };
   /******** */
   responseFacebook = async (response) => {
@@ -101,6 +112,7 @@ class LoginUSer extends React.Component {
     } else {
       M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
     }
+    window.location.reload();
   };
   //********************
   // responseFacebook = (response) => {
@@ -147,7 +159,7 @@ class LoginUSer extends React.Component {
                 <i class="bi bi-facebook"></i>  Continue with Facebook
               </a> */}
               <FacebookLogin
-                appId="814092259303918"
+                appId={process.env.FACEBOOKAPP}
                 autoLoad={true}
                 //if true when open login page it will go to
                 // login with facebook and we won't to do this

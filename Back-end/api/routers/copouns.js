@@ -55,31 +55,6 @@ router.post("/", (req, res, next) => {
     });
 });
 
-// route: restaurant/category/:resId
-// router.get("/:resId", (req, res, next) => {
-//     const id = req.params.resId;
-//     const restaurant = Restaurant.findById(id);
-//     console.log(restaurant);
-//     Category.find({ restaurant: restaurant })
-//         .exec()
-//         .then(doc => {
-//             console.log("From database", doc);
-//             if (doc) {
-//                 res.status(200).json({
-//                     Categories: doc,
-
-//                 });
-//             } else {
-//                 res
-//                     .status(404)
-//                     .json({ message: "No valid entry found for provided ID" });
-//             }
-//         })
-//         .catch(err => {
-//             console.log(err);
-//             res.status(500).json({ error: err });
-//         });
-// });
 
 router.get("/:resId", (req, res, next) => {
   const id = req.params.resId;
@@ -104,7 +79,7 @@ router.get("/:resId", (req, res, next) => {
     });
 });
 
-router.delete("/:copounId", (req, res, next) => {
+router.delete("/singleCopoun/:copounId", (req, res, next) => {
   const id = req.params.copounId;
   Copoun.remove({ _id: id })
     .exec()
@@ -121,7 +96,7 @@ router.delete("/:copounId", (req, res, next) => {
     });
 });
 
-router.put("/:copounId", upload.single("img"), (req, res, next) => {
+router.put("/singleCopoun/:copounId", upload.single("img"), (req, res, next) => {
   const id = req.params.copounId;
 
   Copoun.findOne({ _id: id })
