@@ -19,8 +19,7 @@ const transporter = nodemailer.createTransport(
     auth: {
       //api_key:SENDGRID_API
       //GoogleKey
-      api_key:
-        "G.5q4rSytgSmWlsfYOC0VkUQ.0p0-CYaW4BJwP4xURy78r2mw9h2egbT-BXC1KZXfPXs",
+      api_key: "",
     },
   })
 );
