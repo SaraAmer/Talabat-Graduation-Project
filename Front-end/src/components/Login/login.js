@@ -8,6 +8,7 @@ import axios from "axios";
 import FacebookLogin from "react-facebook-login";
 //********* */
 import M from "materialize-css";
+import { MdLocalParking } from "react-icons/md";
 //****** */
 var Joi = require("joi-browser");
 
@@ -36,19 +37,25 @@ class LoginUSer extends React.Component {
       }),
     });
     let resJson = await res.json();
-    console.log(resJson);
+    console.log("this.state.email");
+    console.log(this.state.email);
     console.log(resJson.error);
     console.log(resJson.message);
 
-    if (typeof resJson.error === "undefined") {
+    if (resJson.token) {
+      
       localStorage.setItem("jwt", resJson.token);
+      localStorage.setItem("userId", resJson.userId);
 
-      M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
+     // M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
+      window.location.reload();
+    
     } else {
-      M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
+    //M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
+    alert("Wrong Email or Password");
     }
-
-    window.location.reload();
+   
+ 
   };
   //******************** */
   responseSuccessGoogle = async (response) => {
