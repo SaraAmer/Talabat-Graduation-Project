@@ -5,31 +5,72 @@ class CheckFilter extends React.Component {
   render() {
     return (
       <div className="card">
-        <div className="card-header">Filter By</div>
+        <div className="card-header">Filter By </div>
         <div className="card-body">
-          <form action="/action_page.php" method="get">
-            <input type="checkbox" name="vehicle1" value="Bike" />
-            <label htmlFor="vehicle1"> Deals and Offers</label>
-            <br></br>
-            <input type="checkbox" name="vehicle2" value="Car" />
-            <label htmlFor="vehicle2"> USe Vouncher Here</label>
-            <br></br>
-            <input type="checkbox" name="vehicle3" value="Boat" checked />
-            <label htmlFor="vehicle3"> Online Payment Available</label>
-            <br></br>
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="flexRadioDefault1"
+            />
+            <label className="form-check-label" htmlFor="flexRadioDefault1">
+              Fast Food
+            </label>
+          </div>
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="flexRadioDefault2"
+              checked
+            />
+            <label className="form-check-label" htmlFor="flexRadioDefault2">
+              Desserts
+            </label>
+          </div>
 
-            <input type="checkbox" name="vehicle4" value="Boat4" checked />
-            <label htmlFor="vehicle3"> Value Meals</label>
-            <br></br>
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="flexRadioDefault3"
+              checked
+            />
+            <label className="form-check-label" htmlFor="flexRadioDefault3">
+              Egyption
+            </label>
+          </div>
 
-            <input type="checkbox" name="vehicle5" value="Boat5" checked />
-            <label htmlFor="vehicle3"> Family Meals</label>
-            <br></br>
-            <input type="checkbox" name="vehicle6" value="Boat6" checked />
-            <label htmlFor="vehicle3">New Restaurants</label>
-            <br></br>
-            <input type="submit" className="d-none" value="Submit" />
-          </form>
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="flexRadioDefault4"
+              checked
+            />
+            <label className="form-check-label" htmlFor="flexRadioDefault4">
+              {/* Egyption */}
+              Fried Chicken
+            </label>
+          </div>
+
+          {/* <button
+          type="button"
+          className="btn text-green "
+          data-toggle="modal"
+          data-target=".bd-example-modal-lg"
+          // backgroundColor: "red",
+          style={{ color: "green" }}
+        >
+          show All{" "}
+        </button> */}
+          {/********************** ******** Model */}
+          {/* <ShowAllModel /> */}
+          {/*********** END of Model */}
         </div>
       </div>
     );

@@ -13,7 +13,7 @@ import {
 class Address extends React.Component {
      constructor (props) {
      super(props);
-     this.state = { addressDetails:{
+     this.state = {
         mobile:'',
         landingNo:'',
         add_title:'',
@@ -23,7 +23,7 @@ class Address extends React.Component {
         appNo:'',
         additional:'',
         country: '',
-        region: '',},
+        region: '',
         gender:'' };
   }
 
@@ -34,12 +34,41 @@ class Address extends React.Component {
   selectRegion (val) {
     this.setState({ region: val });
   }
-  
-  saveAddr=()=>{
- 
-     localStorage["addressdetails"]=JSON.stringify(this.state.addressDetails);
-   
-  }
+
+  saveAddr = async (e) => {
+    console.log("MOBile");
+    console.log(this.state.mobile);
+    let res = await fetch(
+      `http://127.0.0.1:8000/user/address`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          //key and value from form
+        userId: localStorage["userId"],
+        mobile: this.state.mobile,
+        landing: this.state.landingNo,
+        street: this.state.street,
+        country: this.state.country,
+        region: this.state.region,
+        floor: this.state.floor,
+        building: this.state.building,
+        apartmentN: this.state.appNo,
+        addressTitle: this.state.add_title,
+        assitionalDirect: this.state.additional,
+        type: this.state.gender,
+        lang: 122,
+        att: 132
+        }),
+      }
+    );
+    let resJson = await res.json();
+    console.log(resJson.error);
+    console.log(resJson.message);
+
+  };
   
   bordercolor=(e)=>{
   this.setState({gender:e.target.value});
@@ -133,7 +162,7 @@ class Address extends React.Component {
                         <input type="text"  className="form-control" id="inputAddress2" placeholder="Assitional Directions(optional)"  onChange={(e)=>this.setState({additional:e.target.value})}/>
                       </div>
                       <div className="d-flex justify-content-end">
-										<button type="button" data-toggle="modal" className="btn btn-primary " data-dismiss="modal" onClick={this.saveAddr}>Save Address
+										<button onClick={this.saveAddr} type="button" data-toggle="modal" className="btn btn-primary " data-dismiss="modal" onClick={this.saveAddr}>Save Address
 										</button>
 									</div>
 									

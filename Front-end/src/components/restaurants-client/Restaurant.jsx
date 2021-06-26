@@ -7,14 +7,20 @@ import {
 } from "react-router-dom";
 
 import  RestaurantDetails from './RestaurantDetails';
+
+
+
 function Restaurant(props) {
+  console.log("hhhhhhhhhhhhhhhhh");
+  console.log(props);
   return (
     
       <div className="restaurant col-lg-2 col-md-3 col-sm-5">
       <a style={{display:"inline-block"}}  href={`/restaurants/${props.id}`}>
 
       <div className="img-container">
-      <img src={props.logo} />
+      
+      <img src={`http://localhost:8000/${props.logo}`} />
 
       </div>
         <hr />
