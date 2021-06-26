@@ -41,7 +41,8 @@ desc={restaurant.desc}
     );
 }
 function RestaurantList(props) {
-   
+   console.log("UN RestaurantList");
+   console.log(props.rests);
     // const [rests, setRests]= useState(restaurantList);
     // //setRests(...restaurantList);
     // const [currentPage, setCurrentPage] =useState(1);

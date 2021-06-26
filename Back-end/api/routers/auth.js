@@ -22,16 +22,53 @@ const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const sendgridTransport = require("nodemailer-sendgrid-transport");
 const Restaurant = require("../models/restaurant");
-
+//******************************************************* */
+// const validatePhoneNumber = require('validate-phone-number-node-js');
+// const result = validatePhoneNumber.validate('+8801744253089');
+const Joi = require("joi");
+//********************* */
 const transporter = nodemailer.createTransport(
   sendgridTransport({
     auth: {
       //api_key:SENDGRID_API
       //GoogleKey
-      api_key: "",
+      api_key: process.env.MailerKey,
     },
   })
 );
+//*************************** */
+// function createrestaurantOwnerSchema(req, res, next) {
+//   const schema = Joi.object({
+//     email: Joi.string().email().required(),
+//   });
+//   validateRequest(req, next, schema);
+// }
+// //*********************************************
+// function validateRequest(req, next, schema) {
+//   const options = {
+//     abortEarly: false, // include all errors
+//     allowUnknown: true, // ignore unknown props
+//     stripUnknown: true, // remove unknown props
+//   };
+//   const { error, value } = schema.validate(req.body, options);
+//   if (error) {
+//     next(
+//       `Validation error: ${error.details
+//         .map((x) =>
+//           res.status(500).json({
+//             error: x.message,
+//           })
+//         )
+//         .join(", ")}`
+//     );
+//   } else {
+//     req.body = value;
+//     next();
+//   }
+// }
+//*************** */
+//****************************************
+
 // *************************************Old Done*******************************/
 router.post("/signup", (req, res, next) => {
   //da al asm bytktb fe postman of get from form
@@ -52,7 +89,47 @@ router.post("/signup", (req, res, next) => {
   );
   //const StoreLocation = req.body.StoreLocation;
   console.log("helo I'm in API");
+  const data = req.body;
+  const schema = Joi.object({
+    LastName: Joi.string().required().messages({
+      "string.base": `Last name must be String`,
+    }),
 
+    FirstName: Joi.string().required().messages({
+      "string.base": `First name must be String`,
+    }),
+
+    MobileNumber: Joi.string()
+      .regex(/^\d{3}\d{3}\d{3}\d{2}$/)
+      .required()
+      .messages({
+        "string.base": `Not valid Phone`,
+      }),
+    // MobileNumber: Joi.phoneNumber(),
+    password: Joi.string().min(6).required(),
+    cpassword: Joi.string().valid(Joi.ref("password")).required(),
+    name: Joi.string().required(),
+    numberOfBranches: Joi.required(),
+    email: Joi.string().email().required().messages({
+      "string.base": `Invalid Email`,
+    }),
+    category: Joi.string().required(),
+    website: Joi.string().required(),
+    storeLocation: Joi.string().required(),
+    // address: Joi.string().required(),
+  });
+  //**************************************************** */
+  const validation = schema.validate(req.body);
+
+  if (!validation.error) {
+    next();
+  } else {
+    res.status(422).json({
+      // message: "Validation error.",
+      error: validation.error,
+    });
+  }
+  //********************* */
   restaurantOwner
     .find({ email: req.body.email })
     .exec()
@@ -60,14 +137,7 @@ router.post("/signup", (req, res, next) => {
       if (!email || !password) {
         console.log("please add all the fields");
         return res.status(422).json({ error: "please add all the fields" });
-      }
-      // if (restaurantowner.length >= 1) {
-      //   console.log("Mail Exist");
-      //   return res.status(409).json({
-      //     message: "Mail exists",
-      //   });
-      // }
-      else {
+      } else {
         if (req.body.password == req.body.cpassword) {
           bcrypt.hash(req.body.password, 10, (err, hash) => {
             if (err) {
@@ -94,14 +164,14 @@ router.post("/signup", (req, res, next) => {
                   /************************* */
                   const restaurant = new Restaurant({
                     _id: new mongoose.Types.ObjectId(),
-                    name: req.body.storename,
+                    name: req.body.name,
                     owner: result._id,
                     numberOfBranches: req.body.numberOfBranches,
                     // type: req.body.storetype,
                     Location: req.body.storeLocation,
                     category: req.body.category,
                     website: req.body.website,
-                    address: req.body.restaurantAddress,
+                    // address: req.body.address,
                   });
                   console.log(restaurant);
                   restaurant.save().then((result) => {
@@ -109,17 +179,18 @@ router.post("/signup", (req, res, next) => {
                     //************************** */
                     //Message send when register
                     //******************
-                    // transporter.sendMail({
-                    //   //send message
-                    //   // ************************** */
-                    //   to: user.email,
-                    //   from: "eng.marwamedhat2020@gmail.com",
-                    //   subject: "request to signup in talabat ",
-                    //   html: "<h1>information will revise and we will contact you </h1>",
-                    //   //********************* */
-                    // });
+                    console.log("d5l al mailer");
+                    console.log(restaurantowner.email);
+                    transporter.sendMail({
+                      //send message
+                      // ************************** */
+                      to: restaurantowner.email,
+                      from: "talabtteam@gmail.com",
+                      subject: "request to signup in talabat ",
+                      html: "<h1>information will revise and we will contact you </h1>",
+                      //********************* */
+                    });
                     //****************** */
-
                     res.status(201).json({
                       message:
                         "Check mail information will revise and we will contact you ",
@@ -128,6 +199,7 @@ router.post("/signup", (req, res, next) => {
                 })
                 .catch((err) => {
                   console.log(err);
+                  console.log("hereeeeeeeee");
                   res.status(500).json({
                     error: err,
                   });
@@ -181,10 +253,12 @@ router.post("/login", (req, res, next) => {
               }
             );
             console.log("Auth Successful");
+            console.log(restaurantowner[0]._id);
             return res.status(200).json({
               message: "Auth successful",
               token: token,
               // user: { email },
+              id: restaurantowner[0]._id,
             });
           }
 

@@ -49,7 +49,7 @@ router.post("/", (req, res, next) => {
         });
 });
 
-// /user/:userId/address
+// /user/address/:userId/
 router.get("/:userId", (req, res, next) => {
     Address.find({ userId: req.params.userId })
         .exec()

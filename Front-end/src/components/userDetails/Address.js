@@ -14,7 +14,7 @@ import {
 class Address extends React.Component {
      constructor (props) {
      super(props);
-     this.state = { addressDetails:{
+     this.state = {
         mobile:'',
         landing:'',
         addressTitle:'',
@@ -24,8 +24,8 @@ class Address extends React.Component {
         apartmentN:'',
         assitionalDirect:'',
         country: '',
-        region: '',},
-        type:'' };
+        region: '',
+        gender:'' };
   }
 
   selectCountry (val) {
@@ -35,47 +35,58 @@ class Address extends React.Component {
   selectRegion (val) {
     this.setState({ region: val });
   }
-  
-  saveAddr=async(e)=>{
-    e.preventDefault();
-		let res = await fetch("http://127.0.0.1:8000/user/address", {
-      	method: "POST",
-     	 headers: {
-        "Content-Type": "application/json",
-      	},
-		   body: JSON.stringify({
-        //key and value from form
-       
-        mobile:this.state.mobile,
-        landing:this.state.landing,
-        addressTitle:this.state.addressTitle,
-        street:this.state. street,
-        building:this.state.building,
-        floor:this.state.floor,
-        apartmentN:this.state. apartmentN,
-        assitionalDirect:this.state.assitionalDirect,
+
+  saveAddr = async (e) => {
+    // console.log("MOBile");
+    // console.log(this.state.mobile);
+    //   console.log(this.state. landing)
+    //     console.log(this.state.street)
+    //     console.log( this.state.country)
+    //     console.log(this.state.region)
+    //     console.log(this.state.floor)
+    //     console.log(this.state.building)
+    //     console.log(this.state.apartmentN)
+    //     console.log(this.state.addressTitle)
+    //     console.log(this.state.assitionalDirect)
+    //     console.log(this.state.type)
+
+
+
+    let res = await fetch(
+      `http://127.0.0.1:8000/user/address`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          //key and value from form
+        userId: localStorage["userId"],
+        mobile: this.state.mobile,
+        landing: this.state. landing,
+        street: this.state.street,
         country: this.state.country,
         region: this.state.region,
-        type:this.state.type
-      }),
-    });
+        floor: this.state.floor,
+        building: this.state.building,
+        apartmentN: this.state.apartmentN,
+        addressTitle: this.state.addressTitle,
+        assitionalDirect: this.state.assitionalDirect,
+        type: this.state.type,
+        lang: 122,
+        att: 132
+        }),
+      }
+    );
     let resJson = await res.json();
     console.log(resJson.error);
     console.log(resJson.message);
-
-    if (typeof resJson.error === "undefined") {
-      localStorage.setItem("jwt", resJson.token);
-      M.toast({ html: resJson.message});
-    } else {
-      M.toast({ html: resJson.error });
-    }
-	
-  };
-   
   
+
+  };
    handleChange = (event) => {
- this.setState({ [event.target.name]: event.target.value });
- }
+    this.setState({ [event.target.name]: event.target.value });
+  };
   
   bordercolor=(e)=>{
   this.setState({type:e.target.value});
@@ -169,7 +180,7 @@ class Address extends React.Component {
                         <input type="text"  className="form-control" id="inputAddress2" placeholder="Assitional Directions(optional)" name="assitionalDirect" value={this.state.assitionalDirect} onChange={this.handleChange}/>
                       </div>
                       <div className="d-flex justify-content-end">
-										<button type="button" data-toggle="modal" className="btn btn-primary " data-dismiss="modal" onClick={this.saveAddr}>Save Address
+										<button onClick={this.saveAddr} type="button" data-toggle="modal" className="btn btn-primary " data-dismiss="modal" onClick={this.saveAddr}>Save Address
 										</button>
 									</div>
 									

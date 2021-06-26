@@ -19,6 +19,7 @@
         "express": "^4.17.1",
         "google-map-react": "^2.1.9",
         "joi-browser": "^13.4.0",
+        "joi-phone-number": "^5.0.1",
         "jquery": "^3.6.0",
         "materialize-css": "^1.0.0-rc.2",
         "materialui-pagination-component": "^1.1.12",
