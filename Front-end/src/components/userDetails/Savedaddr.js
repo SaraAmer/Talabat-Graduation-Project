@@ -17,55 +17,69 @@ import {
     Link
 } from "react-router-dom"
 const mapStyles = {
-      width: '100%',
-      height: '100%'
-    }
-    
-    const markerStyle = {
-      height: '50px',
-      width: '50px',
-      marginTop: '-50px'
-    }
-    
-    const imgStyle = {
-      height: '100%'
-    }
-    
-    
-    const Marker = ({ title }) => (
-      <div style={markerStyle}>
-        <img style={imgStyle} src="https://res.cloudinary.com/og-tech/image/upload/s--OpSJXuvZ--/v1545236805/map-marker_hfipes.png" alt={title} />
-        <h3>{title}</h3>
-      </div>
-    );
+    width: '100%',
+    height: '100%'
+}
 
-		
+const markerStyle = {
+    height: '50px',
+    width: '50px',
+    marginTop: '-50px'
+}
+
+const imgStyle = {
+    height: '100%'
+}
+
+
+const Marker = ({ title }) => (<div style = { markerStyle }>
+    <img style = { imgStyle }
+    src = "https://res.cloudinary.com/og-tech/image/upload/s--OpSJXuvZ--/v1545236805/map-marker_hfipes.png"
+    alt = { title }/> <h3> { title } </h3> </div>
+);
+
+
 
 class Savedaddr extends React.Component {
-	
-	
-   constructor (props) {
-    super(props);
-	this._handleClick = this._handleClick.bind(this);
-	this.state={
-     address_details:[],
-	}
-	}
-  
 
-   _handleClick=()=> {
-    
-	   alert("female")
-   
-  }
- 	componentDidMount=()=>{
-		if(localStorage["addressdetails"]){
-			let addressdetails=JSON.parse(localStorage["addressdetails"]);//8irt el shakl 
-			this.setState({address_details:addressdetails})//el array ely ana 3mlah 7ishil el data bt3t el local storage 
-			console.log(this.state.address_details)
-		}
-	
-		}
+
+        constructor(props) {
+            super(props);
+            this._handleClick = this._handleClick.bind(this);
+            this.state = {
+                address_details: [],
+            }
+        }
+
+
+        _handleClick = () => {
+
+            alert("female")
+
+        }
+        componentDidMount = async() => {
+            if (localStorage["addressdetails"]) {
+                let addressdetails = JSON.parse(localStorage["addressdetails"]); //8irt el shakl 
+                this.setState({ address_details: addressdetails }) //el array ely ana 3mlah 7ishil el data bt3t el local storage 
+                console.log(this.state.address_details)
+            }
+
+            let res = await fetch(`http://127.0.0.1:8000/user/address/${localStorage["userId"]}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                })
+                .then(res => res.json())
+                .then(result => {
+                    console.log("Result");
+                    console.log(result.Addresses);
+                    this.setState({
+                        address_details: result.Addresses
+                    });
+                });
+
+        }
 
 
     render() {
@@ -138,8 +152,37 @@ class Savedaddr extends React.Component {
 								 	</div>);}):
 							
 								<div className="text-center">
-									<img  style={{height:"100px"}} src="https://www.vskills.in/certification/tutorial/wp-content/uploads/2013/01/geolocation.jpg"></img>
+								
+								{this.state.address_details.length > 0 ? (<div> 
+									<div class="container">
+<div class="row">
+{this.state.address_details.map( s =>{
+	return(
+		<div class="col-md-4">
+<address>
+
+  <strong>{s.country}</strong><br/>
+  {s.street}<br/>
+  {s.building}<br/>
+  {s.region}<br/>
+  {s.addressTitle}<br/>
+  {s.floor}<br/>
+  {s.type}<br/>
+ Mobile:  {s.mobile}<br/>
+   </address>
+
+</div>
+	);
+})}
+</div>
+</div>
+								</div>)  : (<div>
+								<img  style={{height:"100px"}} src="https://www.vskills.in/certification/tutorial/wp-content/uploads/2013/01/geolocation.jpg"></img>
 									<p className="text-muted">there are no saved addresses to display</p>
+								</div>)  }
+								
+								
+								
 									<button type="button" className="btn btn-success p-2"  data-toggle="modal" data-target="#exampleModal3">
 										Add Address
 									</button> 

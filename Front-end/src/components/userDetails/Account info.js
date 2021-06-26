@@ -11,11 +11,10 @@ class Myaccount extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      _id: this.props.match.params._id,
+      _id: localStorage["userId"],
       firstName: "",
       lastName: "",
       email: "",
-      dateOfBirth: "",
       password_confirmation: "",
       password: "",
       gender: "",
@@ -48,14 +47,13 @@ class Myaccount extends React.Component {
           email: result.email,
           firstName: result.firstName,
           lastName: result.lastName,
-          dateOfBirth: result.dateOfBirth,
           gender: result.gender,
         });
       });
   }
   clickUpeEm = async (e) => {
     let res = await fetch(
-      "http://127.0.0.1:8000/user/${this.state._id}/changemail",
+      `http://127.0.0.1:8000/user/${this.state._id}/changemail`,
       {
         method: "POST",
         headers: {
@@ -113,7 +111,7 @@ class Myaccount extends React.Component {
   clickSubmit = async (e) => {
     e.preventDefault();
     let res = await fetch(
-      "http://127.0.0.1:8000/user/profile/60d214425f913b3f0ded19f6",
+      `http://127.0.0.1:8000/user/profile/${this.state._id}`,
       {
         method: "PUT",
         headers: {
@@ -125,7 +123,6 @@ class Myaccount extends React.Component {
           email: this.state.email,
           firstName: this.state.firstName,
           lastName: this.state.lastName,
-          dateOfBirth: this.state.dateOfBirth,
           gender: this.state.gender,
         }),
       }
@@ -136,9 +133,9 @@ class Myaccount extends React.Component {
 
     if (typeof resJson.error === "undefined") {
       localStorage.setItem("jwt", resJson.token);
-      M.toast({ html: resJson.message });
+     // M.toast({ html: resJson.message });
     } else {
-      M.toast({ html: resJson.error });
+      //M.toast({ html: resJson.error });
     }
   };
 
@@ -308,20 +305,7 @@ class Myaccount extends React.Component {
                         </div>
                       </div>
                     </div>
-                    <div className="form-group row p-2">
-                      <label className="col-sm-2 col-form-label text-muted">
-                        Date of birth{" "}
-                      </label>
-                      <div className="col-sm-5">
-                        <input
-                          type="date"
-                          className="form-control"
-                          name="dateOfBirth"
-                          value={this.state.dateOfBirth}
-                          onChange={this.handleChange}
-                        />
-                      </div>
-                    </div>
+      
                     <div className="form-group row p-2">
                       <div className="col-sm-5">
                         <input

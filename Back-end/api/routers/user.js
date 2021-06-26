@@ -99,6 +99,29 @@ router.delete("/:userId", (req, res, next) => {
         });
 });
 
+router.put("/profile/:userId", (req, res, next) => {
+    const id = req.params.userId;
+
+    User.findOne({ _id: id })
+        .exec()
+        .then(user => {
+            user.firstName = req.body.firstName ? req.body.firstName : user.firstName;
+            user.lastName = req.body.lastName ? req.body.lastName : user.lastName;
+            user.gender = req.body.gender ? req.body.gender : user.gender;
+            return user.save();
+        })
+        .then(result => {
+            res.status(200).json({
+                myresopnse: result
+            });
+        })
+        .catch(err => {
+            console.log("error message" + err);
+        })
+});
+
+
+
 //*******************
 router.post("/login", (req, res, next) => {
     console.log("d5l al user login");
@@ -457,6 +480,7 @@ router.post("/:userId/change", (req, res, next) => {
             });
         });
 });
+
 
 //************************************************************
 router.post("/:userId/changemail", (req, res, next) => {

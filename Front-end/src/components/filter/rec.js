@@ -12,18 +12,12 @@ class Filter extends React.Component {
     super();
     this.state = {
       restaurants : [],
-      address : "",
-      search : ""
+      address : ""
     }
     
 
   }
- handelSearch= (e)=>{
-   this.setState({
-     search : e.target.value
-   })
 
- }
   async componentDidMount(){
     const queryParams = window.location.href;
     const address = queryParams.split('/')[4];
@@ -60,7 +54,6 @@ class Filter extends React.Component {
                 <div className="input-group">
                   <div className="input-group rounded">
                     <input
-                      onChange={this.handelSearch}
                       type="search"
                       className="form-control rounded"
                       placeholder="Search"
@@ -97,16 +90,8 @@ class Filter extends React.Component {
               </div>
               <div className="col-8">
               <div className="row" style={{margin: '10px'}}>
-           {this.state.restaurants.filter(val =>{
-             if(this.state.search === "")
-             return val;
-             else{
-               console.log("Filter");
-               console.log(val.name.toLowerCase());
-               if(val.name.toLowerCase().includes(this.state.search.toLocaleLowerCase()))
-                  return val;
-             }
-           }).map(rest =>{
+           
+              {this.state.restaurants.map(rest =>{
                 return(
                   <RestaurantCard restaurant = {rest}/>
                 );

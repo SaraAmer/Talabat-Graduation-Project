@@ -7,13 +7,11 @@ import Scrollspy from 'react-scrollspy';
 
 function Menu(props){
   const history = createHashHistory();
-  console.log("MENUUUUUUU");
-  console.log(props.food);
     return(
     <div className="container row">
      {props.food.map(f =>{
        return(
-         <div className="col-2">
+         <div onClick={()=>{props.addToLocalStorage(f)}}  className="col-2">
          <div className="card" style={{display:"inline-block", height: '300px', marginRight: '15px', cursor:"pointer"}}>
     <img className="card-img-top" src={`http://localhost:8000/${f.img}`}  alt="Card image cap"/>
     <div class="card-body">
