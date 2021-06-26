@@ -18,6 +18,8 @@ const bcrypt = require("bcrypt");
 // var Schema = require("mongoose").Schema;
 const restaurantOwner = require("../models/restaurantOwner");
 const jwt = require("jsonwebtoken");
+/***************** */
+const crypto = require("crypto");
 //************Mailer************************************** */
 const nodemailer = require("nodemailer");
 const sendgridTransport = require("nodemailer-sendgrid-transport");
@@ -32,7 +34,8 @@ const transporter = nodemailer.createTransport(
     auth: {
       //api_key:SENDGRID_API
       //GoogleKey
-      api_key: process.env.MailerKey,
+      api_key:
+        "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",
     },
   })
 );
@@ -279,4 +282,77 @@ router.post("/login", (req, res, next) => {
 });
 //**********************Log Out *****(Remove from LocalStorage direct)
 //************************ */
+
+//**************************Reset Password***************************** */
+router.post("/reset-password", (req, res) => {
+  crypto.randomBytes(32, (err, buffer) => {
+    if (err) {
+      console.log(err);
+    }
+    //convert hexa decimal of token into string
+    const token = buffer.toString("hex");
+    //find user with email to sendmail of reset to it
+    restaurantOwner.findOne({ email: req.body.email }).then((user) => {
+      //if user not available
+      if (!user) {
+        return res
+          .status(422)
+          .json({ error: "User dont exists with that email" });
+      }
+      //resetToken in table user make his value is token
+      user.resetToken = token;
+      //expireToken in table user set it value with 1 hour
+      user.expireToken = Date.now() + 3600000;
+      //send mail using transporter
+      user.save().then((result) => {
+        console.log("3lshan yb3t mail");
+        console.log(user.email);
+        console.log(token);
+        transporter.sendMail({
+          to: user.email,
+          from: "eng.marwamedhat2020@gmail.com",
+          subject: "password reset",
+          //passing token in url
+          html: `
+                  <p>You requested for password reset</p>
+                  <h5>click in this <a href="http://localhost/3000/reset/${token}">link</a> to reset password</h5>
+                  `,
+        });
+        res.json({ message: "check your email" });
+      });
+    });
+  });
+});
+
+//**********************New Password*********************************************
+router.post("/new-password", (req, res) => {
+  //new password
+  const newPassword = req.body.password;
+  //token
+  const sentToken = req.body.token;
+  //find user with token
+  restaurantOwner
+    .findOne({ resetToken: sentToken, expireToken: { $gt: Date.now() } })
+    .then((user) => {
+      if (!user) {
+        //maybe session expired
+        return res.status(422).json({ error: "Try again session expired" });
+      }
+      //if you got user 7y3ml hash llnew password
+      bcrypt.hash(newPassword, 12).then((hashedpassword) => {
+        //update password came from frontend
+        user.password = hashedpassword;
+        user.resetToken = undefined;
+        user.expireToken = undefined;
+        user.save().then((saveduser) => {
+          res.json({ message: "password updated success" });
+        });
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+//****************************** */
 module.exports = router;

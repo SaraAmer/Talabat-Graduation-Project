@@ -80,8 +80,8 @@ class LoginUSer extends React.Component {
   };
   /******** */
   responseFacebook = async (response) => {
-    console.log(response.userID);
-    console.log(response.accessToken);
+    // console.log(response);
+    // console.log(response.accessToken);
     let res = await fetch("http://localhost:8000/user/facebooklogin", {
       method: "post",
       headers: {
@@ -93,14 +93,16 @@ class LoginUSer extends React.Component {
         userID: response.userID,
       }),
     });
-
+    console.log(res);
     let resJson = await res.json();
-    // console.log(resJson);
-    console.log(resJson.error);
-    console.log(resJson.message);
+    // alert("")
+    console.log(resJson);
+    // console.log(resJson.error);
+    // console.log(resJson.message);
 
     if (typeof resJson.error === "undefined") {
       localStorage.setItem("jwt", resJson.token);
+      localStorage.setItem("id", resJson.user._id);
       M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
     } else {
       M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });

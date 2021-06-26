@@ -18,19 +18,20 @@ import PartnerLogin from "./components/partnerLogin/PartnerLogin";
 import Restaurant from "./components/Restaurants/Restaurant";
 import ResetPassword from "./components/partnerLogin/ResetPassword";
 import NewPassword from "./components/partnerLogin/NewPassword";
+import Filter from "./components/filter/filter";
 function App() {
   return (
-    
     <Router className="App">
       <Switch>
         <Route path="/" exact>
           <Header />
+          <Filter />
           {/* <RestaurantMenu/> */}
           {/* <Register/> */}
           {/* <TeamHome/> */}
           {/* <Home/> */}
-          {/* <ResetPassword />
-          <NewPassword /> */}
+          <ResetPassword />
+          {/* <NewPassword /> */}
           <Footer />
         </Route>
         <Route path="/becomepartner" exact>

@@ -8,7 +8,7 @@ class NavFilter extends React.Component {
         className="container-fluid"
         // style={{ backgroundColor: "white" }}
       >
-        <a className="navbar-brand" href="#">
+        {/* <a className="navbar-brand" href="#">
           Sort By:
         </a>
         <button
@@ -48,7 +48,7 @@ class NavFilter extends React.Component {
               Fastest Delivery
             </a>
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }
