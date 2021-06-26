@@ -136,15 +136,18 @@ class PartnerRegisterFirst extends React.Component {
           resJson.error.details[0].message ==
           '"MobileNumber" with value "012893626" fails to match the required pattern: /^\\d{3}\\d{3}\\d{3}\\d{2}$/'
         ) {
-          M.toast({
-            html: "Not Valid Mobile number",
-            classes: "#c62828 red darken-3",
-          });
+          // M.toast({
+          //   html: "Not Valid Mobile number",
+          //   classes: "#c62828 red darken-3",
+          // });
+          alert(resJson.message)
         } else {
-          M.toast({
-            html: resJson.error.details[0].message,
-            classes: "#c62828 red darken-3",
-          });
+          // M.toast({
+          //   html: resJson.error.details[0].message,
+          //   classes: "#c62828 red darken-3",
+          // });
+          alert(resJson.error)
+
         }
       }
     }

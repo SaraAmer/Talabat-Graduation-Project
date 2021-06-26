@@ -11,7 +11,7 @@ class Myaccount extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      _id: this.props.match.params._id,
+      _id: localStorage['userId'],
       firstName: "",
       lastName: "",
       email: "",
@@ -113,7 +113,7 @@ class Myaccount extends React.Component {
   clickSubmit = async (e) => {
     e.preventDefault();
     let res = await fetch(
-      "http://127.0.0.1:8000/user/profile/60d214425f913b3f0ded19f6",
+      `http://127.0.0.1:8000/user/profile/${this.state._id}`,
       {
         method: "PUT",
         headers: {

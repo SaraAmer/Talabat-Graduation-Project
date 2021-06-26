@@ -4,12 +4,12 @@ import {IoIosChatbubbles, IoIosCash} from 'react-icons/io';
 
 function Info(props){
     return(
-        <div className="info"  style={{textAlign:"left", padding:10}}>
-            <h5>{props.name}</h5>
-            <table class="table" style={{textAlign:"left"}}>
+        <div className="info"  style={{textAlign:"left", padding:10, width: '90%', fontSize:'10px'}}>
+        
+            <table class="table" style={{textAlign:"left",  fontSize:'10px'}}>
   <tbody>
   <tr></tr>
-    <tr>
+    <tr style={{ fontSize:'10px'}}>
      
       <td>Minimum Order Amount</td>
       <td>EGP {props.minOrder}</td>
@@ -19,21 +19,13 @@ function Info(props){
       <td>Working Hours</td>
       <td>{props.workingHours}</td>
     </tr>
-    <tr>
-     
-      <td>Delivery Time</td>
-      <td>{props.deliveryTime}</td>
-    </tr>
+
     <tr>
     
     <td>Delivery Fee</td>
     <td>EGP {props.deliveryFee}</td>
   </tr>
-  <tr>
-    
-    <td>Pre-Order</td>
-    <td>{props.preOrder}</td>
-  </tr>
+
   <tr>
     
     <td>Payment</td>

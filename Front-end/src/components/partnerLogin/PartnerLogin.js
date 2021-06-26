@@ -33,9 +33,12 @@ class PartnerLogin extends React.Component {
       localStorage.setItem("jwt", resJson.token);
       localStorage.setItem("id", resJson.id);
       // localStorage.setItem("user", JSON.stringify(resJson.user));
-      M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
+      // M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
+      alert(resJson.message)
+      
     } else {
-      M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
+      //M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
+      alert(resJson.error)
     }
     window.location.reload();
   };

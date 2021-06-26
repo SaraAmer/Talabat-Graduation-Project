@@ -8,7 +8,7 @@ import axios from "axios";
 import FacebookLogin from "react-facebook-login";
 //********* */
 import M from "materialize-css";
-
+import { MdLocalParking } from "react-icons/md";
 //****** */
 var Joi = require("joi-browser");
 
@@ -46,13 +46,17 @@ class LoginUSer extends React.Component {
     console.log(typeof resJson.error);
     console.log(resJson.message);
 
-    if (resJson.message != "Auth failed") {
+    if (resJson.token) {
+      
       localStorage.setItem("jwt", resJson.token);
-      window.location.reload();
+      localStorage.setItem("userId", resJson.userId);
 
-      M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
+     // M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
+      window.location.reload();
+    
     } else {
-      M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
+    //M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
+    alert("Wrong Email or Password");
     }
    
  
