@@ -27,6 +27,8 @@ const restaurantOwnerSchema = mongoose.Schema({
     type: String,
     default: "pending",
   },
+  resetToken: { type: String },
+  expireToken: { type: Date },
 });
 
 module.exports = mongoose.model("restaurantOwner", restaurantOwnerSchema);

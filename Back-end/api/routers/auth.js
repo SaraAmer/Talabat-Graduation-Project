@@ -1,16 +1,3 @@
-//For test
-// const express = require("express");
-
-// const router = express.Router();
-
-// router.post("/hello", (req, res) => {
-//   console.log("ji");
-//   const email2 = req.body.email;
-//   res.send({ message: `welcome ${email2}` });
-// });
-
-// module.exports = router;
-
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
@@ -18,13 +5,13 @@ const bcrypt = require("bcrypt");
 // var Schema = require("mongoose").Schema;
 const restaurantOwner = require("../models/restaurantOwner");
 const jwt = require("jsonwebtoken");
+/***************** */
+const crypto = require("crypto");
 //************Mailer************************************** */
 const nodemailer = require("nodemailer");
 const sendgridTransport = require("nodemailer-sendgrid-transport");
 const Restaurant = require("../models/restaurant");
 //******************************************************* */
-// const validatePhoneNumber = require('validate-phone-number-node-js');
-// const result = validatePhoneNumber.validate('+8801744253089');
 const Joi = require("joi");
 //********************* */
 const transporter = nodemailer.createTransport(
@@ -36,40 +23,8 @@ const transporter = nodemailer.createTransport(
         },
     })
 );
-//*************************** */
-// function createrestaurantOwnerSchema(req, res, next) {
-//   const schema = Joi.object({
-//     email: Joi.string().email().required(),
-//   });
-//   validateRequest(req, next, schema);
-// }
-// //*********************************************
-// function validateRequest(req, next, schema) {
-//   const options = {
-//     abortEarly: false, // include all errors
-//     allowUnknown: true, // ignore unknown props
-//     stripUnknown: true, // remove unknown props
-//   };
-//   const { error, value } = schema.validate(req.body, options);
-//   if (error) {
-//     next(
-//       `Validation error: ${error.details
-//         .map((x) =>
-//           res.status(500).json({
-//             error: x.message,
-//           })
-//         )
-//         .join(", ")}`
-//     );
-//   } else {
-//     req.body = value;
-//     next();
-//   }
-// }
-//*************** */
 //****************************************
-
-// *************************************Old Done*******************************/
+// ***************************Sign Up***************************************************/
 router.post("/signup", (req, res, next) => {
     //da al asm bytktb fe postman of get from form
     const FirstName = req.body.FirstName;
@@ -213,8 +168,7 @@ router.post("/signup", (req, res, next) => {
             } //*********************************else
         }); //then
 });
-//********************************* */
-//*******************
+//*******************Login***************************************************** */
 router.post("/login", (req, res, next) => {
     console.log("d5l al login");
     restaurantOwner

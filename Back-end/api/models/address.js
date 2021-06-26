@@ -64,11 +64,13 @@ const AddressSchema = new Schema({
         unique: false,
     },
     lang: {
-        type: Number
+        type: Number,
+        required: false,
 
     },
     att: {
-        type: Number
+        type: Number,
+        required: false,
 
     }
 });

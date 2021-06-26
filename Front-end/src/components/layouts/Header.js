@@ -279,15 +279,7 @@ class Header extends React.Component {
                       All Restaurants
                     </Link>
                   </li>
-                  <li className="nav-item">
-                    <Link
-                      to=""
-                      className="nav-Link text-white"
-                      style={{ marginLeft: "10px" }}
-                    >
-                      العربيه
-                    </Link>
-                  </li>
+                  
                   <li className="nav-item ">
                     <Flags />
                   </li>

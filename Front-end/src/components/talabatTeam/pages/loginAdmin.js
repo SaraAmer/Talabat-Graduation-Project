@@ -1,45 +1,39 @@
-import "./partnerlogin.css";
+import "./LoginAdmin.css";
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+// var Joi = require("joi-browser");
 import M from "materialize-css";
-class ResetPassword extends React.Component {
+class LoginAdmin extends React.Component {
   constructor() {
     super();
     this.state = {
       email: "",
+      password: "",
     };
   }
   setInputValue = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
-  PostData = async (e) => {
-    // e.preventDefault();
-    //***************73dlo ll restaurant */
-    let res = await fetch("localhost:8000/auth/restaurant/reset-password", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        //key and value from form
-        email: this.state.email,
-      }),
-    });
-    let resJson = await res.json();
-    console.log(resJson.error);
-    if (typeof resJson.error === "undefined") {
-      //save to localstorage
-      // localStorage.setItem("jwt", resJson.token);
-      // localStorage.setItem("user", JSON.stringify(resJson.user));
-      M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
+  PostData = (e) => {
+    e.preventDefault();
+    if (
+      this.state.email == "admin@admin.com" &&
+      this.state.password == "1234"
+    ) {
+      M.toast({ html: "Welcome Admin", classes: "#c62828 red darken-3" });
+      localStorage.setItem("email", this.state.email);
+      //when logout
+      //   localStorage.removeItem("email");
     } else {
-      M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
+      M.toast({
+        html: "Not a valid Email or password Check it ",
+        classes: "#c62828 red darken-3",
+      });
     }
   };
 
   render() {
     return (
-      <div className="mycard">
+      <div className="bg-images">
         <section className="countss">
           <div className="container">
             <div className="row">
@@ -71,8 +65,18 @@ class ResetPassword extends React.Component {
                             fontWeight: "bolder",
                           }}
                         >
-                          Welcome to the Talabat Portal
+                          Admin Login
                         </div>
+                        {/* <div
+                          style={{
+                            textAlign: "center",
+                            marginTop: "20px",
+                            fontWeight: "20px",
+                            color: "grey",
+                          }}
+                        >
+                         Admin Login
+                        </div> */}
                       </div>
                     </div>
                     <div className="form-outline mb-4 mt-25">
@@ -86,7 +90,19 @@ class ResetPassword extends React.Component {
                         name="email"
                       />
                     </div>
-
+                    {/* Password field */}
+                    <div className="form-outline mb-4">
+                      <input
+                        type="password"
+                        id="Password"
+                        className="form-control"
+                        htmlfor="registerPassword"
+                        placeholder="password"
+                        name="password"
+                        value={this.state.password}
+                        onChange={this.setInputValue}
+                      />
+                    </div>
                     {/*********submit button ********/}
                     <button
                       type="submit"
@@ -99,9 +115,11 @@ class ResetPassword extends React.Component {
                       }}
                       onClick={(e) => this.PostData(e)}
                     >
-                      Reset Password
+                      LOGIN
                     </button>
                   </form>
+
+                  {/*  */}
                 </div>
               </div>
 
@@ -111,16 +129,18 @@ class ResetPassword extends React.Component {
             </div>
           </div>
         </section>
+
+        {/* ****************************************** */}
+        <div
+          style={{
+            padding: "30px",
+          }}
+        ></div>
+        {/* ***********************************New **************************************************************** */}
+
+        {/* *********************************************** */}
       </div>
     );
   }
 }
-export default ResetPassword;
-
-// //7def al route bta3 reset-paaword in app.js
-// import Reset from '/Reset' //aktb al route sa7
-
-// //******Lw al path reset yro7 l reset in app.js
-//   <Route exact path="/reset">
-//         <Reset/>
-//       </Route>
+export default LoginAdmin;
