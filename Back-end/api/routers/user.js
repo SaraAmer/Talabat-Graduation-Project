@@ -58,15 +58,15 @@ router.post("/signup", (req, res, next) => {
                             .then((result) => {
                                 console.log(result);
                                 console.log("7yd5ol 3la send mail");
-                                transporter.sendMail({
-                                    //send message
-                                    // ************************** */
-                                    to: user.email,
-                                    from: "talabtteam@gmail.com",
-                                    subject: "request to signup in talabat ",
-                                    html: "<h1>Welcome in talabat Online </h1>",
-                                    //********************* */
-                                });
+                                // transporter.sendMail({
+                                //     //send message
+                                //     // ************************** */
+                                //     to: user.email,
+                                //     from: "talabtteam@gmail.com",
+                                //     subject: "request to signup in talabat ",
+                                //     html: "<h1>Welcome in talabat Online </h1>",
+                                //     //********************* */
+                                // });
                                 res.status(201).json({
                                     message: "User created",
                                 });

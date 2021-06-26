@@ -20,13 +20,13 @@ function Restaurant(props) {
 
       <div className="img-container">
       
-      <img src={`http://localhost:8000/${props.logo}`} />
+      <img style={{width: '150px', height: '150px'}} src={`http://localhost:8000/${props.logo}`} />
 
       </div>
         <hr />
         <div className="details">
         <h2>{props.name}</h2>
-        <p>{props.desc}</p>
+        <p>{props.cusine}</p>
         </div>
        </a>
        <Router>   
