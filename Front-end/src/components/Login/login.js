@@ -43,19 +43,15 @@ class LoginUSer extends React.Component {
     console.log(resJson.message);
 
     if (resJson.token) {
-      
       localStorage.setItem("jwt", resJson.token);
       localStorage.setItem("userId", resJson.userId);
 
-     // M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
+      // M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
       window.location.reload();
-    
     } else {
-    //M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
-    alert("Wrong Email or Password");
+      //M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
+      alert("Wrong Email or Password");
     }
-   
- 
   };
   //******************** */
   responseSuccessGoogle = async (response) => {
@@ -155,7 +151,7 @@ class LoginUSer extends React.Component {
             </div>
           </div>
           {/* style={{ border: "5px solid grey" }} */}
-          <div className="row">
+          <div className="row m-4 h-25">
             <div className="col-md-12">
               {/* <a href="#" className="btn btn-primary btn-block">
                 <i class="bi bi-facebook"></i>  Continue with Facebook
