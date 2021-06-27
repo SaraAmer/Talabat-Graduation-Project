@@ -24,29 +24,32 @@ import Restaurant from "./components/Restaurants/Restaurant";
 import ResetPassword from "./components/partnerLogin/ResetPassword";
 import NewPassword from "./components/partnerLogin/NewPassword";
 import Filter from "./components/filter/filter";
+import RestaurantDetails from "./components/restaurants-client/RestaurantDetails";
+import LoginAdmin from "./components/talabatTeam/pages/loginAdmin";
 function App() {
   return (
     <Router className="App">
       <Switch>
         <Route path="/" exact>
           <Header />
-          <Filter />
+          {/* <LoginAdmin /> */}
+          {/* <Filter /> */}
           {/* <RestaurantMenu/> */}
           {/* <Register/> */}
           {/* <TeamHome/> */}
           {/* <Home/> */}
-          <ResetPassword />
-          {/* <NewPassword /> */}
+          {/* <ResetPassword />
+          <NewPassword /> */}
           <Footer />
         </Route>
         <Route path="/becomepartner" exact>
           <PartnerRegister />
         </Route>
         <Route path="/filter/:add" exact>
-          <Filter/>
+          <Filter />
         </Route>
         <Route path="/restaurant/:resId/food" exact>
-          <RestaurantMenu/>
+          <RestaurantMenu />
         </Route>
         <Route exact path="/partnerlogin">
           <PartnerLogin />
@@ -54,12 +57,14 @@ function App() {
         <Route exact path="/restaurant/dashboard">
           <Restaurant />
         </Route>
+        <Route path="/restaurants/:restId" component={RestaurantDetails} />
 
         <Route exact path="/Register">
-           <Header />
+          <Header />
           <Register />
-           <Footer />
-         </Route>
+          <Footer />
+        </Route>
+
 
          <Route exact path="/team">
            <TeamHome />
@@ -87,6 +92,21 @@ function App() {
 				</Route>
        </Switch>
      </Router>
+
+        <Route exact path="/team">
+          <TeamHome />
+        </Route>
+
+        <Route exact path="/newpassword">
+          <NewPassword />
+        </Route>
+
+        <Route exact path="/resetpassword">
+          <ResetPassword />
+        </Route>
+      </Switch>
+    </Router>
+
   );
 }
 

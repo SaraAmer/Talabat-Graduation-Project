@@ -60,12 +60,17 @@ function Register() {
     let resJson = await res.json();
     console.log(resJson.error);
     console.log(resJson.message);
+    window.location.href = "http://localhost:3000";
 
+    //window.location.href("http://localhost:3000");
     if (typeof resJson.error === "undefined") {
       localStorage.setItem("jwt", resJson.token);
-      M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
+      alert( resJson.message);
+      
+      //M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
     } else {
-      M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
+      alert(resJson.error);
+     // M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
     }
   };
     return (
@@ -92,7 +97,7 @@ function Register() {
             </div>
             <div className="sign-up-options">
 
-            <form onSubmit={createAccount} >
+            <form onSubmit={createAccount}  >
     <div class="form-group row mb-3">
     <label for="inputEmail3" class="col-sm-2 col-form-label">First Name</label>
     <div class="col-sm-6">

@@ -129,7 +129,7 @@ router.post("/login", (req, res, next) => {
     .then((user) => {
       if (user.length < 1) {
         return res.status(401).json({
-          message: "Auth failed",
+          message: "Error Try Again",
         });
       }
       //7ykarn al password b password al mwgod
@@ -138,7 +138,7 @@ router.post("/login", (req, res, next) => {
 
         if (err) {
           return res.status(401).json({
-            message: "Auth failed",
+            message: "Password doesn't match",
           });
         }
         //lw howa howa al password 7ydeh taken
@@ -155,15 +155,15 @@ router.post("/login", (req, res, next) => {
             }
           );
           return res.status(200).json({
-            message: "Auth successful",
+            message: "You Login successfully",
             token: token,
             userId: user[0]._id,
           });
         }
         //lw msh howa howa al password 7y2olo auth failed
-        console.log("Auth failed");
+        console.log("Check Your password Again");
         res.status(401).json({
-          message: "Auth failed",
+          message: "Check Your password Again",
         });
       });
     })
@@ -260,7 +260,7 @@ router.post("/googlelogin", (req, res) => {
                 );
                 const { _id, email } = newUser;
                 return res.status(200).json({
-                  message: "User Generate Successfully",
+                  message: "You Login Successfully",
                   token: token,
                   user: { _id, email },
                 });
