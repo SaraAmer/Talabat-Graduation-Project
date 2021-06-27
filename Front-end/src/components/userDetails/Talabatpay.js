@@ -87,9 +87,7 @@ class Talabatpay extends React.Component {
 									<li className="list-group-item"><Link to="/my-account/orders"><p style={{color:"black"}}>My Orders </p>
 										</Link>
 									</li>
-									<li className="list-group-item"><Link to="/my-account/cards"><p style={{color:"black"}}>Saved Cards</p>
-										</Link>
-									</li>
+								
 									<li className="list-group-item"><Link ><p style={{color:"#FF5900"}}>talabat Pay </p>
 										</Link>
 									</li>
