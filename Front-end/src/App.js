@@ -90,8 +90,7 @@ function App() {
            <Header />
          <Footer />
 				</Route>
-       </Switch>
-     </Router>
+    
 
         <Route exact path="/team">
           <TeamHome />
