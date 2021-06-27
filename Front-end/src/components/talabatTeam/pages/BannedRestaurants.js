@@ -1,18 +1,17 @@
-import React from 'react'
+import React from "react";
 import DashboardNavbar from "./DashboardNavbar.js";
 import { FcInfo } from "react-icons/fc";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FaBan } from "react-icons/fa";
-import './Restaurant.css';
+import "./Restaurant.css";
 import { FcSearch } from "react-icons/fc";
-import JoinRequests from './JoinRequests.js'
+import JoinRequests from "./JoinRequests.js";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { BiFoodMenu } from "react-icons/bi";
 
 
-class Restaurant extends React.Component {
+class BannedRestaurants extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -27,10 +26,9 @@ class Restaurant extends React.Component {
         },
       ],
       apiRestaurants: [],
-      acceptedRestaurants: [],
+      bannedRestaurants: [],
       loading: false,
       refresh: false,
-      status:"",
     };
   }
   viewDetails = (restaurantCopouns) => {
@@ -50,7 +48,8 @@ class Restaurant extends React.Component {
     }
     this.state.refresh = true;
     this.setState({ refresh: this.state.refresh });
-         window.location.href = " http://localhost:3000/restaurants";
+      window.location.href = "http://localhost:3000/banned-restaurants";
+    
   };
 
   async componentWillMount() {
@@ -67,21 +66,29 @@ class Restaurant extends React.Component {
     //  console.log(resJson.restaurants);
     resJson.restaurants.map((restaurant) => {
       console.log(restaurant);
-      if (restaurant.status === "accepted") {
+      if (restaurant.status === "banned") {
         console.log(restaurant.name);
-        this.state.acceptedRestaurants.push(restaurant);
+        this.state.bannedRestaurants.push(restaurant);
       }
     });
 
     this.setState({
       loading: false,
-      acceptedRestaurants: this.state.acceptedRestaurants,
+      bannedRestaurants: this.state.bannedRestaurants,
     });
     //console.log(resJson);
   }
-  banRestaurant=(resId)=>{
+
+  // componentWillMount() {
+  //   this.setState({loading:true});
+  //     fetch("http://localhost:8000/restaurants")
+  //       .then((res) => res.text())
+  //       .then((res) => this.setState({ apiRestaurants: res.restaurants ,loading:false}));
+
+  // }
+  unbanRestaurant = (resId) => {
     console.log(resId);
-    this.state.status = "banned";
+    this.state.status = "accepted";
     this.setState({ status: this.state.status });
     const fd = new FormData();
     fd.append("status", this.state.status);
@@ -92,21 +99,29 @@ class Restaurant extends React.Component {
     this.setState({
       acceptedRestaurants: this.state.acceptedRestaurants,
     });
-      window.location.href = " http://localhost:3000/restaurants";
-  }
-
-  // componentWillMount() {
-  //   this.setState({loading:true});
-  //     fetch("http://localhost:8000/restaurants")
-  //       .then((res) => res.text())
-  //       .then((res) => this.setState({ apiRestaurants: res.restaurants ,loading:false}));
-
-  // }
-
+             window.location.href = "http://localhost:3000/banned-restaurants";
+  };
   render() {
     return (
       <Router>
-        <div className="container">
+        <div className="container" >
+          {" "}
+          <h1
+            style={{
+              color: "rgb(33, 33, 33)",
+              backgroundColor: "rgb(246, 246, 246)",
+              marginTop: "30px",
+              marginBottom: "30px",
+              paddingInline: "20px",
+              paddingTop: "10px",
+              paddingBottom: "10px",
+              fontSize: "28px",
+              fontFamily: "sans-serif",
+              paddingLeft: "50px",
+            }}
+          >
+            Banned Restaurants
+          </h1>
           <div
             style={{
               display: "flex",
@@ -140,19 +155,15 @@ class Restaurant extends React.Component {
                 </span>
               </div>
             </div>
-            {/* <div style={{marginLeft:"100px"}}>
-              <a
-                href="/banned-restaurants"
-                class="btn text-white btn-danger"
-              >
+            {/* <div style={{ marginLeft: "100px" }}>
+              <a href="/JoinRequests" class="btn text-white btn-danger">
                 Go to Banned Restaurants
               </a>
             </div> */}
           </div>
-
           <div className="row">
-            {this.state.acceptedRestaurants.length > 0 ? (
-              this.state.acceptedRestaurants.map((restaurant) => {
+            {this.state.bannedRestaurants.length > 0 ? (
+              this.state.bannedRestaurants.map((restaurant) => {
                 return (
                   <div
                     className="card "
@@ -241,11 +252,10 @@ class Restaurant extends React.Component {
                         </li>
                         <li className="list-group-item">
                           <button
-                            
                             className="btn card-link"
-                            onClick={() => this.banRestaurant(restaurant._id)}
+                            onClick={() => this.unbanRestaurant(restaurant._id)}
                           >
-                            <FaBan /> Ban Restaurant
+                            <FaBan /> UnBan Restaurant
                           </button>
                         </li>
                         <li className="list-group-item">
@@ -259,19 +269,6 @@ class Restaurant extends React.Component {
                           >
                             <RiDeleteBin5Line /> Delete Restaurant
                           </button>
-                        </li>
-
-                          <li className="list-group-item">
-                          <a href={`/menu/${restaurant._id}`}
-                            style={{
-                              border: "none",
-                              background: "white",
-                              color: "blue",
-                            }}
-                            
-                          >
-                            <BiFoodMenu /> Menu
-                          </a>
                         </li>
                       </ul>
                     </div>
@@ -295,7 +292,6 @@ class Restaurant extends React.Component {
     );
   }
 }
-
 
 class ViewDetails extends React.Component {
   res = this.props.res;
@@ -335,4 +331,4 @@ class ViewDetails extends React.Component {
   }
 }
 
-  export default Restaurant;
+export default BannedRestaurants;

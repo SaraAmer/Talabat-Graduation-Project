@@ -1,5 +1,6 @@
-.bg-images {
-  /* background-image: url("login.jpg") !important; */
+.adminbg-images {
+   background-image: url("https://thumbs.dreamstime.com/z/greek-food-background-traditional-different-dishes-top-view-close-up-143835881.jpg") !important; 
+  
 }
 .dots {
   height: 25px;
@@ -10,7 +11,7 @@
 }
 
 /* ************************ */
-.countss {
+.admincountss {
   /* background: #f1f7fd; */
   padding: 70px 0 60px;
   /* background-image: url("https://assets-global.website-files.com/5f188ec6b885317d0c1e62e4/5f1af9092e314f4a5e590776_Thumbnail-480x280-white-logo.png"); */
@@ -22,10 +23,12 @@
   height: 100%;
   width: 100%;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: initial;
+  background-image: url("https://thumbs.dreamstime.com/z/greek-food-background-traditional-different-dishes-top-view-close-up-143835881.jpg") !important; 
+  
 }
 
-.countss .count-box {
+.admincountss .count-box {
   padding: 30px 30px 25px 30px;
   width: 100%;
   position: relative;
@@ -33,7 +36,7 @@
   background: #fff;
 }
 
-.countss .count-box i {
+.admincountss .count-box i {
   position: absolute;
   top: -25px;
   left: 50%;
@@ -45,14 +48,14 @@
   border-radius: 50px;
 }
 
-.countss .count-box span {
+.admincountss .count-box span {
   font-size: 36px;
   display: block;
   font-weight: 600;
   color: #082744;
 }
 
-.countss .count-box p {
+.admincountss .count-box p {
   padding: 0;
   margin: 0;
   font-family: "Raleway", sans-serif;

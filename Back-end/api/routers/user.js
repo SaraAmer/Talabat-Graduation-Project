@@ -108,6 +108,7 @@ router.put("/profile/:userId", (req, res, next) => {
       user.firstName = req.body.firstName ? req.body.firstName : user.firstName;
       user.lastName = req.body.lastName ? req.body.lastName : user.lastName;
       user.gender = req.body.gender ? req.body.gender : user.gender;
+       user.status = req.body.status ? req.body.status : user.status;
       return user.save();
     })
     .then((result) => {
@@ -513,4 +514,34 @@ router.get("/profile/:userId", (req, res, next) => {
   });
 });
 //************************************************************
+
+
+router.get("/", (req, res, next) => {
+  User.find()
+    .exec()
+    .then((docs) => {
+      const response = {
+        count: docs.length,
+        users: docs.map((doc) => {
+          return {
+            _id: doc._id,
+            email: doc.email,
+            dateOfBirth: doc.dateOfBirth,
+            firstName: doc.firstName,
+            lastName: doc.lastName,
+            gender: doc.gender,
+            status:doc.status,
+          };
+        }),
+      };
+
+      res.status(200).json(response);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        error: err,
+      });
+    });
+});
 module.exports = router;
