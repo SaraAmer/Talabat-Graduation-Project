@@ -6,7 +6,6 @@ class NewPassword extends React.Component {
   constructor() {
     super();
     this.state = {
-      //   email: "",
       password: "",
     };
   }
@@ -18,18 +17,21 @@ class NewPassword extends React.Component {
   PostData = async (e) => {
     // e.preventDefault();
     //75lih llrestaurant
-    let res = await fetch("http://localhost:8000/user/new-password", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        //key and value from form
-        password: this.state.password,
-        //bb3t al token 2li 2rato mn al url hna
-        // token
-      }),
-    });
+    let res = await fetch(
+      "http://localhost:8000/auth/restaurant/new-password",
+      {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          //key and value from form
+          password: this.state.password,
+          //bb3t al token 2li 2rato mn al url hna
+          // token
+        }),
+      }
+    );
     let resJson = await res.json();
     console.log(resJson.error);
     if (typeof resJson.error === "undefined") {
@@ -45,22 +47,75 @@ class NewPassword extends React.Component {
   render() {
     return (
       <div className="mycard">
-        <div className="card auth-card input-field">
-          <ht2>Talabat</ht2>
-          <input
-            type="password"
-            placeholder="new password"
-            name="password"
-            value={this.state.email}
-            onChange={this.setInputValue}
-          />
-          <button
-            className="btn waves-effect waves-light #64b5f6 blue darken-1"
-            onClick={() => this.PostData()}
-          >
-            Update password
-          </button>
-        </div>
+        <section className="countss">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-3 col-md-6"></div>
+
+              <div className="col-lg-6 col-md-12 mt-5 mt-md-0">
+                <div className="count-box">
+                  <i className="icofont-patient-bed">
+                    <span
+                      style={{
+                        // marginTop: "200px",
+                        fontSize: "15px",
+                        textAlign: "center",
+                        color: "white",
+                        borderRadius: "50%",
+                      }}
+                    >
+                      talabt
+                    </span>
+                  </i>
+                  {/* **************************Form ********************************************** */}
+                  <form method="POST">
+                    <div className="text-center mb-3">
+                      <div className="row mg-btm">
+                        <div
+                          className="col-md-12"
+                          style={{
+                            textAlign: "center",
+                            fontWeight: "bolder",
+                          }}
+                        >
+                          Welcome to the Talabat Portal
+                        </div>
+                      </div>
+                    </div>
+                    <div className="form-outline mb-4 mt-25">
+                      <input
+                        type="password"
+                        id="password"
+                        placeholder="new password"
+                        className="form-control"
+                        name="password"
+                        value={this.state.password}
+                        onChange={this.setInputValue}
+                      />
+                    </div>
+                    {/*********submit button ********/}
+                    <button
+                      type="submit"
+                      className="btn  btn-block"
+                      style={{
+                        textAlign: "center",
+                        backgroundColor: "#4169e1",
+                        color: "white",
+                        width: "150px",
+                      }}
+                      onClick={(e) => this.PostData(e)}
+                    >
+                      Update
+                    </button>
+                  </form>
+                </div>
+              </div>
+              <div className="col-lg-3 col-md-6 mt-5 mt-lg-0"></div>
+
+              <div className="col-lg-3 col-md-6 mt-5 mt-lg-0"></div>
+            </div>
+          </div>
+        </section>
       </div>
     );
   }

@@ -19,30 +19,33 @@ import Restaurant from "./components/Restaurants/Restaurant";
 import ResetPassword from "./components/partnerLogin/ResetPassword";
 import NewPassword from "./components/partnerLogin/NewPassword";
 import Filter from "./components/filter/filter";
+import LoginAdmin from "./components/talabatTeam/pages/loginAdmin";
+
 function App() {
   return (
-      <TeamHome/> 
+               <TeamHome/> 
     // <Router className="App">
     //   <Switch>
     //     <Route path="/" exact>
     //       <Header />
-    //       <Filter />
+    //       <LoginAdmin />
+    //       {/* <Filter /> */}
     //       {/* <RestaurantMenu/> */}
     //       {/* <Register/> */}
     //       {/* <TeamHome/> */}
     //       {/* <Home/> */}
     //       <ResetPassword />
-    //       {/* <NewPassword /> */}
+    //       <NewPassword />
     //       <Footer />
     //     </Route>
     //     <Route path="/becomepartner" exact>
     //       <PartnerRegister />
     //     </Route>
     //     <Route path="/filter/:add" exact>
-    //       <Filter/>
+    //       <Filter />
     //     </Route>
     //     <Route path="/restaurant/:resId/food" exact>
-    //       <RestaurantMenu/>
+    //       <RestaurantMenu />
     //     </Route>
     //     <Route exact path="/partnerlogin">
     //       <PartnerLogin />
@@ -52,16 +55,16 @@ function App() {
     //     </Route>
 
     //     <Route exact path="/Register">
-    //        <Header />
+    //       <Header />
     //       <Register />
-    //        <Footer />
-    //      </Route>
+    //       <Footer />
+    //     </Route>
 
-    //      <Route exact path="/team">
-    //        <TeamHome />
-    //      </Route>
-    //    </Switch>
-    //  </Router>
+    //     <Route exact path="/team">
+    //       <TeamHome />
+    //     </Route>
+    //   </Switch>
+    // </Router>
   );
 }
 

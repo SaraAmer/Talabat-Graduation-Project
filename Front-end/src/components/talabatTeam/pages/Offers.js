@@ -328,21 +328,21 @@ class ViewOffers extends React.Component {
                     }}
                   >
                     <div className="row">
-                      <div className="col-4">
+                      <div className="col-6">
                         <img
                           src={`http://localhost:8000/${singleOffer.img}`}
                           style={{ width: "120px", height: "120px" }}
                         ></img>
-                      </div>
-                      <div className="col-4">
+                      
+                     
                         <b> {singleOffer.name} </b>
                       </div>
 
-                      <div className="col-2">
+                      <div className="col-4" style={{paddingTop:"50px",paddingLeft:"100px"}}>
                          <b> {singleOffer.price} L.E </b>
                       </div>
 
-                      <div className="col-2">
+                      <div className="col-2" style={{paddingTop:"50px"}}>
                         <button
                           onClick={() => this.removeSelected(singleOffer._id)}
                           //lessa h3ml implement lel function de
@@ -352,21 +352,22 @@ class ViewOffers extends React.Component {
                             float: "right",
                           }}
                         >
-                          <TiMinus />
+                        <TiMinus />
                         </button>
-                        {/* <a
+                        <a style={{fontSize:"25px"}}
                           href={`/offer/${this.props.resId}/edit/${singleOffer._id}`}
                         >
                           <AiOutlineEdit />
-                        </a> */}
+                        </a> 
 
-                        <button
+                        {/* <button
                           type="button"
                           class="btn"
                           data-toggle="modal"
                           data-target="#exampleModal"
+                          style={{marginBottom:"10px"}}
                         >
-                          <AiOutlineEdit />
+                         <span style={{fontSize:"25px"}}>  <AiOutlineEdit /> </span>
                         </button>
                         <div
                           class="modal fade"
@@ -406,14 +407,14 @@ class ViewOffers extends React.Component {
                                   Close
                                 </button>
                                 
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                              </div> */}
+                            {/* </div> */}
+                          {/* </div> */}
+                        {/* </div> */}
                       </div>
 
                     </div>
-                    <div class="row" style={{display:"flex", justifyContent:"center",alignContent:"center"}}>
+                    <div class="row" style={{marginLeft:"170px"}}>
                       {singleOffer.desc}
                     </div>
 

@@ -4,7 +4,7 @@ const userSchema = mongoose.Schema({
   email: {
     type: String,
     // required: true,
-    // unique: true,
+    unique: true,
     match:
       /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
   },
@@ -21,10 +21,11 @@ const userSchema = mongoose.Schema({
     match: [/^[a-zA-Z0-9]+$/, "is invalid"],
     index: true,
   },
-  gender: { type: String,
-  default:"accepted"
-    },
-  status: { type: String },
+  gender: { type: String,},
+
+  status: { type: String ,
+     default:"accepted" },
+     
   dateOfBirth: { type: Date },
 });
 

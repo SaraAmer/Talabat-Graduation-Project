@@ -48,6 +48,8 @@ class BannedRestaurants extends React.Component {
     }
     this.state.refresh = true;
     this.setState({ refresh: this.state.refresh });
+      window.location.href = "http://localhost:3000/banned-restaurants";
+    
   };
 
   async componentWillMount() {
@@ -64,7 +66,7 @@ class BannedRestaurants extends React.Component {
     //  console.log(resJson.restaurants);
     resJson.restaurants.map((restaurant) => {
       console.log(restaurant);
-      if (restaurant.status === "accepted") {
+      if (restaurant.status === "banned") {
         console.log(restaurant.name);
         this.state.bannedRestaurants.push(restaurant);
       }
@@ -86,7 +88,7 @@ class BannedRestaurants extends React.Component {
   // }
   unbanRestaurant = (resId) => {
     console.log(resId);
-    this.state.status = "banned";
+    this.state.status = "accepted";
     this.setState({ status: this.state.status });
     const fd = new FormData();
     fd.append("status", this.state.status);
@@ -97,6 +99,7 @@ class BannedRestaurants extends React.Component {
     this.setState({
       acceptedRestaurants: this.state.acceptedRestaurants,
     });
+             window.location.href = "http://localhost:3000/banned-restaurants";
   };
   render() {
     return (

@@ -9,6 +9,7 @@ import JoinRequests from './JoinRequests.js'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { BiFoodMenu } from "react-icons/bi";
 
 
 class Restaurant extends React.Component {
@@ -258,6 +259,19 @@ class Restaurant extends React.Component {
                           >
                             <RiDeleteBin5Line /> Delete Restaurant
                           </button>
+                        </li>
+
+                          <li className="list-group-item">
+                          <a href={`/menu/${restaurant._id}`}
+                            style={{
+                              border: "none",
+                              background: "white",
+                              color: "blue",
+                            }}
+                            
+                          >
+                            <BiFoodMenu /> Menu
+                          </a>
                         </li>
                       </ul>
                     </div>

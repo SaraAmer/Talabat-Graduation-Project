@@ -1,16 +1,3 @@
-//For test
-// const express = require("express");
-
-// const router = express.Router();
-
-// router.post("/hello", (req, res) => {
-//   console.log("ji");
-//   const email2 = req.body.email;
-//   res.send({ message: `welcome ${email2}` });
-// });
-
-// module.exports = router;
-
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
@@ -25,8 +12,6 @@ const nodemailer = require("nodemailer");
 const sendgridTransport = require("nodemailer-sendgrid-transport");
 const Restaurant = require("../models/restaurant");
 //******************************************************* */
-// const validatePhoneNumber = require('validate-phone-number-node-js');
-// const result = validatePhoneNumber.validate('+8801744253089');
 const Joi = require("joi");
 //********************* */
 const transporter = nodemailer.createTransport(
@@ -34,45 +19,12 @@ const transporter = nodemailer.createTransport(
     auth: {
       //api_key:SENDGRID_API
       //GoogleKey
-      api_key:
-        "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",
+      api_key: "",
     },
   })
 );
-//*************************** */
-// function createrestaurantOwnerSchema(req, res, next) {
-//   const schema = Joi.object({
-//     email: Joi.string().email().required(),
-//   });
-//   validateRequest(req, next, schema);
-// }
-// //*********************************************
-// function validateRequest(req, next, schema) {
-//   const options = {
-//     abortEarly: false, // include all errors
-//     allowUnknown: true, // ignore unknown props
-//     stripUnknown: true, // remove unknown props
-//   };
-//   const { error, value } = schema.validate(req.body, options);
-//   if (error) {
-//     next(
-//       `Validation error: ${error.details
-//         .map((x) =>
-//           res.status(500).json({
-//             error: x.message,
-//           })
-//         )
-//         .join(", ")}`
-//     );
-//   } else {
-//     req.body = value;
-//     next();
-//   }
-// }
-//*************** */
 //****************************************
-
-// *************************************Old Done*******************************/
+// ***************************Sign Up***************************************************/
 router.post("/signup", (req, res, next) => {
   //da al asm bytktb fe postman of get from form
   const FirstName = req.body.FirstName;
@@ -92,6 +44,7 @@ router.post("/signup", (req, res, next) => {
   );
   //const StoreLocation = req.body.StoreLocation;
   console.log("helo I'm in API");
+  //*********************************Validation****************************************************/
   const data = req.body;
   const schema = Joi.object({
     LastName: Joi.string().required().messages({
@@ -188,7 +141,7 @@ router.post("/signup", (req, res, next) => {
                       //send message
                       // ************************** */
                       to: restaurantowner.email,
-                      from: "talabtteam@gmail.com",
+                      from: "walaa.elbasha40@gmail.com",
                       subject: "request to signup in talabat ",
                       html: "<h1>information will revise and we will contact you </h1>",
                       //********************* */
@@ -218,8 +171,7 @@ router.post("/signup", (req, res, next) => {
       } //*********************************else
     }); //then
 });
-//********************************* */
-//*******************
+//*******************Login***************************************************** */
 router.post("/login", (req, res, next) => {
   console.log("d5l al login");
   restaurantOwner
@@ -281,8 +233,6 @@ router.post("/login", (req, res, next) => {
     });
 });
 //**********************Log Out *****(Remove from LocalStorage direct)
-//************************ */
-
 //**************************Reset Password***************************** */
 router.post("/reset-password", (req, res) => {
   crypto.randomBytes(32, (err, buffer) => {
@@ -310,7 +260,7 @@ router.post("/reset-password", (req, res) => {
         console.log(token);
         transporter.sendMail({
           to: user.email,
-          from: "eng.marwamedhat2020@gmail.com",
+          from: "walaa.elbasha40@gmail.com",
           subject: "password reset",
           //passing token in url
           html: `

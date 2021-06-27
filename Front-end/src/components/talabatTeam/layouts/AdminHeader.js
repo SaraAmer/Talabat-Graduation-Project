@@ -14,6 +14,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Offers from "../pages/Offers";
 import { FaBan } from "react-icons/fa";
 import { BiGitPullRequest } from "react-icons/bi";
+import { Redirect } from "react-router-dom";
+
 
 function AdminHeader() {
   const [sidebar, setSidebar] = useState(false);
@@ -22,7 +24,7 @@ function AdminHeader() {
   const sidebarData = [
     {
       title: "Dashboard",
-      path: "/",
+      path: "/restaurants",
       icon: <GoDashboard />,
       cName: "nav-text",
     },
@@ -51,7 +53,11 @@ function AdminHeader() {
       cName: "nav-text",
     },
   ];
-
+  function logout(){
+    console.log("inside logout")
+       localStorage.removeItem("email");
+       window.location.href = "http://localhost:3000";
+  }
   return (
     <div>
       <nav class="navbar navbar-expand-sm ">
@@ -73,15 +79,14 @@ function AdminHeader() {
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item ml-5 " style={{marginLeft:"50px"}}>
+            <li class="nav-item ml-5 " style={{ marginLeft: "50px" }}>
               <a class="nav-link navbar-brand" href="/">
                 <h1>talabat team</h1>
               </a>
             </li>
           </ul>
-          <div style={{ display: "flex",marginLeft:"800px" }}>
-           
-              {/* <span class="navbar-text">
+          <div style={{ display: "flex", marginLeft: "800px" }}>
+            {/* <span class="navbar-text">
                 <div className="nav-item dropdown col-lg-12 ">
                   <Link
                     className="text-white "
@@ -144,27 +149,27 @@ function AdminHeader() {
                 </div>
               </span>
            */}
-     
-              <span class="navbar-text">
-                <button
-                  type="button"
-                  className="btn-outline-light text-white  nav-Link "
-                  style={{
-                    marginLeft: "100px",
-                    background: "#0c1338",
-                    paddingLeft: "30px",
-                    paddingRight: "30px",
-                    paddingTop: "12px",
-                    paddingBottom: "12px",
-                    borderRadius: "10px",
-                  }}
-                  data-toggle="modal"
-                  data-target="#exampleModal"
-                >
-                  Logout
-                </button>
-              </span>
-   
+
+            <span class="navbar-text">
+              <button
+                type="button"
+                className="btn-outline-light text-white  nav-Link "
+                style={{
+                  marginLeft: "180px",
+                  background: "#0c1338",
+                  paddingLeft: "30px",
+                  paddingRight: "30px",
+                  paddingTop: "12px",
+                  paddingBottom: "12px",
+                  borderRadius: "10px",
+                }}
+                data-toggle="modal"
+                data-target="#exampleModal"
+                onClick={logout}
+              >
+               Logout
+              </button>
+            </span>
           </div>
         </div>
       </nav>

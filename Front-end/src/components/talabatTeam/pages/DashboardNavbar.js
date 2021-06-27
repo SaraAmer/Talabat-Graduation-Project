@@ -11,10 +11,10 @@ class DashboardNavbar extends React.Component {
     super();
     this.state = {
       items: [
-        {
-          text: "  Overview",
-          link: "/",
-        },
+        // {
+        //   text: "  Overview",
+        //   link: "/",
+        // },
         {
           text: "Restaurants",
           link: "/restaurants",
@@ -81,7 +81,7 @@ class DashboardNavbar extends React.Component {
         </nav>
 
         <Switch>
-          <Route path="/" exact component={Overview} />
+          {/* <Route path="/" exact component={Overview} /> */}
           <Route path="/restaurants" exact component={Restaurant} />
           <Route path="/clients" exact component={Clients} />
           <Route path="/banned-restaurants" exact component={BannedRestaurants} />
