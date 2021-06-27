@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import RestaurantList from './Restaurants';
 import MyVerticallyCenteredModal from './MyVerticallyCenteredModal';
 import {GoLocation} from 'react-icons/go' ;
@@ -6,8 +6,29 @@ import {MdMyLocation} from 'react-icons/md';
 import {AiFillStar, AiFillFacebook, AiFillTwitterSquare} from 'react-icons/ai';
 import {IoIosChatbubbles, IoIosCash} from 'react-icons/io';
 import {FaCcVisa, FaCcMastercard, FaRegSmile} from 'react-icons/fa';
-import bg from '../../images/brandpage-bg.jpg'
+import bg from '../../images/brandpage-bg.jpg';
+import axios from 'axios';
+import {
+ 
+    useParams
+  } from "react-router-dom";
 function RestaurantDetails(props) {
+    let {restId} = useParams();
+    console.log("use params");
+    console.log(restId);
+    const [rest, setRest]= useState([]);
+
+    useEffect(() => {
+    
+      const fetchData = async () => {
+        const fetchedRestaurant = await axios(`http://localhost:8000/restaurants/${restId}`);
+          setRest(fetchedRestaurant.data.restaurant);
+        
+       
+      };
+    
+      fetchData();
+    }, []);
 
 
 return(
@@ -16,14 +37,13 @@ return(
     <div className="restaurant-details-content">
     
             <img src={bg} alt="" srcset="" />
-            <img className="inner-img" src={bg} alt="" srcset="" />
-   
+
    <div className="header row">
    <div className="col-1"></div>
-   <h1 className="col-10 name">Delice</h1>
+   <h1 className="col-10 name">{rest.name}</h1>
    <div className="col-1"></div>
    <div className="col-1"></div>
-<p className="col-10">Sandwiches, Pasta, Street Food</p>
+<p className="col-10">{rest.cusine}</p>
 <div className="col-1"></div>
 <div className="col-1"></div>
 <h2 className="col-10">Select your area to see restaurant menu</h2>
@@ -33,11 +53,11 @@ return(
     <div className="col-lg-2 col-md-4 col-sm-1"></div>
     <div className="col-lg-7 col-md-10 col-sm-10">
     <input className="form-control" type="text" placeholder="Search for area, street name, landmark..." />
-        <span className="location"><GoLocation /></span>
+      
     <span className="map-location"><MyVerticallyCenteredModal/></span>
     </div>
         <div className="col-lg-3 col-md-5 col-sm-7">
-            <button className="btn btn-success" >SHOW MENU ></button>
+            <a href={`/restaurant/${restId}/food`}  className="btn btn-success" >SHOW MENU ></a>
         </div>
     </div>
 
@@ -51,7 +71,7 @@ return(
           <AiFillStar />
     </span>
     
-          (0 Rating)
+          ({rest.rate} Rating)
        </div>
        <div className="col-lg-4 col-md-8 col-sm-8">
            Reviews 
@@ -74,7 +94,7 @@ return(
     </div>
 
     <div className="more-desc">
-        <h3>Koshry El Sultan delivers to you</h3>
+        <h3>{rest.name} delivers to you</h3>
         <div className="social-icons">
         <span className="facebook"> <AiFillFacebook/></span>
         <span className="twitter"> <AiFillTwitterSquare/></span>

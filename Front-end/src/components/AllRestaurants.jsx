@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import restaurantList from '../restaurantList'
 
@@ -10,9 +10,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import PaginationMenu from './restaurants-client/pagination';
 import Search from './restaurants-client/Search';
 import Title from './restaurants-client/Title';
+import axios from 'axios';
+import {BsSearch}  from 'react-icons/bs' ;
 
 
 function AllRestaurants(){
+  const [search, handelSearch] = useState("");
 console.log("Eithar");
 console.log(restaurantList);
 const useStyles = makeStyles((theme) => ({
@@ -23,10 +26,21 @@ const useStyles = makeStyles((theme) => ({
       },
   },
 }));
+const [rests, setRests]= useState([]);
 
+useEffect(() => {
+
+  const fetchData = async () => {
+    const fetchedRestaurant = await axios(`http://localhost:8000/restaurants`);
+      setRests(fetchedRestaurant.data.restaurants);
+    
+   
+  };
+
+  fetchData();
+}, []);
 
 const classes = useStyles();
-  const [rests, setRests]= useState(restaurantList);
     //setRests(...restaurantList);
     const [currentPage, setCurrentPage] =useState(1);
     const [restsPerPage, setRestPerPage] =useState(10);
@@ -45,7 +59,12 @@ const classes = useStyles();
     <Title
       name="All Restaurants"
     />
-    <Search/>
+           <div className="container">
+     <div className="search-Box" >
+        <input onChange={(e)=>{handelSearch(e.target.value)}} type="text" placeholder="Search Restaurants" />
+        <BsSearch/>
+    </div>
+    </div>
     <Restaurants rests={currentRests} />
     <div className="pagination justify-content-md-center">
     <div className={classes.root}>
