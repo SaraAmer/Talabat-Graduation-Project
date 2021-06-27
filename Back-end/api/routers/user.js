@@ -130,43 +130,50 @@ router.post("/login", (req, res, next) => {
     .then((user) => {
       if (user.length < 1) {
         return res.status(401).json({
-          message: "Error Try Again",
+          error: "Error Try Again",
         });
       }
-      //7ykarn al password b password al mwgod
-      bcrypt.compare(req.body.password, user[0].password, (err, result) => {
-        // JWT_KEY = "secret";
+      if (user[0].status == "accepted") {
+        //7ykarn al password b password al mwgod
+        console.log();
+        bcrypt.compare(req.body.password, user[0].password, (err, result) => {
+          // JWT_KEY = "secret";
 
-        if (err) {
-          return res.status(401).json({
-            message: "Password doesn't match",
-          });
-        }
-        //lw howa howa al password 7ydeh taken
-        console.log("Auth Success");
-        if (result) {
-          const token = jwt.sign(
-            {
-              email: user[0].email,
+          if (err) {
+            return res.status(401).json({
+              error: "Password doesn't match",
+            });
+          }
+          //lw howa howa al password 7ydeh taken
+          console.log("Auth Success");
+          if (result) {
+            const token = jwt.sign(
+              {
+                email: user[0].email,
+                userId: user[0]._id,
+              },
+              process.env.JWT_KEY,
+              {
+                expiresIn: "1h",
+              }
+            );
+            return res.status(200).json({
+              message: "You Login successfully",
+              token: token,
               userId: user[0]._id,
-            },
-            process.env.JWT_KEY,
-            {
-              expiresIn: "1h",
-            }
-          );
-          return res.status(200).json({
-            message: "You Login successfully",
-            token: token,
-            userId: user[0]._id,
+            });
+          }
+          //lw msh howa howa al password 7y2olo auth failed
+          console.log("Check Your password Again");
+          res.status(401).json({
+            error: "Check Your password Again",
           });
-        }
-        //lw msh howa howa al password 7y2olo auth failed
-        console.log("Check Your password Again");
-        res.status(401).json({
-          message: "Check Your password Again",
         });
-      });
+      } else {
+        return res.status(200).json({
+          error: "Sorry you can't Login connect with Talabt team",
+        });
+      }
     })
     .catch((err) => {
       console.log(err);

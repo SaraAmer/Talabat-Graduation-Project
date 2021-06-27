@@ -27,6 +27,7 @@ const userSchema = mongoose.Schema({
      default:"accepted" },
      
   dateOfBirth: { type: Date },
+  status: { type: String, default: "accepted" },
 });
 
 module.exports = mongoose.model("User", userSchema);
