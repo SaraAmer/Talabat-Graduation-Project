@@ -52,8 +52,16 @@ constructor(){
               <Route path="/copouns" component={OffersNavbar} />
               <Route path="/copouns" component={Copouns} />
               {/* <Route path="/" exact component={Overview} /> */}
-              <Route path="/restaurants" exact component={DashboardNavbar} />
-              <Route path="/restaurants" exact component={Restaurant} />
+              <Route
+                path="/talabatTeam/restaurants"
+                exact
+                component={DashboardNavbar}
+              />
+              <Route
+                path="/talabatTeam/restaurants"
+                exact
+                component={Restaurant}
+              />
               <Route path="/" exact component={DashboardNavbar} />
               <Route path="/" exact component={Restaurant} />
 
@@ -67,7 +75,7 @@ constructor(){
                 exact
                 component={EditOffer}
               />
-               <Route
+              <Route
                 path="/copoun/:resId/edit/:copounId"
                 exact
                 component={EditCopoun}
@@ -79,10 +87,14 @@ constructor(){
                 component={BannedRestaurants}
               />
               <Route path="/banned-clients" exact component={BannedClients} />
-                  <Route path="/menu/:resId" exact component={MenuItems} />
-                   <Route path="/menu/:resId" exact component={MenuItems} />
-                    
-                     <Route path="/search/:searchItem" exact component={SearchFeature} />
+              <Route path="/menu/:resId" exact component={MenuItems} />
+              <Route path="/menu/:resId" exact component={MenuItems} />
+
+              <Route
+                path="/search/:searchItem"
+                exact
+                component={SearchFeature}
+              />
             </Switch>
           </Router>
         }

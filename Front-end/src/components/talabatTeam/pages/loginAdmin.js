@@ -30,7 +30,7 @@ class LoginAdmin extends React.Component {
       });
     }
 
-    window.location.href = "/restaurants";
+    window.location.href = "/talabat-team-restaurants";
   };
 
   render() {

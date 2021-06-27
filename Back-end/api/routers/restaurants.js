@@ -298,12 +298,12 @@ router.put("/:resId", upload.single("img"), (req, res, next) => {
 
   Restaurant.findOne({ _id: id })
     .exec()
-    .then((rest) => {
+    .then((rest) =>{
       let address = {
-        street: req.body.street ? req.body.street : branch.address.street,
+        street: req.body.street ? req.body.street : rest.address.street,
         coord: {
-          lan: req.body.lan ? req.body.lan : branch.address.coord.lan,
-          att: req.body.att ? req.body.att : branch.address.coord.att,
+          lan: req.body.lan ? req.body.lan : rest.address.coord.lan,
+          att: req.body.att ? req.body.att : rest.address.coord.att,
         },
       };
 
@@ -336,7 +336,7 @@ router.put("/:resId", upload.single("img"), (req, res, next) => {
         : rest.serviceCharge;
       rest.vat = req.body.vat ? req.body.vat : rest.vat;
       rest.img = req.file ? req.file.path : rest.img;
-
+      rest.status = req.body.status ? req.body.status : rest.status;
       return rest.save();
     })
     .then((result) => {

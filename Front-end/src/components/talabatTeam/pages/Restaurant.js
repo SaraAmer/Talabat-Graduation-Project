@@ -52,7 +52,7 @@ class Restaurant extends React.Component {
     }
     this.state.refresh = true;
     this.setState({ refresh: this.state.refresh });
-         window.location.href = "/restaurants";
+         window.location.href = "/talabat-team-restaurants";
   };
 
   async componentDidMount() {
@@ -94,7 +94,7 @@ class Restaurant extends React.Component {
     this.setState({
       acceptedRestaurants: this.state.acceptedRestaurants,
     });
-      window.location.href = "/restaurants";
+      window.location.href = "/talabat-team-restaurants";
   }
 
   // componentWillMount() {
@@ -293,7 +293,7 @@ class Restaurant extends React.Component {
                 }}
               >
                 Loading Restaurants . . .
-              </h1>
+                    </h1>
             )}
           </div>
         </div>

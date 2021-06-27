@@ -56,7 +56,7 @@ class SearchFeature extends React.Component{
     this.setState({
       matchingRestaurants: this.state.matchingRestaurants,
     });
-      window.location.href = "/restaurants";
+      window.location.href = "/search/" + this.props.match.params.searchItem;
   }
 
 
@@ -74,14 +74,14 @@ class SearchFeature extends React.Component{
     }
     this.state.refresh = true;
     this.setState({ refresh: this.state.refresh });
-         window.location.href = "/restaurants";
+       window.location.href = "/search/" + this.props.match.params.searchItem;
   };
     render(){
         return( 
             <div class="container">
                 <br></br>
                 <div style={{display:"flex",justifyContent:"flex-end"}}>
-                <a href="/restaurants" class="btn btn-info text-white" style={{paddingLeft:"20px",paddingRight:"20px",fontsize:"20px",borderRadius:"15px"}}>
+                <a href="/talabat-team-restaurants" class="btn btn-info text-white" style={{paddingLeft:"20px",paddingRight:"20px",fontsize:"20px",borderRadius:"15px"}}>
                 back to all restaurants
              
                 </a>
