@@ -295,11 +295,11 @@ router.post("/login", (req, res, next) => {
     .find({ email: req.body.email })
     .exec()
     .then((restaurantowner) => {
-      if (restaurantowner.length < 1) {
-        return res.status(401).json({
-          message: "Auth failed",
-        });
-      }
+      // if (restaurantowner.length < 1) {
+      //   return res.status(401).json({
+      //     message: "Auth failed",
+      //   });
+      // }
       //ykarn al atnen password bb3d
       bcrypt.compare(
         req.body.password,
@@ -309,7 +309,7 @@ router.post("/login", (req, res, next) => {
           //lw 7sl a7 error ytb3lo auth failed
           if (err) {
             return res.status(401).json({
-              message: "Auth failed",
+              message: "failed to login",
             });
           }
           //lw al atnen password kano matched ydeh token
@@ -328,7 +328,7 @@ router.post("/login", (req, res, next) => {
               console.log("Auth Successful");
               console.log(restaurantowner[0]._id);
               return res.status(200).json({
-                message: "Auth successful",
+                message: "You Login Successfully",
                 token: token,
                 // user: { email },
                 id: restaurantowner[0]._id,
@@ -341,9 +341,9 @@ router.post("/login", (req, res, next) => {
           }
 
           //lw kan al atnen password msh matched y2olo Auth Failed w mydhosh token
-          console.log("Auth failed");
+          console.log("Your password isn't correct");
           res.status(401).json({
-            message: "Auth failed",
+            message: "Your password isn't correct",
           });
         }
       );
