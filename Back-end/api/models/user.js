@@ -23,6 +23,7 @@ const userSchema = mongoose.Schema({
   },
   gender: { type: String },
   dateOfBirth: { type: Date },
+  status: { type: String, default: "accepted" },
 });
 
 module.exports = mongoose.model("User", userSchema);
