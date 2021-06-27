@@ -91,11 +91,13 @@ class LoginUSer extends React.Component {
 
     if (typeof resJson.error === "undefined") {
       localStorage.setItem("jwt", resJson.token);
+      localStorage.setItem("userId", resJson.userId);
+
       M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
+      window.location.reload();
     } else {
       M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
     }
-    window.location.reload();
   };
   /******** */
   responseFacebook = async (response) => {
@@ -121,12 +123,12 @@ class LoginUSer extends React.Component {
 
     if (typeof resJson.error === "undefined") {
       localStorage.setItem("jwt", resJson.token);
-      localStorage.setItem("id", resJson.user._id);
+      localStorage.setItem("userId", resJson.userId);
       M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
+      window.location.reload();
     } else {
       M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
     }
-    window.location.reload();
   };
   //********************
   // responseFacebook = (response) => {
@@ -174,7 +176,7 @@ class LoginUSer extends React.Component {
                 <i class="bi bi-facebook"></i>  Continue with Facebook
               </a> */}
               <FacebookLogin
-                appId={process.env.FACEBOOKAPP}
+                appId="814092259303918"
                 autoLoad={true}
                 //if true when open login page it will go to
                 // login with facebook and we won't to do this
