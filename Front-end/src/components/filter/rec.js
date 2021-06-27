@@ -4,44 +4,42 @@ import RestaurantCard from "./filter4";
 import NavFilter from "./filter1";
 import CheckFilter from "./filter2";
 import CheckFilter2 from "./filter3";
-import { useParams } from "react-router-dom";
+import {
+  useParams
+} from "react-router-dom";
 class Filter extends React.Component {
-  constructor(props) {
+  constructor(props){
     super();
     this.state = {
-      restaurants: [],
-      address: "",
-      search: "",
-    };
+      restaurants : [],
+      address : ""
+    }
+    
+
   }
-  handelSearch = (e) => {
-    this.setState({
-      search: e.target.value,
-    });
-  };
-  async componentDidMount() {
+
+  async componentDidMount(){
     const queryParams = window.location.href;
-    const address = queryParams.split("/")[4];
+    const address = queryParams.split('/')[4];
     this.setState({
-      address: address,
-    });
-    let res = await fetch(
-      `http://127.0.0.1:8000/restaurants/street/${address}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
-      .then((res) => res.json())
-      .then((result) => {
+      address: address 
+    })
+	   let res = await fetch(`http://127.0.0.1:8000/restaurants/street/${address}`, {
+      	method: "GET",
+     	 headers: {
+        "Content-Type": "application/json",}
+    })
+	 .then(res => res.json())
+      .then(result => {
         console.log(result.restaurants);
         this.setState({
-          restaurants: result.restaurants,
+    restaurants: result.restaurants
         });
       });
-  }
+ 	
+ 
+	
+   }
   render() {
     return (
       <div className="container " style={{ width: "1500px" }}>
@@ -56,7 +54,6 @@ class Filter extends React.Component {
                 <div className="input-group">
                   <div className="input-group rounded">
                     <input
-                      onChange={this.handelSearch}
                       type="search"
                       className="form-control rounded"
                       placeholder="Search"
@@ -77,7 +74,7 @@ class Filter extends React.Component {
                 {/* sortby */}
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
                   {/* ***************************************** */}
-
+             
                   {/* ************************* */}
                 </nav>
               </div>
@@ -88,29 +85,22 @@ class Filter extends React.Component {
                 {/* ***************Card************* */}
                 <CheckFilter />
                 {/* ********************************** */}
-                {/* <CheckFilter2 /> */}
+                <CheckFilter2 />
                 {/* ***********End of Card************************* */}
               </div>
               <div className="col-8">
-                <div className="row" style={{ margin: "10px" }}>
-                  {this.state.restaurants
-                    .filter((val) => {
-                      if (this.state.search === "") return val;
-                      else {
-                        console.log("Filter");
-                        console.log(val.name.toLowerCase());
-                        if (
-                          val.name
-                            .toLowerCase()
-                            .includes(this.state.search.toLocaleLowerCase())
-                        )
-                          return val;
-                      }
-                    })
-                    .map((rest) => {
-                      return <RestaurantCard restaurant={rest} />;
-                    })}
-                </div>
+              <div className="row" style={{margin: '10px'}}>
+           
+              {this.state.restaurants.map(rest =>{
+                return(
+                  <RestaurantCard restaurant = {rest}/>
+                );
+
+              })}
+
+              </div>
+
+              
               </div>
             </div>
             {/* ****** */}

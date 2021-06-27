@@ -5,6 +5,7 @@ import Savedcards from "./Savedcards";
 import Talabatpay from "./Talabatpay";
 import GoogleMap from 'google-map-react';
 import Map from "./Map"
+import M from "materialize-css";
 import Address from "./Address"
 import { ImOffice } from "react-icons/im";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
@@ -17,55 +18,95 @@ import {
     Link
 } from "react-router-dom"
 const mapStyles = {
-      width: '100%',
-      height: '100%'
-    }
-    
-    const markerStyle = {
-      height: '50px',
-      width: '50px',
-      marginTop: '-50px'
-    }
-    
-    const imgStyle = {
-      height: '100%'
-    }
-    
-    
-    const Marker = ({ title }) => (
-      <div style={markerStyle}>
-        <img style={imgStyle} src="https://res.cloudinary.com/og-tech/image/upload/s--OpSJXuvZ--/v1545236805/map-marker_hfipes.png" alt={title} />
-        <h3>{title}</h3>
-      </div>
-    );
+    width: '100%',
+    height: '100%'
+}
 
-		
+const markerStyle = {
+    height: '50px',
+    width: '50px',
+    marginTop: '-50px'
+}
+
+const imgStyle = {
+    height: '100%'
+}
+
+
+const Marker = ({ title }) => (<div style = { markerStyle }>
+    <img style = { imgStyle }
+    src = "https://res.cloudinary.com/og-tech/image/upload/s--OpSJXuvZ--/v1545236805/map-marker_hfipes.png"
+    alt = { title }/> <h3> { title } </h3> </div>
+);
+
+
 
 class Savedaddr extends React.Component {
-	
-	
-   constructor (props) {
-    super(props);
-	this._handleClick = this._handleClick.bind(this);
-	this.state={
-     address_details:[],
-	}
-	}
-  
 
-   _handleClick=()=> {
-    
-	   alert("female")
-   
-  }
- 	componentDidMount=()=>{
-		if(localStorage["addressdetails"]){
-			let addressdetails=JSON.parse(localStorage["addressdetails"]);//8irt el shakl 
-			this.setState({address_details:addressdetails})//el array ely ana 3mlah 7ishil el data bt3t el local storage 
-			console.log(this.state.address_details)
-		}
-	
-		}
+
+        constructor(props) {
+            super(props);
+            
+            this.state = {
+                address_details: [],
+            }
+        }
+		
+
+       
+        componentDidMount = async() => {
+            if (localStorage["addressdetails"]) {
+                let addressdetails = JSON.parse(localStorage["addressdetails"]); //8irt el shakl 
+                this.setState({ address_details: addressdetails }) //el array ely ana 3mlah 7ishil el data bt3t el local storage 
+                console.log(this.state.address_details)
+            }
+
+            let res = await fetch(`http://127.0.0.1:8000/user/address/${localStorage["userId"]}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                })
+                .then(res => res.json())
+                .then(result => {
+                    console.log("Result");
+                    console.log(result.Addresses);
+                    this.setState({
+                        address_details: result.Addresses
+                    });
+                });
+
+        }
+	clickDelete = async (value) => {
+		
+
+    let res = await fetch(
+      `http://127.0.0.1:8000/user/address/${value}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+		body: JSON.stringify({
+        //key and value from form
+        
+       
+      }),
+      }
+	 
+    );
+	 
+    let resJson = await res.json();
+    console.log(resJson.error);
+    console.log(resJson.message);
+
+    if (typeof resJson.error === "undefined") {
+      localStorage.setItem("jwt", resJson.token);
+      M.toast({ html: resJson.message });
+    } else {
+      M.toast({ html: resJson.error });
+    }
+  };
 
 
     render() {
@@ -99,56 +140,62 @@ class Savedaddr extends React.Component {
 							</div>
 						</div>
 						
-						<div className="col-md-9">
+						<div className="col-md-9">						
 						    <div className="card-body ">
-							{ this.state.addressDetails >0 ?this.state.addressDetails.map((details) => {
-                             return( <div>
-								<div style={{float:"right"}}>
-								    <a type="button" className="btn" style={{color:"green"}}   data-toggle="modal" data-target="#exampleModal3">
-								       <FaPlusCircle/> ADD ADDRESS
-									 </a>
-								</div>
-								<div className="row">
-									<div className="col-md-4">
-									<p className="text-muted">Address Name</p>
-									<p className="text-muted">Address </p>
-									<p className="text-muted">Mobile Number</p>
-									<p className="text-muted">Landing Number</p>
-									</div>
-									<div className="col-md-4">
-									<p >Building No. {details.building}</p>
-									<p className="text-muted">{details.street},{details.building}, {details.floor}, {details.appNo}</p>
-									<p className="text-muted">{details.mobile}</p>
-									<p className="text-muted">{details.landingNo}</p>
-									</div>
+								{this.state.address_details.length > 0 ? 
+								(<div>
+										<div style={{float:"right"}}>
+										<a type="button" className="btn " style={{color:"green"}}   data-toggle="modal" data-target="#exampleModal3">
+										<FaPlusCircle/> ADD ADDRESS
+										</a>
+									  </div>	
+									{this.state.address_details.map( s =>{
+									return( 
+									<div>
+										
+										<div className="row">
+											<div className="col-md-4">
+											<p className="text-muted">Address Name</p>
+											<p className="text-muted">Address </p>
+											<p className="text-muted">Mobile Number</p>
+											<p className="text-muted">Landing Number</p>
+											</div>
+											<div className="col-md-4">
+											<p >Building No. {s.building}</p>
+											<p className="text-muted">{s.street},{s.building}, {s.floor}, {s.apartmentN}</p>
+											<p className="text-muted"> {s.mobile}</p>
+											<p className="text-muted">{s.landing}</p>
+											
+											</div>
 
-					                <div className="col-md-4" style={{float:"right"}}>
-											<a type="button" className="btn" onClick={e => window.confirm("Are you sure you wish to clear the page?") }>
-											   DELETE
-											 </a>
-										     
-											<a type="button" className="btn" style={{color:"green"}}   data-toggle="modal" data-target="#exampleModal4">
-											   EDIT
-											 </a>
-									</div>	
-									
-									<div className=" border-bottom ">
-									</div>	
-					    		</div>
-								 	</div>);}):
-							
-								<div className="text-center">
+											<div className="col-md-4" style={{float:"right"}}>
+													<a type="button" className="btn" value={s._id} onClick={()=>this.clickDelete(s._id)} >
+													DELETE
+													</a>										
+											</div>	
+											
+											<div className=" border-bottom ">
+											</div>
+										
+										</div>
+										
+									</div>
+									);
+									})}
+								</div>)  : 
+								(<div class="text-center ">
 									<img  style={{height:"100px"}} src="https://www.vskills.in/certification/tutorial/wp-content/uploads/2013/01/geolocation.jpg"></img>
-									<p className="text-muted">there are no saved addresses to display</p>
-									<button type="button" className="btn btn-success p-2"  data-toggle="modal" data-target="#exampleModal3">
-										Add Address
-									</button> 
-								</div>
-						       }
+										<p className="text-muted">there are no saved addresses to display</p>
+								
+										<button type="button" className="btn btn-success p-2"  data-toggle="modal" data-target="#exampleModal3">
+											Add Address
+										</button> 
+								</div>)  }		
 							</div>
 						</div>
-				    </div>
-				</div>
+					</div>
+				 </div>
+				
 				<div className="modal fade" id="exampleModal3" tabIndex="-1" aria-labelledby="exampleModalLabel3" aria-hidden="true">
 					<div className="modal-dialog">
 						<div className="modal-content">

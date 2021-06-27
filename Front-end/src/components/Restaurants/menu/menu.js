@@ -5,35 +5,34 @@ import "./menu.css"
 class Menu extends React.Component{
     constructor(){
         super()
-        this.state ={
-            categories :[],
-        }
+
+        this.categories=[]
+        this.resId = localStorage["resId"];
     
     }
-        async componentWillMount() {
-        let res = await fetch(`http://127.0.0.1:8000/restaurant/60d38c9a0a0a258cbcc0fc60/category`, {
-            method: "GET",
-            headers: {
-          "Content-Type": "application/json",}
-      })
-       .then(res => res.json())
-        .then(result => {
-            this.setState({categories: result.Categories})
-       
-       
-        });
-      
-    }
+    async componentWillMount() {
+ let res = await fetch(`http://127.0.0.1:8000/restaurant/${this.resId}/category`, {
+ method: "GET",
+ headers: {
+ "Content-Type": "application/json",}
+ })
+ .then(res => res.json())
+ .then(result => {
+ this.categories  = result.Categories ;
+
  
+ });
+ 
+ }
 
     render(){
         return (
             <div id="restaurant-menue-container" >
                 <div id="categories-container">
-                    <Categories categories={this.state.categories} />
+                    <Categories categories={this.categories} />
                 </div>
                 <div id="menue-body">
-                    <MenuBody categories={this.state.categories}/>
+                    <MenuBody categories={this.categories}/>
 
                 </div>
             </div>

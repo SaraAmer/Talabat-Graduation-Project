@@ -26,13 +26,14 @@ class Header extends React.Component {
     };
   }
   componentDidMount() {
-    if (localStorage["jwt"]) {
+    if (localStorage["userId"]) {
       this.setState({ login: true });
     }
   }
   logout = () => {
-    localStorage.removeItem("jwt");
+    localStorage.removeItem("userId");
     this.setState({ login: false });
+    window.location.href = "http://localhost:3000";
   };
   render() {
     return (
@@ -278,15 +279,7 @@ class Header extends React.Component {
                       All Restaurants
                     </Link>
                   </li>
-                  <li className="nav-item">
-                    <Link
-                      to=""
-                      className="nav-Link text-white"
-                      style={{ marginLeft: "10px" }}
-                    >
-                      العربيه
-                    </Link>
-                  </li>
+                  
                   <li className="nav-item ">
                     <Flags />
                   </li>

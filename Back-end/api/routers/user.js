@@ -58,15 +58,15 @@ router.post("/signup", (req, res, next) => {
                             .then((result) => {
                                 console.log(result);
                                 console.log("7yd5ol 3la send mail");
-                                transporter.sendMail({
-                                    //send message
-                                    // ************************** */
-                                    to: user.email,
-                                    from: "talabtteam@gmail.com",
-                                    subject: "request to signup in talabat ",
-                                    html: "<h1>Welcome in talabat Online </h1>",
-                                    //********************* */
-                                });
+                                // transporter.sendMail({
+                                //     //send message
+                                //     // ************************** */
+                                //     to: user.email,
+                                //     from: "talabtteam@gmail.com",
+                                //     subject: "request to signup in talabat ",
+                                //     html: "<h1>Welcome in talabat Online </h1>",
+                                //     //********************* */
+                                // });
                                 res.status(201).json({
                                     message: "User created",
                                 });
@@ -96,6 +96,27 @@ router.delete("/:userId", (req, res, next) => {
             res.status(500).json({
                 error: err,
             });
+        });
+});
+
+router.put("/profile/:userId", (req, res, next) => {
+    const id = req.params.userId;
+
+    User.findOne({ _id: id })
+        .exec()
+        .then((user) => {
+            user.firstName = req.body.firstName ? req.body.firstName : user.firstName;
+            user.lastName = req.body.lastName ? req.body.lastName : user.lastName;
+            user.gender = req.body.gender ? req.body.gender : user.gender;
+            return user.save();
+        })
+        .then((result) => {
+            res.status(200).json({
+                myresopnse: result,
+            });
+        })
+        .catch((err) => {
+            console.log("error message" + err);
         });
 });
 
@@ -134,7 +155,7 @@ router.post("/login", (req, res, next) => {
                     return res.status(200).json({
                         message: "Auth successful",
                         token: token,
-                        userId: user[0]._id
+                        userId: user[0]._id,
                     });
                 }
                 //lw msh howa howa al password 7y2olo auth failed
@@ -247,93 +268,67 @@ router.post("/googlelogin", (req, res) => {
 
 //***************************Login with Facebook**************/
 router.post("/facebooklogin", (req, res) => {
-    console.log("d5l al facebook login");
-    //get id and token from react
+    console.log("FACEBOOK LOGIN REQ BODY", req.body);
     const { userID, accessToken } = req.body;
-    console.log(userID);
-    console.log(accessToken);
-    console.log(req.body);
-    let urlGraphFacebook = `https://graph.facebook.com/v2.11/${userID}/?fileds=id,name,email&access_token=${accessToken}`;
-    return fetch(urlGraphFacebook, { method: "GET" })
-        .then((res) => res.json())
-        .then((res) => {
-            //get email and name from request(Facebook)
-            console.log("bgeeeeb email w pass mn al facebook");
-            const { email, name } = res;
-            console.log(res);
-            //if user exist in database
+
+    const url = `https://graph.facebook.com/v2.11/${userID}/?fields=id,name,email&access_token=${accessToken}`;
+
+    return (
+        fetch(url, {
+            method: "GET",
+        })
+        .then((response) => response.json())
+        // .then(response => console.log(response))
+        .then((response) => {
+            const { email, name } = response;
+            console.log(response);
             User.findOne({ email }).exec((err, user) => {
-                if (err) {
-                    //error can generate by any reason
-                    console.log("error mn al bdayaaa");
-                    return res.status(400).json({
-                        error: "Something went wrong",
+                if (user) {
+                    const token = jwt.sign({ _id: user._id }, process.env.JWT_KEY, {
+                        expiresIn: "7d",
+                    });
+                    const { _id, email } = user;
+                    console.log(user);
+                    return res.json({
+                        token,
+                        user: { _id, email },
+                        message: "Login Success",
                     });
                 } else {
-                    //user already exist in database so generate token
-                    console.log("generate token as user exist in db");
-                    if (user) {
-                        const token = jwt.sign({
-                                _id: user._id,
-                            },
-                            process.env.JWT_KEY, {
-                                expiresIn: "1h",
-                            }
-                        );
-                        const { _id, email } = user;
-                        return res.status(200).json({
-                            message: "login success",
-                            token: token,
-                            user: { _id, email },
-                        });
-                        //uer doesn't exist in database
-                        //user try to login by google for the first time
-                    } else {
-                        //user doesn't exist in db so create newuser to store it in database
-                        //create random password
-                        console.log("User will save in db as new one");
-                        let password = email + process.env.JWT_KEY;
-                        let newUser = new User({
-                            _id: new mongoose.Types.ObjectId(),
-                            email,
-                            password,
-                        });
-                        newUser.save((err, data) => {
-                            console.log("bysavee");
-                            console.log("al error");
-                            console.log(err);
-                            console.log("al dataaa");
-                            // console.log(data);
-                            if (err) {
-                                return res.status(400).json({
-                                    error: "User signup failed with facebook",
-                                });
-                            }
-                            //********Login user after save it in db***
-                            console.log("bygeneraateeeeeeeeeee al token lly 3mlo save");
-                            const token = jwt.sign({
-                                    _id: data._id,
-                                },
-                                process.env.JWT_KEY, {
-                                    expiresIn: "25h",
-                                }
-                            );
-                            const { _id, email } = data;
-                            return res.status(200).json({
-                                message: "login Success",
-                                token: token,
-                                user: { _id, email },
+                    let password = email + process.env.JWT_KEY;
+                    user = new User({
+                        _id: new mongoose.Types.ObjectId(),
+                        email,
+                        password,
+                    });
+                    console.log(user);
+                    user.save((err, data) => {
+                        if (err) {
+                            console.log("ERROR FACEBOOK LOGIN ON USER SAVE", err);
+                            return res.status(400).json({
+                                error: "User signup failed with facebook",
                             });
+                        }
+                        const token = jwt.sign({ _id: data._id }, process.env.JWT_KEY, {
+                            expiresIn: "7d",
                         });
-                    }
+                        const { _id, email } = data;
+                        console.log(data);
+                        return res.json({
+                            token,
+                            user: { _id, email },
+                            message: "Login Sucess",
+                        });
+                    });
                 }
-            }); //findone
+            });
         })
-        .catch((error) =>
+        .catch((error) => {
             res.json({
-                error: "facebook login failed",
-            })
-        ); //then end
+                error: "Facebook login failed. Try later",
+            });
+        })
+    );
 }); //router
 //**************************Reset Password***************************** */
 router.post("/reset-password", (req, res) => {

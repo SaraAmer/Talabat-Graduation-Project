@@ -25,14 +25,12 @@ class MenuBody extends React.Component{
                     <FontAwesomeIcon icon={faSearch} color="grey" id="search-icon"/>
                 </div>
 
-              
-                    <button className="btn btn-success"  data-toggle="modal" data-target="#exampleModal" style={{marginTop: "10px" , width: "66%"}} >
+                 
+                    <a className="btn btn-success" data-toggle="modal" data-target="#food"  style={{marginTop: "10px" , width: "66%"}} >
                         ADD NEW 
-                    </button>
-                    <MenuItem/>
+                    </a>
             
-                
-
+ 
                 {
                     this.state.categories.map((category)=>{
                         return(
@@ -45,11 +43,11 @@ class MenuBody extends React.Component{
                     })
             
                 }
-                   <div className="modal fade" id="exampleModal" tabindex="-1" role="form" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+                   <div className="modal fade" id="food" tabindex="-1" role="form" aria-labelledby="exampleModalLabel" aria-hidden="true" >
                             <div class="modal-dialog" role="document" style={{width: "1000px"}}>
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Add New Product </h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Add New Food </h5>
                                         <button type="button" class="close btn-danger" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                         </button>

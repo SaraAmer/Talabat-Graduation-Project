@@ -36,7 +36,7 @@ class MenuItem extends React.Component{
     }
     async componentWillMount() {
         console.log('heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee')
-        let res = await fetch(`http://localhost:8000/restaurant/60d270a27238d3309430cc90/food`, {
+        let res = await fetch(`http://localhost:8000/restaurant/60d60bcd76b7c03cfed9afe7/food`, {
             method: "GET",
             headers: {
           "Content-Type": "application/json",}

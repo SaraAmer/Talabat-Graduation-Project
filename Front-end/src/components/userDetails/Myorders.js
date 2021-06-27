@@ -11,8 +11,42 @@ import {
     Route,
     Link
 } from "react-router-dom"
+ 
+ 
 
 class Myorders extends React.Component {
+	constructor(props) {
+     super(props);
+	 this.state={
+		user: this.props.match.params._id,
+		restaurant:'',
+		status:'',		
+		 day:'',
+		 year:'',
+		  month:''}
+    
+  }
+	async componentDidMount(){
+	   let res = await fetch(`http://127.0.0.1:8000/order/user/${this.state._id}`, {
+      	method: "GET",
+     	 headers: {
+        "Content-Type": "application/json",}
+    })
+	 .then(res => res.json())
+      .then(result => {
+        this.setState({
+        
+		restaurant:result.restaurant,
+		status:result.status,		
+		 day:result.day,
+		 year:result.year,
+		  month:result.month,
+        });
+      });
+	}
+	handleChange = (event) => {
+ this.setState({ [event.target.name]: event.target.value });
+ }
     render() {
 		 
         return (
@@ -51,15 +85,15 @@ class Myorders extends React.Component {
 								<div class="card flex-row">
 									<img src="https://codingyaar.com/wp-content/uploads/bootstrap-4-card-image-left-demo-image.jpg" class="card-img-top" style={{width:"20%"}}/>
 									<div class="card-body">
-										<h5 class="card-title">Bronx burger</h5>
+										<h5 class="card-title">{this.state.restaurant}</h5>
 										<p class="card-text text-muted">
-									    18 februray 2021 17:33
+									{this.state.day}{this.state.month}{this.state.year}
 										</p>
 										<p class="card-text text-muted">
-									  order id:29178300 <span className="text-danger">cancelled</span>
+									  order id:29178300 <span className="text-danger">{this.state.status}</span>
 										</p>
-										<div className=" d-flex justify-content-end">
-										<a  class="btn border"> <AiOutlineReload/> recall</a></div>
+										{/* <div className=" d-flex justify-content-end">
+										<a  class="btn border"> <AiOutlineReload/> recall</a></div> */}
 									</div>
 								</div>			
 								<div className="text-center">

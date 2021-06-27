@@ -11,20 +11,113 @@ import Info from './resturant-menu/Info';
 import { createHashHistory } from 'history';
 import { NavLink } from 'react-router-dom';
 import FetchRestaurant from './fetchRestaurant';
+
 import axios from 'axios';
-import Cart from './carts/cart';
+
 import {
-   
+     Link,
     useParams
   } from "react-router-dom"
+
 function RestaurantMenu() {
+    const ID = localStorage["userId"];
     const [restaurant, setRestaurant]=useState([]);
+    const [LS, setLS] = useState([]);
+    const [cartValues, setCartValues] = useState({
+     
+        products: [
+            {
+                store:"",		
+                subtotal: 0,
+                service: 0,
+                count: 0
+            
+            }
+    
+        ],
+    }); 
+
+   const decrease = (e)=>{
+        const newCount = cartValues.count - 1;
+        setCartValues({...cartValues, newCount })
+    
+        //setCartValues({count: count - 1 });
+    }
+    const  increase = (e)=>{
+        const newCount = cartValues.count + 1;
+        setCartValues({...cartValues, newCount})
+    }
+ const addToSummary=(food)=>{
+
+    const yourFood= {
+                food,
+                userId : localStorage["userId"],
+                count: 1,
+                resId : food.restaurant
+            }
+
+    //has no cart
+    console.log("LLLLLLLLLSSSSSSSSSSSS");
+    console.log(LS);
+    if(LS.length == 0){
+        setLS(()=>{
+            LS.push(yourFood);
+        })
+        localStorage.setItem(ID, LS );
+    }
+    // const s =localStorage["userId"];
+    // localStorage.removeItem(s);
+    //     const yourFood= {
+    //         food,
+    //         userId : localStorage["userId"],
+    //         count: 1,
+    //         resId : food.restaurant
+    //     }
+
+    //     const prevLs = localStorage[localStorage["userId"]] ? localStorage[localStorage["userId"]] : [];
+    //     console.log("prevLs");
+    //     console.log(prevLs);
+    //     if(prevLs.length == 0 || prevLs.resId === yourFood.resId ){
+    //         prevLs.push(yourFood);
+    //         localStorage[localStorage["userId"]]=JSON.stringify(prevLs);
+    //         console.log("prevLs[0].restaurant === yourFood.resId ");
+
+    //         console.log(prevLs[0].resId);
+    //         console.log(yourFood.resId);
+
+    //     }
+    //         else{
+    //             //Diferent rest
+    //             if(prevLs.resId != yourFood.resId   ){
+    //                 const choice =  window.confirm("You must empty your cart First");
+    //                 if(choice){
+    //                     console.log("choice");
+    //                     const s =localStorage["userId"];
+    //                     localStorage.removeItem(s);
+    //                 }
+    
+    //             }
+             
+                   
+                    
+                
+
+    //         }
+
+        }
+       
+        
+        
+    //     console.log(prevLs);
+      
+    //   localStorage["count"]=JSON.stringify(cartValues.count);
+        
     const [food, setFood]=useState([]);
     let { resId } = useParams();
     console.log(resId);
     const history = createHashHistory();
 
-
+    
     
 //   useEffect(() => {
    
@@ -39,6 +132,14 @@ function RestaurantMenu() {
 //       });
 //   }, []);
 useEffect(() => {
+    if(localStorage["userId"]){
+        setLS(()=>{
+            LS.push(localStorage.getItem(ID));
+        });
+    }
+
+    console.log("LS");
+    console.log(LS);
     const fetchData = async () => {
       const fetchedFood = await axios(`http://localhost:8000/restaurant/${resId}/food`);
       const fetchedRestaurant = await axios(
@@ -46,7 +147,7 @@ useEffect(() => {
       );
         setFood(fetchedFood.data.food);
         setRestaurant(fetchedRestaurant.data.restaurant);
-
+      
      
     };
 
@@ -57,36 +158,36 @@ console.log(restaurant.restaurant);
 return(
     <div className="restaurant-menu">
         <div className="restaurant-info">
-        <div className="row">
-            <div className="col-lg-5 col-md-7 col-sm-9">
-            <div className="img-container">
-            <img  src={`http://localhost:8000/${restaurant.img}`}  alt="" srcset="" />
-            </div>
-            <div className="img-info">
-                <h3>{restaurant.name}</h3>
-                <p>{restaurant.address? restaurant.address.street : "" }</p>
-                <p>{restaurant.cusine}</p>
-                <p>Min order: {restaurant.minOrderAmount} EG</p>
-            </div>
-            </div>
-            <div className="col-lg-5 col-md-3 col-sm-3"></div>
-            <div className="col-lg-2 col-md-7 col-sm-9">
-                <div className="status">
-                    <p>Busy</p>
-                    <p> <FaRegSmile/> {restaurant.rate} </p>
-                    <span className="visa"> <FaCcVisa/></span>
-       <span className="master-card">  <FaCcMastercard /></span>
-       <span className="cash"><IoIosCash/></span>
+            <div className="row">
+                <div className="col-lg-5 col-md-7 col-sm-9">
+                    <div className="img-container">
+                        <img  src={`http://localhost:8000/${restaurant.img}`}  alt="" srcset="" />
+                    </div>
+                        <div className="img-info">
+                            <h3>{restaurant.name}</h3>
+                            <p>{restaurant.address? restaurant.address.street : "" }</p>
+                            <p>{restaurant.cusine}</p>
+                            <p>Min order: {restaurant.minOrderAmount} EG</p>
+                        </div>
+                    </div>
+                    <div className="col-lg-5 col-md-3 col-sm-3"></div>
+                    <div className="col-lg-2 col-md-7 col-sm-9">
+                        <div className="status">
+                            <p>Busy</p>
+                            <p> <FaRegSmile/> {restaurant.rate} </p>
+                            <span className="visa"> <FaCcVisa/></span>
+            <span className="master-card">  <FaCcMastercard /></span>
+            <span className="cash"><IoIosCash/></span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
         </div>
         <div className="menu-and-review-and-info">
         <Router history = {history}>
   
  
-            <div className="row">
-                <div className="col-3">
+            <div className="row ">
+                <div className="col-4">
                 <NavLink activeClassName="active" to="menu">
                
                <span> <MdRestaurantMenu/> Menu</span>
@@ -94,14 +195,14 @@ return(
                
                 
               </div>
-                <div className="col-2"> 
+                <div className="col-4"> 
                 <div className="item">
                 <NavLink to="review" >
                 <span> <AiFillWechat/> Review</span>
                 </NavLink>
                  </div>
                 </div>
-                <div className="col-3">
+                <div className="col-4">
                 <div className="item">
                 <NavLink to="info" >
                 <span> <AiFillInfoCircle/> Info</span>
@@ -109,74 +210,12 @@ return(
                 
                 </div>
                  </div>
-                 <div className="col-4">
- 
-                 {/* <div>
-			 
-             <span  className="m-2 h5" style={{color:'#FF5900'}}>Your Cart</span>
-             <div className="card" style={{width: "22rem"}}>
-                 <div className="card-body">
-                 { count> 0? products.map((prod) => {
-                     return (<div>
-                     <h6 className="card-subtitle m-2 text-muted">{prod.store}</h6>
-                     <div  className=" card-body bg-light border" >
-                         <div  className="input-group"  style={{width: "30rem"}}>
-                             <span  className="input-group-btn">
-                                 <button type="button"   onClick={decrease}className="btn btn-sm border"  data-type="minus" data-field="quant[1]">
-                                     <span style={{color:'#FF5900'}}><BiMinus/>
-                                     </span>
-                                 </button>
-                             </span>
-                             <p></p>
-                             <input type="text" name="quant[1]" className="input-number" value={count} min="0" max="10" style={{width:"20px"}}/>
-                             <span  className="input-group-btn">
-                                 <button type="button"  onClick={increase}className="btn btn-sm border" data-type="plus" data-field="quant[1]">
-                                 <span style={{color:'#FF5900'}}><BiPlus/>
-                                 </span>
-                                 </button>
-                             </span>
-                             <div style={{marginLeft:"20px"}} >offers
-                             </div>
-                             <div  className="text-muted"style={{marginLeft:"20px"}} >{prod.subtotal*count}
-                             </div>
-                             <div className="hovers" style={{marginLeft:"70px"}} onClick={() => {if(window.confirm('Delete the item?')){state.count=0;}}}><BiMinusCircle/>
-                             </div>
-                         </div>
-                     </div>
-                     <div className=" row" style={{fontSize:"12px"}}> 
-                         <label className="col-8 text-muted" >Subtotal</label>
-                         <div className="col-4">
-                             <div  className="text-muted"style={{marginLeft:"20px"}} >EGP {prod.subtotal*count}
-                             </div>
-                         </div>
-                     </div>
-                     <div className=" row" style={{fontSize:"15px"}}> 
-                         <label className="col-8 " >Service Charge</label>
-                         <div className="col-4">
-                             <div style={{marginLeft:"20px"}} >EGP {prod.service}
-                             </div>
-                         </div>
-                     </div>
-                     <div className=" row" style={{fontSize:"18px"}}> 
-                         <label className="col-7" >Total Amount</label>
-                         <div className="col-5">
-                             <div style={{marginLeft:"20px"}} >EGP {prod.service+prod.subtotal*count}
-                             </div>
-                         </div>
-                         
-                         <Link to="/checkout" type="btn"  className="btn btn-success " onClick={addToSummary}>PROCEED TO CHECKOUT</Link>
-                     </div>
-                     </div>
-                     );
-                     }):<div></div>}					
-                 </div>
-             </div>
-         </div> */}
-                 </div>
+                 
             </div>
             <Switch>
          <Route path = "/menu" component ={()=> <Menu
              food= {food}
+             addToLocalStorage= {addToSummary}
          />} />
          <Route path = "/review" component = {Review} />
          <Route path = "/info" component ={()=>

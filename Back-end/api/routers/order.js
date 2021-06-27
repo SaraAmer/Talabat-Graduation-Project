@@ -44,7 +44,7 @@ router.post("/", (req, res, next) => {
 
 router.get("/restaurant/:resId", (req, res, next) => {
     const id = req.params.resId;
-    Order.find({ "restaurant": { _id: id } })
+    Order.find({ "restaurant": { _id: id } }).populate('user')
         .exec()
         .then(result => {
             console.log(result);

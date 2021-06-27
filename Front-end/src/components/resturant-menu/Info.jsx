@@ -3,52 +3,43 @@ import {FaCcVisa, FaCcMastercard} from 'react-icons/fa';
 import {IoIosChatbubbles, IoIosCash} from 'react-icons/io';
 
 function Info(props){
-    return(
-        <div className="info"  style={{textAlign:"left", padding:10, width: '90%', fontSize:'10px'}}>
-        
-            <table class="table" style={{textAlign:"left",  fontSize:'10px'}}>
-  <tbody>
-  <tr></tr>
-    <tr style={{ fontSize:'10px'}}>
-     
-      <td>Minimum Order Amount</td>
-      <td>EGP {props.minOrder}</td>
-    </tr>
-    <tr>
-    
-      <td>Working Hours</td>
-      <td>{props.workingHours}</td>
-    </tr>
+    return(    
+        <div   >        
+            <table className="table table-sm border m-2"  >
+              <tbody>
+                <tr></tr>
+                <tr>                
+                    <td >Minimum Order Amount</td>
+                    <td>EGP {props.minOrder}</td>
+                  </tr>
+                  <tr>                  
+                    <td>Working Hours</td>
+                    <td>{props.workingHours}</td>
+                  </tr>
+                  <tr>                  
+                  <td>Delivery Fee</td>
+                  <td>EGP {props.deliveryFee}</td>
+                  </tr>
+                <tr>                
+                  <td>Payment</td>
+                  <td>
+                  <span className="visa"> <FaCcVisa/></span>
+                    <span className="master-card">  <FaCcMastercard /></span>
+                    <span className="cash"><IoIosCash/></span>
 
-    <tr>
-    
-    <td>Delivery Fee</td>
-    <td>EGP {props.deliveryFee}</td>
-  </tr>
-
-  <tr>
-    
-    <td>Payment</td>
-    <td>
-    <span className="visa"> <FaCcVisa/></span>
-       <span className="master-card">  <FaCcMastercard /></span>
-       <span className="cash"><IoIosCash/></span>
-
-    </td>
-  </tr>
-  <tr>
-    
-    <td>Rating</td>
-    <td>{props.rating}</td>
-  </tr>
-  <tr>
-    
-    <td>Cuisines</td>
-    <td>{props.cuisines}</td>
-  </tr>
-  </tbody>
-</table>
-        </div>
+                  </td>
+                </tr>
+                <tr>                
+                  <td>Rating</td>
+                  <td>{props.rating}</td>
+                </tr>
+                <tr>               
+                  <td>Cuisines</td>
+                  <td>{props.cuisines}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>       
     );
 }
 

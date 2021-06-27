@@ -47,19 +47,16 @@ class LoginUSer extends React.Component {
     console.log(resJson.message);
 
     if (resJson.token) {
-      
       localStorage.setItem("jwt", resJson.token);
       localStorage.setItem("userId", resJson.userId);
+      localStorage.setItem("restId", resJson.restId);
 
-     // M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
-      window.location.reload();
-    
+      // M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
+      window.location.href = "http://localhost:3000/restaurant/dashboard";
     } else {
-    //M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
-    alert("Wrong Email or Password");
+      //M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
+      alert("Wrong Email or Password");
     }
-   
- 
   };
   //******************** */
   responseSuccessGoogle = async (response) => {
@@ -91,8 +88,8 @@ class LoginUSer extends React.Component {
   };
   /******** */
   responseFacebook = async (response) => {
-    console.log(response.userID);
-    console.log(response.accessToken);
+    // console.log(response);
+    // console.log(response.accessToken);
     let res = await fetch("http://localhost:8000/user/facebooklogin", {
       method: "post",
       headers: {
@@ -104,14 +101,16 @@ class LoginUSer extends React.Component {
         userID: response.userID,
       }),
     });
-
+    console.log(res);
     let resJson = await res.json();
-    // console.log(resJson);
-    console.log(resJson.error);
-    console.log(resJson.message);
+    // alert("")
+    console.log(resJson);
+    // console.log(resJson.error);
+    // console.log(resJson.message);
 
     if (typeof resJson.error === "undefined") {
       localStorage.setItem("jwt", resJson.token);
+      localStorage.setItem("id", resJson.user._id);
       M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
     } else {
       M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
@@ -157,14 +156,17 @@ class LoginUSer extends React.Component {
             </div>
           </div>
           {/* style={{ border: "5px solid grey" }} */}
-          <div className="row">
+
+          <div className="row m-4 h-25">
             <div className="col-md-12">
+
               {/* <a href="#" className="btn btn-primary btn-block">
                 <i class="bi bi-facebook"></i>  Continue with Facebook
               </a> */}
               <FacebookLogin
                 appId={process.env.FACEBOOKAPP}
                 autoLoad={true}
+                
                 //if true when open login page it will go to
                 // login with facebook and we won't to do this
                 callback={this.responseFacebook}

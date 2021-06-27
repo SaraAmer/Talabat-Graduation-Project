@@ -35,6 +35,7 @@ class PartnerLogin extends React.Component {
       // localStorage.setItem("user", JSON.stringify(resJson.user));
       // M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
       alert(resJson.message)
+      window.location.href="http://localhost:3000/restaurant/dashboard"
       
     } else {
       //M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });

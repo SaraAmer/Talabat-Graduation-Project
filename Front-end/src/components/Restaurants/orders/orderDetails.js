@@ -43,6 +43,6 @@ class OrderDetails extends React.Component{
            
         
          )
-    }
+    }   
 }
 export default OrderDetails
