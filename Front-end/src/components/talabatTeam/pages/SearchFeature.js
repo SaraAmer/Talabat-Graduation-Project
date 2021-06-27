@@ -1,3 +1,4 @@
+
 import React from 'react'
 import DashboardNavbar from "./DashboardNavbar.js";
 import { FcInfo } from "react-icons/fc";
@@ -10,35 +11,56 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { BiFoodMenu } from "react-icons/bi";
+//import ViewDetails from 'Restaurant.js'
 
+class SearchFeature extends React.Component{
+    constructor(){
+        super();
+        this.state={
+            matchingRestaurants:[],
 
-class Restaurant extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      restaurants: [
-        {
-          id: "1",
-          name: "Cilantro",
-          location: "smouha,alexandria",
-          img: "https://img.theculturetrip.com/768x/smart/wp-content/uploads/2018/03/ppj07117.jpg",
-          joinedIn: "20/6/2020",
-          email: "Cilantro@yahoo.com",
-        },
-      ],
-      apiRestaurants: [],
-      acceptedRestaurants: [],
-      loading: false,
-      refresh: false,
-      status:"",
-      searchItem:"",
-    };
+        }
+    }
 
+    async componentWillMount() {
+    let res = await fetch("http://127.0.0.1:8000/restaurants", {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+    // console.log(res.err);
+    let resJson = await res.json();
+    let resSearchName=this.props.match.params.searchItem
+    // let myRestaurants = resJson.restaurants;
+    //  console.log(resJson.restaurants);
+    resJson.restaurants.map((restaurant) => {
+      console.log(restaurant);
+      if (restaurant.name == resSearchName && restaurant.status==="accepted") {
+        console.log(restaurant.name);
+        this.state.matchingRestaurants.push(restaurant);
+      }
+      this.setState({matchingRestaurants:this.state.matchingRestaurants})
+    });
+    }
+      banRestaurant=(resId)=>{
+    console.log(resId);
+    this.state.status = "banned";
+    this.setState({ status: this.state.status });
+    const fd = new FormData();
+    fd.append("status", this.state.status);
+    axios.put("http://127.0.0.1:8000/restaurants/" + resId, fd).then((res) => {
+      console.log(res);
+    });
+
+    this.setState({
+      matchingRestaurants: this.state.matchingRestaurants,
+    });
+      window.location.href = "/restaurants";
   }
-  viewDetails = (restaurantCopouns) => {
-    console.log(restaurantCopouns);
-  };
 
+
+  
   deleteRes = (resId) => {
     console.log(resId);
     if (window.confirm("Are you sure?")) {
@@ -54,63 +76,17 @@ class Restaurant extends React.Component {
     this.setState({ refresh: this.state.refresh });
          window.location.href = "/restaurants";
   };
-
-  async componentDidMount() {
-    this.setState({ loading: true });
-    let res = await fetch("http://127.0.0.1:8000/restaurants", {
-      method: "GET",
-      headers: {
-        "content-type": "application/json",
-      },
-    });
-    // console.log(res.err);
-    let resJson = await res.json();
-    // let myRestaurants = resJson.restaurants;
-    //  console.log(resJson.restaurants);
-    resJson.restaurants.map((restaurant) => {
-      console.log(restaurant);
-      if (restaurant.status === "accepted") {
-        console.log(restaurant.name);
-        this.state.acceptedRestaurants.push(restaurant);
-      }
-    });
-
-    this.setState({
-      loading: false,
-      acceptedRestaurants: this.state.acceptedRestaurants,
-    });
-    //console.log(resJson);
-  }
-  banRestaurant=(resId)=>{
-    console.log(resId);
-    this.state.status = "banned";
-    this.setState({ status: this.state.status });
-    const fd = new FormData();
-    fd.append("status", this.state.status);
-    axios.put("http://127.0.0.1:8000/restaurants/" + resId, fd).then((res) => {
-      console.log(res);
-    });
-
-    this.setState({
-      acceptedRestaurants: this.state.acceptedRestaurants,
-    });
-      window.location.href = "/restaurants";
-  }
-
-  // componentWillMount() {
-  //   this.setState({loading:true});
-  //     fetch("http://localhost:8000/restaurants")
-  //       .then((res) => res.text())
-  //       .then((res) => this.setState({ apiRestaurants: res.restaurants ,loading:false}));
-
-  // }
- 
-
-  render() {
-    return (
-      <Router>
-        <div className="container">
-          <div
+    render(){
+        return( 
+            <div class="container">
+                <br></br>
+                <div style={{display:"flex",justifyContent:"flex-end"}}>
+                <a href="/restaurants" class="btn btn-info text-white" style={{paddingLeft:"20px",paddingRight:"20px",fontsize:"20px",borderRadius:"15px"}}>
+                back to all restaurants
+             
+                </a>
+                 </div>
+                <div
             style={{
               display: "flex",
               alignItems: "center",
@@ -155,10 +131,9 @@ class Restaurant extends React.Component {
               </a>
             </div> */}
           </div>
-
           <div className="row">
-            {this.state.acceptedRestaurants.length > 0 ? (
-              this.state.acceptedRestaurants.map((restaurant) => {
+            {this.state.matchingRestaurants.length > 0 ? (
+              this.state.matchingRestaurants.map((restaurant) => {
                 return (
                   <div
                     className="card "
@@ -296,10 +271,10 @@ class Restaurant extends React.Component {
               </h1>
             )}
           </div>
-        </div>
-      </Router>
-    );
-  }
+</div>
+
+        );
+    }
 }
 
 
@@ -341,4 +316,4 @@ class ViewDetails extends React.Component {
   }
 }
 
-  export default Restaurant;
+export default SearchFeature;

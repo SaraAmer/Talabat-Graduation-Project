@@ -17,6 +17,9 @@ import BannedClients from "./pages/BannedClients";
 import LoginAdmin from "./pages/loginAdmin";
 import MenuItems from "./pages/MenuItems"
 import EditCopoun from "./pages/EditCopoun.js";
+import SearchFeature from "./pages/SearchFeature.js"
+
+
 class Routes extends React.Component {
 constructor(){
   super();
@@ -77,6 +80,9 @@ constructor(){
               />
               <Route path="/banned-clients" exact component={BannedClients} />
                   <Route path="/menu/:resId" exact component={MenuItems} />
+                   <Route path="/menu/:resId" exact component={MenuItems} />
+                    
+                     <Route path="/search/:searchItem" exact component={SearchFeature} />
             </Switch>
           </Router>
         }

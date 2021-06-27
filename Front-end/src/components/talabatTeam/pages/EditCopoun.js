@@ -58,6 +58,7 @@ console.log(this.state.copounCode);
 const fd = new FormData();
 fd.append("code", this.state.copounCode);
 fd.append("desc", this.state.copounDesc);
+fd.append("discount", this.state.copounDiscount);
 fd.append("price", this.state.copounDiscount);
 fd.append("limit",  this.state.copounLimit);
 axios

@@ -28,6 +28,7 @@ import RestaurantDetails from "./components/restaurants-client/RestaurantDetails
 import LoginAdmin from "./components/talabatTeam/pages/loginAdmin";
 function App() {
   return (
+          // <TeamHome/>
     <Router className="App">
       <Switch>
         <Route path="/" exact>
@@ -36,7 +37,7 @@ function App() {
           {/* <Filter /> */}
           {/* <RestaurantMenu/> */}
           {/* <Register/> */}
-          {/* <TeamHome/> */}
+          <TeamHome/>
           {/* <Home/> */}
           {/* <ResetPassword />
           <NewPassword /> */}
@@ -97,7 +98,7 @@ function App() {
         </Route>
 
         <Route exact path="/newpassword">
-          <NewPassword />
+          <NewPassword />  
         </Route>
 
         <Route exact path="/resetpassword">

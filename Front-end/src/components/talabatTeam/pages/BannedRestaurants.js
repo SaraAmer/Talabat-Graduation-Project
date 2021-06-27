@@ -48,7 +48,7 @@ class BannedRestaurants extends React.Component {
     }
     this.state.refresh = true;
     this.setState({ refresh: this.state.refresh });
-      window.location.href = "http://localhost:3000/banned-restaurants";
+      window.location.href = "/banned-restaurants";
     
   };
 
@@ -99,7 +99,7 @@ class BannedRestaurants extends React.Component {
     this.setState({
       acceptedRestaurants: this.state.acceptedRestaurants,
     });
-             window.location.href = "http://localhost:3000/banned-restaurants";
+             window.location.href = "/banned-restaurants";
   };
   render() {
     return (

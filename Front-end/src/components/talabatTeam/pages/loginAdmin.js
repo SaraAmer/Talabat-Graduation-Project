@@ -30,7 +30,7 @@ class LoginAdmin extends React.Component {
       });
     }
 
-    window.location.href = "http://localhost:3000/restaurants";
+    window.location.href = "/restaurants";
   };
 
   render() {
