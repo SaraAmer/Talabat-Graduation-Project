@@ -152,15 +152,31 @@ router.post("/signup", (req, res, next) => {
 
                     console.log("d5l al mailer");
                     console.log(restaurantowner.email);
-                    transporter.sendMail({
-                      //send message
-                      // ************************** */
-                      to: restaurantowner.email,
-                      from: "talabtteam@gmail.com",
-                      subject: "request to signup in talabat ",
-                      html: "<h1>information will revise and we will contact you </h1>",
-                      //********************* */
-                    });
+                    // transporter.sendMail({
+                    //   //send message
+                    //   // ************************** */
+                    //   to: restaurantowner.email,
+                    //   from: "talabtteam@gmail.com",
+                    //   subject: "request to signup in talabat ",
+                    //   html: "<h1>information will revise and we will contact you </h1>",
+                    //   //********************* */
+                    // });
+                    transporter.sendMail(
+                      {
+                        to: restaurantowner.email,
+                        from: "eng.marwamedhat2020@gmail.com",
+                        subject: "request to signup in talabat ",
+                        //passing token in url
+                        html: `<h1>information will revise and we will contact you </h1>`,
+                      },
+                      function (error, info) {
+                        if (error) {
+                          console.log(error);
+                        } else {
+                          console.log("Email sent");
+                        }
+                      }
+                    );
 
                     res.status(201).json({
                       message:
