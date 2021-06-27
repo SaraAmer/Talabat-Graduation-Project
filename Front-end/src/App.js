@@ -19,6 +19,7 @@ import Restaurant from "./components/Restaurants/Restaurant";
 import ResetPassword from "./components/partnerLogin/ResetPassword";
 import NewPassword from "./components/partnerLogin/NewPassword";
 import Filter from "./components/filter/filter";
+import RestaurantDetails from './components/restaurants-client/RestaurantDetails';
 import LoginAdmin from "./components/talabatTeam/pages/loginAdmin";
 function App() {
   return (
@@ -51,6 +52,7 @@ function App() {
         <Route exact path="/restaurant/dashboard">
           <Restaurant />
         </Route>
+        <Route path="/restaurants/:restId" component={RestaurantDetails} />
 
         <Route exact path="/Register">
           <Header />

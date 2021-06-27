@@ -61,7 +61,6 @@ router.post("/signup", (req, res, next) => {
   );
   //const StoreLocation = req.body.StoreLocation;
   console.log("helo I'm in API");
-  //*********************************Validation****************************************************/
   const data = req.body;
   const schema = Joi.object({
     LastName: Joi.string().required().messages({
@@ -150,36 +149,19 @@ router.post("/signup", (req, res, next) => {
                   restaurant.save().then((result) => {
                     console.log(result);
                     //************************** */
-                    //Message send when register
-                    //******************
+
                     console.log("d5l al mailer");
                     console.log(restaurantowner.email);
-                    // transporter.sendMail({
-                    //   //send message
-                    //   // ************************** */
-                    //   to: restaurantowner.email,
-                    //   from: "walaa.elbasha40@gmail.com",
-                    //   subject: "request to signup in talabat ",
-                    //   html: "<h1>information will revise and we will contact you </h1>",
-                    //   //********************* */
-                    // });
-                    transporter.sendMail(
-                      {
-                        to: restaurantowner.email,
-                        from: "eng.marwamedhat2020@gmail.com",
-                        subject: "request to signup in talabat",
-                        //passing token in url
-                        html: "<h1>information will revise and we will contact you </h1>",
-                      },
-                      function (error, info) {
-                        if (error) {
-                          console.log(error);
-                        } else {
-                          console.log("Email sent");
-                        }
-                      }
-                    );
-                    //****************** */
+                    transporter.sendMail({
+                      //send message
+                      // ************************** */
+                      to: restaurantowner.email,
+                      from: "talabtteam@gmail.com",
+                      subject: "request to signup in talabat ",
+                      html: "<h1>information will revise and we will contact you </h1>",
+                      //********************* */
+                    });
+
                     res.status(201).json({
                       message:
                         "Check mail information will revise and we will contact you ",
@@ -205,6 +187,92 @@ router.post("/signup", (req, res, next) => {
     }); //then
 });
 //*******************Login***************************************************** */
+// router.post("/login", (req, res, next) => {
+//     console.log("d5l al login");
+//     restaurantOwner
+//         .find({ email: req.body.email })
+//         .exec()
+//         .then((restaurantowner) => {
+//             if (restaurantowner.length < 1) {
+//                 return res.status(401).json({
+//                     message: "Auth failed",
+//                 });
+//             }
+//             //ykarn al atnen password bb3d
+//             bcrypt.compare(
+//                 req.body.password,
+//                 restaurantowner[0].password,
+//                 (err, result) => {
+//                     // JWT_KEY = "secret";
+//                     //lw 7sl a7 error ytb3lo auth failed
+//                     if (err) {
+//                         return res.status(401).json({
+//                             message: "Auth failed",
+//                         });
+//                     }
+//                     //lw al atnen password kano matched ydeh token
+//                     if (result) {
+//                         const token = jwt.sign({
+//                                 email: restaurantowner[0].email,
+//                                 restaurantownerId: restaurantowner[0]._id,
+//                             },
+//                             process.env.JWT_KEY, {
+//                                 expiresIn: "1h",
+//                             }
+//                         );
+//                         console.log("Auth Successful");
+//                         console.log(restaurantowner[0]._id);
+//                         return res.status(200).json({
+//                             message: "Auth successful",
+//                             token: token,
+//                             // user: { email },
+//                             id: restaurantowner[0]._id,
+//                         });
+//                     }
+
+//                     //lw kan al atnen password msh matched y2olo Auth Failed w mydhosh token
+//                     console.log("Auth failed");
+//                     res.status(401).json({
+//                         message: "Auth failed",
+//                     });
+//                 }
+//             );
+//             //find mn gw al restaurant al user owner
+//             // let restaurantId;
+//             // console.log("==============result========================");
+//             // console.log(restaurantowner);
+//             // let reataurantfind = Restaurant.find({ owner: restaurantowner })
+//             //   .exec()
+//             //   .then((restaurant) => {
+//             //     console.log("======================================");
+//             //     console.log(restaurant);
+//             //     restaurantId = restaurant[0]._id;
+//             //     console.log(restaurantId);
+//             //     return restaurant.json();
+//             //   });
+
+//             // console.log("Auth Successful");
+//             // console.log(restaurantowner[0]._id);
+//             // console.log("====================kkkkkkkkkkkk==================");
+
+//             console.log(reataurantfind);
+//             return res.status(200).json({
+//               message: "Auth successful",
+//               token: token,
+//               id: restaurantowner[0]._id,
+//               // email: restaurantowner[0]._email,
+//             });
+//           }
+
+//           //lw kan al atnen password msh matched y2olo Auth Failed w mydhosh token
+//           console.log("Auth failed");
+//           res.status(401).json({
+//             message: "Auth failed",
+//           });
+
+//       );
+//     })
+//*************************Login*****************************************/
 router.post("/login", (req, res, next) => {
   console.log("d5l al login");
   restaurantOwner
@@ -240,30 +308,13 @@ router.post("/login", (req, res, next) => {
                 expiresIn: "1h",
               }
             );
-            //find mn gw al restaurant al user owner
-            let restaurantId;
-            console.log("==============result========================");
-            console.log(restaurantowner);
-            let reataurantfind = Restaurant.find({ owner: restaurantowner })
-              .exec()
-              .then((restaurant) => {
-                console.log("======================================");
-                console.log(restaurant);
-                restaurantId = restaurant[0]._id;
-                console.log(restaurantId);
-                return restaurant.json();
-              });
-
             console.log("Auth Successful");
             console.log(restaurantowner[0]._id);
-            console.log("====================kkkkkkkkkkkk==================");
-
-            console.log(reataurantfind);
             return res.status(200).json({
               message: "Auth successful",
               token: token,
+              // user: { email },
               id: restaurantowner[0]._id,
-              email: restaurantowner[0]._email,
             });
           }
 

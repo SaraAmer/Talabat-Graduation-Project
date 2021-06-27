@@ -30,10 +30,10 @@ function restaurants(restaurant){
 // </Router>  
 //  </div>
 <Restaurant
-id={restaurant.id}
+id={restaurant._id}
 name={restaurant.name}
-logo={restaurant.logo}
-desc={restaurant.desc}
+logo={restaurant.img}
+cusine={restaurant.cusine}
 
 
 />

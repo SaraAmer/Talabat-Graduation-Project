@@ -24,13 +24,13 @@ function RestaurantMenu() {
     const [restaurant, setRestaurant]=useState([]);
     const [LS, setLS] = useState([]);
     const [cartValues, setCartValues] = useState({
-        count: 1,
+     
         products: [
             {
-                store:"Cook Door",		
-                subtotal:200,
-                service:4,
-                count:1
+                store:"",		
+                subtotal: 0,
+                service: 0,
+                count: 0
             
             }
     
