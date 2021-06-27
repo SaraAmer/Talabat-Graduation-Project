@@ -55,11 +55,7 @@ class Savedaddr extends React.Component {
 
        
         componentDidMount = async() => {
-            if (localStorage["addressdetails"]) {
-                let addressdetails = JSON.parse(localStorage["addressdetails"]); //8irt el shakl 
-                this.setState({ address_details: addressdetails }) //el array ely ana 3mlah 7ishil el data bt3t el local storage 
-                console.log(this.state.address_details)
-            }
+           
 
             let res = await fetch(`http://127.0.0.1:8000/user/address/${localStorage["userId"]}`, {
                     method: "GET",
@@ -129,9 +125,7 @@ class Savedaddr extends React.Component {
 									<li className="list-group-item"><Link to="/my-account/orders"><p style={{color:"black"}}>My Orders </p>
 										</Link>
 									</li>
-									<li className="list-group-item"><Link to="/my-account/cards"><p style={{color:"black"}}>Saved Cards</p>
-										</Link>
-									</li>
+									
 									<li className="list-group-item"><Link to="/my-account/tlbcredit"><p style={{color:"black"}}>talabat Pay </p>
 										</Link>
 									</li>

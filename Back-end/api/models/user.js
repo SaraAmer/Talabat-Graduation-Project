@@ -21,8 +21,13 @@ const userSchema = mongoose.Schema({
     match: [/^[a-zA-Z0-9]+$/, "is invalid"],
     index: true,
   },
-  gender: { type: String },
+  gender: { type: String,},
+
+  status: { type: String ,
+     default:"accepted" },
+     
   dateOfBirth: { type: Date },
+  status: { type: String, default: "accepted" },
 });
 
 module.exports = mongoose.model("User", userSchema);

@@ -40,7 +40,7 @@ class OffersNavbar extends React.Component {
             paddingInline: "20px",
             paddingTop: "10px",
             paddingBottom: "10px",
-            fontSize: "22px",
+            fontSize: "28px",
             fontFamily: "sans-serif",
             paddingLeft: "50px",
           }}

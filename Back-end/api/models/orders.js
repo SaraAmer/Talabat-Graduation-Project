@@ -32,6 +32,7 @@ const orderSchema = new Schema({
         qty: {
             type: Number
         }
+        
     }],
     total: {
         type: Number

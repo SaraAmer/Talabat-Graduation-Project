@@ -11,7 +11,7 @@ import "./Clients.css";
 import { FcSearch } from "react-icons/fc";
 import axios from "axios";
 
-class Clients extends React.Component {
+class BannedClients extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -47,9 +47,10 @@ class Clients extends React.Component {
           DOB: "5/6/1997",
         },
       ],
-      users:[],
+      
       loading:false,
-      status:"",  
+      status:"", 
+      bannedClients:[]
     };
   }
   deleteClient = (clientId) => {
@@ -74,7 +75,7 @@ class Clients extends React.Component {
           },
         });
       }
-       window.location.href = " http://localhost:3000/clients";
+       window.location.href = "http://localhost:3000/banned-clients";
   };
 
   async componentWillMount() {
@@ -91,21 +92,21 @@ class Clients extends React.Component {
     //  console.log(resJson.restaurants);
       resJson.users.map((user) => {
       //  console.log(user);
-        if (user.status === "accepted") {
+        if (user.status === "banned") {
           console.log(user.name);
-          this.state.users.push(user);
+          this.state.bannedClients.push(user);
         }
       });
 
     this.setState({
       loading: false,
-      users: this.state.users,
+      bannedClients: this.state.bannedClients,
     });
     //console.log(resJson);
   }
-   banClient=(clientId)=>{
+   unbanClient=(clientId)=>{
     console.log(clientId);
-    this.state.status = "banned";
+    this.state.status = "accepted";
     this.setState({ status: this.state.status });
     const fd = new FormData();
     console.log(this.state.status);
@@ -119,16 +120,16 @@ class Clients extends React.Component {
       });
 
     this.setState({
-      users: this.state.users,
+      bannedClients: this.state.bannedClients,
     });
     console.log(this.state.status);
-    window.location.href = " http://localhost:3000/clients"
+    window.location.href = "http://localhost:3000/banned-clients";
   }
 
 
   render() {
     return (
-      <div className="container" style={{fontSize:"28px"}}>
+      <div className="container" style={{ fontSize: "28px" }}>
         {/* <DashboardNavbar /> */}
         {/* <a
           href="/clients"
@@ -136,6 +137,22 @@ class Clients extends React.Component {
         >
           <h1>Clients</h1>
         </a> */}
+        <h1
+          style={{
+            color: "rgb(33, 33, 33)",
+            backgroundColor: "rgb(246, 246, 246)",
+            marginTop: "30px",
+            marginBottom: "30px",
+            paddingInline: "20px",
+            paddingTop: "10px",
+            paddingBottom: "10px",
+            fontSize: "28px",
+            fontFamily: "sans-serif",
+            paddingLeft: "50px",
+          }}
+        >
+          Banned Clients
+        </h1>
         <div
           style={{
             display: "flex",
@@ -144,7 +161,6 @@ class Clients extends React.Component {
             color: "rgb(33, 33, 33)",
             backgroundColor: "rgb(246, 246, 246)",
             marginTop: "30px",
-
             paddingInline: "20px",
             paddingTop: "10px",
             paddingBottom: "10px",
@@ -185,7 +201,7 @@ class Clients extends React.Component {
               </th>
               <th
                 className="tableData"
-                style={{ float: "right",marginRight:"280px" }}
+                style={{ marginLeft: "100px" }}
                 scope="col"
               >
                 Actions
@@ -193,8 +209,8 @@ class Clients extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.users.length > 0 ? (
-              this.state.users.map((singleClient) => {
+            {this.state.bannedClients.length > 0 ? (
+              this.state.bannedClients.map((singleClient) => {
                 return (
                   <tr>
                     <th className="tableData" scope="row">
@@ -288,9 +304,11 @@ class Clients extends React.Component {
                             <li>
                               <button
                                 className="btn"
-                                onClick={() => this.banClient(singleClient._id)}
+                                onClick={() =>
+                                  this.unbanClient(singleClient._id)
+                                }
                               >
-                                <FaBan /> Ban Client
+                                <FaBan /> Unban Client
                               </button>
                             </li>
                             <li>
@@ -358,4 +376,4 @@ class ViewClientDetails extends React.Component {
             }
   }
 
-export default Clients;
+export default BannedClients;
