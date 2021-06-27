@@ -28,18 +28,14 @@ class MenuBody extends React.Component{
                     </a>
             
  
-                {
-                    this.state.categories.map((category)=>{
-                        return(
-                            <div id="body-menu"> 
-                            <MenuItem category={category} />
-                            </div>
-                        
-                        )
+                
 
-                    })
+                    <div id="body-menu"> 
+                            <MenuItem />
+                            </div>
+   
             
-                }
+                
                    <div className="modal fade" id="food" tabindex="-1" role="form" aria-labelledby="exampleModalLabel" aria-hidden="true" >
                             <div class="modal-dialog" role="document" style={{width: "1000px"}}>
                                 <div class="modal-content">

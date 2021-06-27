@@ -33,12 +33,9 @@ class RestaurantHeader extends React.Component{
                                         <li className="nav-item">
                                             <Link to="/orders" className="nav-link text-white "  >Orders</Link>
                                         </li>
-                                        <li className="nav-item">
-                                            <Link className="nav-link text-white"  to="/menu" >Profile</Link>
-                                        </li>
+                                   
 
                                         <li>
-                                            <FontAwesomeIcon icon={faBell} color="white" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"/>
                                                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton" id="notification-drop">
                                                     <a className="dropdown-item" href="#"> <FontAwesomeIcon icon={faPenAlt} className="drop-down-icon" />You Have a New Order</a>
                                                     <a className="dropdown-item" href="#"> <FontAwesomeIcon icon={faCommentAlt} className="drop-down-icon" />You Have a New Review</a>
@@ -62,7 +59,7 @@ class RestaurantHeader extends React.Component{
                     </nav>
                     <Switch>
                         <Route exact path="/restaurant/dashboard">
-                            <Dashboard/>
+                        <Profile/>
                         </Route>
                         <Route path="/menu">
                             <Profile/>

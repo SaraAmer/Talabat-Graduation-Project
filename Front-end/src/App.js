@@ -27,14 +27,14 @@ function App() {
       <Switch>
         <Route path="/" exact>
           <Header />
-          <LoginAdmin />
+          {/* <LoginAdmin /> */}
           {/* <Filter /> */}
           {/* <RestaurantMenu/> */}
           {/* <Register/> */}
           {/* <TeamHome/> */}
           {/* <Home/> */}
-          <ResetPassword />
-          <NewPassword />
+          {/* <ResetPassword />
+          <NewPassword /> */}
           <Footer />
         </Route>
         <Route path="/becomepartner" exact>
