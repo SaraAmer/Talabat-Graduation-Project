@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import "./App.css";
 import Header from "./components/layouts/Header";
 import Footer from "./components/layouts/Footer";
+import Accountinfo from './components/userDetails/Account info';
+import Savedaddr from "./components/userDetails/Savedaddr";
+import Myorders from './components/userDetails/Myorders';
+import Talabatpay from "./components/userDetails/Talabatpay";
+import Checkout from "./components/carts/checkout"
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import Pagination from "@material-ui/lab/Pagination";
@@ -60,6 +65,33 @@ function App() {
           <Footer />
         </Route>
 
+
+         <Route exact path="/team">
+           <TeamHome />
+         </Route>
+          <Route path="/my-account/orders" exact component={Myorders}>
+          <Header />
+          <Footer />
+			</Route>
+          <Route path="/my-account/summary" exact component={Accountinfo}>
+          <Header />
+          <Footer />
+				</Route>
+            	 <Route path="/my-account/savedaddr" exact component={Savedaddr}>
+               <Header />
+               <Footer />
+				</Route>
+			
+				 <Route path="/my-account/tlbcredit" exact component={Talabatpay}>
+         <Header />
+         <Footer />
+				</Route>
+          <Route path="/checkout" exact Component={Checkout}>
+           <Header />
+         <Footer />
+				</Route>
+    
+
         <Route exact path="/team">
           <TeamHome />
         </Route>
@@ -73,6 +105,7 @@ function App() {
         </Route>
       </Switch>
     </Router>
+
   );
 }
 

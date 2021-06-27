@@ -57,14 +57,28 @@ router.get("/restaurant/:resId", (req, res, next) => {
 
 router.get("/user/:userId", (req, res, next) => {
     const id = req.params.userId;
+    
     Order.find({ "user": { _id: id } })
         .exec()
         .then(result => {
-            console.log(result);
+                var resID=result[0].restaurant 
+            
+            if(req.params.status="Deliverd"){           
+            console.log(result);                     
             res.status(201).json({
-                Orders: result
+                Orders: result,
+               
             });
+             console.log(resID)
+            Restaurant.findById({resID}, function (err, restaurant) {
+                res.send(restaurant);
+            });
+            }
+            
         });
+       
+         
+  
 
 });
 

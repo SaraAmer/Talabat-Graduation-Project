@@ -7,28 +7,26 @@ import CreditCards from "./creditcard";
 import { RiVisaLine } from "react-icons/ri";
 import { GrAmex } from "react-icons/gr";
 import { IoCashOutline } from "react-icons/io5";
+import M from "materialize-css";
+
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 class Checkout extends React.Component {
 
 	state={
 		content:"",
-		deliveryAddress:[{
-			AddressName:"Building No. 333e",
-			Address:"Talaat Harb, 333, 222, 3",
-			MobileNumber:"+201056789",
-		}],
+		address_details:[],
 		cart_items:[],
 		count:""
 		}
-	AddtoDeliveryaddr=(item)=>{
-		this.state.deliveryAddress.push(item);//push llitem fy el array 
-        this.setState({
-			deliveryAddress:this.state.deliveryAddress
+	// AddtoDeliveryaddr=(item)=>{
+	// 	this.state.deliveryAddress.push(item);//push llitem fy el array 
+    //     this.setState({
+	// 		deliveryAddress:this.state.deliveryAddress
 			
-		});
-		this.saveToLocalStorage();
-	}
+	// 	});
+	// 	this.saveToLocalStorage();
+	// }
 	onClickNow=()=>{
 		this.setState({
 		content:this.renderNow()});
@@ -37,7 +35,7 @@ class Checkout extends React.Component {
 		this.setState({
 		content:this.renderLater()});
 	}
-	componentDidMount=()=>{
+	componentDidMount= async()=>{
 		if(localStorage["cartItems"]){
 			let cartItems=JSON.parse(localStorage["cartItems"]);//8irt el shakl 
 			this.setState({cart_items:cartItems})//el array ely ana 3mlah 7ishil el data bt3t el local storage 
@@ -48,9 +46,52 @@ class Checkout extends React.Component {
 			this.setState({count:count})
 			console.log(this.state.count)
 		}
+		let res = await fetch(`http://127.0.0.1:8000/user/address/${localStorage["userId"]}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                })
+                .then(res => res.json())
+                .then(result => {
+                    console.log("Result");
+                    console.log(result.Addresses);
+                    this.setState({
+                        address_details: result.Addresses
+                    });
+                });
 		
 
 	}
+	clickDelete = async (value) => {
+		
+
+    let res = await fetch(
+      `http://127.0.0.1:8000/user/address/${value}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+		body: JSON.stringify({
+        //key and value from form
+        
+       
+      }),
+      }
+	 
+    );
+	 let resJson = await res.json();
+    console.log(resJson.error);
+    console.log(resJson.message);
+
+    if (typeof resJson.error === "undefined") {
+      localStorage.setItem("jwt", resJson.token);
+      M.toast({ html: resJson.message });
+    } else {
+      M.toast({ html: resJson.error });
+    }
+  };
 	
 	renderNow(){
 		return (
@@ -128,6 +169,10 @@ class Checkout extends React.Component {
 							}
 						</div>
 					</div>
+					{this.state.address_details.length > 0
+											 ?
+											 (<div>  {this.state.address_details.map((s)=>{
+												return( 
 					<div className="card mb-3 border-2 " style={{maxWidth:" 540px;"}}>
 						<div  className="card m-3">
 							<div  className="card-header">
@@ -135,10 +180,10 @@ class Checkout extends React.Component {
 										<label className="col-lg-10 " >Delivery Address</label>
 										<div className="col-lg-2" >
 											
-											<a type="button" className="btn" style={{color:"green"}}   data-toggle="modal" data-target="#exampleModal4">
-											   EDIT
+											<a type="button" className="btn" style={{color:"green"}}  value={s._id} onClick={()=>this.clickDelete(s._id)}  data-toggle="modal" data-target="#exampleModal4">
+											   Delete
 											</a>
-											<a type="button" className="btn" style={{color:"green"}}   data-toggle="modal" data-target="#exampleModal3">
+											<a type="button" className="btn" style={{color:"green"}}  data-toggle="modal" data-target="#exampleModal3">
 											   ADD
 											</a>
 										</div>
@@ -148,29 +193,31 @@ class Checkout extends React.Component {
 							<div  className="card-body">
 								<div className="row">
 									<div className="col-md-4">
-										<p className="text-muted">Address Name</p>
-										<p className="text-muted">Address </p>
-										<p className="text-muted">Mobile Number</p>
+											<p className="text-muted">Address Name</p>
+											<p className="text-muted">Address </p>
+											<p className="text-muted">Mobile Number</p>
+											<p className="text-muted">Landing Number</p>
 									</div>
 								
-											{this.state.deliveryAddress.length > 0
-										? this.state.deliveryAddress.map((addr) => {
-											return (
-									<div className="col-md-4">
-									
-										<p >{addr.AddressName}</p>
-										<p className="text-muted">{addr.Address}</p>
-										<p className="text-muted">{addr.MobileNumber}</p>
-									</div>
-									);
-									})
-										: <div></div>}
+										
+												<div className="col-md-4">
+												
+														<p >Building No. {s.building}</p>
+														<p className="text-muted">{s.street},{s.building}, {s.floor}, {s.apartmentN}</p>
+														<p className="text-muted"> {s.mobile}</p>
+														<p className="text-muted">{s.landing}</p>
+												</div>
+												
+										
 
 					                
-								</div>	
+								</div>
+
 							</div>
 						</div>
 					</div>
+					);
+												})}</div>)										:(<div></div>)}
 					
 					<div className="card mb-3 border-2 " style={{maxWidth:" 540px;"}}>
 						<div  className="card m-3">
