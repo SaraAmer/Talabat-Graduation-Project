@@ -259,6 +259,9 @@ class PartnerRegisterFirst extends React.Component {
               <option value="Jordan" selected="">
                 Jordan
               </option>
+              <option value="Jordan" selected="">
+                Egypt
+              </option>
             </select>
             {/* <CountryDropdown
               // value={country}
