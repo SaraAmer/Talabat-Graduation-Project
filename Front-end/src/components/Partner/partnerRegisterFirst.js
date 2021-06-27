@@ -259,7 +259,7 @@ class PartnerRegisterFirst extends React.Component {
               <option value="Jordan" selected="">
                 Jordan
               </option>
-              <option value="Jordan" selected="">
+              <option value="Egypt" selected="">
                 Egypt
               </option>
             </select>
