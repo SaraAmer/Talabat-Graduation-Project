@@ -14,15 +14,32 @@ const Restaurant = require("../models/restaurant");
 //******************************************************* */
 const Joi = require("joi");
 //********************* */
-const transporter = nodemailer.createTransport(
-  sendgridTransport({
-    auth: {
-      //api_key:SENDGRID_API
-      //GoogleKey
-      api_key: "",
-    },
-  })
-);
+// const transporter = nodemailer.createTransport(
+// sendgridTransport({
+//   auth: {
+//     //api_key:SENDGRID_API
+//     //GoogleKey
+//     api_key:
+//       "G.5q4rSytgSmWlsfYOC0VkUQ.0p0-CYaW4BJwP4xURy78r2mw9h2egbT-BXC1KZXfPXs",
+//   },
+// })
+
+// );
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "eng.marwamedhat2020@gmail.com",
+    pass: "",
+  },
+});
+
+// var mailOptions ={
+//   from :'',
+//   to:'',
+//   subject: 'welcome',
+//   text:''
+// };
+
 //****************************************
 // ***************************Sign Up***************************************************/
 router.post("/signup", (req, res, next) => {
@@ -137,15 +154,31 @@ router.post("/signup", (req, res, next) => {
                     //******************
                     console.log("d5l al mailer");
                     console.log(restaurantowner.email);
-                    transporter.sendMail({
-                      //send message
-                      // ************************** */
-                      to: restaurantowner.email,
-                      from: "walaa.elbasha40@gmail.com",
-                      subject: "request to signup in talabat ",
-                      html: "<h1>information will revise and we will contact you </h1>",
-                      //********************* */
-                    });
+                    // transporter.sendMail({
+                    //   //send message
+                    //   // ************************** */
+                    //   to: restaurantowner.email,
+                    //   from: "walaa.elbasha40@gmail.com",
+                    //   subject: "request to signup in talabat ",
+                    //   html: "<h1>information will revise and we will contact you </h1>",
+                    //   //********************* */
+                    // });
+                    transporter.sendMail(
+                      {
+                        to: restaurantowner.email,
+                        from: "eng.marwamedhat2020@gmail.com",
+                        subject: "request to signup in talabat",
+                        //passing token in url
+                        html: "<h1>information will revise and we will contact you </h1>",
+                      },
+                      function (error, info) {
+                        if (error) {
+                          console.log(error);
+                        } else {
+                          console.log("Email sent");
+                        }
+                      }
+                    );
                     //****************** */
                     res.status(201).json({
                       message:
@@ -207,13 +240,30 @@ router.post("/login", (req, res, next) => {
                 expiresIn: "1h",
               }
             );
+            //find mn gw al restaurant al user owner
+            let restaurantId;
+            console.log("==============result========================");
+            console.log(restaurantowner);
+            let reataurantfind = Restaurant.find({ owner: restaurantowner })
+              .exec()
+              .then((restaurant) => {
+                console.log("======================================");
+                console.log(restaurant);
+                restaurantId = restaurant[0]._id;
+                console.log(restaurantId);
+                return restaurant.json();
+              });
+
             console.log("Auth Successful");
             console.log(restaurantowner[0]._id);
+            console.log("====================kkkkkkkkkkkk==================");
+
+            console.log(reataurantfind);
             return res.status(200).json({
               message: "Auth successful",
               token: token,
-              // user: { email },
               id: restaurantowner[0]._id,
+              email: restaurantowner[0]._email,
             });
           }
 
@@ -258,17 +308,37 @@ router.post("/reset-password", (req, res) => {
         console.log("3lshan yb3t mail");
         console.log(user.email);
         console.log(token);
-        transporter.sendMail({
-          to: user.email,
-          from: "walaa.elbasha40@gmail.com",
-          subject: "password reset",
-          //passing token in url
-          html: `
+        // transporter.sendMail({
+        //   to: user.email,
+        //   from: "walaa.elbasha40@gmail.com",
+        //   subject: "password reset",
+        //   //passing token in url
+        //   html: `
+        //           <p>You requested for password reset</p>
+        //           <h5>click in this <a href="http://localhost/3000/reset/${token}">link</a> to reset password</h5>
+        //           `,
+        // });
+        transporter.sendMail(
+          {
+            to: user.email,
+            from: "eng.marwamedhat2020@gmail.com",
+            subject: "password reset",
+            //passing token in url
+            html: `
                   <p>You requested for password reset</p>
                   <h5>click in this <a href="http://localhost/3000/reset/${token}">link</a> to reset password</h5>
                   `,
-        });
-        res.json({ message: "check your email" });
+          },
+          function (error, info) {
+            if (error) {
+              console.log(error);
+            } else {
+              console.log("Email sent");
+            }
+          }
+        );
+
+        res.json({ token, message: "check your email" });
       });
     });
   });
@@ -279,6 +349,7 @@ router.post("/new-password", (req, res) => {
   //new password
   const newPassword = req.body.password;
   //token
+
   const sentToken = req.body.token;
   //find user with token
   restaurantOwner

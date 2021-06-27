@@ -61,6 +61,14 @@ function App() {
         <Route exact path="/team">
           <TeamHome />
         </Route>
+
+        <Route exact path="/newpassword">
+          <NewPassword />
+        </Route>
+
+        <Route exact path="/resetpassword">
+          <ResetPassword />
+        </Route>
       </Switch>
     </Router>
   );
