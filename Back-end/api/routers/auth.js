@@ -314,24 +314,30 @@ router.post("/login", (req, res, next) => {
           }
           //lw al atnen password kano matched ydeh token
           if (result) {
-            const token = jwt.sign(
-              {
-                email: restaurantowner[0].email,
-                restaurantownerId: restaurantowner[0]._id,
-              },
-              process.env.JWT_KEY,
-              {
-                expiresIn: "1h",
-              }
-            );
-            console.log("Auth Successful");
-            console.log(restaurantowner[0]._id);
-            return res.status(200).json({
-              message: "Auth successful",
-              token: token,
-              // user: { email },
-              id: restaurantowner[0]._id,
-            });
+            if (restaurantowner[0].status == "accepted") {
+              const token = jwt.sign(
+                {
+                  email: restaurantowner[0].email,
+                  restaurantownerId: restaurantowner[0]._id,
+                },
+                process.env.JWT_KEY,
+                {
+                  expiresIn: "1h",
+                }
+              );
+              console.log("Auth Successful");
+              console.log(restaurantowner[0]._id);
+              return res.status(200).json({
+                message: "Auth successful",
+                token: token,
+                // user: { email },
+                id: restaurantowner[0]._id,
+              });
+            } else {
+              return res.status(200).json({
+                message: "Still waiting to be Accepted by Talabt",
+              });
+            }
           }
 
           //lw kan al atnen password msh matched y2olo Auth Failed w mydhosh token
