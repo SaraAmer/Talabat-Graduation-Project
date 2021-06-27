@@ -15,14 +15,14 @@ class ResetPassword extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
   PostData = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     console.log(this.state.email);
 
     //***************73dlo ll restaurant */
     let res = await fetch(
       "http://localhost:8000/auth/restaurant/reset-password",
       {
-        method: "post",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
@@ -34,16 +34,27 @@ class ResetPassword extends React.Component {
     );
 
     let resJson = await res.json();
-    console.log(resJson.error);
-    if (typeof resJson.error === "undefined") {
-      //save to localstorage
-      localStorage.setItem("jwt", resJson.token);
-      // localStorage.setItem("user", JSON.stringify(resJson.user));
-
-      M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
-    } else {
+    console.log(resJson);
+    if (resJson.error) {
+      console.log(resJson.error);
       M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
+    } else {
+      console.log(resJson.message);
+      localStorage.setItem("resetId", resJson.token);
+      window.location.href = "http://localhost:3000/newpassword";
     }
+    // console.log(resJson.token);
+    // console.log(resJson.error);
+    // if (typeof resJson.error === "undefined") {
+    //   //save to localstorage
+
+    //   localStorage.setItem("jwt", resJson.token);
+    //   // localStorage.setItem("user", JSON.stringify(resJson.user));
+
+    //   M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
+    // } else {
+    //   M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
+    // }
   };
 
   render() {
@@ -109,8 +120,8 @@ class ResetPassword extends React.Component {
                         }}
                         onClick={(e) => this.PostData(e)}
                       >
-                        {/* Reset Password */}
-                        <a href="/newpassword">Reset Password</a>
+                        Reset Password
+                        {/* <a href="/newpassword">Reset Password</a> */}
                       </button>
                     </form>
                   </div>

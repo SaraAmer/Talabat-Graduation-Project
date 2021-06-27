@@ -17,7 +17,7 @@ class NewPassword extends React.Component {
   //token 7y5odo mn al url aw 2li m3molo save fe al database
 
   PostData = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     //75lih llrestaurant
     //get id from local storage
     // token = localStorage.getItem("jwt");
@@ -31,23 +31,31 @@ class NewPassword extends React.Component {
         body: JSON.stringify({
           //key and value from form
           password: this.state.password,
-          token: localStorage.getItem("jwt"),
+          token: localStorage.getItem("resetId"),
           //bb3t al token 2li 2rato mn al url hna
           // token
         }),
       }
     );
+    console.log(localStorage.getItem("resetId"));
     let resJson = await res.json();
     console.log(resJson);
-    console.log(resJson.error);
-    if (typeof resJson.error === "undefined") {
-      //save to localstorage
-      //   localStorage.setItem("jwt", resJson.token);
-      // localStorage.setItem("user", JSON.stringify(resJson.user));
-      M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
-    } else {
+    if (resJson.error) {
+      console.log(resJson.error);
       M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
+    } else {
+      console.log(resJson.message);
+      window.location.href = "http://localhost:3000/partnerlogin";
     }
+    // console.log(resJson.error);
+    // if (typeof resJson.error === "undefined") {
+    //   //save to localstorage
+    //   //   localStorage.setItem("jwt", resJson.token);
+    //   // localStorage.setItem("user", JSON.stringify(resJson.user));
+    //   M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
+    // } else {
+    //   M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
+    // }
   };
 
   render() {
@@ -112,7 +120,8 @@ class NewPassword extends React.Component {
                         }}
                         onClick={(e) => this.PostData(e)}
                       >
-                        <a href="/partnerlogin">Update</a>
+                        Update
+                        {/* <a href="/partnerlogin">Update</a> */}
                       </button>
                     </form>
                   </div>

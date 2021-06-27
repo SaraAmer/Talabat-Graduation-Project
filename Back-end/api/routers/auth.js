@@ -379,6 +379,7 @@ router.post("/reset-password", (req, res) => {
       }
       //resetToken in table user make his value is token
       user.resetToken = token;
+      console.log(user.resetToken);
       //expireToken in table user set it value with 1 hour
       user.expireToken = Date.now() + 3600000;
       //send mail using transporter
