@@ -301,20 +301,20 @@ router.post("/login", (req, res, next) => {
       //   });
       // }
       //ykarn al atnen password bb3d
-      bcrypt.compare(
-        req.body.password,
-        restaurantowner[0].password,
-        (err, result) => {
-          // JWT_KEY = "secret";
-          //lw 7sl a7 error ytb3lo auth failed
-          if (err) {
-            return res.status(401).json({
-              message: "failed to login",
-            });
-          }
-          //lw al atnen password kano matched ydeh token
-          if (result) {
-            if (restaurantowner[0].status == "accepted") {
+      if (restaurantowner[0].status == "accepted") {
+        bcrypt.compare(
+          req.body.password,
+          restaurantowner[0].password,
+          (err, result) => {
+            // JWT_KEY = "secret";
+            //lw 7sl a7 error ytb3lo auth failed
+            if (err) {
+              return res.status(401).json({
+                error: "failed to login",
+              });
+            }
+            //lw al atnen password kano matched ydeh token
+            if (result) {
               const token = jwt.sign(
                 {
                   email: restaurantowner[0].email,
@@ -333,20 +333,25 @@ router.post("/login", (req, res, next) => {
                 // user: { email },
                 id: restaurantowner[0]._id,
               });
-            } else {
-              return res.status(200).json({
-                message: "Still waiting to be Accepted by Talabt",
-              });
+              // } else {
+              //   return res.status(200).json({
+              //     message: "Still waiting to be Accepted by Talabt",
+              //   });
+              // }
             }
-          }
 
-          //lw kan al atnen password msh matched y2olo Auth Failed w mydhosh token
-          console.log("Your password isn't correct");
-          res.status(401).json({
-            message: "Your password isn't correct",
-          });
-        }
-      );
+            //lw kan al atnen password msh matched y2olo Auth Failed w mydhosh token
+            console.log("Your password isn't correct");
+            res.status(401).json({
+              error: "Your password isn't correct",
+            });
+          }
+        );
+      } else {
+        return res.status(200).json({
+          error: "Still waiting to be Accepted by Talabt",
+        });
+      }
     })
     .catch((err) => {
       console.log(err);
