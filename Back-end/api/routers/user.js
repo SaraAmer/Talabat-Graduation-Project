@@ -177,7 +177,7 @@ router.post("/login", (req, res, next) => {
     .catch((err) => {
       console.log(err);
       res.status(500).json({
-        error: err,
+        error: "Mail don't exist",
       });
     });
 });
@@ -196,7 +196,6 @@ router.post("/googlelogin", (req, res) => {
     })
     .then((response) => {
       const { email_verified, name, email } = response.payload;
-
       console.log(response.payload);
       if (email_verified) {
         //if email verified (valid)
