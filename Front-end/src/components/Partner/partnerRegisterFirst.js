@@ -446,7 +446,7 @@ class PartnerRegisterFirst extends React.Component {
           />
         </div>
         {/* //******************* */}
-        <div className="form-group ">
+        {/* <div className="form-group ">
           <label
             className="fs-4"
             style={{
@@ -468,7 +468,7 @@ class PartnerRegisterFirst extends React.Component {
               <i className="bi bi-search"></i>
             </button>
           </div>
-        </div>
+        </div> */}
         {/* ******************** */}
         {/* <div
           style={{
