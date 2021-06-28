@@ -58,7 +58,7 @@ to install Git, in order use the Git repository
  ### `npm start`
  Open [http://localhost:3000](http://localhost:3000) to view it in the browser
  
- Open [http://localhost:3000/team](http://localhost:3000) to  open the admin panal 
+ Open [http://localhost:3000/talabat-team-restaurant](http://localhost:3000) to  open the admin panal 
  
  
  email admin@admin.com
