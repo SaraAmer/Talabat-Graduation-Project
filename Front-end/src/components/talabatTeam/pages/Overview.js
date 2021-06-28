@@ -6,11 +6,22 @@ import { Link } from "react-router-dom";
 import Clients from "./Clients.js";
 import BannedRestaurants from "./BannedRestaurants";
 import Restaurant from "./Restaurant.js";
+import LoginAdmin from "./loginAdmin";
+
 class Overview extends React.Component {
   constructor(props) {
     super(props);
 
+    const token = localStorage.getItem("email");
+    console.log("tokeeeen:" + token);
+    let loggedIn = true;
+
+    if (token == null) {
+      loggedIn = false;
+    }
+
     this.state = {
+      loggedIn,
       optionsDonut: {},
       seriesDonut: [44, 55, 41, 17, 15],
       labelsDonut: ["A", "B", "C", "D", "E"],
@@ -31,47 +42,49 @@ class Overview extends React.Component {
     };
   }
   render() {
+    if (this.state.loggedIn === false) {
+      return <LoginAdmin />;
+    }
     return (
       <div>
-
-          <div class="container">
-            <br></br>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: " center",
-              }}
-            >
-              <div className="app">
-                <div className="row">
-                  <div className="mixed-chart">
-                    <Chart
-                      options={this.state.options}
-                      series={this.state.series}
-                      type="bar"
-                      width="500"
-                    />
-                  </div>
+        <div class="container">
+          <br></br>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: " center",
+            }}
+          >
+            <div className="app">
+              <div className="row">
+                <div className="mixed-chart">
+                  <Chart
+                    options={this.state.options}
+                    series={this.state.series}
+                    type="bar"
+                    width="500"
+                  />
                 </div>
               </div>
+            </div>
 
+            <Chart
+              options={this.state.options}
+              series={this.state.series}
+              type="line"
+              width="500"
+            />
+            <div className="donut">
               <Chart
-                options={this.state.options}
-                series={this.state.series}
-                type="line"
-                width="500"
+                options={this.state.optionsDonut}
+                series={this.state.seriesDonut}
+                type="donut"
+                width="380"
               />
-              <div className="donut">
-                <Chart
-                  options={this.state.optionsDonut}
-                  series={this.state.seriesDonut}
-                  type="donut"
-                  width="380"
-                />
-              </div>
             </div>
           </div>
+        </div>
       </div>
     );
   }

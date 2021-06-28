@@ -12,11 +12,23 @@ import { Link } from "react-router-dom";
 import NewOffer from "./NewOffer";
 import { AiOutlineEdit } from "react-icons/ai";
 import EditOffer from "./EditOffer.js";
+import LoginAdmin from "./loginAdmin";
+import AdminHeader from "../layouts/AdminHeader";
+
 
 class Offers extends React.Component {
   constructor() {
     super();
+    const token = localStorage.getItem("email");
+    console.log("tokeeeen:" + token);
+    let loggedIn = true;
+
+    if (token == null) {
+      loggedIn = false;
+    }
+
     this.state = {
+      loggedIn,
       currentRestaurantId: "",
       restaurants: [
         {
@@ -60,8 +72,8 @@ class Offers extends React.Component {
 
       apiRestaurants: [],
       offers: [],
-      acceptedRestaurants:[],
-      searchItem:""
+      acceptedRestaurants: [],
+      searchItem: "",
     };
   }
   setCurrrentResId = (resID) => {
@@ -100,8 +112,12 @@ class Offers extends React.Component {
     //console.log(resJson);
   }
   render() {
+    if (this.state.loggedIn === false) {
+      return <LoginAdmin />;
+    }
     return (
       <Router>
+        {/* <AdminHeader /> */}
         <div>
           <div
             style={{
@@ -128,12 +144,14 @@ class Offers extends React.Component {
                   aria-label="Search"
                   aria-describedby="search-addon"
                   value={this.state.searchItem}
-                   onChange={(e) => this.setState({ searchItem: e.target.value })}
+                  onChange={(e) =>
+                    this.setState({ searchItem: e.target.value })
+                  }
                 />
-              <a href={`/search/${this.state.searchItem}`}> 
-                <span className="input-group-text border-0" id="search-addon">
-                  <FcSearch />
-                </span>
+                <a href={`/search/${this.state.searchItem}`}>
+                  <span className="input-group-text border-0" id="search-addon">
+                    <FcSearch />
+                  </span>
                 </a>
               </div>
             </div>

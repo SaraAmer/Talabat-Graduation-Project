@@ -9,11 +9,22 @@ import DashboardNavbar from "./DashboardNavbar.js";
 import "./Clients.css";
 import { FcSearch } from "react-icons/fc";
 import axios from "axios";
+import LoginAdmin from "./loginAdmin";
 
 class BannedClients extends React.Component {
   constructor() {
     super();
+
+    const token = localStorage.getItem("email");
+    console.log("tokeeeen:" + token);
+    let loggedIn = true;
+
+    if (token == null) {
+      loggedIn = false;
+    }
+
     this.state = {
+      loggedIn,
       clients: [
         {
           id: "1",
@@ -46,10 +57,10 @@ class BannedClients extends React.Component {
           DOB: "5/6/1997",
         },
       ],
-      
-      loading:false,
-      status:"", 
-      bannedClients:[]
+
+      loading: false,
+      status: "",
+      bannedClients: [],
     };
   }
   deleteClient = (clientId) => {
@@ -65,16 +76,16 @@ class BannedClients extends React.Component {
       }
     }
     this.setState({ clients: this.state.clients });
-      if (window.confirm("Are you sure?")) {
+    if (window.confirm("Are you sure?")) {
       fetch("http://127.0.0.1:8000/user/" + clientId, {
-          method: "DELETE",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        });
-      }
-       window.location.href = "/banned-clients";
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+    }
+    window.location.href = "/banned-clients";
   };
 
   async componentWillMount() {
@@ -89,13 +100,13 @@ class BannedClients extends React.Component {
     let resJson = await res.json();
     // let myRestaurants = resJson.restaurants;
     //  console.log(resJson.restaurants);
-      resJson.users.map((user) => {
+    resJson.users.map((user) => {
       //  console.log(user);
-        if (user.status === "banned") {
-          console.log(user.name);
-          this.state.bannedClients.push(user);
-        }
-      });
+      if (user.status === "banned") {
+        console.log(user.name);
+        this.state.bannedClients.push(user);
+      }
+    });
 
     this.setState({
       loading: false,
@@ -103,7 +114,7 @@ class BannedClients extends React.Component {
     });
     //console.log(resJson);
   }
-   unbanClient=(clientId)=>{
+  unbanClient = (clientId) => {
     console.log(clientId);
     this.state.status = "accepted";
     this.setState({ status: this.state.status });
@@ -111,7 +122,7 @@ class BannedClients extends React.Component {
     console.log(this.state.status);
     fd.append("status", this.state.status);
     axios
-      .put("http://127.0.0.1:8000/user/profile/"+clientId, {
+      .put("http://127.0.0.1:8000/user/profile/" + clientId, {
         status: this.state.status,
       })
       .then((res) => {
@@ -123,10 +134,12 @@ class BannedClients extends React.Component {
     });
     console.log(this.state.status);
     window.location.href = "/banned-clients";
-  }
-
+  };
 
   render() {
+    if (this.state.loggedIn === false) {
+      return <LoginAdmin />;
+    }
     return (
       <div className="container" style={{ fontSize: "28px" }}>
         {/* <DashboardNavbar /> */}
@@ -152,7 +165,7 @@ class BannedClients extends React.Component {
         >
           Banned Clients
         </h1>
-      
+
         <br></br>
         <table class="table table-striped">
           <thead>

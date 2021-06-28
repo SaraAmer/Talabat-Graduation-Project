@@ -9,27 +9,36 @@ import JoinRequests from "./JoinRequests.js";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
-
+import LoginAdmin from "./loginAdmin";
 
 class BannedRestaurants extends React.Component {
   constructor() {
     super();
-    this.state = {
-      restaurants: [
-        {
-          id: "1",
-          name: "Cilantro",
-          location: "smouha,alexandria",
-          img: "https://img.theculturetrip.com/768x/smart/wp-content/uploads/2018/03/ppj07117.jpg",
-          joinedIn: "20/6/2020",
-          email: "Cilantro@yahoo.com",
-        },
-      ],
-      apiRestaurants: [],
-      bannedRestaurants: [],
-      loading: false,
-      refresh: false,
-    };
+        const token = localStorage.getItem("email");
+        console.log("tokeeeen:" + token);
+        let loggedIn = true;
+
+        if (token == null) {
+          loggedIn = false;
+        }
+
+        this.state = {
+          loggedIn,
+          restaurants: [
+            {
+              id: "1",
+              name: "Cilantro",
+              location: "smouha,alexandria",
+              img: "https://img.theculturetrip.com/768x/smart/wp-content/uploads/2018/03/ppj07117.jpg",
+              joinedIn: "20/6/2020",
+              email: "Cilantro@yahoo.com",
+            },
+          ],
+          apiRestaurants: [],
+          bannedRestaurants: [],
+          loading: false,
+          refresh: false,
+        };
   }
   viewDetails = (restaurantCopouns) => {
     console.log(restaurantCopouns);
@@ -300,6 +309,9 @@ class ViewDetails extends React.Component {
   //   console.log(this.res.img)
   // }
   render() {
+    if (this.state.loggedIn === false) {
+      return <LoginAdmin />;
+    }
     return (
       <div style={{ fontSize: "25px" }}>
         <b> {this.res.name} </b>

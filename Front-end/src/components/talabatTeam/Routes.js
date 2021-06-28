@@ -18,6 +18,7 @@ import LoginAdmin from "./pages/loginAdmin";
 import MenuItems from "./pages/MenuItems"
 import EditCopoun from "./pages/EditCopoun.js";
 import SearchFeature from "./pages/SearchFeature.js"
+import Footer from "../layouts/Footer";
 
 
 class Routes extends React.Component {
@@ -43,7 +44,7 @@ constructor(){
       <div>
         {
           <Router>
-            <AdminHeader />
+         
             <Switch>
               {/* <Route path="/" exact component={DashboardNavbar} /> */}
 

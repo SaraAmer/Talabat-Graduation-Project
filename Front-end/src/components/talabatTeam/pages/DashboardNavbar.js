@@ -1,15 +1,26 @@
 import React from 'react'
 import "./DashboardNavbar.css";
 import Clients from "./Clients.js"
-import Restaurant from "./Restaurant.js";
+import TalabatRestaurant from "./Restaurant.js";
 import Overview from "./Overview.js";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 import BannedRestaurants from './BannedRestaurants';
+import LoginAdmin from "./loginAdmin";
+
 class DashboardNavbar extends React.Component {
   constructor() {
     super();
+    const token = localStorage.getItem("email");
+    console.log("tokeeeen:" + token);
+    let loggedIn = true;
+
+    if (token == null) {
+      loggedIn = false;
+    }
+
     this.state = {
+      loggedIn,
       items: [
         // {
         //   text: "  Overview",
@@ -29,8 +40,6 @@ class DashboardNavbar extends React.Component {
         // },
       ],
     };
-
-    
   }
 
   toggleActive = (text) => {
@@ -41,6 +50,9 @@ class DashboardNavbar extends React.Component {
     //this.forceUpdate();
   };
   render() {
+    if (this.state.loggedIn === false) {
+      return <LoginAdmin />;
+    }
     return (
       <Router>
         <nav
@@ -85,7 +97,7 @@ class DashboardNavbar extends React.Component {
           <Route
             path="/talabat-team-restaurants"
             exact
-            component={Restaurant}
+            component={TalabatRestaurant}
           />
           <Route path="/clients" exact component={Clients} />
           <Route

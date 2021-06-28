@@ -9,11 +9,21 @@ import DashboardNavbar from "./DashboardNavbar.js";
 import "./Clients.css";
 import { FcSearch } from "react-icons/fc";
 import axios from "axios";
+import LoginAdmin from "./loginAdmin";
 
 class Clients extends React.Component {
   constructor() {
     super();
+    const token = localStorage.getItem("email");
+    console.log("tokeeeen:" + token);
+    let loggedIn = true;
+
+    if (token == null) {
+      loggedIn = false;
+    }
+
     this.state = {
+      loggedIn,
       clients: [
         {
           id: "1",
@@ -46,9 +56,9 @@ class Clients extends React.Component {
           DOB: "5/6/1997",
         },
       ],
-      users:[],
-      loading:false,
-      status:"",  
+      users: [],
+      loading: false,
+      status: "",
     };
   }
   deleteClient = (clientId) => {
@@ -64,16 +74,16 @@ class Clients extends React.Component {
       }
     }
     this.setState({ clients: this.state.clients });
-      if (window.confirm("Are you sure?")) {
+    if (window.confirm("Are you sure?")) {
       fetch("http://127.0.0.1:8000/user/" + clientId, {
-          method: "DELETE",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        });
-      }
-       window.location.href = "/clients";
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+    }
+    window.location.href = "/clients";
   };
 
   async componentWillMount() {
@@ -88,13 +98,13 @@ class Clients extends React.Component {
     let resJson = await res.json();
     // let myRestaurants = resJson.restaurants;
     //  console.log(resJson.restaurants);
-      resJson.users.map((user) => {
+    resJson.users.map((user) => {
       //  console.log(user);
-        if (user.status === "accepted") {
-          console.log(user.name);
-          this.state.users.push(user);
-        }
-      });
+      if (user.status === "accepted") {
+        console.log(user.name);
+        this.state.users.push(user);
+      }
+    });
 
     this.setState({
       loading: false,
@@ -102,7 +112,7 @@ class Clients extends React.Component {
     });
     //console.log(resJson);
   }
-   banClient=(clientId)=>{
+  banClient = (clientId) => {
     console.log(clientId);
     this.state.status = "banned";
     this.setState({ status: this.state.status });
@@ -110,7 +120,7 @@ class Clients extends React.Component {
     console.log(this.state.status);
     fd.append("status", this.state.status);
     axios
-      .put("http://127.0.0.1:8000/user/profile/"+clientId, {
+      .put("http://127.0.0.1:8000/user/profile/" + clientId, {
         status: this.state.status,
       })
       .then((res) => {
@@ -121,13 +131,15 @@ class Clients extends React.Component {
       users: this.state.users,
     });
     console.log(this.state.status);
-    window.location.href = "/clients"
-  }
-
+    window.location.href = "/clients";
+  };
 
   render() {
+    if (this.state.loggedIn === false) {
+      return <LoginAdmin />;
+    }
     return (
-      <div className="container" style={{fontSize:"28px"}}>
+      <div className="container" style={{ fontSize: "28px" }}>
         {/* <DashboardNavbar /> */}
         {/* <a
           href="/clients"
@@ -184,7 +196,7 @@ class Clients extends React.Component {
               </th>
               <th
                 className="tableData"
-                style={{ float: "right",marginRight:"280px" }}
+                style={{ float: "right", marginRight: "280px" }}
                 scope="col"
               >
                 Actions

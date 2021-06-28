@@ -10,12 +10,22 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { BiFoodMenu } from "react-icons/bi";
+import LoginAdmin from "./loginAdmin";
+import AdminHeader from "../layouts/AdminHeader";
 
-
-class Restaurant extends React.Component {
+class TalabatRestaurant extends React.Component {
   constructor() {
     super();
+    const token = localStorage.getItem("email");
+    console.log("tokeeeen:" + token);
+    let loggedIn = true;
+
+    if (token == null) {
+      loggedIn = false;
+    }
+
     this.state = {
+      loggedIn,
       restaurants: [
         {
           id: "1",
@@ -30,10 +40,9 @@ class Restaurant extends React.Component {
       acceptedRestaurants: [],
       loading: false,
       refresh: false,
-      status:"",
-      searchItem:"",
+      status: "",
+      searchItem: "",
     };
-
   }
   viewDetails = (restaurantCopouns) => {
     console.log(restaurantCopouns);
@@ -52,7 +61,7 @@ class Restaurant extends React.Component {
     }
     this.state.refresh = true;
     this.setState({ refresh: this.state.refresh });
-         window.location.href = "/talabat-team-restaurants";
+    window.location.href = "/talabat-team-restaurants";
   };
 
   async componentDidMount() {
@@ -81,7 +90,7 @@ class Restaurant extends React.Component {
     });
     //console.log(resJson);
   }
-  banRestaurant=(resId)=>{
+  banRestaurant = (resId) => {
     console.log(resId);
     this.state.status = "banned";
     this.setState({ status: this.state.status });
@@ -94,8 +103,8 @@ class Restaurant extends React.Component {
     this.setState({
       acceptedRestaurants: this.state.acceptedRestaurants,
     });
-      window.location.href = "/talabat-team-restaurants";
-  }
+    window.location.href = "/talabat-team-restaurants";
+  };
 
   // componentWillMount() {
   //   this.setState({loading:true});
@@ -104,11 +113,15 @@ class Restaurant extends React.Component {
   //       .then((res) => this.setState({ apiRestaurants: res.restaurants ,loading:false}));
 
   // }
- 
 
   render() {
+    if (this.state.loggedIn === false) {
+      return <LoginAdmin />;
+    }
     return (
       <Router>
+        {/* <AdminHeader /> */}
+        {/* <DashboardNavbar /> */}
         <div className="container">
           <div
             style={{
@@ -137,12 +150,14 @@ class Restaurant extends React.Component {
                   aria-label="Search"
                   aria-describedby="search-addon"
                   value={this.state.searchItem}
-                   onChange={(e) => this.setState({ searchItem: e.target.value })}
+                  onChange={(e) =>
+                    this.setState({ searchItem: e.target.value })
+                  }
                 />
-              <a href={`/search/${this.state.searchItem}`}> 
-                <span className="input-group-text border-0" id="search-addon">
-                  <FcSearch />
-                </span>
+                <a href={`/search/${this.state.searchItem}`}>
+                  <span className="input-group-text border-0" id="search-addon">
+                    <FcSearch />
+                  </span>
                 </a>
               </div>
             </div>
@@ -247,7 +262,6 @@ class Restaurant extends React.Component {
                         </li>
                         <li className="list-group-item">
                           <button
-                            
                             className="btn card-link"
                             onClick={() => this.banRestaurant(restaurant._id)}
                           >
@@ -267,14 +281,14 @@ class Restaurant extends React.Component {
                           </button>
                         </li>
 
-                          <li className="list-group-item">
-                          <a href={`/menu/${restaurant._id}`}
+                        <li className="list-group-item">
+                          <a
+                            href={`/menu/${restaurant._id}`}
                             style={{
                               border: "none",
                               background: "white",
                               color: "blue",
                             }}
-                            
                           >
                             <BiFoodMenu /> Menu
                           </a>
@@ -293,7 +307,7 @@ class Restaurant extends React.Component {
                 }}
               >
                 Loading Restaurants . . .
-                    </h1>
+              </h1>
             )}
           </div>
         </div>
@@ -341,4 +355,4 @@ class ViewDetails extends React.Component {
   }
 }
 
-  export default Restaurant;
+  export default TalabatRestaurant;
