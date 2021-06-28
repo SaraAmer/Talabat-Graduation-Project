@@ -40,7 +40,7 @@ const restaurantSchema = new Schema({
     },
   },
   //to make id of owner foreignKey in restaurantTable
-  owner: { type: Schema.Types.ObjectId, ref: "restaurantOwner" },
+  owner: { type: mongoose.Schema.Types.ObjectId, ref: "restaurantOwner" },
   rate: {
     type: Number,
     default: 0,

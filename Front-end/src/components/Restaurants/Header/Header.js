@@ -63,7 +63,7 @@ class RestaurantHeader extends React.Component{
                     </nav>
                     <Switch>
                         <Route exact path="/restaurant/dashboard">
-                            <Dashboard/>
+                        <Profile/>
                         </Route>
                         <Route path="/menu">
                             <Profile/>

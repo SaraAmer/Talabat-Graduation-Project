@@ -12,13 +12,14 @@ import {
     Link
   } from "react-router-dom"
   import { NavLink } from 'react-router-dom';
-  import Offers from ""
+
 class Profile extends React.Component{
     constructor(){
         super();
    
-        this.resId = localStorage["resId"];
+       
         this.state = {
+          resId : localStorage["restId"],
           restaurant: [],
             image : "logo_636996632671251135.jpg",
             name : "",
@@ -66,8 +67,10 @@ class Profile extends React.Component{
       );
       let resJson = await res.json();
     };
+
+
     async componentWillMount() {
- let res = await fetch( `http://localhost:8000/restaurants/${this.resId}`, {
+ let res = await fetch( `http://localhost:8000/restaurants/${this.state.resId}`, {
  method: "GET",
  headers: {
  "Content-Type": "application/json",}

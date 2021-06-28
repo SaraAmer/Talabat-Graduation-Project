@@ -46,17 +46,32 @@ class LoginUSer extends React.Component {
     console.log(typeof resJson.error);
     console.log(resJson.message);
 
-    if (resJson.token) {
-      localStorage.setItem("jwt", resJson.token);
-      localStorage.setItem("userId", resJson.userId);
-      localStorage.setItem("restId", resJson.restId);
+    // if (resJson.token) {
+    //   localStorage.setItem("jwt", resJson.token);
+    //   localStorage.setItem("userId", resJson.userId);
 
-      // M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
-      window.location.href = "http://localhost:3000/restaurant/dashboard";
+    //   // M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
+    //   window.location.reload();
+    // } else {
+    //   // M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
+    //   // alert("Wrong Email or Password");
+    // }
+
+    if (typeof resJson.error === "undefined") {
+      //save to localstorage
+      localStorage.setItem("jwt", resJson.token);
+      // localStorage.setItem("id", resJson.id);
+      localStorage.setItem("userId", resJson.userId);
+      // localStorage.setItem("user", JSON.stringify(resJson.user));
+      // window.location.href = "http://localhost:3000/restaurant/dashboard";
+      M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
+      // alert(resJson.message);
+      window.location.reload();
     } else {
-      //M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
-      alert("Wrong Email or Password");
+      M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
+      // alert(resJson.error);
     }
+    // window.location.reload();
   };
   //******************** */
   responseSuccessGoogle = async (response) => {
@@ -80,11 +95,14 @@ class LoginUSer extends React.Component {
 
     if (typeof resJson.error === "undefined") {
       localStorage.setItem("jwt", resJson.token);
+      localStorage.setItem("userId", resJson.userId);
+      
+
       M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
+      window.location.reload();
     } else {
       M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
     }
-    window.location.reload();
   };
   /******** */
   responseFacebook = async (response) => {
@@ -110,12 +128,12 @@ class LoginUSer extends React.Component {
 
     if (typeof resJson.error === "undefined") {
       localStorage.setItem("jwt", resJson.token);
-      localStorage.setItem("id", resJson.user._id);
+      localStorage.setItem("userId", resJson.userId);
       M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
+      window.location.reload();
     } else {
       M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
     }
-    window.location.reload();
   };
   //********************
   // responseFacebook = (response) => {
@@ -159,14 +177,12 @@ class LoginUSer extends React.Component {
 
           <div className="row m-4 h-25">
             <div className="col-md-12">
-
               {/* <a href="#" className="btn btn-primary btn-block">
                 <i class="bi bi-facebook"></i>  Continue with Facebook
               </a> */}
               <FacebookLogin
-                appId={process.env.FACEBOOKAPP}
+                appId="814092259303918"
                 autoLoad={true}
-                
                 //if true when open login page it will go to
                 // login with facebook and we won't to do this
                 callback={this.responseFacebook}

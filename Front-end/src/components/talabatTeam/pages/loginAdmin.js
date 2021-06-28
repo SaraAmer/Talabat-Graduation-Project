@@ -29,12 +29,14 @@ class LoginAdmin extends React.Component {
         classes: "#c62828 red darken-3",
       });
     }
+
+    window.location.href = "http://localhost:3000/restaurants";
   };
 
   render() {
     return (
-      <div className="bg-images">
-        <section className="countss">
+      <div className="adminbg-images">
+        <section className="admincountss">
           <div className="container">
             <div className="row">
               <div className="col-lg-3 col-md-6"></div>
@@ -115,7 +117,7 @@ class LoginAdmin extends React.Component {
                       }}
                       onClick={(e) => this.PostData(e)}
                     >
-                      LOGIN
+                   LOGIN
                     </button>
                   </form>
 

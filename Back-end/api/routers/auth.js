@@ -88,7 +88,10 @@ router.post("/signup", (req, res, next) => {
     restaurantOwner
         .find({ email: req.body.email })
         .exec()
-        .then((restaurantowner) => {
+        .then(restaurantowner => {
+            console.log("restaurannnnnnnnnnnnnnnnnnt")
+            console.log(restaurantowner);
+         
             if (!email || !password) {
                 console.log("please add all the fields");
                 return res.status(422).json({ error: "please add all the fields" });
@@ -151,8 +154,8 @@ router.post("/signup", (req, res, next) => {
                                     }); //restaurant save
                                 })
                                 .catch((err) => {
-                                    console.log(err);
-                                    console.log("hereeeeeeeee");
+                                    console.log("errrrrrrrrrrrrrrrrrrrrrrrror")
+                                  console.log(err)
                                     res.status(500).json({
                                         error: err,
                                     });
@@ -177,7 +180,7 @@ router.post("/login", (req, res, next) => {
         .then((restaurantowner) => {
             if (restaurantowner.length < 1) {
                 return res.status(401).json({
-                    message: "Auth failed",
+                    error: "Auth failed",
                 });
             }
             //ykarn al atnen password bb3d
@@ -189,52 +192,60 @@ router.post("/login", (req, res, next) => {
                     //lw 7sl a7 error ytb3lo auth failed
                     if (err) {
                         return res.status(401).json({
-                            message: "Auth failed",
+                            error: "Auth failed",
                         });
                     }
                     //lw al atnen password kano matched ydeh token
                     if (result) {
-                        Restaurant.find({"owner": restaurantowner}  , "_id" , (err , restaurant) =>{
-                         if (err){
-                            return res.status(500).json({
-                                error: "Your restaurant has been deleted",
+                    
+                        Restaurant.find({"owner": restaurantowner}).exec().then((restaurant =>{
+                            if (restaurantowner.length < 1) {
+                                return res.status(401).json({
+                                   error: "Your restaurant has been deleted",
+                                });
+                            }
+                            else if(restaurant[0].status == "pending"){
+                                return res.status(401).json({
+                                    error: "Your Request is under Reviewing we will contact you soon",
+                                 });
+                            }
+                            else{
+                                const token = jwt.sign({
+                                    email: restaurantowner[0].email,
+                                    restaurantownerId: restaurantowner[0]._id,
+        
+                                },
+                                process.env.JWT_KEY, {
+                                    expiresIn: "1h",
+                                }
+                            );
+                            return res.status(200).json({
+                             message: "Auth successful",
+                             token: token,
+                             // user: { email },
+                             id: restaurantowner[0]._id,
+                             restId: restaurant[0]._id
                              
-                                
-                            
-                                
-                            });
-                         }
-                         console.log(restaurant)
-                         const token = jwt.sign({
-                            email: restaurantowner[0].email,
-                            restaurantownerId: restaurantowner[0]._id,
-
-                        },
-                        process.env.JWT_KEY, {
-                            expiresIn: "1h",
-                        }
-                    );
-                 
-                    return res.status(200).json({
-                        message: "Auth successful",
-                        token: token,
-                        // user: { email },
-                        id: restaurantowner[0]._id,
-                        retId: restaurant
-                        
-                    });
-
-                        });
+                         });
+        
+                                    
+                            }
+                        }))
                      
                        
                    
                     }
+                    
 
                     //lw kan al atnen password msh matched y2olo Auth Failed w mydhosh token
-                    console.log("Auth failed");
-                    res.status(401).json({
-                        message: "Auth failed",
-                    });
+                    else{
+                        console.log("Auth faileddddddddddddddddd");
+                        res.status(401).json({
+                            error: "Auth failed",
+                        });
+
+                    }
+                  
                 }
             );
         })

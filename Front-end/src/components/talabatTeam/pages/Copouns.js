@@ -18,9 +18,10 @@ class Copouns extends React.Component {
     super();
     this.state = {
       currentRestaurantId: "",
-     
+
       apiRestaurants: [],
       copouns: [],
+      acceptedRestaurants: [],
     };
   }
   setCurrrentResId = (resID) => {
@@ -31,26 +32,32 @@ class Copouns extends React.Component {
     });
     console.log(this.state.currentRestaurantId);
   };
-
   async componentWillMount() {
     this.setState({ loading: true });
-    let res = await fetch(
-      "http://127.0.0.1:8000/restaurants",
-
-      {
-        method: "GET",
-        headers: {
-          "content-type": "application/json",
-        },
-      }
-    );
+    let res = await fetch("http://127.0.0.1:8000/restaurants", {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+    // console.log(res.err);
     let resJson = await res.json();
-    this.setState({ loading: false, apiRestaurants: resJson.restaurants });
-    console.log(resJson);
-  
+    // let myRestaurants = resJson.restaurants;
+    //  console.log(resJson.restaurants);
+    resJson.restaurants.map((restaurant) => {
+      console.log(restaurant);
+      if (restaurant.status === "accepted") {
+        console.log(restaurant.name);
+        this.state.acceptedRestaurants.push(restaurant);
+      }
+    });
+
+    this.setState({
+      loading: false,
+      acceptedRestaurants: this.state.acceptedRestaurants,
+    });
+    //console.log(resJson);
   }
-
-
   render() {
     return (
       <Router>
@@ -89,8 +96,8 @@ class Copouns extends React.Component {
           </div>
 
           <div className="row">
-            {this.state.apiRestaurants.length > 0
-              ? this.state.apiRestaurants.map((restaurant) => {
+            {this.state.acceptedRestaurants.length > 0
+              ? this.state.acceptedRestaurants.map((restaurant) => {
                   return (
                     <div
                       className="card "
@@ -224,14 +231,14 @@ class ViewCopouns extends React.Component {
     super();
     this.state = {
       copouns: [],
-      refresh:false
+      refresh: false,
     };
   }
 
   async componentDidMount() {
     console.log("component did mount");
     let res = await fetch(
-      "http://127.0.0.1:8000/restaurants/copoun/"+this.props.resId,
+      "http://127.0.0.1:8000/restaurants/copoun/" + this.props.resId,
       {
         method: "GET",
         headers: {
@@ -246,13 +253,16 @@ class ViewCopouns extends React.Component {
   removeSelected = (copounId) => {
     console.log(copounId);
     if (window.confirm("Are you sure?")) {
-      fetch("http://127.0.0.1:8000/restaurants/copoun/singleCopoun/"+ copounId, {
-        method: "DELETE",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      });
+      fetch(
+        "http://127.0.0.1:8000/restaurants/copoun/singleCopoun/" + copounId,
+        {
+          method: "DELETE",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
     }
     this.state.refresh = true;
     this.setState({ refresh: this.state.refresh });
@@ -308,62 +318,13 @@ class ViewCopouns extends React.Component {
                         >
                           <TiMinus />
                         </button>
-                        {/* <a
-                          href={`/offer/${this.props.resId}/edit/${singleOffer._id}`}
+                      <a
+                          href={`/copoun/${this.props.resId}/edit/${singleCopoun._id}`}
                         >
                           <AiOutlineEdit />
-                        </a> */}
+                        </a> 
 
-                        <button
-                          type="button"
-                          class="btn"
-                          data-toggle="modal"
-                          data-target="#exampleModal"
-                        >
-                          <AiOutlineEdit />
-                        </button>
-                        <div
-                          class="modal fade"
-                          id="exampleModal"
-                          tabindex="-1"
-                          role="dialog"
-                          aria-labelledby="exampleModalLabel"
-                          aria-hidden="true"
-                        >
-                          <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">
-                                  edit {singleCopoun.code}
-                                </h5>
-                                <button
-                                  type="button"
-                                  class="close"
-                                  data-dismiss="modal"
-                                  aria-label="Close"
-                                >
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                              </div>
-                              <div class="modal-body">
-                                {/* <EditCopoun
-                                  resId={this.props.resId}
-                                  copounId={singlecopoun._id}
-                                /> */}
-                                edit copoun
-                              </div>
-                              <div class="modal-footer">
-                                <button
-                                  type="button"
-                                  class="btn btn-secondary"
-                                  data-dismiss="modal"
-                                >
-                                  Close
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+               
                       </div>
                     </div>
                   </h1>

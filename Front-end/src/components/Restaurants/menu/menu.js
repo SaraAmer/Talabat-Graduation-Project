@@ -7,7 +7,7 @@ class Menu extends React.Component{
         super()
 
         this.categories=[]
-        this.resId = localStorage["resId"];
+        this.resId = localStorage["restId"];
     
     }
     async componentWillMount() {

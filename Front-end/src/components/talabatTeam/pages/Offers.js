@@ -60,6 +60,7 @@ class Offers extends React.Component {
 
       apiRestaurants: [],
       offers: [],
+      acceptedRestaurants:[],
     };
   }
   setCurrrentResId = (resID) => {
@@ -73,37 +74,30 @@ class Offers extends React.Component {
 
   async componentWillMount() {
     this.setState({ loading: true });
-    let res = await fetch(
-      "http://127.0.0.1:8000/restaurants",
-
-      {
-        method: "GET",
-        headers: {
-          "content-type": "application/json",
-        },
-      }
-    );
+    let res = await fetch("http://127.0.0.1:8000/restaurants", {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+    // console.log(res.err);
     let resJson = await res.json();
-    this.setState({ loading: false, apiRestaurants: resJson.restaurants });
-    console.log(resJson);
-    
-  }
-  // resOffers = (resId) => {
-  //   let res = fetch(
-  //     "http://127.0.0.1:4000/restaurants/"+resId,
+    // let myRestaurants = resJson.restaurants;
+    //  console.log(resJson.restaurants);
+    resJson.restaurants.map((restaurant) => {
+      console.log(restaurant);
+      if (restaurant.status === "accepted") {
+        console.log(restaurant.name);
+        this.state.acceptedRestaurants.push(restaurant);
+      }
+    });
 
-  //     {
-  //       method: "GET",
-  //       headers: {
-  //         "content-type": "application/json",
-  //       },
-  //     }
-  //   );
-  //   let resJson = res.json();
-  //   this.setState({ apiRestaurants: resJson.Offers });
-  //   console.log(resJson);
-  // };
- 
+    this.setState({
+      loading: false,
+      acceptedRestaurants: this.state.acceptedRestaurants,
+    });
+    //console.log(resJson);
+  }
   render() {
     return (
       <Router>
@@ -133,7 +127,7 @@ class Offers extends React.Component {
                   aria-label="Search"
                   aria-describedby="search-addon"
                 />
-              
+
                 <span className="input-group-text border-0" id="search-addon">
                   <FcSearch />
                 </span>
@@ -142,8 +136,8 @@ class Offers extends React.Component {
           </div>
 
           <div className="row">
-            {this.state.apiRestaurants.length > 0
-              ? this.state.apiRestaurants.map((restaurant) => {
+            {this.state.acceptedRestaurants.length > 0
+              ? this.state.acceptedRestaurants.map((restaurant) => {
                   return (
                     <div
                       className="card "
@@ -153,7 +147,6 @@ class Offers extends React.Component {
                         marginRight: "8px",
                         marginTop: "20px",
                         marginBottom: "8px",
-                     
                       }}
                     >
                       <img
@@ -194,56 +187,53 @@ class Offers extends React.Component {
 
                               {/* <div class="modal fade "  id={restaurant.id} tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg"> */}
-                              
+
+                              <div
+                                class="modal fade"
+                                id={restaurant._id}
+                                tabindex="-1"
+                                role="dialog"
+                                aria-labelledby="exampleModalLongTitle"
+                                aria-hidden="true"
+                              >
                                 <div
-                                  class="modal fade"
-                                  id={restaurant._id}
-                                  tabindex="-1"
-                                  role="dialog"
-                                  aria-labelledby="exampleModalLongTitle"
-                                  aria-hidden="true"
+                                  class="modal-dialog modal-xl"
+                                  role="document"
+                                  //style={{ zIndex: "70" }}
                                 >
-                                  <div
-                                    class="modal-dialog modal-xl"
-                                    role="document"
-                                    //style={{ zIndex: "70" }}
-                                  >
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <h5
-                                          class="modal-title"
-                                          id="exampleModalLongTitle"
-                                        >
-                                          {restaurant.name} Offers
-                                        </h5>
-                                        <button
-                                          type="button"
-                                          class="close"
-                                          data-dismiss="modal"
-                                          aria-label="Close"
-                                        >
-                                          <span aria-hidden="true">
-                                            &times;
-                                          </span>
-                                        </button>
-                                      </div>
-                                      <div class="modal-body">
-                                        <ViewOffers resId={restaurant._id} />
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button
-                                          type="button"
-                                          class="btn btn-secondary"
-                                          data-dismiss="modal"
-                                        >
-                                          Close
-                                        </button>
-                                      </div>
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5
+                                        class="modal-title"
+                                        id="exampleModalLongTitle"
+                                      >
+                                        {restaurant.name} Offers
+                                      </h5>
+                                      <button
+                                        type="button"
+                                        class="close"
+                                        data-dismiss="modal"
+                                        aria-label="Close"
+                                      >
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <ViewOffers resId={restaurant._id} />
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button
+                                        type="button"
+                                        class="btn btn-secondary"
+                                        data-dismiss="modal"
+                                      >
+                                        Close
+                                      </button>
                                     </div>
                                   </div>
                                 </div>
                               </div>
-                        
+                            </div>
                           </li>
                           <li className="list-group-item">
                             <a
@@ -338,21 +328,21 @@ class ViewOffers extends React.Component {
                     }}
                   >
                     <div className="row">
-                      <div className="col-4">
+                      <div className="col-6">
                         <img
                           src={`http://localhost:8000/${singleOffer.img}`}
                           style={{ width: "120px", height: "120px" }}
                         ></img>
-                      </div>
-                      <div className="col-4">
+                      
+                     
                         <b> {singleOffer.name} </b>
                       </div>
 
-                      <div className="col-2">
+                      <div className="col-4" style={{paddingTop:"50px",paddingLeft:"100px"}}>
                          <b> {singleOffer.price} L.E </b>
                       </div>
 
-                      <div className="col-2">
+                      <div className="col-2" style={{paddingTop:"50px"}}>
                         <button
                           onClick={() => this.removeSelected(singleOffer._id)}
                           //lessa h3ml implement lel function de
@@ -362,21 +352,22 @@ class ViewOffers extends React.Component {
                             float: "right",
                           }}
                         >
-                          <TiMinus />
+                        <TiMinus />
                         </button>
-                        {/* <a
+                        <a style={{fontSize:"25px"}}
                           href={`/offer/${this.props.resId}/edit/${singleOffer._id}`}
                         >
                           <AiOutlineEdit />
-                        </a> */}
+                        </a> 
 
-                        <button
+                        {/* <button
                           type="button"
                           class="btn"
                           data-toggle="modal"
                           data-target="#exampleModal"
+                          style={{marginBottom:"10px"}}
                         >
-                          <AiOutlineEdit />
+                         <span style={{fontSize:"25px"}}>  <AiOutlineEdit /> </span>
                         </button>
                         <div
                           class="modal fade"
@@ -416,14 +407,14 @@ class ViewOffers extends React.Component {
                                   Close
                                 </button>
                                 
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                              </div> */}
+                            {/* </div> */}
+                          {/* </div> */}
+                        {/* </div> */}
                       </div>
 
                     </div>
-                    <div class="row" style={{display:"flex", justifyContent:"center",alignContent:"center"}}>
+                    <div class="row" style={{marginLeft:"170px"}}>
                       {singleOffer.desc}
                     </div>
 

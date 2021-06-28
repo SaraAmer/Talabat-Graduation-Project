@@ -167,11 +167,7 @@ class Myaccount extends React.Component {
                         <p style={{ color: "black" }}>My Orders </p>
                       </a>
                     </li>
-                    <li className="list-group-item">
-                      <Link to="/my-account/cards">
-                        <p style={{ color: "black" }}>Saved Cards</p>
-                      </Link>
-                    </li>
+                   
                     <li className="list-group-item">
                       <Link to="/my-account/tlbcredit">
                         <p style={{ color: "black" }}>talabat Pay </p>
