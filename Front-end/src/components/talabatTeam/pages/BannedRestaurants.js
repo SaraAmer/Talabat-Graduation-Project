@@ -14,31 +14,31 @@ import LoginAdmin from "./loginAdmin";
 class BannedRestaurants extends React.Component {
   constructor() {
     super();
-        const token = localStorage.getItem("email");
-        console.log("tokeeeen:" + token);
-        let loggedIn = true;
+    const token = localStorage.getItem("email");
+    console.log("tokeeeen:" + token);
+    let loggedIn = true;
 
-        if (token == null) {
-          loggedIn = false;
-        }
+    if (token == null) {
+      loggedIn = false;
+    }
 
-        this.state = {
-          loggedIn,
-          restaurants: [
-            {
-              id: "1",
-              name: "Cilantro",
-              location: "smouha,alexandria",
-              img: "https://img.theculturetrip.com/768x/smart/wp-content/uploads/2018/03/ppj07117.jpg",
-              joinedIn: "20/6/2020",
-              email: "Cilantro@yahoo.com",
-            },
-          ],
-          apiRestaurants: [],
-          bannedRestaurants: [],
-          loading: false,
-          refresh: false,
-        };
+    this.state = {
+      loggedIn,
+      restaurants: [
+        {
+          id: "1",
+          name: "Cilantro",
+          location: "smouha,alexandria",
+          img: "https://img.theculturetrip.com/768x/smart/wp-content/uploads/2018/03/ppj07117.jpg",
+          joinedIn: "20/6/2020",
+          email: "Cilantro@yahoo.com",
+        },
+      ],
+      apiRestaurants: [],
+      bannedRestaurants: [],
+      loading: false,
+      refresh: false,
+    };
   }
   viewDetails = (restaurantCopouns) => {
     console.log(restaurantCopouns);
@@ -57,8 +57,7 @@ class BannedRestaurants extends React.Component {
     }
     this.state.refresh = true;
     this.setState({ refresh: this.state.refresh });
-      window.location.href = "/banned-restaurants";
-    
+    window.location.href = "/banned-restaurants";
   };
 
   async componentWillMount() {
@@ -108,12 +107,15 @@ class BannedRestaurants extends React.Component {
     this.setState({
       acceptedRestaurants: this.state.acceptedRestaurants,
     });
-             window.location.href = "/banned-restaurants";
+    window.location.href = "/banned-restaurants";
   };
   render() {
+    if (this.state.loggedIn === false) {
+      return <LoginAdmin />;
+    }
     return (
       <Router>
-        <div className="container" >
+        <div className="container">
           {" "}
           <h1
             style={{
@@ -308,10 +310,7 @@ class ViewDetails extends React.Component {
   //   super();
   //   console.log(this.res.img)
   // }
-  render() {
-    if (this.state.loggedIn === false) {
-      return <LoginAdmin />;
-    }
+render(){
     return (
       <div style={{ fontSize: "25px" }}>
         <b> {this.res.name} </b>
