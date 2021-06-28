@@ -10373,6 +10373,11 @@
   "resolved" "https://registry.npmjs.org/react-facebook-login/-/react-facebook-login-4.1.1.tgz"
   "version" "4.1.1"
 
+"react-filter-search@^1.0.11":
+  "integrity" "sha512-iHTUToEyUYbXqb/hNn8KM4zo0NtbGamEKuBJc0kvnXyJZBCUbkD9TQW+DaeA3wwV0sRZ0r64MXIEHJWHPw+Omw=="
+  "resolved" "https://registry.npmjs.org/react-filter-search/-/react-filter-search-1.0.11.tgz"
+  "version" "1.0.11"
+
 "react-fit@^1.0.3":
   "integrity" "sha512-MmVk/SXyVbxiz9peAeD7fWxFdGLoy/sCxte01M3w74regPIVkLqc2yT0wUAGRd1MNP1fQ40MqYKNBLpbK/aI1w=="
   "resolved" "https://registry.npmjs.org/react-fit/-/react-fit-1.3.1.tgz"

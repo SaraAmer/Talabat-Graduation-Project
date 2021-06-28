@@ -25,6 +25,7 @@ class LoginUSer extends React.Component {
   };
   PostData = async (e) => {
     e.preventDefault();
+
     let res = await fetch("http://localhost:8000/user/login", {
       method: "post",
       headers: {
@@ -39,7 +40,10 @@ class LoginUSer extends React.Component {
     let resJson = await res.json();
     console.log("this.state.email");
     console.log(this.state.email);
-    console.log(resJson.error);
+    console.log("=====================")
+    console.log(resJson)
+    console.log("=====================")
+    console.log(typeof resJson.error);
     console.log(resJson.message);
 
     // if (resJson.token) {
@@ -92,6 +96,7 @@ class LoginUSer extends React.Component {
     if (typeof resJson.error === "undefined") {
       localStorage.setItem("jwt", resJson.token);
       localStorage.setItem("userId", resJson.userId);
+      
 
       M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
       window.location.reload();

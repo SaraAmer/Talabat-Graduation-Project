@@ -5,8 +5,9 @@ import "./menu.css"
 class Menu extends React.Component{
     constructor(){
         super()
+
         this.categories=[]
-        this.resId = localStorage["resId"];
+        this.resId = localStorage["restId"];
     
     }
     async componentWillMount() {
@@ -18,7 +19,7 @@ class Menu extends React.Component{
  .then(res => res.json())
  .then(result => {
  this.categories  = result.Categories ;
- 
+
  
  });
  

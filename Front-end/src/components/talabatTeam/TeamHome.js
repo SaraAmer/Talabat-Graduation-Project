@@ -8,10 +8,7 @@ class TeamHome extends React.Component {
   render() {
     return (
       <div>
-        {/* <AdminHeader /> */}
-
         <Routes />
-      
         <Footer />
       </div>
     );

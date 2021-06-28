@@ -9,6 +9,7 @@ const foodSchema = new Schema({
     img: {
         type: String,
         required: true
+      
     },
     choices: [{
         type: mongoose.Schema.Types.ObjectId,

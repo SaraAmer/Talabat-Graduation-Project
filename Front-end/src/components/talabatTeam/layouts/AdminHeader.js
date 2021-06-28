@@ -24,7 +24,7 @@ function AdminHeader() {
   const sidebarData = [
     {
       title: "Dashboard",
-      path: "/restaurants",
+      path: "/talabat-team-restaurants",
       icon: <GoDashboard />,
       cName: "nav-text",
     },
@@ -56,7 +56,7 @@ function AdminHeader() {
   function logout(){
     console.log("inside logout")
        localStorage.removeItem("email");
-       window.location.href = "http://localhost:3000";
+       window.location.href = "http://localhost:3000/restaurants";
   }
   return (
     <div>
@@ -86,70 +86,6 @@ function AdminHeader() {
             </li>
           </ul>
           <div style={{ display: "flex", marginLeft: "800px" }}>
-            {/* <span class="navbar-text">
-                <div className="nav-item dropdown col-lg-12 ">
-                  <Link
-                    className="text-white "
-                    role="button"
-                    id="dropdownMenuLink1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false "
-                    style={{
-                      borderRadius: "95px",
-                      marginRight: "50px",
-                    }}
-                  >
-                    <span
-                      style={{
-                        border: "none",
-                        backgroundColor: "#060b26",
-                        marginLeft: "100px",
-                        fontSize: "40px",
-                      }}
-                    >
-                      <IoIosNotificationsOutline />
-                    </span>
-                  </Link>
-                  <ul
-                    className="dropdown-menu "
-                    aria-labelledby="dropdownMenuLink1"
-                    style={{ position: "absolute", left: 0 }}
-                  >
-                    <li>
-                      <Link to="#" className="dropdown-item">
-                        <p>
-                          <span style={{ fontSize: "25px" }}>
-                            <GrRestaurant /> |
-                          </span>
-                          3B Burger restaurant wants to join talabat
-                        </p>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="#" className="dropdown-item">
-                        <p>
-                          <span style={{ fontSize: "25px" }}>
-                            <GrRestaurant /> |
-                          </span>
-                          Mcdonalds restaurant wants to join talabat
-                        </p>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="#" className="dropdown-item">
-                        <p>
-                          <span style={{ fontSize: "25px" }}>
-                            <GrRestaurant /> |
-                          </span>
-                          KFC restaurant wants to join talabat
-                        </p>
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-              </span>
-           */}
-
             <span class="navbar-text">
               <button
                 type="button"

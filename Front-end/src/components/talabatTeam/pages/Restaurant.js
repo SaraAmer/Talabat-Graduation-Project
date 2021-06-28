@@ -31,7 +31,9 @@ class Restaurant extends React.Component {
       loading: false,
       refresh: false,
       status:"",
+      searchItem:"",
     };
+
   }
   viewDetails = (restaurantCopouns) => {
     console.log(restaurantCopouns);
@@ -50,10 +52,10 @@ class Restaurant extends React.Component {
     }
     this.state.refresh = true;
     this.setState({ refresh: this.state.refresh });
-         window.location.href = " http://localhost:3000/restaurants";
+         window.location.href = "/talabat-team-restaurants";
   };
 
-  async componentWillMount() {
+  async componentDidMount() {
     this.setState({ loading: true });
     let res = await fetch("http://127.0.0.1:8000/restaurants", {
       method: "GET",
@@ -92,7 +94,7 @@ class Restaurant extends React.Component {
     this.setState({
       acceptedRestaurants: this.state.acceptedRestaurants,
     });
-      window.location.href = " http://localhost:3000/restaurants";
+      window.location.href = "/talabat-team-restaurants";
   }
 
   // componentWillMount() {
@@ -102,6 +104,7 @@ class Restaurant extends React.Component {
   //       .then((res) => this.setState({ apiRestaurants: res.restaurants ,loading:false}));
 
   // }
+ 
 
   render() {
     return (
@@ -133,11 +136,14 @@ class Restaurant extends React.Component {
                   placeholder="Search by restaurant name"
                   aria-label="Search"
                   aria-describedby="search-addon"
+                  value={this.state.searchItem}
+                   onChange={(e) => this.setState({ searchItem: e.target.value })}
                 />
-
+              <a href={`/search/${this.state.searchItem}`}> 
                 <span className="input-group-text border-0" id="search-addon">
                   <FcSearch />
                 </span>
+                </a>
               </div>
             </div>
             {/* <div style={{marginLeft:"100px"}}>
@@ -287,7 +293,7 @@ class Restaurant extends React.Component {
                 }}
               >
                 Loading Restaurants . . .
-              </h1>
+                    </h1>
             )}
           </div>
         </div>

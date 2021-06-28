@@ -11,10 +11,10 @@ const choiceSchema = new Schema({
         required: true
 
     },
-    restaurant: [{
+    restaurant: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Restaurants"
-    }],
+    },
     options: [{
         name: {
             type: String,

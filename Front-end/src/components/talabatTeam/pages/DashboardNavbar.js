@@ -17,7 +17,7 @@ class DashboardNavbar extends React.Component {
         // },
         {
           text: "Restaurants",
-          link: "/restaurants",
+          link: "/talabat-team-restaurants",
         },
         {
           text: "Clients",
@@ -82,9 +82,17 @@ class DashboardNavbar extends React.Component {
 
         <Switch>
           {/* <Route path="/" exact component={Overview} /> */}
-          <Route path="/restaurants" exact component={Restaurant} />
+          <Route
+            path="/talabat-team-restaurants"
+            exact
+            component={Restaurant}
+          />
           <Route path="/clients" exact component={Clients} />
-          <Route path="/banned-restaurants" exact component={BannedRestaurants} />
+          <Route
+            path="/banned-restaurants"
+            exact
+            component={BannedRestaurants}
+          />
         </Switch>
       </Router>
     );

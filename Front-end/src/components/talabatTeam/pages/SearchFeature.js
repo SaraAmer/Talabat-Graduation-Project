@@ -1,40 +1,66 @@
-import React from "react";
+
+import React from 'react'
 import DashboardNavbar from "./DashboardNavbar.js";
 import { FcInfo } from "react-icons/fc";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FaBan } from "react-icons/fa";
-import "./Restaurant.css";
+import './Restaurant.css';
 import { FcSearch } from "react-icons/fc";
-import JoinRequests from "./JoinRequests.js";
+import JoinRequests from './JoinRequests.js'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { BiFoodMenu } from "react-icons/bi";
+//import ViewDetails from 'Restaurant.js'
 
+class SearchFeature extends React.Component{
+    constructor(){
+        super();
+        this.state={
+            matchingRestaurants:[],
 
-class BannedRestaurants extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      restaurants: [
-        {
-          id: "1",
-          name: "Cilantro",
-          location: "smouha,alexandria",
-          img: "https://img.theculturetrip.com/768x/smart/wp-content/uploads/2018/03/ppj07117.jpg",
-          joinedIn: "20/6/2020",
-          email: "Cilantro@yahoo.com",
-        },
-      ],
-      apiRestaurants: [],
-      bannedRestaurants: [],
-      loading: false,
-      refresh: false,
-    };
+        }
+    }
+
+    async componentWillMount() {
+    let res = await fetch("http://127.0.0.1:8000/restaurants", {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+    // console.log(res.err);
+    let resJson = await res.json();
+    let resSearchName=this.props.match.params.searchItem
+    // let myRestaurants = resJson.restaurants;
+    //  console.log(resJson.restaurants);
+    resJson.restaurants.map((restaurant) => {
+      console.log(restaurant);
+      if (restaurant.name == resSearchName && restaurant.status==="accepted") {
+        console.log(restaurant.name);
+        this.state.matchingRestaurants.push(restaurant);
+      }
+      this.setState({matchingRestaurants:this.state.matchingRestaurants})
+    });
+    }
+      banRestaurant=(resId)=>{
+    console.log(resId);
+    this.state.status = "banned";
+    this.setState({ status: this.state.status });
+    const fd = new FormData();
+    fd.append("status", this.state.status);
+    axios.put("http://127.0.0.1:8000/restaurants/" + resId, fd).then((res) => {
+      console.log(res);
+    });
+
+    this.setState({
+      matchingRestaurants: this.state.matchingRestaurants,
+    });
+      window.location.href = "/search/" + this.props.match.params.searchItem;
   }
-  viewDetails = (restaurantCopouns) => {
-    console.log(restaurantCopouns);
-  };
 
+
+  
   deleteRes = (resId) => {
     console.log(resId);
     if (window.confirm("Are you sure?")) {
@@ -48,81 +74,19 @@ class BannedRestaurants extends React.Component {
     }
     this.state.refresh = true;
     this.setState({ refresh: this.state.refresh });
-      window.location.href = "/banned-restaurants";
-    
+       window.location.href = "/search/" + this.props.match.params.searchItem;
   };
-
-  async componentWillMount() {
-    this.setState({ loading: true });
-    let res = await fetch("http://127.0.0.1:8000/restaurants", {
-      method: "GET",
-      headers: {
-        "content-type": "application/json",
-      },
-    });
-    // console.log(res.err);
-    let resJson = await res.json();
-    // let myRestaurants = resJson.restaurants;
-    //  console.log(resJson.restaurants);
-    resJson.restaurants.map((restaurant) => {
-      console.log(restaurant);
-      if (restaurant.status === "banned") {
-        console.log(restaurant.name);
-        this.state.bannedRestaurants.push(restaurant);
-      }
-    });
-
-    this.setState({
-      loading: false,
-      bannedRestaurants: this.state.bannedRestaurants,
-    });
-    //console.log(resJson);
-  }
-
-  // componentWillMount() {
-  //   this.setState({loading:true});
-  //     fetch("http://localhost:8000/restaurants")
-  //       .then((res) => res.text())
-  //       .then((res) => this.setState({ apiRestaurants: res.restaurants ,loading:false}));
-
-  // }
-  unbanRestaurant = (resId) => {
-    console.log(resId);
-    this.state.status = "accepted";
-    this.setState({ status: this.state.status });
-    const fd = new FormData();
-    fd.append("status", this.state.status);
-    axios.put("http://127.0.0.1:8000/restaurants/" + resId, fd).then((res) => {
-      console.log(res);
-    });
-
-    this.setState({
-      acceptedRestaurants: this.state.acceptedRestaurants,
-    });
-             window.location.href = "/banned-restaurants";
-  };
-  render() {
-    return (
-      <Router>
-        <div className="container" >
-          {" "}
-          <h1
-            style={{
-              color: "rgb(33, 33, 33)",
-              backgroundColor: "rgb(246, 246, 246)",
-              marginTop: "30px",
-              marginBottom: "30px",
-              paddingInline: "20px",
-              paddingTop: "10px",
-              paddingBottom: "10px",
-              fontSize: "28px",
-              fontFamily: "sans-serif",
-              paddingLeft: "50px",
-            }}
-          >
-            Banned Restaurants
-          </h1>
-          <div
+    render(){
+        return( 
+            <div class="container">
+                <br></br>
+                <div style={{display:"flex",justifyContent:"flex-end"}}>
+                <a href="/talabat-team-restaurants" class="btn btn-info text-white" style={{paddingLeft:"20px",paddingRight:"20px",fontsize:"20px",borderRadius:"15px"}}>
+                back to all restaurants
+             
+                </a>
+                 </div>
+                <div
             style={{
               display: "flex",
               alignItems: "center",
@@ -148,22 +112,28 @@ class BannedRestaurants extends React.Component {
                   placeholder="Search by restaurant name"
                   aria-label="Search"
                   aria-describedby="search-addon"
+                  value={this.state.searchItem}
+                   onChange={(e) => this.setState({ searchItem: e.target.value })}
                 />
-
+              <a href={`/search/${this.state.searchItem}`}> 
                 <span className="input-group-text border-0" id="search-addon">
                   <FcSearch />
                 </span>
+                </a>
               </div>
             </div>
-            {/* <div style={{ marginLeft: "100px" }}>
-              <a href="/JoinRequests" class="btn text-white btn-danger">
+            {/* <div style={{marginLeft:"100px"}}>
+              <a
+                href="/banned-restaurants"
+                class="btn text-white btn-danger"
+              >
                 Go to Banned Restaurants
               </a>
             </div> */}
           </div>
           <div className="row">
-            {this.state.bannedRestaurants.length > 0 ? (
-              this.state.bannedRestaurants.map((restaurant) => {
+            {this.state.matchingRestaurants.length > 0 ? (
+              this.state.matchingRestaurants.map((restaurant) => {
                 return (
                   <div
                     className="card "
@@ -252,10 +222,11 @@ class BannedRestaurants extends React.Component {
                         </li>
                         <li className="list-group-item">
                           <button
+                            
                             className="btn card-link"
-                            onClick={() => this.unbanRestaurant(restaurant._id)}
+                            onClick={() => this.banRestaurant(restaurant._id)}
                           >
-                            <FaBan /> UnBan Restaurant
+                            <FaBan /> Ban Restaurant
                           </button>
                         </li>
                         <li className="list-group-item">
@@ -269,6 +240,19 @@ class BannedRestaurants extends React.Component {
                           >
                             <RiDeleteBin5Line /> Delete Restaurant
                           </button>
+                        </li>
+
+                          <li className="list-group-item">
+                          <a href={`/menu/${restaurant._id}`}
+                            style={{
+                              border: "none",
+                              background: "white",
+                              color: "blue",
+                            }}
+                            
+                          >
+                            <BiFoodMenu /> Menu
+                          </a>
                         </li>
                       </ul>
                     </div>
@@ -287,11 +271,12 @@ class BannedRestaurants extends React.Component {
               </h1>
             )}
           </div>
-        </div>
-      </Router>
-    );
-  }
+</div>
+
+        );
+    }
 }
+
 
 class ViewDetails extends React.Component {
   res = this.props.res;
@@ -331,4 +316,4 @@ class ViewDetails extends React.Component {
   }
 }
 
-export default BannedRestaurants;
+export default SearchFeature;

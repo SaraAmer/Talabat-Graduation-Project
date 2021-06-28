@@ -7,88 +7,106 @@ class MenuItem extends React.Component{
     constructor(props){
         super()
         this.state={
-            resId : localStorage["resId"],
             display: "none",
-            food : []
+            food:[]
         }
     }
     HandleCategoryItem=()=>{
         this.setState({display: this.state.display=="none"?"":"none"})
        
     }
-
     deleteItem=async (index)=>{
         console.log("deleted")
-        
+      
         let res = await fetch(`http://127.0.0.1:8000/restaurant/food/${this.state.food[index]._id}`, {
-        method: "DELETE",
-        headers: {
-        "Content-Type": "application/json",}
-        })
-        .then(res => res.json())
+            method: "DELETE",
+            headers: {
+          "Content-Type": "application/json",}
+      })
+       .then(res => res.json())
         .then(result => {
-        alert("the category deleted successfuly")
+            alert("the category deleted successfuly")
         
-        
+       
         });
-       
-        this.setState({food:   this.state.food.splice(index,1)} ) 
-       
-       
-        
-        }
+     
 
+
+
+    }
     async componentWillMount() {
-        console.log("Enter menu item");
- let res = await fetch( `http://localhost:8000/restaurant/${this.state.resId}/food`, {
- method: "GET",
- headers: {
- "Content-Type": "application/json",}
- })
- .then(res => res.json())
- .then(result => {
-     this.setState({
-         food: result.food
-         
-     })
-     console.log(this.state.food);
- 
- });
- 
- }
+        console.log('heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee')
+        let res = await fetch(`http://localhost:8000/restaurant/60d60bcd76b7c03cfed9afe7/food`, {
+            method: "GET",
+            headers: {
+          "Content-Type": "application/json",}
+      })
+       .then(res => res.json())
+        .then(result => {
+        this.setState({food: result.food})    
+        console.log(result)
+       
+        });
+      
+    }
 
     render(){
         return(
             <div id="menue-category-item">
 
          
-            <div id="categories" onClick={this.HandleCategoryItem}>
-
+            {/* <div id="categories" onClick={this.HandleCategoryItem}>
                 <h4>
                     {this.props.category}
                 </h4>
               
           
-            </div>
-            {this.state.food.length > 0 ? this.state.food.map((f, index) =>{
-                return(
-                    <div id="item-details" style={{margin: "20px", backgroundColor: '#kcc'}}>
+            </div> */}
+            <div id="item-details" >
             
-            <div>
-            <img src={`http://localhost:8000/${f.img}`} id="product-img"/>
-            <input id="product-name" value={f.name} readOnly/>
-            </div>
-            <div>
-            <FontAwesomeIcon onClick={()=>this.deleteItem(index)} icon={faTrash} style={{marginRight: "10px"}}/>
-            <FontAwesomeIcon icon={faPen} />
+            {this.state.food.map((food , index )=>{
+                            return (
+                                <div className="categories-item">
+                                    <div>
+                            <img src={`http://localhost:8000/${food.img}`} id="product-img"/>
+            <span>
+               
+            {food.name}
+                </span>
+                <span>
+               
+            {food.price}
+                </span>
+                <span>
+               
+               {food.rate}
+                   </span>
+</div>
+                <div>
+                <FontAwesomeIcon icon={faTrash} style={{marginRight: "10px"}} onClick={()=>this.deleteItem(index)}  />
+                <FontAwesomeIcon icon={faPen} />
 
+                
+                
+                </div>
             
-            
-            </div>
-        </div>
-                );
-            }) : <div> No foods in restaurant </div> }
 
+                                 </div>
+                                 
+
+
+                            )
+                        })}
+
+                <div>
+              
+            
+
+               
+            
+                </div>
+          
+            </div>
             </div>
             
                      

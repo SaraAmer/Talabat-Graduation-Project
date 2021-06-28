@@ -228,10 +228,12 @@ router.get("/", (req, res, next) => {
             payment: doc.payment,
             numberOfBranches: doc.numberOfBranches,
             resImg: doc.img,
+             status:doc.status,
             _id: doc._id,
+           
             request: {
               type: "GET",
-              url: "http://localhost:3000/products/" + doc._id,
+              url: "http://localhost:3000/restaurants/" + doc._id,
             },
           };
         }),
@@ -247,29 +249,30 @@ router.get("/", (req, res, next) => {
     });
 });
 
+
 router.get("/:resId", (req, res, next) => {
-  const id = req.params.resId;
+    const id = req.params.resId;
 
-  Restaurant.find({ owner: { _id: id } })
-    .exec()
-    .then((doc) => {
-      console.log("From database", doc);
-      if (doc) {
-        res.status(200).json({
-          restaurant: doc,
+    Restaurant.findById(id)
+        .exec()
+        .then(doc => {
+            console.log("From database", doc);
+            if (doc) {
+                res.status(200).json({
+                    restaurant: doc,
+
+                });
+            } else {
+                res
+                    .status(404)
+                    .json({ message: "No valid entry found for provided ID" });
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({ error: err });
         });
-      } else {
-        res
-          .status(404)
-          .json({ message: "No valid entry found for provided ID" });
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ error: err });
-    });
 });
-
 router.delete("/:resId", (req, res, next) => {
   const id = req.params.resId;
   Restaurant.remove({ _id: id })
@@ -295,12 +298,12 @@ router.put("/:resId", upload.single("img"), (req, res, next) => {
 
   Restaurant.findOne({ _id: id })
     .exec()
-    .then((rest) => {
+    .then((rest) =>{
       let address = {
-        street: req.body.street ? req.body.street : branch.address.street,
+        street: req.body.street ? req.body.street : rest.address.street,
         coord: {
-          lan: req.body.lan ? req.body.lan : branch.address.coord.lan,
-          att: req.body.att ? req.body.att : branch.address.coord.att,
+          lan: req.body.lan ? req.body.lan : rest.address.coord.lan,
+          att: req.body.att ? req.body.att : rest.address.coord.att,
         },
       };
 
@@ -333,7 +336,7 @@ router.put("/:resId", upload.single("img"), (req, res, next) => {
         : rest.serviceCharge;
       rest.vat = req.body.vat ? req.body.vat : rest.vat;
       rest.img = req.file ? req.file.path : rest.img;
-
+      rest.status = req.body.status ? req.body.status : rest.status;
       return rest.save();
     })
     .then((result) => {
