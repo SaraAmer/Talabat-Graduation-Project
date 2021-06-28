@@ -13,7 +13,7 @@
 
 
 
-##Detailed Steps To Run The Program
+## Detailed Steps To Run The Program
 - clone the repo 
 - change diresctory to Front-End
 - Run The commands :
