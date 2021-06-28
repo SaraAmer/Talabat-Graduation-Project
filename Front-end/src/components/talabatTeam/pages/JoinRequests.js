@@ -43,7 +43,7 @@ axios
   .then((res) => {
     console.log(res);
   });
- window.location.href = "http://localhost:3000/JoinRequests";
+ window.location.href = "/JoinRequests";
 
 
   };
@@ -58,7 +58,7 @@ axios
         },
       }); //end fetch
 
- window.location.href = "http://localhost:3000/JoinRequests";
+ window.location.href = "/JoinRequests";
     }//end if
     this.state.refresh = true;
     this.setState({ pendingRestaurants: this.state.pendingRestaurants });

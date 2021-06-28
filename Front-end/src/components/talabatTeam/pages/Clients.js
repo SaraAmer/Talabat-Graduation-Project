@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import { FaBan } from "react-icons/fa";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import DashboardNavbar from "./DashboardNavbar.js";
-import ClientDetails from "./ClientDetails.js";
 import "./Clients.css";
 import { FcSearch } from "react-icons/fc";
 import axios from "axios";
@@ -74,7 +73,7 @@ class Clients extends React.Component {
           },
         });
       }
-       window.location.href = " http://localhost:3000/clients";
+       window.location.href = "/clients";
   };
 
   async componentWillMount() {
@@ -122,7 +121,7 @@ class Clients extends React.Component {
       users: this.state.users,
     });
     console.log(this.state.status);
-    window.location.href = " http://localhost:3000/clients"
+    window.location.href = "/clients"
   }
 
 
@@ -152,7 +151,7 @@ class Clients extends React.Component {
           }}
         >
           <div>
-            <div
+            {/* <div
               className="input-group rounded"
               style={{ width: 600, marginTop: "15px", float: "right" }}
             >
@@ -167,7 +166,7 @@ class Clients extends React.Component {
               <span className="input-group-text border-0" id="search-addon">
                 <FcSearch />
               </span>
-            </div>
+            </div> */}
           </div>
         </div>
         <br></br>

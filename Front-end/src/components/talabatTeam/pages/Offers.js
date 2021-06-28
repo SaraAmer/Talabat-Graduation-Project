@@ -61,6 +61,7 @@ class Offers extends React.Component {
       apiRestaurants: [],
       offers: [],
       acceptedRestaurants:[],
+      searchItem:""
     };
   }
   setCurrrentResId = (resID) => {
@@ -123,14 +124,17 @@ class Offers extends React.Component {
                 <input
                   type="search"
                   className="form-control rounded"
-                  placeholder="Search for a restaurant"
+                  placeholder="Search by restaurant name"
                   aria-label="Search"
                   aria-describedby="search-addon"
+                  value={this.state.searchItem}
+                   onChange={(e) => this.setState({ searchItem: e.target.value })}
                 />
-
+              <a href={`/search/${this.state.searchItem}`}> 
                 <span className="input-group-text border-0" id="search-addon">
                   <FcSearch />
                 </span>
+                </a>
               </div>
             </div>
           </div>

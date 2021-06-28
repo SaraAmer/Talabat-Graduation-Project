@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import { FaBan } from "react-icons/fa";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import DashboardNavbar from "./DashboardNavbar.js";
-import ClientDetails from "./ClientDetails.js";
 import "./Clients.css";
 import { FcSearch } from "react-icons/fc";
 import axios from "axios";
@@ -75,7 +74,7 @@ class BannedClients extends React.Component {
           },
         });
       }
-       window.location.href = "http://localhost:3000/banned-clients";
+       window.location.href = "/banned-clients";
   };
 
   async componentWillMount() {
@@ -123,7 +122,7 @@ class BannedClients extends React.Component {
       bannedClients: this.state.bannedClients,
     });
     console.log(this.state.status);
-    window.location.href = "http://localhost:3000/banned-clients";
+    window.location.href = "/banned-clients";
   }
 
 
@@ -153,39 +152,7 @@ class BannedClients extends React.Component {
         >
           Banned Clients
         </h1>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: " center",
-            color: "rgb(33, 33, 33)",
-            backgroundColor: "rgb(246, 246, 246)",
-            marginTop: "30px",
-            paddingInline: "20px",
-            paddingTop: "10px",
-            paddingBottom: "10px",
-            fontSize: "22px",
-          }}
-        >
-          <div>
-            <div
-              className="input-group rounded"
-              style={{ width: 600, marginTop: "15px", float: "right" }}
-            >
-              <input
-                type="search"
-                className="form-control rounded"
-                placeholder="Search by client E-mail"
-                aria-label="Search"
-                aria-describedby="search-addon"
-              />
-
-              <span className="input-group-text border-0" id="search-addon">
-                <FcSearch />
-              </span>
-            </div>
-          </div>
-        </div>
+      
         <br></br>
         <table class="table table-striped">
           <thead>
