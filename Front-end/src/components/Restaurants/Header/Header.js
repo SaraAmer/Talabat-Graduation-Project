@@ -15,6 +15,7 @@ import {
   } from "react-router-dom"
 import Orders from '../orders/orders';
 
+
 class RestaurantHeader extends React.Component{
     render(){
             return ( 
@@ -62,7 +63,7 @@ class RestaurantHeader extends React.Component{
                     </nav>
                     <Switch>
                         <Route exact path="/restaurant/dashboard">
-                            <Dashboard/>
+                        <Profile/>
                         </Route>
                         <Route path="/menu">
                             <Profile/>

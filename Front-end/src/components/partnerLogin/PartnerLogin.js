@@ -32,13 +32,23 @@ class PartnerLogin extends React.Component {
     console.log(resJson.error);
     if (typeof resJson.error === "undefined") {
       //save to localstorage
-      localStorage.setItem("jwt", resJson.token);
+     
       // localStorage.setItem("id", resJson.id);
       localStorage.setItem("id", resJson.id);
+      localStorage.setItem("restId", resJson.restId );
+    
+
+      console.log("===========================================")
+
+      console.log(resJson.id)
+      console.log(resJson.restId)
+      console.log("===========================================")
+
       // localStorage.setItem("user", JSON.stringify(resJson.user));
-      // window.location.href = "http://localhost:3000/restaurant/dashboard";
+     
       M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
-      window.location.reload();
+      window.location.href = "/restaurant/dashboard";
+    
       // alert(resJson.message);
     } else {
       M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });

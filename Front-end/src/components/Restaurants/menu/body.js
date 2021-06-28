@@ -10,10 +10,13 @@ class MenuBody extends React.Component{
     constructor(props){
         super()
         this.state ={
-            categories : props.categories
+            categories : props.categories,
+         
+
         }
        
     }
+
     render(){
         return(
             <div style={{width: "95%"}}>

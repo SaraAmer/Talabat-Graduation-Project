@@ -7,44 +7,51 @@ import {
     Marker,
   } from "react-google-maps";
 
-class Branches extends React.Component{
-
-    render(){
-        const MapWithAMarker = withScriptjs(withGoogleMap(props =>
-            <GoogleMap
-              defaultZoom={8}
-              defaultCenter={{ lat: -34.397, lng: 150.644 }}
-            >
-              <Marker
-                position={{ lat: -34.397, lng: 150.644 }}
-                onClick={props.onMarkerClick}
 
 
-              />
-                      <Marker
-                position={{ lat: -35.397, lng: 150.644 }}
-                onClick={props.onMarkerClick}
-
-
-              />
-                      <Marker
-                position={{ lat: -36.397, lng: 150.644 }}
-                onClick={props.onMarkerClick}
-
-
-              />
-            </GoogleMap>
-          ));
-        return (
-            <div id="brances-container">
-              <MapWithAMarker
-  googleMapURL="https://maps.googleapis.com/maps/api/js?&libraries=geometry,drawing,places"
-  loadingElement={<div style={{ height: `100%` }} />}
-  containerElement={<div style={{ height: `400px` }} />}
-  mapElement={<div style={{ height: `100%` }} />}
-/>
-            </div>
-        )
+  class Branches extends React.Component{
+    async componentWillMount() {
+      let res = await fetch(`http://127.0.0.1:8000/order/restaurant/60d4ae3fa42c3f207c8eda63`, {
+          method: "GET",
+          headers: {
+        "Content-Type": "application/json",}
+    })
+     .then(res => res.json())
+      .then(result => {
+      this.setState({ orders: result.Orders }
+         )    
+     
+      });
     }
-}
+    
+  render()
+  {
+    return(<div>
+      <table class="table">
+      <thead>
+      <tr>
+      <th scope="col">User name</th>
+      <th scope="col">Number</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+      </tr>
+      </thead>
+      <tbody>
+        {
+        this.state.orders.map((order =>{
+          return (
+            <tr>
+
+ </tr>
+          )
+        }))
+    
+      
+   }
+   </tbody>
+     </table>
+      
+      
+      </div>)
+  }}
 export default Branches

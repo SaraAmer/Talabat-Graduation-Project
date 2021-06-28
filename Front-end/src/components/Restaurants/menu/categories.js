@@ -3,6 +3,7 @@ import "./categories.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus , faTrash } from '@fortawesome/free-solid-svg-icons'
 class Categories extends React.Component{
+
  constructor(){
  super();
  this.categories=[]
@@ -49,6 +50,7 @@ class Categories extends React.Component{
  this.categories.push({name: this.state.category});
  this.setState({categories:  this.categories 
  , category:""} ) 
+
 
 
  }

@@ -110,11 +110,7 @@ class PartnerRegisterFirst extends React.Component {
     console.log(`${this.state.selectValue}`);
     console.log(`${this.state.storeLocation}`);
     console.log(`${this.state.storetype}`);
-    // restaurantAddress: "",
-    // category: this.state.,
-    // console.log(
-    //   `${FirstName} ${LastName} ${MobileNumber} ${email}  ${password} ${storename} ${numberOfBranches} ${category}`
-    // );
+
     let resJson = await res.json();
 
     console.log(resJson.error);
@@ -124,58 +120,39 @@ class PartnerRegisterFirst extends React.Component {
         html: "Check mail information will revise and we will contact you",
         classes: "#c62828 red darken-3",
       });
-    } else {
-      if (resJson.error.details[0].message == "undefined") {
-        if (typeof resJson.error === "undefined") {
-          M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
+    }else{
+    
+   
+        if (resJson.error.details[0].message == "undefined") {
+          if (typeof resJson.error === "undefined") {
+            M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
+          } else {
+            M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
+          }
         } else {
-          M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
+          if (
+            resJson.error.details[0].message ==
+            '"MobileNumber" with value "012893626" fails to match the required pattern: /^\\d{3}\\d{3}\\d{3}\\d{2}$/'
+          ) {
+            // M.toast({
+            //   html: "Not Valid Mobile number",
+            //   classes: "#c62828 red darken-3",
+            // });
+            alert(resJson.message)
+          } else {
+            // M.toast({
+            //   html: resJson.error.details[0].message,
+            //   classes: "#c62828 red darken-3",
+            // });
+            alert(resJson.error)
+  
+          }
         }
-      } else {
-        if (
-          resJson.error.details[0].message ==
-          '"MobileNumber" with value "012893626" fails to match the required pattern: /^\\d{3}\\d{3}\\d{3}\\d{2}$/'
-        ) {
-          M.toast({
-            html: "Not Valid Mobile number",
-            classes: "#c62828 red darken-3",
-          });
-        } else {
-          M.toast({
-            html: resJson.error.details[0].message,
-            classes: "#c62828 red darken-3",
-          });
-        }
-      }
+      
     }
+ 
 
-    //   if (resJson.error.details[0].message == "undefined") {
-    //     if (typeof resJson.error === "undefined") {
-    //       M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
-    //     } else {
-    //       M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
-    //     }
-    //   } else {
-    //     M.toast({
-    //       html: resJson.error.details[0].message,
-    //       classes: "#c62828 red darken-3",
-    //     });
-    //   }
-    // } else {
-    //   M.toast({
-    //     html: resJson.error.message,
-    //     classes: "#c62828 red darken-3",
-    //   });
-    // }
-    // console.log(resJson.error.details[0].message);
-    // console.log(resJson.error.details);
-    // if (resJson.error.details[0].message === "undefined") {
-    //   if (typeof resJson.error === "undefined") {
-    //     M.toast({ html: resJson.message, classes: "#c62828 red darken-3" });
-    //   } else {
-    //     M.toast({ html: resJson.error, classes: "#c62828 red darken-3" });
-    //   }
-    // }
+
   };
   render() {
     // const { country } = this.state;
