@@ -56,7 +56,7 @@ mongoose
         "mongodb+srv://eithar:123@cluster0.jg0og.mongodb.net/Talabat?retryWrites=true&w=majority"
     )
     .then((result) => {
-        app.listen(5000);
+        app.listen(5002);
         //  console.log(result);
     })
     .catch((err) => {
