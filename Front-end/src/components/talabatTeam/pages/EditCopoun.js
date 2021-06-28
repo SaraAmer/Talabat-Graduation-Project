@@ -1,24 +1,37 @@
 import React from 'react'
 import axios from "axios";
+import LoginAdmin from "./loginAdmin";
+import AdminHeader from "../layouts/AdminHeader";
+import Footer from "../../layouts/Footer";
 
 
-class EditCopoun extends React.Component{
-  constructor(){
-      super();
-     this.state = {
+class EditCopoun extends React.Component {
+  constructor() {
+    super();
+    const token = localStorage.getItem("email");
+    console.log("tokeeeen:" + token);
+    let loggedIn = true;
+
+    if (token == null) {
+      loggedIn = false;
+    }
+
+    this.state = {
+      loggedIn,
       copounCode: "",
       copounLimit: "",
       copounDesc: "",
-      copounDiscount:"",
-      copouns:[],
-      restaurant:{}
-    }
+      copounDiscount: "",
+      copouns: [],
+      restaurant: {},
+    };
   }
 
   async componentDidMount() {
     console.log("component did mount");
     let res = await fetch(
-      "http://127.0.0.1:8000/restaurants/copoun/singleCopoun/" + this.props.match.params.copounId,
+      "http://127.0.0.1:8000/restaurants/copoun/singleCopoun/" +
+        this.props.match.params.copounId,
       {
         method: "GET",
         headers: {
@@ -28,12 +41,11 @@ class EditCopoun extends React.Component{
     );
     let resJson = await res.json();
     console.log(resJson.Offers);
-     this.setState({ copouns: resJson.Copouns });
+    this.setState({ copouns: resJson.Copouns });
     // console.log(resJson);
     console.log(this.state.copouns);
 
-
-     let response = await fetch(
+    let response = await fetch(
       "http://127.0.0.1:8000/restaurants/" + this.props.match.params.resId,
       {
         method: "GET",
@@ -44,39 +56,45 @@ class EditCopoun extends React.Component{
     );
     let responseJson = await response.json();
     console.log(responseJson.restaurant);
-     this.setState({ restaurant: responseJson.restaurant });
+    this.setState({ restaurant: responseJson.restaurant });
     // console.log(resJson);
     console.log(this.state.restaurant);
   }
 
-  editCopoun=()=>
-  {
-console.log( this.props.match.params.resId);
-console.log( this.props.match.params.copounId); 
+  editCopoun = () => {
+    console.log(this.props.match.params.resId);
+    console.log(this.props.match.params.copounId);
 
-console.log(this.state.copounCode);
-const fd = new FormData();
-fd.append("code", this.state.copounCode);
-fd.append("desc", this.state.copounDesc);
-fd.append("discount", this.state.copounDiscount);
-fd.append("price", this.state.copounDiscount);
-fd.append("limit",  this.state.copounLimit);
-axios
-  .put(
-    "http://127.0.0.1:8000/restaurants/copoun/singleCopoun/"+this.props.match.params.copounId,fd
-  )
-  .then((res) => {
-    console.log(res);
-  });
-  this.state.flag=1;
-  
-  this.setState({copounCode:this.state.copounCode})
- window.location.href=`/copoun/${this.props.match.params.resId}/edit/${this.props.match.params.copounId}`;
-}
-  render(){
+    console.log(this.state.copounCode);
+    const fd = new FormData();
+    fd.append("code", this.state.copounCode);
+    fd.append("desc", this.state.copounDesc);
+    fd.append("discount", this.state.copounDiscount);
+    fd.append("price", this.state.copounDiscount);
+    fd.append("limit", this.state.copounLimit);
+    axios
+      .put(
+        "http://127.0.0.1:8000/restaurants/copoun/singleCopoun/" +
+          this.props.match.params.copounId,
+        fd
+      )
+      .then((res) => {
+        console.log(res);
+      });
+    this.state.flag = 1;
+
+    this.setState({ copounCode: this.state.copounCode });
+    window.location.href = `/copoun/${this.props.match.params.resId}/edit/${this.props.match.params.copounId}`;
+  };
+  render() {
+    if (this.state.loggedIn === false) {
+      return <LoginAdmin />;
+    }
     return (
+         <div>
+             <AdminHeader />
       <div class="container">
-            <h1
+        <h1
           style={{
             color: "rgb(33, 33, 33)",
             backgroundColor: "rgb(246, 246, 246)",
@@ -92,7 +110,7 @@ axios
         >
           Edit {this.state.restaurant.name} copoun
         </h1>
-         {this.state.copouns.length > 0
+        {this.state.copouns.length > 0
           ? this.state.copouns.map((singleCopoun) => {
               return (
                 <div>
@@ -126,63 +144,56 @@ axios
                         Code:
                         <b> {singleCopoun.code} </b>
                       </div>
-
-                     
-               
-                 
                     </div>
-
                   </h1>
                 </div>
               );
             })
           : "No offers yet"}
- 
-        <form>
-            <div class="form-group" style={{ fontSize: "20px" }}>
-              <label>Copoun Code</label>
-              <input
-                type="text"
-                class="form-control"
-                style={{ width: "300px" }}
-         
-                onChange={(e) => this.setState({ copounCode: e.target.value })}
-              />
-              <br></br>
-              <div style={{ display: "flex" }}>
-                <input
-                  type="text"
-                  class="form-control"
-                  style={{ width: "60px" }}
-                  
-                  onChange={(e) => this.setState({ copounDiscount: e.target.value })}
-                />
-                <div> L.E Off Selected Items</div>
-              </div>
-              <br></br>
-              <div style={{ display: "flex" }}>
-                <input
-                  type="text"
-                  class="form-control"
-                  style={{ width: "60px" }}
-                  
-                  onChange={(e) => this.setState({ copounLimit: e.target.value })}
-                />
-                <div> Limit for this copoun</div>
-              </div>
-              <br></br>
-              description for copoun:
-              <input
-                type="text"
-                class="form-control"
-                style={{ width: "450px" }}
-        
-                onChange={(e) => this.setState({ copounDesc: e.target.value })}
-              ></input>
-            </div>
 
+        <form>
+          <div class="form-group" style={{ fontSize: "20px" }}>
+            <label>Copoun Code</label>
+            <input
+              type="text"
+              class="form-control"
+              style={{ width: "300px" }}
+              onChange={(e) => this.setState({ copounCode: e.target.value })}
+            />
             <br></br>
-          </form>
+            <div style={{ display: "flex" }}>
+              <input
+                type="text"
+                class="form-control"
+                style={{ width: "60px" }}
+                onChange={(e) =>
+                  this.setState({ copounDiscount: e.target.value })
+                }
+              />
+              <div> L.E Off Selected Items</div>
+            </div>
+            <br></br>
+            <div style={{ display: "flex" }}>
+              <input
+                type="text"
+                class="form-control"
+                style={{ width: "60px" }}
+                onChange={(e) => this.setState({ copounLimit: e.target.value })}
+              />
+              <div> Limit for this copoun</div>
+            </div>
+            <br></br>
+            description for copoun:
+            <input
+              type="text"
+              class="form-control"
+              style={{ width: "450px" }}
+              onChange={(e) => this.setState({ copounDesc: e.target.value })}
+            ></input>
+          </div>
+
+          <br></br>
+        </form>
         <a
           href="/copoun"
           type="button"
@@ -194,9 +205,11 @@ axios
           save changes
         </a>
       </div>
+      <Footer/>
+      </div>
+
     );
   }
-
 }
 
 export default EditCopoun

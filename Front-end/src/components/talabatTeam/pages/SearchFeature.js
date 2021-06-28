@@ -11,18 +11,30 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { BiFoodMenu } from "react-icons/bi";
+import LoginAdmin from "./loginAdmin";
+import AdminHeader from "../layouts/AdminHeader";
+import Footer from "../../layouts/Footer";
+
 //import ViewDetails from 'Restaurant.js'
 
-class SearchFeature extends React.Component{
-    constructor(){
-        super();
-        this.state={
-            matchingRestaurants:[],
+class SearchFeature extends React.Component {
+  constructor() {
+    super();
+    const token = localStorage.getItem("email");
+    console.log("tokeeeen:" + token);
+    let loggedIn = true;
 
-        }
+    if (token == null) {
+      loggedIn = false;
     }
 
-    async componentWillMount() {
+    this.state = {
+      loggedIn,
+      matchingRestaurants: [],
+    };
+  }
+
+  async componentWillMount() {
     let res = await fetch("http://127.0.0.1:8000/restaurants", {
       method: "GET",
       headers: {
@@ -31,19 +43,22 @@ class SearchFeature extends React.Component{
     });
     // console.log(res.err);
     let resJson = await res.json();
-    let resSearchName=this.props.match.params.searchItem
+    let resSearchName = this.props.match.params.searchItem;
     // let myRestaurants = resJson.restaurants;
     //  console.log(resJson.restaurants);
     resJson.restaurants.map((restaurant) => {
       console.log(restaurant);
-      if (restaurant.name == resSearchName && restaurant.status==="accepted") {
+      if (
+        restaurant.name == resSearchName &&
+        restaurant.status === "accepted"
+      ) {
         console.log(restaurant.name);
         this.state.matchingRestaurants.push(restaurant);
       }
-      this.setState({matchingRestaurants:this.state.matchingRestaurants})
+      this.setState({ matchingRestaurants: this.state.matchingRestaurants });
     });
-    }
-      banRestaurant=(resId)=>{
+  }
+  banRestaurant = (resId) => {
     console.log(resId);
     this.state.status = "banned";
     this.setState({ status: this.state.status });
@@ -56,11 +71,9 @@ class SearchFeature extends React.Component{
     this.setState({
       matchingRestaurants: this.state.matchingRestaurants,
     });
-      window.location.href = "/search/" + this.props.match.params.searchItem;
-  }
+    window.location.href = "/search/" + this.props.match.params.searchItem;
+  };
 
-
-  
   deleteRes = (resId) => {
     console.log(resId);
     if (window.confirm("Are you sure?")) {
@@ -74,55 +87,68 @@ class SearchFeature extends React.Component{
     }
     this.state.refresh = true;
     this.setState({ refresh: this.state.refresh });
-       window.location.href = "/search/" + this.props.match.params.searchItem;
+    window.location.href = "/search/" + this.props.match.params.searchItem;
   };
-    render(){
-        return( 
-            <div class="container">
-                <br></br>
-                <div style={{display:"flex",justifyContent:"flex-end"}}>
-                <a href="/talabat-team-restaurants" class="btn btn-info text-white" style={{paddingLeft:"20px",paddingRight:"20px",fontsize:"20px",borderRadius:"15px"}}>
-                back to all restaurants
-             
-                </a>
-                 </div>
-                <div
+  render() {
+    if (this.state.loggedIn === false) {
+      return <LoginAdmin />;
+    }
+    return (
+      <div>
+       <AdminHeader/>
+      <div class="container">
+        <br></br>
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+          <a
+            href="/talabat-team-restaurants"
+            class="btn btn-info text-white"
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: " center",
-              color: "rgb(33, 33, 33)",
-              backgroundColor: "rgb(246, 246, 246)",
-              marginTop: "30px",
-
-              paddingInline: "20px",
-              paddingTop: "10px",
-              paddingBottom: "10px",
-              fontSize: "22px",
+              paddingLeft: "20px",
+              paddingRight: "20px",
+              fontsize: "20px",
+              borderRadius: "15px",
             }}
           >
-            <div>
-              <div
-                className="input-group rounded"
-                style={{ width: 600, marginTop: "15px", float: "right" }}
-              >
-                <input
-                  type="search"
-                  className="form-control rounded"
-                  placeholder="Search by restaurant name"
-                  aria-label="Search"
-                  aria-describedby="search-addon"
-                  value={this.state.searchItem}
-                   onChange={(e) => this.setState({ searchItem: e.target.value })}
-                />
-              <a href={`/search/${this.state.searchItem}`}> 
+            back to all restaurants
+          </a>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: " center",
+            color: "rgb(33, 33, 33)",
+            backgroundColor: "rgb(246, 246, 246)",
+            marginTop: "30px",
+
+            paddingInline: "20px",
+            paddingTop: "10px",
+            paddingBottom: "10px",
+            fontSize: "22px",
+          }}
+        >
+          <div>
+            <div
+              className="input-group rounded"
+              style={{ width: 600, marginTop: "15px", float: "right" }}
+            >
+              <input
+                type="search"
+                className="form-control rounded"
+                placeholder="Search by restaurant name"
+                aria-label="Search"
+                aria-describedby="search-addon"
+                value={this.state.searchItem}
+                onChange={(e) => this.setState({ searchItem: e.target.value })}
+              />
+              <a href={`/search/${this.state.searchItem}`}>
                 <span className="input-group-text border-0" id="search-addon">
                   <FcSearch />
                 </span>
-                </a>
-              </div>
+              </a>
             </div>
-            {/* <div style={{marginLeft:"100px"}}>
+          </div>
+          {/* <div style={{marginLeft:"100px"}}>
               <a
                 href="/banned-restaurants"
                 class="btn text-white btn-danger"
@@ -130,151 +156,151 @@ class SearchFeature extends React.Component{
                 Go to Banned Restaurants
               </a>
             </div> */}
-          </div>
-          <div className="row">
-            {this.state.matchingRestaurants.length > 0 ? (
-              this.state.matchingRestaurants.map((restaurant) => {
-                return (
-                  <div
-                    className="card "
+        </div>
+        <div className="row">
+          {this.state.matchingRestaurants.length > 0 ? (
+            this.state.matchingRestaurants.map((restaurant) => {
+              return (
+                <div
+                  className="card "
+                  style={{
+                    width: "290px",
+                    marginLeft: "25px",
+                    marginRight: "8px",
+                    marginTop: "20px",
+                    marginBottom: "8px",
+                  }}
+                >
+                  <img
+                    className="card-img-top"
+                    src={`http://localhost:8000/${restaurant.img}`}
                     style={{
-                      width: "290px",
-                      marginLeft: "25px",
-                      marginRight: "8px",
-                      marginTop: "20px",
-                      marginBottom: "8px",
+                      paddingLeft: "0px",
+                      paddingRight: "9px",
+                      width: "275px",
+                      height: "170px",
                     }}
+                    alt="Card image cap"
+                  ></img>
+                  <div
+                    className="card-body text-center"
+                    style={{ paddingBottom: "0px" }}
                   >
-                    <img
-                      className="card-img-top"
-                      src={`http://localhost:8000/${restaurant.img}`}
-                      style={{
-                        paddingLeft: "0px",
-                        paddingRight: "9px",
-                        width: "275px",
-                        height: "170px",
-                      }}
-                      alt="Card image cap"
-                    ></img>
-                    <div
-                      className="card-body text-center"
-                      style={{ paddingBottom: "0px" }}
-                    >
-                      <h5 className="card-title text-center">
-                        {restaurant.name}
-                      </h5>
+                    <h5 className="card-title text-center">
+                      {restaurant.name}
+                    </h5>
 
-                      <ul className="list-group list-group-flush">
-                        <li className="list-group-item">
-                          <div>
-                            <button
-                              type="button"
-                              class="btn "
-                              data-toggle="modal"
-                              data-target={`#${restaurant._id}`}
-                            >
-                              <FcInfo />
-                              Details
-                            </button>
+                    <ul className="list-group list-group-flush">
+                      <li className="list-group-item">
+                        <div>
+                          <button
+                            type="button"
+                            class="btn "
+                            data-toggle="modal"
+                            data-target={`#${restaurant._id}`}
+                          >
+                            <FcInfo />
+                            Details
+                          </button>
 
-                            <div
-                              class="modal fade"
-                              id={restaurant._id}
-                              tabindex="-1"
-                              role="dialog"
-                              aria-labelledby="exampleModalLongTitle"
-                              aria-hidden="true"
-                            >
-                              <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5
-                                      class="modal-title"
-                                      id="exampleModalLongTitle"
-                                    >
-                                      {restaurant.name} Details
-                                    </h5>
-                                    <button
-                                      type="button"
-                                      class="close"
-                                      data-dismiss="modal"
-                                      aria-label="Close"
-                                    >
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                    <ViewDetails res={restaurant} />
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button
-                                      type="button"
-                                      class="btn btn-secondary"
-                                      data-dismiss="modal"
-                                    >
-                                      Close
-                                    </button>
-                                  </div>
+                          <div
+                            class="modal fade"
+                            id={restaurant._id}
+                            tabindex="-1"
+                            role="dialog"
+                            aria-labelledby="exampleModalLongTitle"
+                            aria-hidden="true"
+                          >
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5
+                                    class="modal-title"
+                                    id="exampleModalLongTitle"
+                                  >
+                                    {restaurant.name} Details
+                                  </h5>
+                                  <button
+                                    type="button"
+                                    class="close"
+                                    data-dismiss="modal"
+                                    aria-label="Close"
+                                  >
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <ViewDetails res={restaurant} />
+                                </div>
+                                <div class="modal-footer">
+                                  <button
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    data-dismiss="modal"
+                                  >
+                                    Close
+                                  </button>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </li>
-                        <li className="list-group-item">
-                          <button
-                            
-                            className="btn card-link"
-                            onClick={() => this.banRestaurant(restaurant._id)}
-                          >
-                            <FaBan /> Ban Restaurant
-                          </button>
-                        </li>
-                        <li className="list-group-item">
-                          <button
-                            style={{
-                              border: "none",
-                              background: "white",
-                              color: "blue",
-                            }}
-                            onClick={() => this.deleteRes(restaurant._id)}
-                          >
-                            <RiDeleteBin5Line /> Delete Restaurant
-                          </button>
-                        </li>
+                        </div>
+                      </li>
+                      <li className="list-group-item">
+                        <button
+                          className="btn card-link"
+                          onClick={() => this.banRestaurant(restaurant._id)}
+                        >
+                          <FaBan /> Ban Restaurant
+                        </button>
+                      </li>
+                      <li className="list-group-item">
+                        <button
+                          style={{
+                            border: "none",
+                            background: "white",
+                            color: "blue",
+                          }}
+                          onClick={() => this.deleteRes(restaurant._id)}
+                        >
+                          <RiDeleteBin5Line /> Delete Restaurant
+                        </button>
+                      </li>
 
-                          <li className="list-group-item">
-                          <a href={`/menu/${restaurant._id}`}
-                            style={{
-                              border: "none",
-                              background: "white",
-                              color: "blue",
-                            }}
-                            
-                          >
-                            <BiFoodMenu /> Menu
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
+                      <li className="list-group-item">
+                        <a
+                          href={`/menu/${restaurant._id}`}
+                          style={{
+                            border: "none",
+                            background: "white",
+                            color: "blue",
+                          }}
+                        >
+                          <BiFoodMenu /> Menu
+                        </a>
+                      </li>
+                    </ul>
                   </div>
-                );
-              })
-            ) : (
-              <h1
-                style={{
-                  marginTop: "50px",
-                  color: "grey",
-                  marginBottom: "100px",
-                }}
-              >
-                Loading Restaurants . . .
-              </h1>
-            )}
-          </div>
-</div>
-
-        );
-    }
+                </div>
+              );
+            })
+          ) : (
+            <h1
+              style={{
+                marginTop: "50px",
+                color: "grey",
+                marginBottom: "100px",
+              }}
+            >
+              Loading Restaurants . . .
+            </h1>
+          )}
+        </div>
+      </div>
+      <Footer/>
+      </div>
+    );
+  }
 }
 
 
@@ -286,6 +312,8 @@ class ViewDetails extends React.Component {
   // }
   render() {
     return (
+         <div>
+             <AdminHeader />
       <div style={{ fontSize: "25px" }}>
         <b> {this.res.name} </b>
         <br></br>
@@ -312,6 +340,8 @@ class ViewDetails extends React.Component {
         <br></br>
         <b>Rate:</b> {this.res.rate}
       </div>
+      <Footer/>
+    </div>
     );
   }
 }

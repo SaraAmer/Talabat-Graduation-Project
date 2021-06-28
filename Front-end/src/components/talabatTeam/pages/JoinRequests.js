@@ -1,14 +1,24 @@
 import React from 'react';
 import { FcInfo } from "react-icons/fc";
 import axios from "axios";
+import LoginAdmin from "./loginAdmin";
 
 class JoinRequests extends React.Component {
   constructor() {
     super();
+    const token = localStorage.getItem("email");
+    console.log("tokeeeen:" + token);
+    let loggedIn = true;
+
+    if (token == null) {
+      loggedIn = false;
+    }
+
     this.state = {
+      loggedIn,
       pendingRestaurants: [],
       refresh: false,
-      status:""
+      status: "",
     };
   }
   async componentWillMount() {
@@ -34,18 +44,14 @@ class JoinRequests extends React.Component {
     console.log(this.state.pendingRestaurants);
   }
   acceptRestaurant = (resId) => {
-this.state.status="accepted"
-this.setState({status:this.state.status})
-const fd = new FormData();
-fd.append("status", this.state.status);
-axios
-  .put("http://127.0.0.1:8000/restaurants/"+resId, fd)
-  .then((res) => {
-    console.log(res);
-  });
- window.location.href = "/JoinRequests";
-
-
+    this.state.status = "accepted";
+    this.setState({ status: this.state.status });
+    const fd = new FormData();
+    fd.append("status", this.state.status);
+    axios.put("http://127.0.0.1:8000/restaurants/" + resId, fd).then((res) => {
+      console.log(res);
+    });
+    window.location.href = "/JoinRequests";
   };
   deleteRestaurant = (resId) => {
     console.log(resId);
@@ -58,14 +64,16 @@ axios
         },
       }); //end fetch
 
- window.location.href = "/JoinRequests";
-    }//end if
+      window.location.href = "/JoinRequests";
+    } //end if
     this.state.refresh = true;
     this.setState({ pendingRestaurants: this.state.pendingRestaurants });
-  
   };
 
   render() {
+    if (this.state.loggedIn === false) {
+      return <LoginAdmin />;
+    }
     return (
       <div class="container">
         <h1

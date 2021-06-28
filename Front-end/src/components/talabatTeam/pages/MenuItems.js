@@ -1,27 +1,40 @@
 import React from "react";
+import LoginAdmin from "./loginAdmin";
 import { GrAdd } from "react-icons/gr";
+import AdminHeader from "../layouts/AdminHeader";
+import Footer from "../../layouts/Footer";
 
 class MenuItems extends React.Component {
-    constructor(){
-        super();
-        this.state={
-            menuItems:[],
-            retaurantName:"",
-        }
+  constructor() {
+    super();
+    const token = localStorage.getItem("email");
+    console.log("tokeeeen:" + token);
+    let loggedIn = true;
+
+    if (token == null) {
+      loggedIn = false;
     }
 
+    this.state = {
+      loggedIn,
+      menuItems: [],
+      retaurantName: "",
+    };
+  }
 
   //  http://127.0.0.1:8000/restaurant/60d60bcf76b7c03cfed9afed/food
 
   async componentWillMount() {
-   
-    let res = await fetch(`http://127.0.0.1:8000/restaurant/${this.props.match.params.resId}/food`, {
-      method: "GET",
-      headers: {
-        "content-type": "application/json",
-      },
-    });
-   
+    let res = await fetch(
+      `http://127.0.0.1:8000/restaurant/${this.props.match.params.resId}/food`,
+      {
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+        },
+      }
+    );
+
     let resJson = await res.json();
     console.log(resJson);
     this.setState({
@@ -29,13 +42,16 @@ class MenuItems extends React.Component {
     });
     //console.log(resJson);
 
-    let response = await fetch(`http://127.0.0.1:8000/restaurants/${this.props.match.params.resId}`, {
-      method: "GET",
-      headers: {
-        "content-type": "application/json",
-      },
-    });
-   
+    let response = await fetch(
+      `http://127.0.0.1:8000/restaurants/${this.props.match.params.resId}`,
+      {
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+        },
+      }
+    );
+
     let responseJson = await response.json();
     console.log(resJson);
     this.setState({
@@ -43,19 +59,38 @@ class MenuItems extends React.Component {
     });
     //console.log(resJson);
   }
-    render(){
-    return(<div class="container">
-        <div style={{display:"flex",alignContent:"center",justifyContent:"center"}}>
+  render() {
+    if (this.state.loggedIn === false) {
+      return <LoginAdmin />;
+    }
+    return (
+         <div>
+             <AdminHeader />
+      <div class="container">
+        <div
+          style={{
+            display: "flex",
+            alignContent: "center",
+            justifyContent: "center",
+          }}
+        >
+          <a
+            href={`/newoffer/${this.props.match.params.resId}`}
+            class="nav-link navbar-brand"
+          >
+            <GrAdd /> Add new offer{" "}
+          </a>
+          <a
+            href={`/newo-copoun/${this.props.match.params.resId}`}
+            class="nav-link navbar-brand"
+          >
+            {" "}
+            <GrAdd /> Add new copoun{" "}
+          </a>
 
-
-<a href={`/newoffer/${this.props.match.params.resId}`} class="nav-link navbar-brand">
-
-   <GrAdd/> Add new offer </a> 
-<a href={`/newo-copoun/${this.props.match.params.resId}`} class="nav-link navbar-brand"> <GrAdd/> Add new copoun </a>
-
- <br></br>
- </div>
-     <h1
+          <br></br>
+        </div>
+        <h1
           style={{
             color: "rgb(33, 33, 33)",
             backgroundColor: "rgb(246, 246, 246)",
@@ -71,60 +106,43 @@ class MenuItems extends React.Component {
         >
           Menu for {this.state.restaurantName}
         </h1>
-     
 
- {this.state.menuItems.length > 0
-            ? this.state.menuItems.map((item) => {
-                return(
+        {this.state.menuItems.length > 0 ? (
+          this.state.menuItems.map((item) => {
+            return (
               <div className="card w-100">
-        <div className="card-body">
-          <div className="list-group list-group-flush">
-         
-              <div class="row" style={{fontSize:"30px" }}>
-             <div class="col-4">
-                <img src={`http://localhost:8000/${item.img}`} style={{width:"80px", height:"80px"}} />
-          
-                 
-               {item.name}
+                <div className="card-body">
+                  <div className="list-group list-group-flush">
+                    <div class="row" style={{ fontSize: "30px" }}>
+                      <div class="col-4">
+                        <img
+                          src={`http://localhost:8000/${item.img}`}
+                          style={{ width: "80px", height: "80px" }}
+                        />
+
+                        {item.name}
+                      </div>
+                      <div class="col-4" style={{ paddingTop: "25px" }}>
+                        {item.price} L.E
+                      </div>
+
+                      <div class="col-4" style={{ paddingTop: "25px" }}>
+                        rate: {item.rate}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="col-4" style={{paddingTop:"25px"}}>
-                    
-                    {item.price} L.E
-                    </div>
-              
-                        <div class="col-4" style={{paddingTop:"25px"}}>
-                rate: {item.rate} 
-                    </div>
-                    
-         
-            </div>
-            </div>
-          
-          </div>
-        </div>
-  
-                );
-              })
-            : <h1>This Restaurant doesnt have a menu</h1>
-            }
-
-
-
-
-
-
-
-
-
-
-
-
-
-         
-        </div>
+              </div>
+            );
+          })
+        ) : (
+          <h1>This Restaurant doesnt have a menu</h1>
+        )}
+      </div>
+<Footer/>
+      </div>
     );
-
-        }
+  }
 }
 
 export default MenuItems

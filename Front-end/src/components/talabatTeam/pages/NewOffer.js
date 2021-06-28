@@ -3,15 +3,28 @@ import React from "react";
 import { GrAdd } from "react-icons/gr";
 import { TiMinus } from "react-icons/ti";
 import  axios from 'axios';
+import LoginAdmin from "./loginAdmin";
+import AdminHeader from "../layouts/AdminHeader";
+import Footer from "../../layouts/Footer";
+
 
 class NewOffer extends React.Component {
   constructor() {
     super();
+    const token = localStorage.getItem("email");
+    console.log("tokeeeen:" + token);
+    let loggedIn = true;
+
+    if (token == null) {
+      loggedIn = false;
+    }
+
     this.state = {
+      loggedIn,
       offerName: "",
       offerPrice: "",
       offerDesc: "",
-      offerImg:"",
+      offerImg: "",
       submittedOffers: [],
       restaurantName: "",
       // offers: {
@@ -149,7 +162,7 @@ class NewOffer extends React.Component {
   };
 
   // async addOfferToDB() {
-   
+
   //   let res = await fetch(
   //     "http://127.0.0.1:8000/restaurants/offer/",
 
@@ -160,146 +173,157 @@ class NewOffer extends React.Component {
   //       },
   //       body: JSON.stringify({
   //         //key and value from form
-          // name: this.state.name,
-          // desc: this.state.desc,
-          // price: this.state.price,
-          // restaurant: this.props.match.params.id,
-          // img: this.state.offerImg,
+  // name: this.state.name,
+  // desc: this.state.desc,
+  // price: this.state.price,
+  // restaurant: this.props.match.params.id,
+  // img: this.state.offerImg,
   //       }),
   //     }
   //   );
   //   let resJson = await res.json();
- 
+
   //   console.log(resJson);
   // }
 
-  addOfferToDB=()=>{
-const fd=new FormData();
-fd.append("name", this.state.offerName);
-fd.append("desc", this.state.offerDesc);
-fd.append("price", this.state.offerPrice);
-fd.append("img", this.state.offerImg, this.state.offerImg.name);
-fd.append("restaurant", this.props.match.params.id);
-axios.post("http://127.0.0.1:8000/restaurants/offer",fd)
-.then(res=>{
-  console.log(res);
-});
-  }
-
+  addOfferToDB = () => {
+    const fd = new FormData();
+    fd.append("name", this.state.offerName);
+    fd.append("desc", this.state.offerDesc);
+    fd.append("price", this.state.offerPrice);
+    fd.append("img", this.state.offerImg, this.state.offerImg.name);
+    fd.append("restaurant", this.props.match.params.id);
+    axios.post("http://127.0.0.1:8000/restaurants/offer", fd).then((res) => {
+      console.log(res);
+    });
+  };
 
   render() {
+    if (this.state.loggedIn === false) {
+      return <LoginAdmin />;
+    }
     return (
-      <div className="container ">
-        <h1
-          style={{
-            color: "rgb(33, 33, 33)",
-            backgroundColor: "rgb(246, 246, 246)",
-            marginTop: "30px",
-            marginBottom: "10px",
-            paddingInline: "20px",
-            paddingTop: "10px",
-            paddingBottom: "10px",
-            fontSize: "26px",
-            fontFamily: "sans-serif",
-            paddingLeft: "50px",
-          }}
-        >
-          Add New offer to {this.state.restaurantName}
-        </h1>
-        {/* mfrod ykon gayli el restaurant id, name mn class offer  */}
-        <hr></hr>
-        <div>
+      <div>
+        <AdminHeader />
 
-          <br></br>
-          <br></br>
-       <a href={`/menu/${this.props.match.params.id}`} class="btn btn-info text-white" style={{fontStize:"28px"}}>
-          See restaurant Menu
-      </a>
-      <br></br><br></br>
-          <form>
-            <div class="form-group">
-              <label>Offer Name</label>
-              <input
-                type="text"
-                class="form-control"
-                style={{ width: "300px" }}
-                value={this.state.offerName.name}
-                onChange={(e) => this.setState({ offerName: e.target.value })}
-              />
-            </div>
-
-            <div class="form-group">
-              <label>Price</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="i.e 10 L.E"
-                style={{ width: "300px" }}
-                value={this.state.offerPrice}
-                onChange={(e) => this.setState({ offerPrice: e.target.value })}
-              />
-            </div>
-            <div class="form-group">
-              <label>Offer description</label>
-              <input
-                type="text"
-                class="form-control"
-                style={{ width: "900px" }}
-                value={this.state.offerDesc}
-                onChange={(e) => this.setState({ offerDesc: e.target.value })}
-              />
-            </div>
-            <input
-              type="file"
-              name="file"
-             
-              onChange={(e) => this.setState({ offerImg: e.target.files[0] })}
-            ></input>
-          </form>
-          <br></br>
-          <button
-            type="button"
-            class="btn btn-primary"
-            data-toggle="modal"
-            data-target="#exampleModalCenter"
-            onClick={this.onOfferSubmit}
+        <div className="container ">
+          <h1
+            style={{
+              color: "rgb(33, 33, 33)",
+              backgroundColor: "rgb(246, 246, 246)",
+              marginTop: "30px",
+              marginBottom: "10px",
+              paddingInline: "20px",
+              paddingTop: "10px",
+              paddingBottom: "10px",
+              fontSize: "26px",
+              fontFamily: "sans-serif",
+              paddingLeft: "50px",
+            }}
           >
-            Add Offer
-          </button>
+            Add New offer to {this.state.restaurantName}
+          </h1>
+          {/* mfrod ykon gayli el restaurant id, name mn class offer  */}
+          <hr></hr>
+          <div>
+            <br></br>
+            <br></br>
+            <a
+              href={`/menu/${this.props.match.params.id}`}
+              class="btn btn-info text-white"
+              style={{ fontStize: "28px" }}
+            >
+              See restaurant Menu
+            </a>
+            <br></br>
+            <br></br>
+            <form>
+              <div class="form-group">
+                <label>Offer Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  style={{ width: "300px" }}
+                  value={this.state.offerName.name}
+                  onChange={(e) => this.setState({ offerName: e.target.value })}
+                />
+              </div>
 
-          <div
-            class="modal fade"
-            id="exampleModalCenter"
-            tabindex="-1"
-            role="dialog"
-            aria-labelledby="exampleModalCenterTitle"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLongTitle">
-                    Thank you
-                  </h5>
-                  <button
-                    type="button"
-                    class="close"
-                    data-dismiss="modal"
-                    aria-label="Close"
-                  >
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">Offer Submitted!!</div>
-                <div class="modal-footer">
-                  <a href="/offers" class="btn">
-                    Close
-                  </a>
+              <div class="form-group">
+                <label>Price</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="i.e 10 L.E"
+                  style={{ width: "300px" }}
+                  value={this.state.offerPrice}
+                  onChange={(e) =>
+                    this.setState({ offerPrice: e.target.value })
+                  }
+                />
+              </div>
+              <div class="form-group">
+                <label>Offer description</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  style={{ width: "900px" }}
+                  value={this.state.offerDesc}
+                  onChange={(e) => this.setState({ offerDesc: e.target.value })}
+                />
+              </div>
+              <input
+                type="file"
+                name="file"
+                onChange={(e) => this.setState({ offerImg: e.target.files[0] })}
+              ></input>
+            </form>
+            <br></br>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-toggle="modal"
+              data-target="#exampleModalCenter"
+              onClick={this.onOfferSubmit}
+            >
+              Add Offer
+            </button>
+
+            <div
+              class="modal fade"
+              id="exampleModalCenter"
+              tabindex="-1"
+              role="dialog"
+              aria-labelledby="exampleModalCenterTitle"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">
+                      Thank you
+                    </h5>
+                    <button
+                      type="button"
+                      class="close"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">Offer Submitted!!</div>
+                  <div class="modal-footer">
+                    <a href="/offers" class="btn">
+                      Close
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <Footer/>
       </div>
     );
   }

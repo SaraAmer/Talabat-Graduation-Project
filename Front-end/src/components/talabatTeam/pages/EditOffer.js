@@ -1,26 +1,38 @@
 import React from 'react'
 import axios from "axios";
+import LoginAdmin from "./loginAdmin";
+import AdminHeader from "../layouts/AdminHeader";
+import Footer from "../../layouts/Footer";
 
+class EditOffer extends React.Component {
+  constructor() {
+    super();
+    const token = localStorage.getItem("email");
+    console.log("tokeeeen:" + token);
+    let loggedIn = true;
 
-class EditOffer extends React.Component{
-  constructor(){
-      super();
-     this.state = {
+    if (token == null) {
+      loggedIn = false;
+    }
+
+    this.state = {
+      loggedIn,
       offerName: "",
       offerPrice: "",
       offerDesc: "",
-      offerImg:"",
+      offerImg: "",
       restaurantName: "",
-      flag:"",
-      offers:[],
-      restaurant:{}
-    }
+      flag: "",
+      offers: [],
+      restaurant: {},
+    };
   }
 
   async componentDidMount() {
     console.log("component did mount");
     let res = await fetch(
-      "http://127.0.0.1:8000/restaurants/offer/singleOffer/" + this.props.match.params.offerId,
+      "http://127.0.0.1:8000/restaurants/offer/singleOffer/" +
+        this.props.match.params.offerId,
       {
         method: "GET",
         headers: {
@@ -30,12 +42,11 @@ class EditOffer extends React.Component{
     );
     let resJson = await res.json();
     console.log(resJson.Offers);
-     this.setState({ offers: resJson.Offers });
+    this.setState({ offers: resJson.Offers });
     // console.log(resJson);
     console.log(this.state.offers);
 
-
-     let response = await fetch(
+    let response = await fetch(
       "http://127.0.0.1:8000/restaurants/" + this.props.match.params.resId,
       {
         method: "GET",
@@ -46,37 +57,43 @@ class EditOffer extends React.Component{
     );
     let responseJson = await response.json();
     console.log(responseJson.restaurant);
-     this.setState({ restaurant: responseJson.restaurant });
+    this.setState({ restaurant: responseJson.restaurant });
     // console.log(resJson);
     console.log(this.state.restaurant);
   }
 
-  editOffer=()=>
-  {
-    console.log( this.props.match.params.resId);
-console.log( this.props.match.params.offerId); 
+  editOffer = () => {
+    console.log(this.props.match.params.resId);
+    console.log(this.props.match.params.offerId);
 
-console.log(this.state.offerName);
-const fd = new FormData();
-fd.append("name", this.state.offerName);
-fd.append("desc", this.state.offerDesc);
-fd.append("price", this.state.offerPrice);
-fd.append("img", this.state.offerImg, this.state.offerImg.name);
-axios
-  .put(
-    "http://127.0.0.1:8000/restaurants/offer/singleOffer/"+this.props.match.params.offerId,fd
-  )
-  .then((res) => {
-    console.log(res);
-  });
-  this.state.flag=1;
-  this.setState({offerName:this.state.offerName ,flag:this.state.flag})
-  window.location.href=`/offer/${this.props.match.params.resId}/edit/${this.props.match.params.offerId}`;
-}
-  render(){
+    console.log(this.state.offerName);
+    const fd = new FormData();
+    fd.append("name", this.state.offerName);
+    fd.append("desc", this.state.offerDesc);
+    fd.append("price", this.state.offerPrice);
+    fd.append("img", this.state.offerImg, this.state.offerImg.name);
+    axios
+      .put(
+        "http://127.0.0.1:8000/restaurants/offer/singleOffer/" +
+          this.props.match.params.offerId,
+        fd
+      )
+      .then((res) => {
+        console.log(res);
+      });
+    this.state.flag = 1;
+    this.setState({ offerName: this.state.offerName, flag: this.state.flag });
+    window.location.href = `/offer/${this.props.match.params.resId}/edit/${this.props.match.params.offerId}`;
+  };
+  render() {
+    if (this.state.loggedIn === false) {
+      return <LoginAdmin />;
+    }
     return (
+      <div>
+             <AdminHeader />
       <div class="container">
-            <h1
+        <h1
           style={{
             color: "rgb(33, 33, 33)",
             backgroundColor: "rgb(246, 246, 246)",
@@ -92,7 +109,7 @@ axios
         >
           Edit {this.state.restaurant.name} offer
         </h1>
-         {this.state.offers.length > 0
+        {this.state.offers.length > 0
           ? this.state.offers.map((singleOffer) => {
               return (
                 <div>
@@ -113,29 +130,35 @@ axios
                           src={`http://localhost:8000/${singleOffer.img}`}
                           style={{ width: "120px", height: "120px" }}
                         ></img>
-                      
-                     
+
                         <b> {singleOffer.name} </b>
                       </div>
 
-                      <div className="col-6" style={{paddingTop:"50px",paddingLeft:"100px"}}>
-                         <b> {singleOffer.price} L.E </b>
+                      <div
+                        className="col-6"
+                        style={{ paddingTop: "50px", paddingLeft: "100px" }}
+                      >
+                        <b> {singleOffer.price} L.E </b>
                       </div>
-
-                     
                     </div>
-                    <div class="row" style={{marginLeft:"170px"}}>
+                    <div class="row" style={{ marginLeft: "170px" }}>
                       {singleOffer.desc}
                     </div>
-
                   </h1>
                 </div>
               );
             })
           : "No offers yet"}
- 
+
         <form>
-          {this.state.flag == 1 ? <div style={{color:"white",backgroundColor:"grey"}} > changes saved!! </div> : ""}
+          {this.state.flag == 1 ? (
+            <div style={{ color: "white", backgroundColor: "grey" }}>
+              {" "}
+              changes saved!!{" "}
+            </div>
+          ) : (
+            ""
+          )}
           <div class="form-group">
             <label>Offer Name</label>
             <input
@@ -172,7 +195,8 @@ axios
             name="file"
             onChange={(e) => this.setState({ offerImg: e.target.files[0] })}
           ></input>
-        </form><br></br>
+        </form>
+        <br></br>
         <a
           href="/offer"
           type="button"
@@ -183,10 +207,13 @@ axios
         >
           save changes
         </a>
+        
       </div>
+      <Footer/>
+      </div>
+      
     );
   }
-
 }
 
 export default EditOffer

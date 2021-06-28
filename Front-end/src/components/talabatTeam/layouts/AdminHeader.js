@@ -53,10 +53,10 @@ function AdminHeader() {
       cName: "nav-text",
     },
   ];
-  function logout(){
+  function logout(){  
     console.log("inside logout")
        localStorage.removeItem("email");
-       window.location.href = "http://localhost:3000/restaurants";
+       window.location.href = "http://localhost:3000/talabat-team-restaurants";
   }
   return (
     <div>
@@ -85,6 +85,7 @@ function AdminHeader() {
               </a>
             </li>
           </ul>
+        
           <div style={{ display: "flex", marginLeft: "800px" }}>
             <span class="navbar-text">
               <button

@@ -3,12 +3,23 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import {Link} from "react-router-dom";
 import Copouns from "./Copouns";
 import Offers from "./Offers";
+import AdminHeader from "../layouts/AdminHeader";
+import LoginAdmin from "./loginAdmin";
 
 
 class OffersNavbar extends React.Component {
   constructor() {
     super();
+    const token = localStorage.getItem("email");
+    console.log("tokeeeen:" + token);
+    let loggedIn = true;
+
+    if (token == null) {
+      loggedIn = false;
+    }
+
     this.state = {
+      loggedIn,
       items: [
         {
           text: " Promotions",
@@ -29,7 +40,12 @@ class OffersNavbar extends React.Component {
     //this.forceUpdate();
   };
   render() {
+    if (this.state.loggedIn === false) {
+      return <LoginAdmin />;
+    }
     return (
+      <div>
+          
       <div className="container">
         <h1
           style={{
@@ -52,10 +68,9 @@ class OffersNavbar extends React.Component {
             class="navbar navbar-light"
             style={{
               backgroundColor: "#e3f2fd",
-              display:"flex",
-              justifyContent:"center",
-              alignItems:"center"
-             
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
             {this.state.items.map((item, i) => {
@@ -89,6 +104,7 @@ class OffersNavbar extends React.Component {
             <Route path="/Copouns" exact component={Copouns} />
           </Switch>
         </Router>
+      </div>
       </div>
     );
   }

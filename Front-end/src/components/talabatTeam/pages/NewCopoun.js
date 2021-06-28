@@ -2,18 +2,30 @@ import React from "react";
 import { GrAdd } from "react-icons/gr";
 import { TiMinus } from "react-icons/ti";
 import axios from "axios";
+import LoginAdmin from "./loginAdmin";
+import AdminHeader from "../layouts/AdminHeader";
+import Footer from "../../layouts/Footer";
 
 class NewCopoun extends React.Component {
   constructor() {
     super();
+    const token = localStorage.getItem("email");
+    console.log("tokeeeen:" + token);
+    let loggedIn = true;
+
+    if (token == null) {
+      loggedIn = false;
+    }
+
     this.state = {
+      loggedIn,
       copounCode: "",
       copounDiscount: "",
       copounDesc: "",
       copounLimit: "",
       submittedCopouns: [],
       restaurantName: "",
-  
+
       selectedItems: [],
       menuItems: [
         {
@@ -106,8 +118,7 @@ class NewCopoun extends React.Component {
   };
 
   onCopounSubmit = () => {
-
-    console.log("on copoun submit")
+    console.log("on copoun submit");
     this.state.submittedCopouns.push({
       restaurant_id: this.props.match.params.id,
       code: this.state.copounCode,
@@ -123,11 +134,9 @@ class NewCopoun extends React.Component {
     localStorage.removeItem("selected-items-copoun");
 
     this.addCopounToDB();
-    
   };
 
   async addCopounToDB() {
-
     let res = await fetch(
       "http://127.0.0.1:8000/restaurants/copoun/",
 
@@ -150,9 +159,15 @@ class NewCopoun extends React.Component {
     console.log(resJson);
   }
 
- 
   render() {
+    if (this.state.loggedIn === false) {
+      return <LoginAdmin />;
+    }
     return (
+      <div>
+
+             <AdminHeader />
+
       <div className="container ">
         <h1
           style={{
@@ -175,10 +190,14 @@ class NewCopoun extends React.Component {
         <div>
           <br></br>
           <br></br>
-           <a href={`/menu/${this.props.match.params.id}`} class="btn btn-info text-white" style={{fontStize:"28px"}}>
-          See restaurant Menu
-      </a>
-      <br></br>  <br></br>
+          <a
+            href={`/menu/${this.props.match.params.id}`}
+            class="btn btn-info text-white"
+            style={{ fontStize: "28px" }}
+          >
+            See restaurant Menu
+          </a>
+          <br></br> <br></br>
           <form>
             <div class="form-group" style={{ fontSize: "20px" }}>
               <label>Copoun Code</label>
@@ -186,7 +205,6 @@ class NewCopoun extends React.Component {
                 type="text"
                 class="form-control"
                 style={{ width: "300px" }}
-         
                 onChange={(e) => this.setState({ copounCode: e.target.value })}
               />
               <br></br>
@@ -195,8 +213,9 @@ class NewCopoun extends React.Component {
                   type="text"
                   class="form-control"
                   style={{ width: "60px" }}
-                  
-                  onChange={(e) => this.setState({ copounDiscount: e.target.value })}
+                  onChange={(e) =>
+                    this.setState({ copounDiscount: e.target.value })
+                  }
                 />
                 <div> L.E Off Selected Items</div>
               </div>
@@ -206,8 +225,9 @@ class NewCopoun extends React.Component {
                   type="text"
                   class="form-control"
                   style={{ width: "60px" }}
-                  
-                  onChange={(e) => this.setState({ copounLimit: e.target.value })}
+                  onChange={(e) =>
+                    this.setState({ copounLimit: e.target.value })
+                  }
                 />
                 <div> Limit for this copoun</div>
               </div>
@@ -217,7 +237,6 @@ class NewCopoun extends React.Component {
                 type="text"
                 class="form-control"
                 style={{ width: "450px" }}
-        
                 onChange={(e) => this.setState({ copounDesc: e.target.value })}
               ></input>
             </div>
@@ -234,7 +253,6 @@ class NewCopoun extends React.Component {
           >
             Add Copoun
           </button>
-
           <div
             class="modal fade"
             id="exampleModalCenter"
@@ -268,6 +286,10 @@ class NewCopoun extends React.Component {
             </div>
           </div>
         </div>
+      </div>
+
+
+      <Footer/>
       </div>
     );
   }

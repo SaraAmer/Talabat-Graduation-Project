@@ -26,7 +26,6 @@ import NewPassword from "./components/partnerLogin/NewPassword";
 import Filter from "./components/filter/filter";
 import RestaurantDetails from "./components/restaurants-client/RestaurantDetails";
 
-
 import DashboardNavbar from "./components/talabatTeam/pages/DashboardNavbar";
 import Offers from "./components/talabatTeam/pages/Offers";
 import OffersNavbar from "./components/talabatTeam/pages/OffersNavbar";
@@ -44,7 +43,7 @@ import LoginAdmin from "./components/talabatTeam/pages/loginAdmin";
 import MenuItems from "./components/talabatTeam/pages/MenuItems";
 import EditCopoun from "./components/talabatTeam/pages/EditCopoun.js";
 import SearchFeature from "./components/talabatTeam/pages/SearchFeature.js";
-
+import TalabatRestaurant from "./components/talabatTeam/pages/Restaurant";
 
 class App extends React.Component {
 
@@ -139,66 +138,71 @@ class App extends React.Component {
         </Switch>
       </Router>
 
-      <Route exact path="/team">
-      {this.state.loggedIn === false ? (
-        <div>
-          {" "}
-          <LoginAdmin /> <Footer />{" "}
-        </div>
-      ) : (
-        <Router>
-          <AdminHeader />
+      <Router>
+        <Switch>
+          <Route path="/offers">
+            <AdminHeader />
+            <OffersNavbar />
+            <Footer />
+          </Route>
+          <Route path="/copouns">
+            <AdminHeader />
+            <OffersNavbar />
+            <Footer />
+          </Route>
 
-          <Switch>
-            {/* <Route path="/" exact component={DashboardNavbar} /> */}
-            <Route path="/offers" component={OffersNavbar} />
-            <Route path="/offers" component={Offers} />
-            <Route path="/copouns" component={OffersNavbar} />
-            <Route path="/copouns" component={Copouns} />
-            {/* <Route path="/" exact component={Overview} /> */}
-            <Route
-              path="/talabat-team-restaurants"
-              exact
-              component={DashboardNavbar}
-            />
-            <Route
-              path="/talabat-team-restaurants"
-              exact
-              component={Restaurant}
-            />
+          <Route path="/talabat-team-restaurants">
+            <AdminHeader />
+            <DashboardNavbar />
+            {/* <Restaurant/> */}
+            <Footer />
+          </Route>
 
-            <Route path="/clients" exact component={DashboardNavbar} />
-            <Route path="/clients" exact component={Clients} />
+          <Route path="/clients">
+            <AdminHeader />
+            <DashboardNavbar />
+            {/* <Restaurant/> */}
+            <Footer />
+          </Route>
 
-            <Route path="/newoffer/:id" exact component={NewOffer} />
-            <Route path="/new-copoun/:id" exact component={NewCopoun} />
-            <Route
-              path="/offer/:resId/edit/:offerId"
-              exact
-              component={EditOffer}
-            />
-            <Route
-              path="/copoun/:resId/edit/:copounId"
-              exact
-              component={EditCopoun}
-            />
-            <Route path="/JoinRequests" exact component={JoinRequests} />
-            <Route
-              path="/banned-restaurants"
-              exact
-              component={BannedRestaurants}
-            />
-            <Route path="/banned-clients" exact component={BannedClients} />
-            <Route path="/menu/:resId" exact component={MenuItems} />
-            <Route path="/menu/:resId" exact component={MenuItems} />
+          <Route path="/newoffer/:id" exact component={NewOffer} />
 
-            <Route path="/search/:searchItem" exact component={SearchFeature} />
-          </Switch>
-          <Footer />
-        </Router>
-     
-      )}
-       </Route>
+          <Route path="/new-copoun/:id" exact component={NewCopoun}/>
+          
+
+          <Route
+            path="/offer/:resId/edit/:offerId"
+            exact
+            component={EditOffer}
+          />
+
+          <Route
+            path="/copoun/:resId/edit/:copounId"
+            exact
+            component={EditCopoun}
+          />
+
+          <Route path="/JoinRequests">
+            <AdminHeader />
+            <JoinRequests />
+            <Footer />
+          </Route>
+          <Route path="/banned-restaurants">
+            <AdminHeader />
+            <BannedRestaurants />
+            <Footer />
+          </Route>
+
+          <Route path="/banned-clients">
+            <AdminHeader />
+            <BannedClients />
+            <Footer />
+          </Route>
+          <Route path="/menu/:resId" exact component={MenuItems} />
+
+          <Route path="/search/:searchItem" exact component={SearchFeature} />
+        </Switch>
+      </Router>
     </div>
   );
 }

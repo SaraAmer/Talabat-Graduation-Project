@@ -11,18 +11,28 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 import NewCopoun from "./NewCopoun";
 import { AiOutlineEdit } from "react-icons/ai";
+import LoginAdmin from "./loginAdmin";
 //import EditCopoun from "./EditCopoun.js";
 
 class Copouns extends React.Component {
   constructor() {
     super();
+    const token = localStorage.getItem("email");
+    console.log("tokeeeen:" + token);
+    let loggedIn = true;
+
+    if (token == null) {
+      loggedIn = false;
+    }
+
     this.state = {
+      loggedIn,
       currentRestaurantId: "",
 
       apiRestaurants: [],
       copouns: [],
       acceptedRestaurants: [],
-      searchItem:""
+      searchItem: "",
     };
   }
   setCurrrentResId = (resID) => {
@@ -60,6 +70,9 @@ class Copouns extends React.Component {
     //console.log(resJson);
   }
   render() {
+    if (this.state.loggedIn === false) {
+      return <LoginAdmin />;
+    }
     return (
       <Router>
         <div>
@@ -88,12 +101,14 @@ class Copouns extends React.Component {
                   aria-label="Search"
                   aria-describedby="search-addon"
                   value={this.state.searchItem}
-                   onChange={(e) => this.setState({ searchItem: e.target.value })}
+                  onChange={(e) =>
+                    this.setState({ searchItem: e.target.value })
+                  }
                 />
-              <a href={`/search/${this.state.searchItem}`}> 
-                <span className="input-group-text border-0" id="search-addon">
-                  <FcSearch />
-                </span>
+                <a href={`/search/${this.state.searchItem}`}>
+                  <span className="input-group-text border-0" id="search-addon">
+                    <FcSearch />
+                  </span>
                 </a>
               </div>
             </div>
